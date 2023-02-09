@@ -52,7 +52,7 @@ export const HeaderComponent: FC<HeaderComponentProps> = ({ open, toggleMenu }) 
 
 	return (
 		<Box>
-			<AppBar position="static">
+			<AppBar position="fixed">
 				<Toolbar sx={{ justifyContent: 'space-between' }}>
 					<IconButton size="large" color="inherit" aria-label="open drawer" onClick={handleToggle(true)}>
 						<Icon>menu</Icon>

@@ -1,54 +1,42 @@
 export const data = [
 	{
 		title: 'Food',
-		id: 1,
+		price: '1000 Rs',
+		description: 'Milk, Sugar, Egg, Papaya, Banana',
 	},
 	{
 		title: 'Food',
-		id: 2,
+		price: '1000 Rs',
+		description: 'Milk, Sugar, Egg, Papaya, Banana',
 	},
 	{
 		title: 'Food',
-		id: 3,
+		price: '1000 Rs',
+		description: 'Milk, Sugar, Egg, Papaya, Banana',
 	},
 	{
 		title: 'Food',
-		id: 4,
+		price: '1000 Rs',
+		description: 'Milk, Sugar, Egg, Papaya, Banana',
 	},
 	{
 		title: 'Food',
-		id: 5,
+		price: '1000 Rs',
+		description: 'Milk, Sugar, Egg, Papaya, Banana',
 	},
 	{
 		title: 'Food',
-		id: 4,
+		price: '1000 Rs',
+		description: 'Milk, Sugar, Egg, Papaya, Banana',
 	},
 	{
 		title: 'Food',
-		id: 5,
+		price: '1000 Rs',
+		description: 'Milk, Sugar, Egg, Papaya, Banana',
 	},
 	{
 		title: 'Food',
-		id: 4,
-	},
-	{
-		title: 'Food',
-		id: 5,
-	},
-	{
-		title: 'Food',
-		id: 4,
-	},
-	{
-		title: 'Food',
-		id: 5,
-	},
-	{
-		title: 'Food',
-		id: 4,
-	},
-	{
-		title: 'Food',
-		id: 5,
+		price: '1000 Rs',
+		description: 'Milk, Sugar, Egg, Papaya, Banana',
 	},
 ];

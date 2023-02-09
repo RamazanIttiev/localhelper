@@ -1,7 +1,8 @@
 import React, { FC, useState } from 'react';
-import { Button, Card, CardActions, CardContent, Container, Grid, Pagination, Typography } from '@mui/material';
+import { Container, Grid, Pagination, Typography } from '@mui/material';
 import { data } from '../mock';
 import { usePagination } from '../utils/pagination';
+import { ItemCard } from '../components/card';
 
 interface LayoutProps {}
 
@@ -13,7 +14,6 @@ export const Layout: FC<LayoutProps> = () => {
 	const cardsData = usePagination(data, cardsPerPage);
 
 	const handleChange = (event: React.ChangeEvent<unknown>, page: number) => {
-		console.log(page);
 		setPage(page);
 		cardsData.jump(page);
 	};
@@ -22,22 +22,15 @@ export const Layout: FC<LayoutProps> = () => {
 		<Container sx={{ pt: 8, pb: 9 }}>
 			<Typography>Food</Typography>
 			<Grid container spacing={2} sx={{ pt: 2 }}>
-				{cardsData.currentData().map(({ title, id }: { title: string; id: number }) => {
-					return (
-						<Grid item xs={6}>
-							<Card>
-								<CardContent>
-									<Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-										{title}
-									</Typography>
-								</CardContent>
-								<CardActions>
-									<Button size="small">{id}</Button>
-								</CardActions>
-							</Card>
-						</Grid>
-					);
-				})}
+				{cardsData
+					.currentData()
+					.map(({ title, price, description }: { title: string; price: string; description: string }) => {
+						return (
+							<Grid item xs={6}>
+								<ItemCard title={title} price={price} description={description} />
+							</Grid>
+						);
+					})}
 			</Grid>
 			<Pagination
 				sx={{

@@ -3,11 +3,16 @@ import { Container, Grid, Pagination, Typography } from '@mui/material';
 import { cardsTotal } from '../mock';
 import { usePagination } from '../utils/pagination';
 import { ItemCard } from '../components/card';
+import { CardModal } from '../components/modal';
+import { CardModel } from '../models/cardModel';
 
 interface LayoutProps {}
 
 export const Layout: FC<LayoutProps> = () => {
 	const [page, setPage] = useState(1);
+	const [selectedCard, setSelectedCard] = useState<CardModel | null>(null);
+	const [isModalOpened, setOpenModal] = React.useState(false);
+
 	const cardsPerPage = 10;
 
 	const count = Math.ceil(cardsTotal.length / cardsPerPage);
@@ -17,6 +22,12 @@ export const Layout: FC<LayoutProps> = () => {
 		setPage(page);
 		cardsSliced.jump(page);
 	};
+
+	const handleOpenModal = (currentCard: CardModel | null) => {
+		setSelectedCard(currentCard);
+		setOpenModal(true);
+	};
+	const handleCloseModal = () => setOpenModal(false);
 
 	return (
 		<Container sx={{ pt: 11, pb: 9 }}>
@@ -28,12 +39,18 @@ export const Layout: FC<LayoutProps> = () => {
 					.currentData()
 					.map(({ title, price, description }: { title: string; price: string; description: string }) => {
 						return (
-							<Grid item xs={6}>
-								<ItemCard title={title} price={price} description={description} />
+							<Grid item xs={6} key={title}>
+								<ItemCard
+									title={title}
+									price={price}
+									description={description}
+									handleOpenModal={handleOpenModal}
+								/>
 							</Grid>
 						);
 					})}
 			</Grid>
+			<CardModal selectedCard={selectedCard} isModalOpened={isModalOpened} handleCloseModal={handleCloseModal} />
 			{cardsTotal.length >= cardsPerPage && (
 				<Pagination
 					sx={{

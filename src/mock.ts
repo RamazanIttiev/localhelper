@@ -1,7 +1,7 @@
 export const cardsTotal = [
 	{
 		title: 'Food',
-		price: '1000 Rs',
+		price: '5000 Rs',
 		description: 'Milk, Sugar, Egg, Papaya, Banana',
 	},
 	{

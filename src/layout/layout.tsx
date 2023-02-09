@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Container, Grid, Pagination, Typography } from '@mui/material';
-import { data } from '../mock';
+import { cardsTotal } from '../mock';
 import { usePagination } from '../utils/pagination';
 import { ItemCard } from '../components/card';
 
@@ -10,19 +10,21 @@ export const Layout: FC<LayoutProps> = () => {
 	const [page, setPage] = useState(1);
 	const cardsPerPage = 10;
 
-	const count = Math.ceil(data.length / cardsPerPage);
-	const cardsData = usePagination(data, cardsPerPage);
+	const count = Math.ceil(cardsTotal.length / cardsPerPage);
+	const cardsSliced = usePagination(cardsTotal, cardsPerPage);
 
 	const handleChange = (event: React.ChangeEvent<unknown>, page: number) => {
 		setPage(page);
-		cardsData.jump(page);
+		cardsSliced.jump(page);
 	};
 
 	return (
-		<Container sx={{ pt: 8, pb: 9 }}>
-			<Typography>Food</Typography>
+		<Container sx={{ pt: 11, pb: 9 }}>
+			<Typography variant={'h4'} gutterBottom>
+				Mains
+			</Typography>
 			<Grid container spacing={2} sx={{ pt: 2 }}>
-				{cardsData
+				{cardsSliced
 					.currentData()
 					.map(({ title, price, description }: { title: string; price: string; description: string }) => {
 						return (
@@ -32,23 +34,26 @@ export const Layout: FC<LayoutProps> = () => {
 						);
 					})}
 			</Grid>
-			<Pagination
-				sx={{
-					right: '50%',
-					width: '100%',
-					bottom: '16px',
-					display: 'flex',
-					minWidth: '100%',
-					position: 'fixed',
-					paddingTop: '16px',
-					background: '#fff',
-					justifyContent: 'center',
-					transform: 'translateX(50%)',
-				}}
-				count={count}
-				page={page}
-				onChange={handleChange}
-			/>
+			{cardsTotal.length >= cardsPerPage && (
+				<Pagination
+					sx={{
+						right: '50%',
+						width: '100%',
+						bottom: '0',
+						display: 'flex',
+						minWidth: '100%',
+						position: 'fixed',
+						paddingTop: '8px',
+						background: '#fff',
+						paddingBottom: '8px',
+						justifyContent: 'center',
+						transform: 'translateX(50%)',
+					}}
+					count={count}
+					page={page}
+					onChange={handleChange}
+				/>
+			)}
 		</Container>
 	);
 };

@@ -2,17 +2,19 @@ import React from 'react';
 import './App.css';
 import { Layout } from '../layout/layout';
 import { HeaderContainer } from '../header/header.container';
+import Airtable from 'airtable';
 
-// import { Pagination } from '@mui/material';
+export const airtableBase = new Airtable({
+	apiKey: process.env.REACT_APP_AIRTABLE_PRIVATE_KEY,
+}).base('appN5D5g87uz2gY2j');
 
-function App() {
+export const App = () => {
 	return (
 		<div className="App">
 			<HeaderContainer />
 			<Layout />
-			{/*<Pagination count={10} />*/}
 		</div>
 	);
-}
+};
 
 export default App;

@@ -1,6 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
 import { Container, Grid, Pagination, Typography } from '@mui/material';
-import { cardsTotal } from '../mock';
 import { usePagination } from '../utils/pagination';
 import { ItemCard } from '../components/itemCard';
 import { CardModal } from '../components/modal';
@@ -58,7 +57,7 @@ export const Layout: FC<LayoutProps> = () => {
 				})}
 			</Grid>
 			<CardModal selectedCard={selectedCard} isModalOpened={isModalOpened} handleCloseModal={handleCloseModal} />
-			{cardsTotal.length >= cardsPerPage && (
+			{cardsData.length >= cardsPerPage && (
 				<Pagination
 					sx={{
 						right: '50%',

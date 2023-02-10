@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import { Layout } from '../layout/layout';
-import { HeaderContainer } from '../header/header.container';
+import { Layout } from '../views/layout';
+import { HeaderContainer } from '../views/header/header.container';
 import Airtable from 'airtable';
 
 export const airtableBase = new Airtable({

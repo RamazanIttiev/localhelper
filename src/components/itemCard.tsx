@@ -25,7 +25,9 @@ export const ItemCard: FC<ItemCardProps> = ({ card, handleOpenModal }) => {
 					</Typography>
 				</CardContent>
 				<CardActions>
-					<Button fullWidth>Buy</Button>
+					<Button variant={'contained'} fullWidth>
+						Buy
+					</Button>
 				</CardActions>
 			</Card>
 		</>

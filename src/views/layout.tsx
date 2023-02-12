@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useCallback } from 'react';
 import { Container, Grid, Pagination, Typography } from '@mui/material';
 import { usePagination } from '../utils/pagination';
 import { ItemCard } from '../components/itemCard';
@@ -6,6 +6,7 @@ import { CardModal } from '../components/modal';
 import { CardModel } from '../models/cardModel';
 import { airtableBase } from '../app/App';
 import { mapFoodData } from '../services/mappers';
+import { useLocation } from 'react-router-dom';
 
 interface LayoutProps {}
 
@@ -15,17 +16,33 @@ export const Layout: FC<LayoutProps> = () => {
 	const [selectedCard, setSelectedCard] = useState<CardModel | null>(null);
 	const [isModalOpened, setOpenModal] = React.useState(false);
 
+	const { pathname } = useLocation();
+
+	const getCategory = useCallback(() => {
+		switch (pathname) {
+			case '/categories/food': {
+				return 'Food';
+			}
+			case '/categories/weed': {
+				return 'Weed';
+			}
+			default: {
+				return 'Food';
+			}
+		}
+	}, [pathname]);
+
 	useEffect(() => {
-		airtableBase('Food')
+		airtableBase(getCategory())
 			.select({
-				view: 'Food View',
+				view: getCategory(),
 			})
 			.eachPage(records => {
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				// @ts-ignore
 				return setCardsData(mapFoodData(records));
 			});
-	}, [cardsData.length]);
+	}, [getCategory, cardsData.length]);
 
 	const cardsPerPage = 10;
 
@@ -45,7 +62,7 @@ export const Layout: FC<LayoutProps> = () => {
 	return (
 		<Container sx={{ pt: 11, pb: 9 }}>
 			<Typography variant={'h4'} gutterBottom>
-				Mains
+				{getCategory()}
 			</Typography>
 			<Grid container spacing={2} sx={{ pt: 2 }}>
 				{cardsSliced.currentData().map((card: CardModel) => {

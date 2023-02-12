@@ -4,16 +4,29 @@ import './index.css';
 import App from './app/App';
 import reportWebVitals from './reportWebVitals';
 
-import { CssBaseline } from "@mui/material";
+import { CssBaseline } from '@mui/material';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+
+const router = createBrowserRouter([
+	{
+		path: '/',
+		element: <App />,
+		children: [
+			{
+				path: 'categories/:categoryId',
+				element: <App />,
+			},
+		],
+	},
+]);
+
 root.render(
-  <React.StrictMode>
-    <CssBaseline />
-    <App />
-  </React.StrictMode>
+	<React.StrictMode>
+		<CssBaseline />
+		<RouterProvider router={router} />
+	</React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

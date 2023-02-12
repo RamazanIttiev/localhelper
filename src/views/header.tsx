@@ -1,24 +1,24 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { AppBar, Box, Toolbar, IconButton, Icon, Drawer } from '@mui/material';
-import { Menu } from '../../components/menu';
+import { Menu } from '../components/menu';
 
-interface HeaderComponentProps {
-	open: boolean;
-	toggleMenu: (isOpened: boolean) => void;
-}
-export const HeaderComponent: FC<HeaderComponentProps> = ({ open, toggleMenu }) => {
-	const handleToggle = useCallback(
+interface HeaderProps {}
+export const Header: FC<HeaderProps> = () => {
+	const [open, setOpen] = useState(false);
+
+	const toggleMenu = useCallback(
 		(isOpened: boolean) => () => {
+			setOpen(isOpened);
 			toggleMenu(!isOpened);
 		},
-		[toggleMenu],
+		[],
 	);
 
 	return (
 		<Box>
 			<AppBar position="fixed">
 				<Toolbar sx={{ justifyContent: 'space-between' }}>
-					<IconButton size="large" color="inherit" aria-label="open drawer" onClick={handleToggle(true)}>
+					<IconButton size="large" color="inherit" aria-label="open drawer" onClick={toggleMenu(true)}>
 						<Icon>menu</Icon>
 					</IconButton>
 					<IconButton color="inherit">
@@ -30,8 +30,8 @@ export const HeaderComponent: FC<HeaderComponentProps> = ({ open, toggleMenu }) 
 						}}
 						anchor="left"
 						open={open}
-						onClose={handleToggle(false)}>
-						<Menu handleToggle={handleToggle} />
+						onClose={toggleMenu(false)}>
+						<Menu handleToggle={toggleMenu} />
 					</Drawer>
 				</Toolbar>
 			</AppBar>

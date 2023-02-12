@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useCallback } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { Container, Grid, Pagination, Typography, Divider } from '@mui/material';
 import { usePagination } from '../utils/pagination';
 import { ItemCard } from '../components/itemCard';
@@ -6,7 +6,7 @@ import { CardModal } from '../components/modal';
 import { CardModel } from '../models/cardModel';
 import { airtableBase } from '../app/App';
 import { mapFoodData } from '../services/mappers';
-import { useLocation } from 'react-router-dom';
+import { useCategory } from '../hooks/useCategory';
 
 interface LayoutProps {}
 
@@ -16,33 +16,19 @@ export const Layout: FC<LayoutProps> = () => {
 	const [selectedCard, setSelectedCard] = useState<CardModel | null>(null);
 	const [isModalOpened, setOpenModal] = React.useState(false);
 
-	const { pathname } = useLocation();
-
-	const getCategory = useCallback(() => {
-		switch (pathname) {
-			case '/categories/food': {
-				return 'Food';
-			}
-			case '/categories/weed': {
-				return 'Weed';
-			}
-			default: {
-				return 'Food';
-			}
-		}
-	}, [pathname]);
+	const currentCategory = useCategory();
 
 	useEffect(() => {
-		airtableBase(getCategory())
+		airtableBase(currentCategory)
 			.select({
-				view: getCategory(),
+				view: currentCategory,
 			})
 			.eachPage(records => {
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				// @ts-ignore
 				return setCardsData(mapFoodData(records));
 			});
-	}, [getCategory, cardsData.length]);
+	}, [currentCategory]);
 
 	const cardsPerPage = 10;
 
@@ -62,7 +48,7 @@ export const Layout: FC<LayoutProps> = () => {
 	return (
 		<Container sx={{ pt: 9, pb: 9 }}>
 			<Typography variant={'h5'} textAlign={'left'}>
-				{getCategory()}
+				{currentCategory}
 			</Typography>
 			<Divider />
 			<Grid container spacing={2} sx={{ pt: 3 }}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Airtable from 'airtable';
 import { Layout } from '../views/layout';
-import { HeaderContainer } from '../views/header/header.container';
+import { Header } from '../views/header';
 
 export const airtableBase = new Airtable({
 	apiKey: process.env.REACT_APP_AIRTABLE_PRIVATE_KEY,
@@ -10,7 +10,7 @@ export const airtableBase = new Airtable({
 export const App = () => {
 	return (
 		<div className="App">
-			<HeaderContainer />
+			<Header />
 			<Layout />
 		</div>
 	);

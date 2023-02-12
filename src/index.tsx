@@ -4,7 +4,8 @@ import './index.css';
 import App from './app/App';
 import reportWebVitals from './reportWebVitals';
 
-import { CssBaseline } from '@mui/material';
+import { theme } from './theme';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
@@ -24,8 +25,10 @@ const router = createBrowserRouter([
 
 root.render(
 	<React.StrictMode>
-		<CssBaseline />
-		<RouterProvider router={router} />
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			<RouterProvider router={router} />
+		</ThemeProvider>
 	</React.StrictMode>,
 );
 

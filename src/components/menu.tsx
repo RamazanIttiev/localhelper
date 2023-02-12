@@ -11,7 +11,7 @@ export const Menu: FC<MenuProps> = ({ handleToggle }) => {
 		<Box role="presentation" onClick={handleToggle(false)}>
 			<List>
 				<ListItem key={1} disablePadding>
-					<Link to={`categories/food`}>
+					<Link style={{ width: '100%' }} to={`categories/food`}>
 						<ListItemButton>
 							<ListItemIcon>
 								<Icon>restaurant</Icon>

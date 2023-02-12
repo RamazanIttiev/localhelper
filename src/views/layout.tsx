@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect, useCallback } from 'react';
-import { Container, Grid, Pagination, Typography } from '@mui/material';
+import { Container, Grid, Pagination, Typography, Divider } from '@mui/material';
 import { usePagination } from '../utils/pagination';
 import { ItemCard } from '../components/itemCard';
 import { CardModal } from '../components/modal';
@@ -60,11 +60,12 @@ export const Layout: FC<LayoutProps> = () => {
 	};
 	const handleCloseModal = () => setOpenModal(false);
 	return (
-		<Container sx={{ pt: 11, pb: 9 }}>
-			<Typography variant={'h4'} gutterBottom>
+		<Container sx={{ pt: 9, pb: 9 }}>
+			<Typography variant={'h5'} textAlign={'left'}>
 				{getCategory()}
 			</Typography>
-			<Grid container spacing={2} sx={{ pt: 2 }}>
+			<Divider />
+			<Grid container spacing={2} sx={{ pt: 3 }}>
 				{cardsSliced.currentData().map((card: CardModel) => {
 					return (
 						<Grid item xs={6} key={card.id}>

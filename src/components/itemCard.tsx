@@ -13,20 +13,20 @@ export const ItemCard: FC<ItemCardProps> = ({ card, handleOpenModal }) => {
 		<>
 			<Card>
 				<Box onClick={() => handleOpenModal(card)}>
-					<CardMedia component="img" height="194" image={image[0].url} alt="Pancakes" />
-					<CardContent>
-						<Typography gutterBottom variant="h5">
+					<CardMedia component="img" image={image[0].url} alt={image[0].fileName} />
+					<CardContent sx={{ '&:last-child': { pb: 0 } }}>
+						<Typography sx={{ mb: 4 }} variant="h5">
 							{title}
 						</Typography>
 						<Typography gutterBottom variant="body2">
-							{price}
+							<strong>Price:</strong> {price}
 						</Typography>
 						<Typography gutterBottom variant="body2">
-							{place}
+							<strong>Place:</strong> {place}
 						</Typography>
 					</CardContent>
 				</Box>
-				<CardActions>
+				<CardActions sx={{ p: 2 }}>
 					<Button variant={'contained'} fullWidth>
 						Buy
 					</Button>

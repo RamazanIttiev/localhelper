@@ -36,41 +36,36 @@ export const Product: FC<ProductProps> = ({ product, cart, addToCart, removeFrom
 	};
 
 	return (
-		<>
-			<Card>
-				<Box onClick={() => handleOpenModal(product)}>
-					<CardMedia component="img" image={image[0].url} alt={image[0].fileName} />
-					<CardContent sx={{ '&:last-child': { pb: 0 } }}>
-						<Typography sx={{ mb: 4 }} variant="h5">
-							{title}
-						</Typography>
-						<Typography gutterBottom variant="body2">
-							<strong>Price:</strong> {price}
-						</Typography>
-						<Typography gutterBottom variant="body2">
-							<strong>Place:</strong> {place}
-						</Typography>
-					</CardContent>
-				</Box>
-				<CardActions sx={{ p: 2, mt: 3, flexDirection: 'column' }}>
-					{productInCart ? (
-						<AmountButtons
-							product={product}
-							amount={amount}
-							addToCart={addToCart}
-							incrementAmount={incrementAmount}
-							decrementAmount={decrementAmount}
-						/>
-					) : (
-						<Button
-							variant={'contained'}
-							fullWidth
-							onClick={() => addToCart({ ...product, amount }, amount)}>
-							Buy
-						</Button>
-					)}
-				</CardActions>
-			</Card>
-		</>
+		<Card>
+			<Box onClick={() => handleOpenModal(product)}>
+				<CardMedia component="img" image={image[0].url} alt={image[0].fileName} />
+				<CardContent sx={{ '&:last-child': { pb: 0 } }}>
+					<Typography sx={{ mb: 4 }} variant="h5">
+						{title}
+					</Typography>
+					<Typography gutterBottom variant="body2">
+						<strong>Price:</strong> {price}
+					</Typography>
+					<Typography gutterBottom variant="body2">
+						<strong>Place:</strong> {place}
+					</Typography>
+				</CardContent>
+			</Box>
+			<CardActions sx={{ p: 2, mt: 3, flexDirection: 'column' }}>
+				{productInCart ? (
+					<AmountButtons
+						product={product}
+						amount={productInCart.amount}
+						addToCart={addToCart}
+						incrementAmount={incrementAmount}
+						decrementAmount={decrementAmount}
+					/>
+				) : (
+					<Button variant={'contained'} fullWidth onClick={() => addToCart({ ...product, amount }, amount)}>
+						Buy
+					</Button>
+				)}
+			</CardActions>
+		</Card>
 	);
 };

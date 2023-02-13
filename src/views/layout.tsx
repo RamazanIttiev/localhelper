@@ -17,7 +17,7 @@ interface LayoutProps {
 export const Layout: FC<LayoutProps> = ({ cart, addToCart, removeFromCart }) => {
 	const [page, setPage] = useState(1);
 	const [isModalOpened, setOpenModal] = React.useState(false);
-	const [products, setproducts] = useState<ProductModel[]>([]);
+	const [products, setProducts] = useState<ProductModel[]>([]);
 	const [selectedProduct, setSelectedProduct] = useState<ProductModel | null>(null);
 
 	const currentCategory = useCategory();
@@ -30,7 +30,7 @@ export const Layout: FC<LayoutProps> = ({ cart, addToCart, removeFromCart }) => 
 			.eachPage(records => {
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				// @ts-ignore
-				return setproducts(mapFoodData(records));
+				return setProducts(mapFoodData(records));
 			});
 	}, [currentCategory]);
 

@@ -7,7 +7,7 @@ interface ShoppingCartProps {
 export const ShoppingCart: FC<ShoppingCartProps> = ({ cart }) => {
 	return (
 		<div>
-			{cart.map(({ title, amount }) => {
+			{cart?.map(({ title, amount }) => {
 				return `${title}: ${amount}`;
 			})}
 		</div>

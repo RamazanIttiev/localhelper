@@ -10,30 +10,39 @@ export const airtableBase = new Airtable({
 }).base('appN5D5g87uz2gY2j');
 
 export const App = () => {
-	const [cart, setCart] = useState<ProductModel[] | []>([]);
+	const [cart, setCart] = useState<ProductModel[] | []>(JSON.parse(localStorage.getItem('products') || '[]'));
 
 	const addToCart = (selectedProduct: ProductModel, amount: number) => {
 		setCart(prevState => {
 			const isProductInCart = prevState.find(product => product.id === selectedProduct.id);
 
 			if (isProductInCart) {
-				return prevState.map(product =>
-					product.id === selectedProduct.id ? { ...product, amount: product.amount + 1 } : product,
-				);
+				const existingProduct = prevState.map(product => {
+					return product.id === selectedProduct.id ? { ...product, amount: product.amount + 1 } : product;
+				});
+				localStorage.setItem('products', JSON.stringify(existingProduct));
+				return existingProduct;
 			}
-			return [...prevState, { ...selectedProduct, amount }];
+			const newProduct = [...prevState, { ...selectedProduct, amount }];
+			localStorage.setItem('products', JSON.stringify(newProduct));
+			return newProduct;
 		});
 	};
+
 	const removeFromCart = (id: number) => {
+		console.log(id);
 		setCart(prevState => {
 			return (prevState as ProductModel[]).reduce(
 				(acc: [] | ProductModel[], product: ProductModel): ProductModel[] => {
 					if (product.id === id) {
-						console.log(product.amount);
 						if (product.amount === 1) return acc;
-						return [...acc, { ...product, amount: product.amount - 1 }];
+						const existingProduct = [...acc, { ...product, amount: product.amount - 1 }];
+						localStorage.setItem('products', JSON.stringify(existingProduct));
+						return existingProduct;
 					} else {
-						return [...acc, product];
+						const newProduct = [...acc, product];
+						localStorage.setItem('products', JSON.stringify(newProduct));
+						return newProduct;
 					}
 				},
 				[] as ProductModel[],
@@ -49,5 +58,3 @@ export const App = () => {
 		</div>
 	);
 };
-
-export default App;

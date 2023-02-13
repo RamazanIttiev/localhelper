@@ -13,7 +13,7 @@ export const Menu: FC<MenuProps> = ({ handleToggle }) => {
 			<List>
 				{menuList.map(({ title, icon }) => {
 					return (
-						<ListItem key={1} disablePadding>
+						<ListItem key={title} disablePadding>
 							<Link style={{ width: '100%' }} to={`categories/${title}`.toLowerCase()}>
 								<ListItemButton>
 									<ListItemIcon>

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ProductModel } from '../models/cardModel';
+import { ProductModel } from '../models/productModel';
 
 interface ShoppingCartProps {
 	cart: ProductModel[] | [];
@@ -7,8 +7,8 @@ interface ShoppingCartProps {
 export const ShoppingCart: FC<ShoppingCartProps> = ({ cart }) => {
 	return (
 		<div>
-			{cart.map(({ title, quantity }) => {
-				return `${title}: ${quantity}`;
+			{cart.map(({ title, amount }) => {
+				return `${title}: ${amount}`;
 			})}
 		</div>
 	);

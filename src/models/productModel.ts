@@ -5,5 +5,5 @@ export interface ProductModel {
 	price: string;
 	image: { url: string; fileName: string }[];
 	description: string;
-	quantity: number;
+	amount: number;
 }

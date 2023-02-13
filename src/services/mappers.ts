@@ -1,4 +1,4 @@
-import { ProductModel } from '../models/cardModel';
+import { ProductModel } from '../models/productModel';
 import { FieldSet, Records } from 'airtable';
 import { v4 as uuidv4 } from 'uuid';
 

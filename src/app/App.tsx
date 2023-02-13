@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Airtable from 'airtable';
 import { Layout } from '../views/layout';
 import { Header } from '../views/header';
-import { ProductModel } from '../models/cardModel';
+import { ProductModel } from '../models/productModel';
 import { ShoppingCart } from '../components/shoppingCart';
 
 export const airtableBase = new Airtable({
@@ -12,28 +12,28 @@ export const airtableBase = new Airtable({
 export const App = () => {
 	const [cart, setCart] = useState<ProductModel[] | []>([]);
 
-	const addToCart = (selectedItem: ProductModel, quantity: number) => {
+	const addToCart = (selectedProduct: ProductModel, amount: number) => {
 		setCart(prevState => {
-			const isItemInCart = prevState.find(item => item.id === selectedItem.id);
+			const isProductInCart = prevState.find(product => product.id === selectedProduct.id);
 
-			if (isItemInCart) {
-				return prevState.map(item =>
-					item.id === selectedItem.id ? { ...item, quantity: item.quantity + 1 } : item,
+			if (isProductInCart) {
+				return prevState.map(product =>
+					product.id === selectedProduct.id ? { ...product, amount: product.amount + 1 } : product,
 				);
 			}
-			return [...prevState, { ...selectedItem, quantity }];
+			return [...prevState, { ...selectedProduct, amount }];
 		});
 	};
 	const removeFromCart = (id: number) => {
 		setCart(prevState => {
 			return (prevState as ProductModel[]).reduce(
-				(acc: [] | ProductModel[], item: ProductModel): ProductModel[] => {
-					if (item.id === id) {
-						console.log(item.quantity);
-						if (item.quantity === 1) return acc;
-						return [...acc, { ...item, quantity: item.quantity - 1 }];
+				(acc: [] | ProductModel[], product: ProductModel): ProductModel[] => {
+					if (product.id === id) {
+						console.log(product.amount);
+						if (product.amount === 1) return acc;
+						return [...acc, { ...product, amount: product.amount - 1 }];
 					} else {
-						return [...acc, item];
+						return [...acc, product];
 					}
 				},
 				[] as ProductModel[],

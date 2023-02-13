@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { Box, Button, Typography, Dialog, IconButton, DialogTitle } from '@mui/material';
 import { FC } from 'react';
-import { CardModel } from '../models/cardModel';
+import { ProductModel } from '../models/productModel';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import CloseIcon from '@mui/icons-material/Close';
 
-interface CardModalProps {
-	selectedCard: CardModel | null;
+interface ProductModalProps {
+	selectedProduct: ProductModel | null;
 	isModalOpened: boolean;
 	handleCloseModal: () => void;
 }
 
-export const CardModal: FC<CardModalProps> = ({ selectedCard, isModalOpened, handleCloseModal }) => {
+export const ProductModal: FC<ProductModalProps> = ({ selectedProduct, isModalOpened, handleCloseModal }) => {
 	return (
-		selectedCard && (
+		selectedProduct && (
 			<div>
 				<Dialog
 					sx={{
@@ -40,19 +40,19 @@ export const CardModal: FC<CardModalProps> = ({ selectedCard, isModalOpened, han
 					<DialogContent dividers>
 						<Box
 							component={'img'}
-							src={selectedCard.image[0].url}
-							alt={selectedCard.image[0].fileName}
+							src={selectedProduct.image[0].url}
+							alt={selectedProduct.image[0].fileName}
 							width={'100%'}
 						/>
 						<Box sx={{ width: '100%', pr: 2, pl: 2 }}>
 							<Typography id="transition-modal-title" variant="h6" component="h2" textAlign={'center'}>
-								{selectedCard.title}
+								{selectedProduct.title}
 							</Typography>
 							<Typography sx={{ mt: 2 }}>
-								<strong>Price:</strong> {selectedCard.price}
+								<strong>Price:</strong> {selectedProduct.price}
 							</Typography>
 							<Typography sx={{ mt: 2, mb: 3 }}>
-								<strong>Description:</strong> {selectedCard.description}
+								<strong>Description:</strong> {selectedProduct.description}
 							</Typography>
 						</Box>
 					</DialogContent>

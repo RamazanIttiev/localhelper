@@ -1,20 +1,24 @@
 import React, { FC, useState, useEffect } from 'react';
 import { Container, Grid, Pagination, Typography, Divider } from '@mui/material';
 import { usePagination } from '../utils/pagination';
-import { ItemCard } from '../components/itemCard';
+import { Product } from '../components/itemCard';
 import { CardModal } from '../components/modal';
-import { CardModel } from '../models/cardModel';
+import { ProductModel } from '../models/cardModel';
 import { airtableBase } from '../app/App';
 import { mapFoodData } from '../services/mappers';
 import { useCategory } from '../hooks/useCategory';
 
-interface LayoutProps {}
+interface LayoutProps {
+	cart: ProductModel[];
+	removeFromCart: (itemId: number) => void;
+	addToCart: (selectedItem: ProductModel, quantity: number) => void;
+}
 
-export const Layout: FC<LayoutProps> = () => {
+export const Layout: FC<LayoutProps> = ({ cart, addToCart, removeFromCart }) => {
 	const [page, setPage] = useState(1);
-	const [cardsData, setCardsData] = useState<CardModel[]>([]);
-	const [selectedCard, setSelectedCard] = useState<CardModel | null>(null);
 	const [isModalOpened, setOpenModal] = React.useState(false);
+	const [cardsData, setCardsData] = useState<ProductModel[]>([]);
+	const [selectedCard, setSelectedCard] = useState<ProductModel | null>(null);
 
 	const currentCategory = useCategory();
 
@@ -32,19 +36,20 @@ export const Layout: FC<LayoutProps> = () => {
 
 	const cardsPerPage = 10;
 
-	const count = Math.ceil(cardsData.length / cardsPerPage);
 	const cardsSliced = usePagination(cardsData, cardsPerPage);
+	const count = Math.ceil(cardsData.length / cardsPerPage);
 
-	const handleChange = (event: React.ChangeEvent<unknown>, page: number) => {
+	const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
 		setPage(page);
 		cardsSliced.jump(page);
 	};
 
-	const handleOpenModal = (currentCard: CardModel | null) => {
+	const handleOpenModal = (currentCard: ProductModel | null) => {
 		setSelectedCard(currentCard);
 		setOpenModal(true);
 	};
 	const handleCloseModal = () => setOpenModal(false);
+
 	return (
 		<Container sx={{ pt: 9, pb: 9 }}>
 			<Typography variant={'h5'} textAlign={'left'}>
@@ -52,10 +57,16 @@ export const Layout: FC<LayoutProps> = () => {
 			</Typography>
 			<Divider />
 			<Grid container spacing={2} sx={{ pt: 3 }}>
-				{cardsSliced.currentData().map((card: CardModel) => {
+				{cardsSliced.currentData().map((card: ProductModel) => {
 					return (
 						<Grid item xs={6} key={card.id}>
-							<ItemCard card={card} handleOpenModal={handleOpenModal} />
+							<Product
+								card={card}
+								cart={cart}
+								addToCart={addToCart}
+								removeFromCart={removeFromCart}
+								handleOpenModal={handleOpenModal}
+							/>
 						</Grid>
 					);
 				})}
@@ -78,7 +89,7 @@ export const Layout: FC<LayoutProps> = () => {
 					}}
 					count={count}
 					page={page}
-					onChange={handleChange}
+					onChange={handlePageChange}
 				/>
 			)}
 		</Container>

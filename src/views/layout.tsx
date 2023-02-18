@@ -1,38 +1,21 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import { Container, Grid, Pagination, Typography, Divider } from '@mui/material';
 import { usePagination } from '../utils/pagination';
 import { Product } from '../components/product';
 import { ProductModal } from '../components/modal';
 import { ProductModel } from '../models/productModel';
-import { airtableBase } from '../app/App';
-import { mapFoodData } from '../services/mappers';
-import { useCategory } from '../hooks/useCategory';
 
 interface LayoutProps {
 	cart: ProductModel[];
-	removeFromCart: (productId: number) => void;
-	addToCart: (selectedProduct: ProductModel, amount: number) => void;
+	products: ProductModel[];
+	removeFromCart: (product: ProductModel) => void;
+	addToCart: (selectedProduct: ProductModel) => void;
 }
 
-export const Layout: FC<LayoutProps> = ({ cart, addToCart, removeFromCart }) => {
+export const Layout: FC<LayoutProps> = ({ cart, products, addToCart, removeFromCart }) => {
 	const [page, setPage] = useState(1);
 	const [isModalOpened, setOpenModal] = React.useState(false);
-	const [products, setProducts] = useState<ProductModel[]>([]);
 	const [selectedProduct, setSelectedProduct] = useState<ProductModel | null>(null);
-
-	const currentCategory = useCategory();
-
-	useEffect(() => {
-		airtableBase(currentCategory)
-			.select({
-				view: currentCategory,
-			})
-			.eachPage(records => {
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-ignore
-				return setProducts(mapFoodData(records));
-			});
-	}, [currentCategory]);
 
 	const productsPerPage = 10;
 
@@ -53,7 +36,7 @@ export const Layout: FC<LayoutProps> = ({ cart, addToCart, removeFromCart }) => 
 	return (
 		<Container sx={{ pt: 9, pb: 9 }}>
 			<Typography variant={'h5'} textAlign={'left'}>
-				{currentCategory}
+				{/*{currentCategory}*/}
 			</Typography>
 			<Divider />
 			<Grid container spacing={2} sx={{ pt: 3 }}>

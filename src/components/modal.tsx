@@ -41,7 +41,7 @@ export const ProductModal: FC<ProductModalProps> = ({ selectedProduct, isModalOp
 						<Box
 							component={'img'}
 							src={selectedProduct.image[0].url}
-							alt={selectedProduct.image[0].fileName}
+							alt={selectedProduct.image[0].alt}
 							width={'100%'}
 						/>
 						<Box sx={{ width: '100%', pr: 2, pl: 2 }}>

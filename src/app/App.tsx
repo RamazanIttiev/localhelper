@@ -1,48 +1,65 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Airtable from 'airtable';
 import { Layout } from '../views/layout';
 import { Header } from '../views/header';
 import { ProductModel } from '../models/productModel';
 import { ShoppingCart } from '../components/shoppingCart';
+import { mapFoodData } from '../services/mappers';
+import { useCategory } from '../hooks/useCategory';
+
+import {
+	addNewProductToCart,
+	decrementProduct,
+	incrementProductInCart,
+	isProductInCart,
+	removeProductFromCart,
+} from '../utils/cart';
 
 export const airtableBase = new Airtable({
 	apiKey: process.env.REACT_APP_AIRTABLE_PRIVATE_KEY,
 }).base('appN5D5g87uz2gY2j');
 
 export const App = () => {
+	const currentCategory = useCategory();
+	const [isCartOpened, setOpenCart] = useState(false);
+	const [products, setProducts] = useState<ProductModel[]>([]);
 	const [cart, setCart] = useState<ProductModel[] | []>(JSON.parse(localStorage.getItem('products') || '[]'));
 
-	const addToCart = (selectedProduct: ProductModel, amount: number) => {
-		setCart(prevState => {
-			const isProductInCart = prevState.find(product => product.id === selectedProduct.id);
+	useEffect(() => {
+		airtableBase(currentCategory)
+			.select({
+				view: currentCategory,
+			})
+			.eachPage(records => {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-ignore
+				return setProducts(mapFoodData(records));
+			});
+	}, [currentCategory]);
 
-			if (isProductInCart) {
-				const existingProduct = prevState.map(product => {
-					return product.id === selectedProduct.id ? { ...product, amount: product.amount + 1 } : product;
-				});
-				localStorage.setItem('products', JSON.stringify(existingProduct));
-				return existingProduct;
+	const toggleCart = () => {
+		setOpenCart(!isCartOpened);
+	};
+
+	const addToCart = (selectedProduct: ProductModel) => {
+		setCart(prevState => {
+			if (isProductInCart(prevState, selectedProduct)) {
+				return incrementProductInCart(prevState, selectedProduct);
+			} else {
+				return addNewProductToCart(prevState, selectedProduct);
 			}
-			const newProduct = [...prevState, { ...selectedProduct, amount }];
-			localStorage.setItem('products', JSON.stringify(newProduct));
-			return newProduct;
 		});
 	};
 
-	const removeFromCart = (id: number) => {
-		console.log(id);
+	const removeFromCart = (selectedProduct: ProductModel) => {
 		setCart(prevState => {
 			return (prevState as ProductModel[]).reduce(
-				(acc: [] | ProductModel[], product: ProductModel): ProductModel[] => {
-					if (product.id === id) {
-						if (product.amount === 1) return acc;
-						const existingProduct = [...acc, { ...product, amount: product.amount - 1 }];
-						localStorage.setItem('products', JSON.stringify(existingProduct));
-						return existingProduct;
+				(accumulator: [] | ProductModel[], product: ProductModel): ProductModel[] => {
+					if (product.id === selectedProduct.id) {
+						if (product.amount === 1) return removeProductFromCart(accumulator);
+						return decrementProduct(accumulator, product);
 					} else {
-						const newProduct = [...acc, product];
-						localStorage.setItem('products', JSON.stringify(newProduct));
-						return newProduct;
+						return [...accumulator, product];
 					}
 				},
 				[] as ProductModel[],
@@ -52,9 +69,17 @@ export const App = () => {
 
 	return (
 		<div className="App">
-			<Header />
-			<Layout cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} />
-			<ShoppingCart cart={cart} />
+			<Header toggleCart={toggleCart} />
+			<Layout cart={cart} products={products} addToCart={addToCart} removeFromCart={removeFromCart} />
+			{isCartOpened && (
+				<ShoppingCart
+					cart={cart}
+					isCartOpened={isCartOpened}
+					toggleCart={toggleCart}
+					addToCart={addToCart}
+					removeFromCart={removeFromCart}
+				/>
+			)}
 		</div>
 	);
 };

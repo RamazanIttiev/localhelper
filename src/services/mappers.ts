@@ -10,11 +10,11 @@ export const mapFoodData = (foodData: Records<FieldSet>) =>
 			title: fields.title,
 			image:
 				fields.image &&
-				fields.image.map(({ url, fileName }: { url: string; fileName: string }) => {
-					return { url, fileName };
+				fields.image.map(({ url }: { url: string }) => {
+					return { url, alt: fields.title };
 				}),
 			place: fields.place,
-			price: `${fields.price} Rs`,
+			price: fields.price,
 			description: fields.description,
 		};
 	});

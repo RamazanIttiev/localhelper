@@ -2,8 +2,10 @@ import React, { FC, useCallback, useState } from 'react';
 import { AppBar, Box, Toolbar, IconButton, Icon, Drawer } from '@mui/material';
 import { Menu } from '../components/menu';
 
-interface HeaderProps {}
-export const Header: FC<HeaderProps> = () => {
+interface HeaderProps {
+	toggleCart: () => void;
+}
+export const Header: FC<HeaderProps> = ({ toggleCart }) => {
 	const [open, setOpen] = useState(false);
 
 	const toggleMenu = useCallback(
@@ -21,7 +23,7 @@ export const Header: FC<HeaderProps> = () => {
 					<IconButton size="large" color="inherit" aria-label="open drawer" onClick={toggleMenu(true)}>
 						<Icon>menu</Icon>
 					</IconButton>
-					<IconButton color="inherit">
+					<IconButton color="inherit" onClick={toggleCart}>
 						<Icon>shopping_cart</Icon>
 					</IconButton>
 					<Drawer

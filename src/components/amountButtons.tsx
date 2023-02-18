@@ -3,21 +3,20 @@ import { Button, Box, Typography } from '@mui/material';
 import { ProductModel } from '../models/productModel';
 
 interface AmountButtonsProps {
-	product: ProductModel;
 	amount: number;
-	incrementAmount: () => void;
-	decrementAmount: (id: number) => void;
-	addToCart: (selectedProduct: ProductModel, amount: number) => void;
+	product: ProductModel;
+	removeFromCart: (product: ProductModel) => void;
+	addToCart: (selectedProduct: ProductModel) => void;
 }
 
-export const AmountButtons: FC<AmountButtonsProps> = ({ product, amount, incrementAmount, decrementAmount }) => {
+export const AmountButtons: FC<AmountButtonsProps> = ({ product, addToCart, removeFromCart, amount }) => {
 	return (
 		<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', width: '100%', mb: 2 }}>
 			<Button
 				variant={'outlined'}
 				size={'small'}
 				sx={{ minWidth: 32, fontSize: 24, lineHeight: 1 }}
-				onClick={() => decrementAmount(product.id)}>
+				onClick={() => removeFromCart(product)}>
 				-
 			</Button>
 			<Typography sx={{ minWidth: '24px', textAlign: 'center' }}>{amount}</Typography>
@@ -25,7 +24,7 @@ export const AmountButtons: FC<AmountButtonsProps> = ({ product, amount, increme
 				variant={'outlined'}
 				size={'small'}
 				sx={{ minWidth: 32, fontSize: 24, lineHeight: 1 }}
-				onClick={incrementAmount}>
+				onClick={() => addToCart(product)}>
 				+
 			</Button>
 		</Box>

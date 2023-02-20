@@ -11,7 +11,7 @@ interface AmountButtonsProps {
 
 export const AmountButtons: FC<AmountButtonsProps> = ({ product, addToCart, removeFromCart, amount }) => {
 	return (
-		<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', width: '100%', mb: 2 }}>
+		<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', width: '100%' }}>
 			<Button
 				variant={'outlined'}
 				size={'small'}

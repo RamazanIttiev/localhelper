@@ -3,9 +3,9 @@ import Airtable from 'airtable';
 import { Layout } from '../views/layout';
 import { Header } from '../views/header';
 import { ProductModel } from '../models/productModel';
-import { ShoppingCart } from '../components/shoppingCart';
 import { mapFoodData } from '../services/mappers';
 import { useCategory } from '../hooks/useCategory';
+import { CartContainer } from '../views/cart/cart.container';
 
 import {
 	addNewProductToCart,
@@ -72,7 +72,7 @@ export const App = () => {
 			<Header toggleCart={toggleCart} />
 			<Layout cart={cart} products={products} addToCart={addToCart} removeFromCart={removeFromCart} />
 			{isCartOpened && (
-				<ShoppingCart
+				<CartContainer
 					cart={cart}
 					isCartOpened={isCartOpened}
 					toggleCart={toggleCart}

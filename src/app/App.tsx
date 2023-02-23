@@ -69,7 +69,7 @@ export const App = () => {
 
 	return (
 		<div className="App">
-			<Header toggleCart={toggleCart} />
+			<Header toggleCart={toggleCart} cart={cart} />
 			<Layout cart={cart} products={products} addToCart={addToCart} removeFromCart={removeFromCart} />
 			{isCartOpened && (
 				<CartContainer

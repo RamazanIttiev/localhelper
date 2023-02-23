@@ -1,11 +1,13 @@
 import React, { FC, useCallback, useState } from 'react';
-import { AppBar, Box, Toolbar, IconButton, Icon, Drawer } from '@mui/material';
+import { AppBar, Box, Toolbar, IconButton, Icon, Drawer, Badge } from '@mui/material';
 import { Menu } from '../components/menu';
+import { ProductModel } from '../models/productModel';
 
 interface HeaderProps {
+	cart: ProductModel[];
 	toggleCart: () => void;
 }
-export const Header: FC<HeaderProps> = ({ toggleCart }) => {
+export const Header: FC<HeaderProps> = ({ toggleCart, cart }) => {
 	const [open, setOpen] = useState(false);
 
 	const toggleMenu = useCallback(
@@ -16,6 +18,10 @@ export const Header: FC<HeaderProps> = ({ toggleCart }) => {
 		[],
 	);
 
+	const cartTotalAmount = cart.reduce((previous, current): number => {
+		return previous + current.amount;
+	}, 0);
+
 	return (
 		<Box>
 			<AppBar position="fixed">
@@ -24,7 +30,9 @@ export const Header: FC<HeaderProps> = ({ toggleCart }) => {
 						<Icon>menu</Icon>
 					</IconButton>
 					<IconButton color="inherit" onClick={toggleCart}>
-						<Icon>shopping_cart</Icon>
+						<Badge badgeContent={cartTotalAmount} color={'primary'}>
+							<Icon>shopping_cart</Icon>
+						</Badge>
 					</IconButton>
 					<Drawer
 						sx={{

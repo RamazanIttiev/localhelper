@@ -35,69 +35,83 @@ export const Cart: FC<CartProps> = ({
 }) => {
 	return (
 		<Dialog onClose={toggleCart} open={isCartOpened}>
-			<DialogTitle textAlign={'center'}>Shopping cart</DialogTitle>
-			<DialogContent dividers>
-				<List sx={{ pt: 0 }}>
-					{cart.map(product => {
-						return (
-							<>
-								<ListItem disableGutters>
-									<Box
-										component={'img'}
-										src={product.image[0].url}
-										alt={product.image[0].alt}
-										sx={{ width: '25%', borderRadius: 1, mr: 2 }}
-									/>
-									<Box
-										sx={{
-											width: '100%',
-										}}>
-										<Typography component={'h3'} variant={'h6'} gutterBottom>
-											{product.title}
-										</Typography>
-										<Box sx={{ display: 'flex', alignItems: 'center' }}>
-											<Typography
-												variant={'body1'}
+			{cart.length !== 0 ? (
+				<>
+					<DialogTitle textAlign={'center'}>Shopping cart</DialogTitle>
+					<DialogContent dividers>
+						<List sx={{ pt: 0 }}>
+							{cart.map(product => {
+								return (
+									<>
+										<ListItem disableGutters>
+											<Box
+												component={'img'}
+												src={product.image[0].url}
+												alt={product.image[0].alt}
+												sx={{ width: '25%', borderRadius: 1, mr: 2 }}
+											/>
+											<Box
 												sx={{
-													background: ' #ff335f',
-													borderRadius: '50%',
-													width: '24px',
-													height: '24px',
-													color: ' #fff',
-													textAlign: ' center',
-													mr: 0.5,
+													width: '100%',
 												}}>
-												{product.amount}
-											</Typography>
-											<Typography variant={'body1'}>
-												x <strong>{product.price}</strong>
-											</Typography>
-										</Box>
-									</Box>
-									<AmountButtons
-										product={product}
-										addToCart={addToCart}
-										amount={product.amount}
-										removeFromCart={removeFromCart}
-									/>
-								</ListItem>
-								<Divider />
-							</>
-						);
-					})}
-				</List>
-				<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '24px' }}>
-					<strong>Total: </strong>
-					<Typography sx={{ borderBottom: '2px solid #ff335f', fontWeight: '600' }}>
-						{cartTotalAmount} Rs
-					</Typography>
-				</Box>
-			</DialogContent>
-			<DialogActions>
-				<Button variant={'contained'} fullWidth onClick={sendWebAppDeepLink}>
-					Buy
-				</Button>
-			</DialogActions>
+												<Typography component={'h3'} variant={'h6'} gutterBottom>
+													{product.title}
+												</Typography>
+												<Box sx={{ display: 'flex', alignItems: 'center' }}>
+													<Typography
+														variant={'body1'}
+														sx={{
+															background: ' #ff335f',
+															borderRadius: '50%',
+															width: '24px',
+															height: '24px',
+															color: ' #fff',
+															textAlign: ' center',
+															mr: 0.5,
+														}}>
+														{product.amount}
+													</Typography>
+													<Typography variant={'body1'}>
+														x <strong>{product.price}</strong>
+													</Typography>
+												</Box>
+											</Box>
+											<AmountButtons
+												product={product}
+												addToCart={addToCart}
+												amount={product.amount}
+												removeFromCart={removeFromCart}
+											/>
+										</ListItem>
+										<Divider />
+									</>
+								);
+							})}
+						</List>
+						<Box
+							sx={{
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'space-between',
+								marginTop: '24px',
+							}}>
+							<strong>Total: </strong>
+							<Typography sx={{ borderBottom: '2px solid #ff335f', fontWeight: '600' }}>
+								{cartTotalAmount} Rs
+							</Typography>
+						</Box>
+					</DialogContent>
+					<DialogActions>
+						<Button variant={'contained'} fullWidth onClick={sendWebAppDeepLink}>
+							Buy
+						</Button>
+					</DialogActions>
+				</>
+			) : (
+				<DialogContent dividers>
+					<Typography>Your cart is still empty! Order add something here)</Typography>
+				</DialogContent>
+			)}
 		</Dialog>
 	);
 };

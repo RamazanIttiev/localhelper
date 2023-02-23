@@ -67,7 +67,7 @@ export const CartContainer: FC<CartContainerProps> = ({
 				const store = JSON.parse(this.responseText);
 				sendWebAppMessage(
 					// eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-					'/start ' + btoa(Buffer.from('ZGw6MTI0OTQ3', 'base64') + '|' + store.id).replace(/=/g, ''),
+					'/start ' + btoa(Buffer.from('ZGw6MTM2Nzcz', 'base64') + '|' + store.id).replace(/=/g, ''),
 				);
 			}
 		};

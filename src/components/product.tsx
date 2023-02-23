@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { ProductModel } from '../models/productModel';
 import { AmountButtons } from './amountButtons';
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { isProductInCart } from '../utils/cart';
 
 interface ProductProps {
 	product: ProductModel;
@@ -14,9 +15,7 @@ interface ProductProps {
 export const Product: FC<ProductProps> = ({ product, cart, addToCart, removeFromCart, handleOpenModal }) => {
 	const { title, place, price, image } = product;
 
-	const productInCart = cart.find(({ id }) => {
-		return id === product.id;
-	});
+	const productInCart = isProductInCart(cart, product);
 
 	return (
 		<Card

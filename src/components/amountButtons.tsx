@@ -6,7 +6,7 @@ interface AmountButtonsProps {
 	amount: number;
 	product: ProductModel;
 	removeFromCart: (product: ProductModel) => void;
-	addToCart: (selectedProduct: ProductModel) => void;
+	addToCart: (product: ProductModel) => void;
 }
 
 export const AmountButtons: FC<AmountButtonsProps> = ({ product, addToCart, removeFromCart, amount }) => {

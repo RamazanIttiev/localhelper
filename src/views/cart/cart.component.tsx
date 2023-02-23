@@ -12,6 +12,7 @@ import {
 	ListItem,
 	Typography,
 } from '@mui/material';
+import { AmountButtons } from '../../components/amountButtons';
 
 interface CartProps {
 	isCartOpened: boolean;
@@ -20,23 +21,31 @@ interface CartProps {
 	cart: ProductModel[] | [];
 	sendWebAppDeepLink: () => void;
 	removeFromCart: (product: ProductModel) => void;
-	addToCart: (selectedProduct: ProductModel, amount: number) => void;
+	addToCart: (product: ProductModel) => void;
 }
 
-export const Cart: FC<CartProps> = ({ cart, isCartOpened, toggleCart, cartTotalAmount, sendWebAppDeepLink }) => {
+export const Cart: FC<CartProps> = ({
+	cart,
+	isCartOpened,
+	toggleCart,
+	cartTotalAmount,
+	addToCart,
+	removeFromCart,
+	sendWebAppDeepLink,
+}) => {
 	return (
 		<Dialog onClose={toggleCart} open={isCartOpened}>
 			<DialogTitle textAlign={'center'}>Shopping cart</DialogTitle>
 			<DialogContent dividers>
 				<List sx={{ pt: 0 }}>
-					{cart.map(({ title, price, amount, image }) => {
+					{cart.map(product => {
 						return (
 							<>
 								<ListItem disableGutters>
 									<Box
 										component={'img'}
-										src={image[0].url}
-										alt={image[0].alt}
+										src={product.image[0].url}
+										alt={product.image[0].alt}
 										sx={{ width: '25%', borderRadius: 1, mr: 2 }}
 									/>
 									<Box
@@ -44,7 +53,7 @@ export const Cart: FC<CartProps> = ({ cart, isCartOpened, toggleCart, cartTotalA
 											width: '100%',
 										}}>
 										<Typography component={'h3'} variant={'h6'} gutterBottom>
-											{title}
+											{product.title}
 										</Typography>
 										<Box sx={{ display: 'flex', alignItems: 'center' }}>
 											<Typography
@@ -58,13 +67,19 @@ export const Cart: FC<CartProps> = ({ cart, isCartOpened, toggleCart, cartTotalA
 													textAlign: ' center',
 													mr: 0.5,
 												}}>
-												{amount}
+												{product.amount}
 											</Typography>
 											<Typography variant={'body1'}>
-												x <strong>{price}</strong>
+												x <strong>{product.price}</strong>
 											</Typography>
 										</Box>
 									</Box>
+									<AmountButtons
+										product={product}
+										addToCart={addToCart}
+										amount={product.amount}
+										removeFromCart={removeFromCart}
+									/>
 								</ListItem>
 								<Divider />
 							</>

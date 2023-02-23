@@ -5,14 +5,28 @@ import { ProductModel } from '../models/productModel';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import CloseIcon from '@mui/icons-material/Close';
+import { AmountButtons } from './amountButtons';
+import { isProductInCart } from '../utils/cart';
 
 interface ProductModalProps {
+	cart: ProductModel[];
 	selectedProduct: ProductModel | null;
 	isModalOpened: boolean;
 	handleCloseModal: () => void;
+	removeFromCart: (product: ProductModel) => void;
+	addToCart: (selectedProduct: ProductModel) => void;
 }
 
-export const ProductModal: FC<ProductModalProps> = ({ selectedProduct, isModalOpened, handleCloseModal }) => {
+export const ProductModal: FC<ProductModalProps> = ({
+	cart,
+	addToCart,
+	isModalOpened,
+	removeFromCart,
+	selectedProduct,
+	handleCloseModal,
+}) => {
+	const productInCart = isProductInCart(cart, selectedProduct);
+
 	return (
 		selectedProduct && (
 			<div>
@@ -57,9 +71,22 @@ export const ProductModal: FC<ProductModalProps> = ({ selectedProduct, isModalOp
 						</Box>
 					</DialogContent>
 					<DialogActions>
-						<Button variant={'contained'} fullWidth>
-							Buy
-						</Button>
+						{productInCart ? (
+							<AmountButtons
+								product={selectedProduct}
+								amount={productInCart.amount}
+								addToCart={addToCart}
+								removeFromCart={removeFromCart}
+							/>
+						) : (
+							<Button
+								sx={{ height: '32px' }}
+								variant={'contained'}
+								fullWidth
+								onClick={() => addToCart(selectedProduct)}>
+								Buy
+							</Button>
+						)}
 					</DialogActions>
 				</Dialog>
 			</div>

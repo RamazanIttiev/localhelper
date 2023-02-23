@@ -55,8 +55,11 @@ export const Layout: FC<LayoutProps> = ({ cart, products, addToCart, removeFromC
 				})}
 			</Grid>
 			<ProductModal
-				selectedProduct={selectedProduct}
+				cart={cart}
+				addToCart={addToCart}
 				isModalOpened={isModalOpened}
+				removeFromCart={removeFromCart}
+				selectedProduct={selectedProduct}
 				handleCloseModal={handleCloseModal}
 			/>
 			{products.length >= productsPerPage && (

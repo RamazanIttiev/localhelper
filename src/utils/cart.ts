@@ -1,7 +1,7 @@
 import { ProductModel } from '../models/productModel';
 
-export const isProductInCart = (products: ProductModel[], selectedProduct: ProductModel) =>
-	products.find(product => product.id === selectedProduct.id);
+export const isProductInCart = (products: ProductModel[], selectedProduct: ProductModel | null) =>
+	products.find(product => product.id === selectedProduct?.id);
 
 export const incrementProductInCart = (products: ProductModel[], selectedProduct: ProductModel) => {
 	const existingProduct = products.map(product => {

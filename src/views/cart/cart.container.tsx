@@ -1,18 +1,17 @@
 import React, { FC } from 'react';
-import { ProductModel } from '../../models/productModel';
 import { Cart } from './cart.component';
+import { ProductModel } from '../../models/productModel';
 
 interface CartContainerProps {
 	isCartOpened: boolean;
 	toggleCart: () => void;
 	cart: ProductModel[] | [];
 	removeFromCart: (product: ProductModel) => void;
-	addToCart: (selectedProduct: ProductModel, amount: number) => void;
+	addToCart: (product: ProductModel) => void;
 }
 
 declare global {
 	interface Window {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any,
 		Telegram: any;
 	}
 }
@@ -49,7 +48,7 @@ export const CartContainer: FC<CartContainerProps> = ({
 				console.log(this.responseText);
 			}
 		});
-		xhr.open('POST', '../sendMessage.php');
+		xhr.open('POST', '/sendMessage.php');
 		xhr.send(JSON.stringify(send));
 	};
 
@@ -68,7 +67,7 @@ export const CartContainer: FC<CartContainerProps> = ({
 				const store = JSON.parse(this.responseText);
 				sendWebAppMessage(
 					// eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-					'/start ' + btoa(Buffer.from('ZGw6MTI1MjAy', 'base64') + '|' + store.id).replace(/=/g, ''),
+					'/start ' + btoa(Buffer.from('ZGw6MTI0OTQ3', 'base64') + '|' + store.id).replace(/=/g, ''),
 				);
 			}
 		};

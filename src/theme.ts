@@ -5,6 +5,6 @@ export const theme = createTheme({
 		primary: { main: '#ff335f' },
 	},
 	typography: {
-		fontFamily: 'Montserrat Alternates',
+		fontFamily: 'Montserrat, sans-serif',
 	},
 });

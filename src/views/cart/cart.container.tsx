@@ -29,14 +29,6 @@ export const CartContainer: FC<CartContainerProps> = ({
 		return previous + current.amount * current.price;
 	}, 0);
 
-	const allProducts = cart.map(({ title, amount }) => {
-		return { title, amount };
-	});
-
-	const requestBody = {
-		products: allProducts,
-	};
-
 	const sendWebAppMessage = (text: string) => {
 		const send = {
 			message: text,
@@ -52,14 +44,14 @@ export const CartContainer: FC<CartContainerProps> = ({
 		xhr.send(JSON.stringify(send));
 	};
 
-	const sendWebAppDeepLink = () => {
+	const sendWebAppDeepLink = (id: string, domain: string, param: { products: any[] }) => {
 		const sendData = {
 			range: [],
 			scope: {},
-			variables: requestBody,
+			variables: param,
 		};
 		const xhr = new XMLHttpRequest();
-		xhr.open('POST', 'https://' + 'lhelper' + '.customer.smartsender.eu/api/i/store');
+		xhr.open('POST', 'https://' + domain + '.customer.smartsender.eu/api/i/store');
 		xhr.setRequestHeader('Content-type', 'application/json');
 		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 		xhr.onreadystatechange = function () {
@@ -67,7 +59,7 @@ export const CartContainer: FC<CartContainerProps> = ({
 				const store = JSON.parse(this.responseText);
 				sendWebAppMessage(
 					// eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-					'/start ' + btoa(Buffer.from('ZGw6MTM2Nzcz', 'base64') + '|' + store.id).replace(/=/g, ''),
+					'/start ' + btoa(Buffer.from(id, 'base64') + '|' + store.id).replace(/=/g, ''),
 				);
 			}
 		};

@@ -19,7 +19,7 @@ interface CartProps {
 	toggleCart: () => void;
 	cartTotalAmount: number;
 	cart: ProductModel[] | [];
-	sendWebAppDeepLink: () => void;
+	sendWebAppDeepLink: (id: string, domain: string, param: { products: any[] }) => void;
 	removeFromCart: (product: ProductModel) => void;
 	addToCart: (product: ProductModel) => void;
 }
@@ -33,6 +33,14 @@ export const Cart: FC<CartProps> = ({
 	removeFromCart,
 	sendWebAppDeepLink,
 }) => {
+	const allProducts = cart.map(({ title, amount }) => {
+		return { title, amount };
+	});
+
+	const requestBody = {
+		products: allProducts,
+	};
+
 	return (
 		<Dialog onClose={toggleCart} open={isCartOpened}>
 			{cart.length !== 0 ? (
@@ -102,7 +110,10 @@ export const Cart: FC<CartProps> = ({
 						</Box>
 					</DialogContent>
 					<DialogActions>
-						<Button variant={'contained'} fullWidth onClick={sendWebAppDeepLink}>
+						<Button
+							variant={'contained'}
+							fullWidth
+							onClick={() => sendWebAppDeepLink('ZGw6MTM2Nzcz', 'lhelper', requestBody)}>
 							Buy
 						</Button>
 					</DialogActions>

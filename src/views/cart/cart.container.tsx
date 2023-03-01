@@ -44,7 +44,7 @@ export const CartContainer: FC<CartContainerProps> = ({
 		xhr.send(JSON.stringify(send));
 	};
 
-	const sendWebAppDeepLink = (id: string, domain: string, param: { itemeName: string; itemePrice: string }) => {
+	const sendWebAppDeepLink = (identifier: string, domain: string, param = {}) => {
 		const sendData = {
 			range: [],
 			scope: {},
@@ -57,10 +57,7 @@ export const CartContainer: FC<CartContainerProps> = ({
 		xhr.onreadystatechange = function () {
 			if (this.readyState === 4 && this.status === 200) {
 				const store = JSON.parse(this.responseText);
-				sendWebAppMessage(
-					// eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-					'/start ' + btoa(Buffer.from(id, 'base64') + '|' + store.id).replace(/=/g, ''),
-				);
+				sendWebAppMessage('/start ' + btoa(atob(identifier) + '|' + store.id).replace(/=/g, ''));
 			}
 		};
 		xhr.send(JSON.stringify(sendData));

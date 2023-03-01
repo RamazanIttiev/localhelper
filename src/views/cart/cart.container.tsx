@@ -44,7 +44,7 @@ export const CartContainer: FC<CartContainerProps> = ({
 		xhr.send(JSON.stringify(send));
 	};
 
-	const sendWebAppDeepLink = (id: string, domain: string, param: { products: any[] }) => {
+	const sendWebAppDeepLink = (id: string, domain: string, param: { itemeName: string; itemePrice: string }) => {
 		const sendData = {
 			range: [],
 			scope: {},

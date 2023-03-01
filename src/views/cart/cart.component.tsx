@@ -19,7 +19,7 @@ interface CartProps {
 	toggleCart: () => void;
 	cartTotalAmount: number;
 	cart: ProductModel[] | [];
-	sendWebAppDeepLink: (id: string, domain: string, param: { products: any[] }) => void;
+	sendWebAppDeepLink: (id: string, domain: string, param: { itemeName: string; itemePrice: string }) => void;
 	removeFromCart: (product: ProductModel) => void;
 	addToCart: (product: ProductModel) => void;
 }
@@ -113,7 +113,12 @@ export const Cart: FC<CartProps> = ({
 						<Button
 							variant={'contained'}
 							fullWidth
-							onClick={() => sendWebAppDeepLink('ZGw6MTM2Nzcz', 'lhelper', requestBody)}>
+							onClick={() =>
+								sendWebAppDeepLink('ZGw6MTI0OTQ3', 'lhelper', {
+									itemeName: 'Syrniki',
+									itemePrice: '2200',
+								})
+							}>
 							Buy
 						</Button>
 					</DialogActions>

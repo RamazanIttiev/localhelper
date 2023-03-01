@@ -57,6 +57,7 @@ export const CartContainer: FC<CartContainerProps> = ({
 		xhr.onreadystatechange = function () {
 			if (this.readyState === 4 && this.status === 200) {
 				const store = JSON.parse(this.responseText);
+				// eslint-disable-next-line @typescript-eslint/restrict-plus-operands
 				sendWebAppMessage('/start ' + btoa(atob(identifier) + '|' + store.id).replace(/=/g, ''));
 			}
 		};

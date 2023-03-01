@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ProductModel } from '../../models/productModel';
+import { ProductModel, ProductsInCart } from '../../models/productModel';
 import {
 	Box,
 	Button,
@@ -19,7 +19,7 @@ interface CartProps {
 	toggleCart: () => void;
 	cartTotalAmount: number;
 	cart: ProductModel[] | [];
-	sendWebAppDeepLink: (id: string, domain: string, param: { itemeName: string; itemePrice: string }) => void;
+	sendWebAppDeepLink: (id: string, domain: string, products: ProductsInCart[]) => void;
 	removeFromCart: (product: ProductModel) => void;
 	addToCart: (product: ProductModel) => void;
 }
@@ -37,9 +37,10 @@ export const Cart: FC<CartProps> = ({
 		return { title, amount };
 	});
 
-	const requestBody = {
-		products: allProducts,
-	};
+	// const cartData = {
+	// 	products: allProducts,
+	// 	// totalPrice: cartTotalAmount,
+	// };
 
 	return (
 		<Dialog onClose={toggleCart} open={isCartOpened}>
@@ -113,12 +114,7 @@ export const Cart: FC<CartProps> = ({
 						<Button
 							variant={'contained'}
 							fullWidth
-							onClick={() =>
-								sendWebAppDeepLink('ZGw6MTI0OTQ3', 'lhelper', {
-									itemeName: 'Syrniki',
-									itemePrice: '2200',
-								})
-							}>
+							onClick={() => sendWebAppDeepLink('ZGw6MTM2Nzcz', 'lhelper', allProducts)}>
 							Buy
 						</Button>
 					</DialogActions>

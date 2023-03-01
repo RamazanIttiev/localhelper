@@ -7,3 +7,8 @@ export interface ProductModel {
 	description: string;
 	amount: number;
 }
+
+export interface ProductsInCart {
+	title: string;
+	amount: number;
+}

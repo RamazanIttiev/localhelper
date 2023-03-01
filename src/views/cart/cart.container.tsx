@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Cart } from './cart.component';
-import { ProductModel } from '../../models/productModel';
+import { ProductModel, ProductsInCart } from '../../models/productModel';
 
 interface CartContainerProps {
 	isCartOpened: boolean;
@@ -44,11 +44,11 @@ export const CartContainer: FC<CartContainerProps> = ({
 		xhr.send(JSON.stringify(send));
 	};
 
-	const sendWebAppDeepLink = (identifier: string, domain: string, param = {}) => {
+	const sendWebAppDeepLink = (identifier: string, domain: string, products: ProductsInCart[]) => {
 		const sendData = {
 			range: [],
 			scope: {},
-			variables: param,
+			variables: products,
 		};
 		const xhr = new XMLHttpRequest();
 		xhr.open('POST', 'https://' + domain + '.customer.smartsender.eu/api/i/store');

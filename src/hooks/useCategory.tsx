@@ -15,3 +15,14 @@ export const useCategory = () => {
 		}
 	}
 };
+
+export const useAirtableView = (tableTitle: string) => {
+	switch (tableTitle) {
+		case 'Food': {
+			return 'ZGw6MTI0OTQ3';
+		}
+		default: {
+			return 'ZGw6MTI0OTQ3';
+		}
+	}
+};

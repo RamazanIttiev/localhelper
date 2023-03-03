@@ -4,7 +4,7 @@ import { Layout } from '../views/layout';
 import { Header } from '../views/header';
 import { ProductModel } from '../models/productModel';
 import { mapFoodData } from '../services/mappers';
-import { useCategory } from '../hooks/useCategory';
+import { useAirtableView, useCategory } from '../hooks/useCategory';
 import { CartContainer } from '../views/cart/cart.container';
 
 import {
@@ -21,6 +21,7 @@ export const airtableBase = new Airtable({
 
 export const App = () => {
 	const currentCategory = useCategory();
+	const airtableView = useAirtableView(currentCategory);
 	const [isCartOpened, setOpenCart] = useState(false);
 	const [products, setProducts] = useState<ProductModel[]>([]);
 	const [cart, setCart] = useState<ProductModel[] | []>(JSON.parse(localStorage.getItem('products') || '[]'));
@@ -28,14 +29,14 @@ export const App = () => {
 	useEffect(() => {
 		airtableBase(currentCategory)
 			.select({
-				view: currentCategory,
+				view: airtableView,
 			})
 			.eachPage(records => {
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				// @ts-ignore
 				return setProducts(mapFoodData(records));
 			});
-	}, [currentCategory]);
+	}, [airtableView, currentCategory]);
 
 	const toggleCart = () => {
 		setOpenCart(!isCartOpened);

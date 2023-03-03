@@ -7,8 +7,14 @@ export const useCategory = () => {
 		case '/categories/food': {
 			return 'Food';
 		}
-		case '/categories/weed': {
-			return 'Weed';
+		case '/categories/flowers': {
+			return 'Flowers';
+		}
+		case '/categories/rent': {
+			return 'Rent';
+		}
+		case '/categories/tours': {
+			return 'Tours';
 		}
 		default: {
 			return 'Food';
@@ -20,6 +26,15 @@ export const useAirtableView = (tableTitle: string) => {
 	switch (tableTitle) {
 		case 'Food': {
 			return 'ZGw6MTI0OTQ3';
+		}
+		case 'Flowers': {
+			return 'ZGw6MTI3MjY5';
+		}
+		case 'Rent': {
+			return 'ZGw6MTI1Mjg2';
+		}
+		case 'Tours': {
+			return 'ZGw6MTI5Mzc1';
 		}
 		default: {
 			return 'ZGw6MTI0OTQ3';

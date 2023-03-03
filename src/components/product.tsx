@@ -1,21 +1,19 @@
 import React, { FC } from 'react';
 import { ProductModel } from '../models/productModel';
-import { AmountButtons } from './amountButtons';
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
-import { isProductInCart } from '../utils/cart';
 
 interface ProductProps {
 	product: ProductModel;
-	cart: ProductModel[];
-	removeFromCart: (product: ProductModel) => void;
-	addToCart: (selectedProduct: ProductModel) => void;
+	// cart: ProductModel[];
+	// removeFromCart: (product: ProductModel) => void;
+	// addToCart: (selectedProduct: ProductModel) => void;
 	handleOpenModal: (currentProduct: ProductModel | null) => void;
 }
 
-export const Product: FC<ProductProps> = ({ product, cart, addToCart, removeFromCart, handleOpenModal }) => {
+export const Product: FC<ProductProps> = ({ product, handleOpenModal }) => {
 	const { title, place, price, image } = product;
 
-	const productInCart = isProductInCart(cart, product);
+	// const productInCart = isProductInCart(cart, product);
 
 	return (
 		<Card
@@ -37,27 +35,31 @@ export const Product: FC<ProductProps> = ({ product, cart, addToCart, removeFrom
 					<Typography sx={{ mb: 2, textAlign: 'center' }} variant="h5">
 						{title}
 					</Typography>
-					<Typography gutterBottom variant="body2">
-						<strong>Price:</strong> {price}
-					</Typography>
-					<Typography gutterBottom variant="body2">
-						<strong>Place:</strong> {place}
-					</Typography>
+					{price && (
+						<Typography gutterBottom variant="body2">
+							<strong>Price:</strong> Rs {price}
+						</Typography>
+					)}
+					{place && (
+						<Typography gutterBottom variant="body2">
+							<strong>Place:</strong> {place}
+						</Typography>
+					)}
 				</CardContent>
 			</Box>
 			<CardActions sx={{ flexDirection: 'column', pb: 0 }}>
-				{productInCart ? (
-					<AmountButtons
-						product={product}
-						amount={productInCart.amount}
-						addToCart={addToCart}
-						removeFromCart={removeFromCart}
-					/>
-				) : (
-					<Button sx={{ height: '32px' }} variant={'contained'} fullWidth onClick={() => addToCart(product)}>
-						Buy
-					</Button>
-				)}
+				{/*{productInCart ? (*/}
+				{/*	<AmountButtons*/}
+				{/*		product={product}*/}
+				{/*		amount={productInCart.amount}*/}
+				{/*		addToCart={addToCart}*/}
+				{/*		removeFromCart={removeFromCart}*/}
+				{/*	/>*/}
+				{/*) : (*/}
+				<Button sx={{ height: '32px' }} variant={'contained'} fullWidth>
+					Buy
+				</Button>
+				{/*)}*/}
 			</CardActions>
 		</Card>
 	);

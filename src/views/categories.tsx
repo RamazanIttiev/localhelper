@@ -1,18 +1,22 @@
 import React, { FC, useState } from 'react';
-import { Container, Grid, Pagination, Typography, Divider } from '@mui/material';
+import { Grid, Pagination, Typography, Divider } from '@mui/material';
 import { usePagination } from '../utils/pagination';
 import { Product } from '../components/product';
 import { ProductModal } from '../components/modal';
 import { ProductModel } from '../models/productModel';
+import { useLocation } from 'react-router-dom';
+import { useCategory } from '../hooks/useCategory';
 
-interface LayoutProps {
-	cart: ProductModel[];
+interface CategoriesProps {
+	// cart: ProductModel[];
 	products: ProductModel[];
-	removeFromCart: (product: ProductModel) => void;
-	addToCart: (selectedProduct: ProductModel) => void;
+	// removeFromCart: (product: ProductModel) => void;
+	// addToCart: (selectedProduct: ProductModel) => void;
 }
 
-export const Layout: FC<LayoutProps> = ({ cart, products, addToCart, removeFromCart }) => {
+export const Categories: FC<CategoriesProps> = ({ products }) => {
+	const { pathname } = useLocation();
+	const categoryTitle = useCategory();
 	const [page, setPage] = useState(1);
 	const [isModalOpened, setOpenModal] = React.useState(false);
 	const [selectedProduct, setSelectedProduct] = useState<ProductModel | null>(null);
@@ -34,9 +38,12 @@ export const Layout: FC<LayoutProps> = ({ cart, products, addToCart, removeFromC
 	const handleCloseModal = () => setOpenModal(false);
 
 	return (
-		<Container sx={{ pt: 9, pb: 9 }}>
+		<>
 			<Typography variant={'h5'} textAlign={'left'}>
 				{/*{currentCategory}*/}
+			</Typography>
+			<Typography textAlign={'center'} variant={'h5'}>
+				{pathname !== '/' && categoryTitle}
 			</Typography>
 			<Divider />
 			<Grid container spacing={2} sx={{ pt: 3 }}>
@@ -45,9 +52,9 @@ export const Layout: FC<LayoutProps> = ({ cart, products, addToCart, removeFromC
 						<Grid item xs={6} key={product.id}>
 							<Product
 								product={product}
-								cart={cart}
-								addToCart={addToCart}
-								removeFromCart={removeFromCart}
+								// cart={cart}
+								// addToCart={addToCart}
+								// removeFromCart={removeFromCart}
 								handleOpenModal={handleOpenModal}
 							/>
 						</Grid>
@@ -55,10 +62,10 @@ export const Layout: FC<LayoutProps> = ({ cart, products, addToCart, removeFromC
 				})}
 			</Grid>
 			<ProductModal
-				cart={cart}
-				addToCart={addToCart}
+				// cart={cart}
+				// addToCart={addToCart}
 				isModalOpened={isModalOpened}
-				removeFromCart={removeFromCart}
+				// removeFromCart={removeFromCart}
 				selectedProduct={selectedProduct}
 				handleCloseModal={handleCloseModal}
 			/>
@@ -82,6 +89,6 @@ export const Layout: FC<LayoutProps> = ({ cart, products, addToCart, removeFromC
 					onChange={handlePageChange}
 				/>
 			)}
-		</Container>
+		</>
 	);
 };

@@ -1,14 +1,14 @@
 import React, { FC, useCallback, useState } from 'react';
-import { AppBar, Box, Toolbar, IconButton, Icon, Drawer, Badge, Typography } from '@mui/material';
+import { AppBar, Box, Toolbar, IconButton, Icon, Drawer } from '@mui/material';
 import { Menu } from '../components/menu';
-import { ProductModel } from '../models/productModel';
-import { useCategory } from '../hooks/useCategory';
+// import { ProductModel } from '../models/productModel';
+import { Link } from 'react-router-dom';
 
 interface HeaderProps {
-	cart: ProductModel[];
-	toggleCart: () => void;
+	// cart: ProductModel[];
+	// toggleCart: () => void;
 }
-export const Header: FC<HeaderProps> = ({ toggleCart, cart }) => {
+export const Header: FC<HeaderProps> = () => {
 	const [open, setOpen] = useState(false);
 
 	const toggleMenu = useCallback(
@@ -19,23 +19,25 @@ export const Header: FC<HeaderProps> = ({ toggleCart, cart }) => {
 		[],
 	);
 
-	const cartTotalAmount = cart.reduce((previous, current): number => {
-		return previous + current.amount;
-	}, 0);
+	// const cartTotalAmount = cart.reduce((previous, current): number => {
+	// 	return previous + current.amount;
+	// }, 0);
 
 	return (
 		<Box>
 			<AppBar position="fixed">
 				<Toolbar sx={{ justifyContent: 'space-between' }}>
+					<IconButton size="large" color="inherit" component={Link} to={'/'}>
+						<Icon>home</Icon>
+					</IconButton>
 					<IconButton size="large" color="inherit" aria-label="open drawer" onClick={toggleMenu(true)}>
 						<Icon>menu</Icon>
 					</IconButton>
-					<Typography variant={'h5'}>{useCategory()}</Typography>
-					<IconButton color="inherit" onClick={toggleCart}>
-						<Badge badgeContent={cartTotalAmount} color={'primary'}>
-							<Icon>shopping_cart</Icon>
-						</Badge>
-					</IconButton>
+					{/*<IconButton color="inherit" onClick={toggleCart}>*/}
+					{/*	<Badge badgeContent={cartTotalAmount} color={'primary'}>*/}
+					{/*		<Icon>shopping_cart</Icon>*/}
+					{/*	</Badge>*/}
+					{/*</IconButton>*/}
 					<Drawer
 						sx={{
 							'& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%' },

@@ -5,27 +5,20 @@ import { ProductModel } from '../models/productModel';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import CloseIcon from '@mui/icons-material/Close';
-import { AmountButtons } from './amountButtons';
-import { isProductInCart } from '../utils/cart';
+// import { AmountButtons } from './amountButtons';
+// import { isProductInCart } from '../utils/cart';
 
 interface ProductModalProps {
-	cart: ProductModel[];
+	// cart: ProductModel[];
 	selectedProduct: ProductModel | null;
 	isModalOpened: boolean;
 	handleCloseModal: () => void;
-	removeFromCart: (product: ProductModel) => void;
-	addToCart: (selectedProduct: ProductModel) => void;
+	// removeFromCart: (product: ProductModel) => void;
+	// addToCart: (selectedProduct: ProductModel) => void;
 }
 
-export const ProductModal: FC<ProductModalProps> = ({
-	cart,
-	addToCart,
-	isModalOpened,
-	removeFromCart,
-	selectedProduct,
-	handleCloseModal,
-}) => {
-	const productInCart = isProductInCart(cart, selectedProduct);
+export const ProductModal: FC<ProductModalProps> = ({ isModalOpened, selectedProduct, handleCloseModal }) => {
+	// const productInCart = isProductInCart(cart, selectedProduct);
 
 	return (
 		selectedProduct && (
@@ -65,28 +58,26 @@ export const ProductModal: FC<ProductModalProps> = ({
 							<Typography sx={{ mt: 2 }}>
 								<strong>Price:</strong> {selectedProduct.price}
 							</Typography>
-							<Typography sx={{ mt: 2, mb: 3 }}>
-								<strong>Description:</strong> {selectedProduct.description}
-							</Typography>
+							{selectedProduct.description && (
+								<Typography sx={{ mt: 2, mb: 3 }}>
+									<strong>Description:</strong> {selectedProduct.description}
+								</Typography>
+							)}
 						</Box>
 					</DialogContent>
 					<DialogActions>
-						{productInCart ? (
-							<AmountButtons
-								product={selectedProduct}
-								amount={productInCart.amount}
-								addToCart={addToCart}
-								removeFromCart={removeFromCart}
-							/>
-						) : (
-							<Button
-								sx={{ height: '32px' }}
-								variant={'contained'}
-								fullWidth
-								onClick={() => addToCart(selectedProduct)}>
-								Buy
-							</Button>
-						)}
+						{/*{productInCart ? (*/}
+						{/*	<AmountButtons*/}
+						{/*		product={selectedProduct}*/}
+						{/*		amount={productInCart.amount}*/}
+						{/*		addToCart={addToCart}*/}
+						{/*		removeFromCart={removeFromCart}*/}
+						{/*	/>*/}
+						{/*) : (*/}
+						<Button sx={{ height: '32px' }} variant={'contained'} fullWidth>
+							Buy
+						</Button>
+						{/*)}*/}
 					</DialogActions>
 				</Dialog>
 			</div>

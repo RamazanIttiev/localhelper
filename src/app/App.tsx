@@ -31,16 +31,21 @@ export const App = () => {
 	// const [cart, setCart] = useState<ProductModel[] | []>(JSON.parse(localStorage.getItem('products') || '[]'));
 
 	useEffect(() => {
-		airtableBase(currentCategory)
-			.select({
-				view: airtableView,
-			})
-			.eachPage(records => {
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-ignore
-				return setProducts(mapFoodData(records));
-			});
-	}, [airtableView, currentCategory]);
+		pathname !== '/' &&
+			airtableBase(currentCategory)
+				.select({
+					view: airtableView,
+				})
+				.eachPage(records => {
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-ignore
+					return setProducts(mapFoodData(records));
+				});
+
+		return () => {
+			setProducts([]);
+		};
+	}, [pathname, airtableView, currentCategory]);
 
 	// const toggleCart = () => {
 	// 	setOpenCart(!isCartOpened);

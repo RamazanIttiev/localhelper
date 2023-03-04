@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { ProductModel } from '../models/productModel';
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { useAirtableView, useCategory } from '../hooks/useCategory';
 
 interface ProductProps {
 	product: ProductModel;
@@ -10,10 +11,58 @@ interface ProductProps {
 	handleOpenModal: (currentProduct: ProductModel | null) => void;
 }
 
+declare global {
+	interface Window {
+		Telegram: any;
+	}
+}
+
+const Telegram = window.Telegram;
+
 export const Product: FC<ProductProps> = ({ product, handleOpenModal }) => {
 	const { title, place, price, image } = product;
-
+	const idForBot = useAirtableView(useCategory());
 	// const productInCart = isProductInCart(cart, product);
+
+	const sendWebAppMessage = (text: string) => {
+		const send = {
+			message: text,
+			queryId: Telegram.WebApp.initDataUnsafe.query_id,
+		};
+		const xhr = new XMLHttpRequest();
+		xhr.addEventListener('readystatechange', function () {
+			if (this.readyState === 4) {
+				console.log(this.responseText);
+			}
+		});
+		xhr.open('POST', '/sendMessage.php');
+		xhr.send(JSON.stringify(send));
+	};
+
+	const sendWebAppDeepLink = (
+		identifier: string,
+		domain: string,
+		products: { itemName: string; itemPrice: number },
+	) => {
+		console.log(products);
+		const sendData = {
+			range: [],
+			scope: {},
+			variables: products,
+		};
+		const xhr = new XMLHttpRequest();
+		xhr.open('POST', 'https://' + domain + '.customer.smartsender.eu/api/i/store');
+		xhr.setRequestHeader('Content-type', 'application/json');
+		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		xhr.onreadystatechange = function () {
+			if (this.readyState === 4 && this.status === 200) {
+				const store = JSON.parse(this.responseText);
+				// eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+				sendWebAppMessage('/start ' + btoa(atob(identifier) + '|' + store.id).replace(/=/g, ''));
+			}
+		};
+		xhr.send(JSON.stringify(sendData));
+	};
 
 	return (
 		<Card
@@ -56,7 +105,11 @@ export const Product: FC<ProductProps> = ({ product, handleOpenModal }) => {
 				{/*		removeFromCart={removeFromCart}*/}
 				{/*	/>*/}
 				{/*) : (*/}
-				<Button sx={{ height: '32px' }} variant={'contained'} fullWidth>
+				<Button
+					sx={{ height: '32px' }}
+					variant={'contained'}
+					fullWidth
+					onClick={() => sendWebAppDeepLink(idForBot, 'lhelper', { itemName: title, itemPrice: price })}>
 					Buy
 				</Button>
 				{/*)}*/}

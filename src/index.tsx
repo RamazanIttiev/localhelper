@@ -3,31 +3,17 @@ import { App } from './app/App';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import './index.css';
 import { theme } from './theme';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-const router = createBrowserRouter([
-	{
-		path: '/',
-		element: <App />,
-		children: [
-			{
-				path: 'categories/:categoryId',
-				element: <App />,
-			},
-		],
-	},
-]);
-
 root.render(
 	<React.StrictMode>
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
-			<RouterProvider router={router} />
+			<App />
 		</ThemeProvider>
 	</React.StrictMode>,
 );

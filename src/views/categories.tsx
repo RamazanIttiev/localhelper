@@ -2,24 +2,22 @@ import React, { FC, useState } from 'react';
 import { Grid, Pagination, Typography, Divider } from '@mui/material';
 import { usePagination } from '../utils/pagination';
 import { Product } from '../components/product';
-import { ProductModal } from '../components/modal';
 import { ProductModel } from '../models/productModel';
-import { useLocation } from 'react-router-dom';
-import { useCategory } from '../hooks/useCategory';
+import { useLocation, useParams } from 'react-router-dom';
 
 interface CategoriesProps {
 	// cart: ProductModel[];
 	products: ProductModel[];
+	handleSelectedProduct: (currentProduct: ProductModel) => void;
 	// removeFromCart: (product: ProductModel) => void;
 	// addToCart: (selectedProduct: ProductModel) => void;
 }
 
-export const Categories: FC<CategoriesProps> = ({ products }) => {
+export const Categories: FC<CategoriesProps> = ({ products, handleSelectedProduct }) => {
 	const { pathname } = useLocation();
-	const categoryTitle = useCategory();
+	const { category } = useParams();
 	const [page, setPage] = useState(1);
-	const [isModalOpened, setOpenModal] = React.useState(false);
-	const [selectedProduct, setSelectedProduct] = useState<ProductModel | null>(null);
+	// const [isModalOpened, setOpenModal] = React.useState(false);
 
 	const productsPerPage = 10;
 
@@ -31,20 +29,19 @@ export const Categories: FC<CategoriesProps> = ({ products }) => {
 		productsSliced.jump(page);
 	};
 
-	const handleOpenModal = (currentProduct: ProductModel | null) => {
-		setSelectedProduct(currentProduct);
-		setOpenModal(true);
-	};
-	const handleCloseModal = () => setOpenModal(false);
+	// const handleOpenModal = (currentProduct: ProductModel | null) => {
+	// 	setSelectedProduct(currentProduct);
+	// 	setOpenModal(true);
+	// };
+	// const handleCloseModal = () => setOpenModal(false);
 
 	return (
 		<>
-			<Typography variant={'h5'} textAlign={'left'}>
-				{/*{currentCategory}*/}
-			</Typography>
-			<Typography textAlign={'center'} variant={'h5'}>
-				{pathname !== '/' && categoryTitle}
-			</Typography>
+			{pathname !== '/' && (
+				<Typography textAlign={'center'} variant={'h5'} textTransform={'capitalize'}>
+					{category}
+				</Typography>
+			)}
 			<Divider />
 			<Grid container spacing={2} sx={{ pt: 3 }}>
 				{productsSliced.currentProducts().map((product: ProductModel) => {
@@ -55,20 +52,21 @@ export const Categories: FC<CategoriesProps> = ({ products }) => {
 								// cart={cart}
 								// addToCart={addToCart}
 								// removeFromCart={removeFromCart}
-								handleOpenModal={handleOpenModal}
+								handleSelectedProduct={handleSelectedProduct}
+								// handleOpenModal={handleOpenModal}
 							/>
 						</Grid>
 					);
 				})}
 			</Grid>
-			<ProductModal
-				// cart={cart}
-				// addToCart={addToCart}
-				isModalOpened={isModalOpened}
-				// removeFromCart={removeFromCart}
-				selectedProduct={selectedProduct}
-				handleCloseModal={handleCloseModal}
-			/>
+			{/*<ProductModal*/}
+			{/*	// cart={cart}*/}
+			{/*	// addToCart={addToCart}*/}
+			{/*	isModalOpened={isModalOpened}*/}
+			{/*	// removeFromCart={removeFromCart}*/}
+			{/*	selectedProduct={selectedProduct}*/}
+			{/*	handleCloseModal={handleCloseModal}*/}
+			{/*/>*/}
 			{products.length >= productsPerPage && (
 				<Pagination
 					sx={{

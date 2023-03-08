@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Card, CardContent, CardMedia, Grid, Icon, Typography } from '@mui/material';
-import { categories } from '../utils/categories';
+import { categories } from '../mock/categories';
 import { Category } from '../models/categories';
 import { Link } from 'react-router-dom';
 

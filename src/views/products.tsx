@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
-import { Grid, Pagination, Typography, Divider } from '@mui/material';
+import { Grid, Pagination, Typography, Divider, IconButton, Icon, Box } from '@mui/material';
 import { usePagination } from '../utils/pagination';
 import { Product } from '../components/product';
 import { ProductModel } from '../models/productModel';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 interface ProductsProps {
 	// cart: ProductModel[];
@@ -14,8 +14,9 @@ interface ProductsProps {
 }
 
 export const Products: FC<ProductsProps> = ({ products, handleSelectedProduct }) => {
-	const { pathname } = useLocation();
+	const navigate = useNavigate();
 	const { category } = useParams();
+	const { pathname } = useLocation();
 	const [page, setPage] = useState(1);
 	// const [isModalOpened, setOpenModal] = React.useState(false);
 
@@ -37,11 +38,16 @@ export const Products: FC<ProductsProps> = ({ products, handleSelectedProduct })
 
 	return (
 		<>
-			{pathname !== '/' && (
-				<Typography textAlign={'center'} variant={'h5'} textTransform={'capitalize'}>
-					{category}
-				</Typography>
-			)}
+			<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+				<IconButton sx={{ position: 'absolute', left: 8 }} onClick={() => navigate(-1)}>
+					<Icon>arrow_circle_left</Icon>
+				</IconButton>
+				{pathname !== '/' && (
+					<Typography textAlign={'center'} variant={'h5'} textTransform={'capitalize'}>
+						{category}
+					</Typography>
+				)}
+			</Box>
 			<Divider />
 			<Grid container spacing={2} sx={{ pt: 3 }}>
 				{productsSliced.currentProducts().map((product: ProductModel) => {

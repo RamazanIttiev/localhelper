@@ -5,7 +5,7 @@ import { Product } from '../components/product';
 import { ProductModel } from '../models/productModel';
 import { useLocation, useParams } from 'react-router-dom';
 
-interface CategoriesProps {
+interface ProductsProps {
 	// cart: ProductModel[];
 	products: ProductModel[];
 	handleSelectedProduct: (currentProduct: ProductModel) => void;
@@ -13,7 +13,7 @@ interface CategoriesProps {
 	// addToCart: (selectedProduct: ProductModel) => void;
 }
 
-export const Categories: FC<CategoriesProps> = ({ products, handleSelectedProduct }) => {
+export const Products: FC<ProductsProps> = ({ products, handleSelectedProduct }) => {
 	const { pathname } = useLocation();
 	const { category } = useParams();
 	const [page, setPage] = useState(1);

@@ -1,13 +1,18 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
-import { useAirtableView } from '../hooks';
-import { ProductModel } from '../models/productModel';
-import { mapFoodData } from '../services/mappers';
-import { Header } from './header';
-import { BottomNavigation, BottomNavigationAction, Container, Icon } from '@mui/material';
-import { Home } from './home';
-import { Categories } from './categories';
+
 import Airtable from 'airtable';
+
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { BottomNavigation, BottomNavigationAction, Container, Icon } from '@mui/material';
+
+import { useAirtableView } from '../hooks';
+import { mapFoodData } from '../services/mappers';
+
+import { ProductModel } from '../models/productModel';
+
+import { Home } from './home';
+import { Header } from './header';
+import { Products } from './products';
 // import { CartContainer } from '../views/cart/cart.container';
 
 // import {
@@ -90,7 +95,7 @@ export const Layout: FC<LayoutProps> = ({ handleSelectedProduct }) => {
 				{pathname === '/' ? (
 					<Home />
 				) : (
-					<Categories products={products} handleSelectedProduct={handleSelectedProduct} />
+					<Products products={products} handleSelectedProduct={handleSelectedProduct} />
 				)}
 			</Container>
 			<BottomNavigation

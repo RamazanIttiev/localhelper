@@ -49,7 +49,7 @@ export const Products: FC<ProductsProps> = ({ products, handleSelectedProduct })
 				)}
 			</Box>
 			<Divider />
-			<Grid container spacing={2} sx={{ pt: 3 }}>
+			<Grid container spacing={2} sx={products.length === 1 ? { justifyContent: 'center', pt: 3 } : { pt: 3 }}>
 				{productsSliced.currentProducts().map((product: ProductModel) => {
 					return (
 						<Grid item xs={6} key={product.id}>

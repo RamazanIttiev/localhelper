@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { AppBar, Toolbar, IconButton, Icon } from '@mui/material';
 // import { ProductModel } from '../models/productModel';
-import { sendWebAppDeepLink } from '../utils/phpRequest';
+import { sendWebAppDeepLink } from '../utils/requests';
 
 interface HeaderProps {
 	// cart: ProductModel[];

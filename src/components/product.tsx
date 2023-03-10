@@ -3,7 +3,7 @@ import { ProductModel } from '../models/productModel';
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import { useAirtableView } from '../hooks';
 import { useParams } from 'react-router-dom';
-import { sendWebAppDeepLink } from '../utils/phpRequest';
+import { sendWebAppDeepLink } from '../utils/requests';
 
 interface ProductProps {
 	product: ProductModel;
@@ -18,7 +18,7 @@ export const Product: FC<ProductProps> = ({ product }) => {
 	const { category } = useParams();
 
 	const { title, place, price, image } = product;
-	const idForBot = useAirtableView(category?.toUpperCase());
+	const idForBot = useAirtableView(category);
 	// const productInCart = isProductInCart(cart, product)
 	return (
 		<>
@@ -34,7 +34,9 @@ export const Product: FC<ProductProps> = ({ product }) => {
 				// to={`categories/${category}/${product.title.toLowerCase()}`}
 				// onClick={() => handleSelectedProduct(product)}
 				>
-					<CardMedia component="img" image={image[0].url} alt={image[0].alt} sx={{ height: '10rem' }} />
+					{image && (
+						<CardMedia component="img" image={image[0].url} alt={image[0].alt} sx={{ height: '10rem' }} />
+					)}
 					<CardContent sx={{ '&:last-child': { pb: 0, pt: 0.5 } }}>
 						<Typography
 							sx={{
@@ -74,7 +76,13 @@ export const Product: FC<ProductProps> = ({ product }) => {
 						sx={{ height: '32px' }}
 						variant={'outlined'}
 						fullWidth
-						onClick={() => sendWebAppDeepLink(idForBot, 'lhelper', { itemName: title, itemPrice: price })}>
+						onClick={() =>
+							sendWebAppDeepLink(
+								idForBot,
+								'lhelper',
+								title !== ('Bonus' || 'Exchange') ? { itemName: title, itemPrice: price } : {},
+							)
+						}>
 						Buy
 					</Button>
 					{/*)}*/}

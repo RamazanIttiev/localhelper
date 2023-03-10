@@ -2,17 +2,17 @@ import React, { FC, useEffect, useState } from 'react';
 
 import Airtable from 'airtable';
 
-import { Link, useLocation, useParams } from 'react-router-dom';
-import { BottomNavigation, BottomNavigationAction, Container, Icon } from '@mui/material';
+import { useLocation, useParams } from 'react-router-dom';
+import { Container } from '@mui/material';
 
 import { useAirtableView } from '../hooks';
-import { mapFoodData } from '../services/mappers';
+import { mapData } from '../utils/mappers';
 
 import { ProductModel } from '../models/productModel';
 
 import { Home } from './home';
-import { Header } from './header';
 import { Products } from './products';
+import { Footer } from '../components/footer';
 // import { CartContainer } from '../views/cart/cart.container';
 
 // import {
@@ -34,7 +34,6 @@ interface LayoutProps {
 export const Layout: FC<LayoutProps> = ({ handleSelectedProduct }) => {
 	const { category } = useParams();
 	const { pathname } = useLocation();
-	const [activeButton, setActiveButton] = React.useState(0);
 	const airtableView = useAirtableView(category);
 	// const [isCartOpened, setOpenCart] = useState(false);
 	const [products, setProducts] = useState<ProductModel[]>([]);
@@ -50,7 +49,7 @@ export const Layout: FC<LayoutProps> = ({ handleSelectedProduct }) => {
 				.eachPage(records => {
 					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 					// @ts-ignore
-					return setProducts(mapFoodData(records));
+					return setProducts(mapData(records));
 				});
 
 		return () => {
@@ -90,7 +89,7 @@ export const Layout: FC<LayoutProps> = ({ handleSelectedProduct }) => {
 
 	return (
 		<div className="App">
-			<Header />
+			{/*<Header />*/}
 			<Container sx={{ pt: 2, pb: 9 }}>
 				{pathname === '/' ? (
 					<Home />
@@ -98,24 +97,7 @@ export const Layout: FC<LayoutProps> = ({ handleSelectedProduct }) => {
 					<Products products={products} handleSelectedProduct={handleSelectedProduct} />
 				)}
 			</Container>
-			<BottomNavigation
-				sx={{ background: '#ff335f', position: 'fixed', width: '100%', bottom: 0, height: '42px' }}
-				showLabels
-				value={activeButton}
-				onChange={(event, newValue) => {
-					setActiveButton(newValue);
-				}}>
-				<BottomNavigationAction
-					label="Categories"
-					icon={
-						<Icon sx={{ color: '#fff' }} fontSize={'small'}>
-							category
-						</Icon>
-					}
-					component={Link}
-					to={'/'}
-				/>
-			</BottomNavigation>
+			<Footer />
 			{/*<Routes>*/}
 			{/*	<Route path="/categories/:category/:product">*/}
 			{/*		<ProductDetails products={products} />*/}

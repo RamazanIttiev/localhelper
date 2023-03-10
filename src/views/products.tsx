@@ -38,8 +38,8 @@ export const Products: FC<ProductsProps> = ({ products, handleSelectedProduct })
 
 	return (
 		<>
-			<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-				<IconButton sx={{ position: 'absolute', left: 8 }} onClick={() => navigate(-1)}>
+			<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+				<IconButton sx={{ position: 'absolute', left: 0 }} onClick={() => navigate(-1)}>
 					<Icon>arrow_circle_left</Icon>
 				</IconButton>
 				{pathname !== '/' && (
@@ -49,22 +49,25 @@ export const Products: FC<ProductsProps> = ({ products, handleSelectedProduct })
 				)}
 			</Box>
 			<Divider />
-			<Grid container spacing={2} sx={products.length === 1 ? { justifyContent: 'center', pt: 3 } : { pt: 3 }}>
-				{productsSliced.currentProducts().map((product: ProductModel) => {
-					return (
-						<Grid item xs={6} key={product.id}>
-							<Product
-								product={product}
-								// cart={cart}
-								// addToCart={addToCart}
-								// removeFromCart={removeFromCart}
-								handleSelectedProduct={handleSelectedProduct}
-								// handleOpenModal={handleOpenModal}
-							/>
-						</Grid>
-					);
-				})}
-			</Grid>
+			<Box sx={{ display: 'flex', justifyContent: 'center' }}>
+				<Grid container spacing={2} md={9} sx={{ pt: 3, justifyContent: 'center' }}>
+					{productsSliced.currentProducts().map((product: ProductModel) => {
+						return (
+							<Grid item xs={6} md={5} key={product.id}>
+								<Product
+									product={product}
+									// cart={cart}
+									// addToCart={addToCart}
+									// removeFromCart={removeFromCart}
+									handleSelectedProduct={handleSelectedProduct}
+									// handleOpenModal={handleOpenModal}
+								/>
+							</Grid>
+						);
+					})}
+				</Grid>
+			</Box>
+
 			{/*<ProductModal*/}
 			{/*	// cart={cart}*/}
 			{/*	// addToCart={addToCart}*/}

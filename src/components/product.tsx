@@ -100,13 +100,7 @@ export const Product: FC<ProductProps> = ({ product }) => {
 						sx={{ height: '32px' }}
 						variant={'outlined'}
 						fullWidth
-						onClick={() =>
-							sendWebAppDeepLink(
-								idForBot,
-								'lhelper',
-								title !== ('Bonus' || 'Exchange') ? { itemName: title, itemPrice: price } : {},
-							)
-						}>
+						onClick={() => sendWebAppDeepLink(idForBot, 'lhelper', { itemName: title, itemPrice: price })}>
 						Buy
 					</Button>
 					{/*)}*/}

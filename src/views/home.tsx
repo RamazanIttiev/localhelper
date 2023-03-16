@@ -15,8 +15,8 @@ export const Home: FC<HomeProps> = () => {
 			{categories.map(({ title, image }: CategoryModel) => {
 				return <Category key={title} isLink title={title} image={image} />;
 			})}
-			<Category title={'Bonus'} image={bonus} />
-			<Category title={'Exchange'} image={exchange} />
+			<Category title={'Bonus'} image={bonus} idForBot={'ZGw6MTI3Mjc4'} />
+			<Category title={'Exchange'} image={exchange} idForBot={'ZGw6MTI3Mjgx'} />
 		</Grid>
 	);
 };

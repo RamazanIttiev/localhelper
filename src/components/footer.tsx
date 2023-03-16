@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BottomNavigation, BottomNavigationAction, IconButton } from '@mui/material';
+import { BottomNavigation, BottomNavigationAction, Icon, IconButton } from '@mui/material';
 
 interface FooterProps {}
 
@@ -24,10 +24,9 @@ export const Footer: FC<FooterProps> = () => {
 							height: '48px',
 							color: '#fff',
 						}}>
-						home
-						{/*<Icon sx={{ color: '#fff' }} fontSize={'small'}>*/}
-						{/*	house*/}
-						{/*</Icon>*/}
+						<Icon sx={{ color: '#fff' }} fontSize={'medium'}>
+							house
+						</Icon>
 					</IconButton>
 				}
 				component={Link}

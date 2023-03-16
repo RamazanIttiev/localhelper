@@ -11,7 +11,7 @@ interface CategoryProps {
 	idForBot?: string;
 }
 
-export const Category: FC<CategoryProps> = ({ title, image, isLink, idForBot = '' }) => {
+export const Category: FC<CategoryProps> = ({ title, image, isLink = false, idForBot = '' }) => {
 	return (
 		<Grid item xs={5} md={4} key={title}>
 			<Card

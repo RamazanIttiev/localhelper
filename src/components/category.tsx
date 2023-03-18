@@ -32,8 +32,8 @@ export const Category: FC<CategoryProps> = ({ title, image, isLink = false, idFo
 							alt={title}
 							fontSize="small"
 							sx={{
-								width: '8rem',
-								height: '8rem',
+								width: '7rem',
+								height: '7rem',
 								display: 'block',
 								margin: '0 auto',
 								borderRadius: '50%',

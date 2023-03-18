@@ -29,18 +29,11 @@ export const Product: FC<ProductProps> = ({ product }) => {
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'space-between',
-					pb: 1,
+					pb: 2,
 					height: 'auto',
 					borderRadius: 2,
-					minHeight: '316px',
-					boxShadow:
-						'0px 0px 20px -8px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 0px 8px 0px rgb(0 0 0 / 12%)',
+					minHeight: '264px',
 				}}>
-				{/*<Box*/}
-				{/*component={Link}*/}
-				{/* to={`categories/${category}/${product.title.toLowerCase()}`}*/}
-				{/* onClick={() => handleSelectedProduct(product)}*/}
-				{/*>*/}
 				{image ? (
 					<CardMedia component="img" image={image[0].url} alt={image[0].alt} sx={{ height: '10rem' }} />
 				) : (
@@ -60,7 +53,6 @@ export const Product: FC<ProductProps> = ({ product }) => {
 
 				<CardContent
 					sx={{
-						p: 1,
 						'&:last-child': { pb: 0, pt: 0.5 },
 						height: '100%',
 						display: 'flex',
@@ -71,8 +63,9 @@ export const Product: FC<ProductProps> = ({ product }) => {
 					<Typography
 						sx={{
 							mb: 1,
-							fontSize: '16px',
 							display: 'flex',
+							fontSize: '16px',
+							fontWeight: '600',
 							alignItems: 'center',
 							justifyContent: 'center',
 							textTransform: 'capitalize',
@@ -80,14 +73,9 @@ export const Product: FC<ProductProps> = ({ product }) => {
 						component="h3">
 						{title.toLowerCase()}
 					</Typography>
-					{price && (
-						<Typography variant="body2">
-							<strong>Price:</strong> Rs {price}
-						</Typography>
-					)}
 				</CardContent>
 				{/*</Box>*/}
-				<CardActions sx={{ flexDirection: 'column', p: '0 8px 0 8px' }}>
+				<CardActions sx={{ flexDirection: 'column', p: '0 16px 0 16px' }}>
 					{/*{productInCart ? (*/}
 					{/*	<AmountButtons*/}
 					{/*		product={product}*/}
@@ -97,11 +85,11 @@ export const Product: FC<ProductProps> = ({ product }) => {
 					{/*	/>*/}
 					{/*) : (*/}
 					<Button
-						sx={{ height: '32px' }}
-						variant={'outlined'}
+						sx={{ height: '32px', borderRadius: 2, textTransform: 'capitalize' }}
+						variant={'contained'}
 						fullWidth
 						onClick={() => sendWebAppDeepLink(idForBot, 'lhelper', { itemName: title, itemPrice: price })}>
-						Buy
+						Rs&nbsp;<strong>{price}</strong>
 					</Button>
 					{/*)}*/}
 				</CardActions>

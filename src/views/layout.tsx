@@ -91,7 +91,7 @@ export const Layout: FC<LayoutProps> = ({ handleSelectedProduct }) => {
 	return (
 		<div className="App">
 			{pathname !== '/' && <Header />}
-			<Container sx={{ pt: 2, pb: 9 }} maxWidth={'md'}>
+			<Container sx={{ pt: 2, pb: 11 }} maxWidth={'md'}>
 				{pathname === '/' ? (
 					<Home />
 				) : (

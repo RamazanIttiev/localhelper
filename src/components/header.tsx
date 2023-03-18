@@ -18,7 +18,7 @@ export const Header: FC<HeaderProps> = () => {
 	return (
 		<AppBar position={'static'} color={'secondary'}>
 			<Toolbar sx={{ justifyContent: 'center', minHeight: '100%', p: 1 }}>
-				<IconButton sx={{ position: 'absolute', left: 0 }} color={'inherit'} onClick={() => navigate(-1)}>
+				<IconButton sx={{ position: 'absolute', left: 8 }} color={'inherit'} onClick={() => navigate(-1)}>
 					<Icon>arrow_circle_left</Icon>
 				</IconButton>
 				{pathname !== '/' && (

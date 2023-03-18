@@ -1,20 +1,26 @@
 import React, { FC, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { BottomNavigation, BottomNavigationAction, styled, useTheme } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { BottomNavigation, BottomNavigationAction, Box, IconButton, styled, useTheme } from '@mui/material';
 import { House } from '@mui/icons-material';
 
 interface FooterProps {}
 
 const CustomBottomNavigationAction = styled(BottomNavigationAction)(`
   color: #fff;
-  transition: all 0.4s ease;
-  &.Mui-selected svg {
-  	width: 2rem;
-    height: 2rem;
-    padding: 8px;
+  
+  &.Mui-selected {
 		color: #fff;
-		border-radius: 50%;
-		background: #0088CC;
+		
+		.MuiBox-root {
+			height: 2rem;
+			width: 2rem;
+			display: flex;
+			border-radius: 50%;
+			background: #0088CC;
+			align-items: center;
+			justify-content: center;
+			transition: all 0.4s;
+  	}
   }
 `);
 
@@ -38,7 +44,11 @@ export const Footer: FC<FooterProps> = () => {
 			}}>
 			<CustomBottomNavigationAction
 				onClick={() => navigate('/')}
-				icon={<House sx={{ transition: ' all 0.4s ease' }} fontSize={'small'} />}
+				icon={
+					<Box>
+						<House sx={{ transition: 'all 0.4s' }} />
+					</Box>
+				}
 			/>
 		</BottomNavigation>
 	);

@@ -1,37 +1,31 @@
 import React, { FC } from 'react';
-import { AppBar, Toolbar, IconButton, Icon } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Icon, Typography } from '@mui/material';
 // import { ProductModel } from '../models/productModel';
-import { sendWebAppDeepLink } from '../utils/requests';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 interface HeaderProps {
 	// cart: ProductModel[];
 	// toggleCart: () => void;
 }
 export const Header: FC<HeaderProps> = () => {
+	const navigate = useNavigate();
+	const { category } = useParams();
+	const { pathname } = useLocation();
 	// const cartTotalAmount = cart.reduce((previous, current): number => {
 	// 	return previous + current.amount;
 	// }, 0);
 
 	return (
-		<AppBar position={'static'} sx={{ height: '42px' }}>
-			<Toolbar sx={{ justifyContent: 'space-between', minHeight: '100%' }}>
-				<IconButton
-					size="large"
-					color="inherit"
-					onClick={() => sendWebAppDeepLink('ZGw6MTI3Mjc4', 'lhelper', {})}>
-					<Icon>redeem</Icon>
+		<AppBar position={'static'} color={'secondary'}>
+			<Toolbar sx={{ justifyContent: 'center', minHeight: '100%', p: 1 }}>
+				<IconButton sx={{ position: 'absolute', left: 0 }} color={'inherit'} onClick={() => navigate(-1)}>
+					<Icon>arrow_circle_left</Icon>
 				</IconButton>
-				<IconButton
-					size="large"
-					color="inherit"
-					onClick={() => sendWebAppDeepLink('ZGw6MTI3Mjgx', 'lhelper', {})}>
-					<Icon>currency_exchange</Icon>
-				</IconButton>
-				{/*<IconButton color="inherit" onClick={toggleCart}>*/}
-				{/*	<Badge badgeContent={cartTotalAmount} color={'primary'}>*/}
-				{/*		<Icon>shopping_cart</Icon>*/}
-				{/*	</Badge>*/}
-				{/*</IconButton>*/}
+				{pathname !== '/' && (
+					<Typography textAlign={'center'} variant={'h5'} textTransform={'capitalize'}>
+						{category}
+					</Typography>
+				)}
 			</Toolbar>
 		</AppBar>
 	);

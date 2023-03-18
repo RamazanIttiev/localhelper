@@ -4,8 +4,8 @@ import { Category } from '../components/category';
 import { categories } from '../mock/categories';
 import { CategoryModel } from '../models/categories';
 
-import bonus from '../assets/bonus.gif';
-import exchange from '../assets/exchange.gif';
+import bonus from '../assets/bonus.jpg';
+import exchange from '../assets/exchange.jpg';
 
 interface HomeProps {}
 

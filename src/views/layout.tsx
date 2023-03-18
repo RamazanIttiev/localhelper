@@ -13,6 +13,7 @@ import { ProductModel } from '../models/productModel';
 import { Home } from './home';
 import { Products } from './products';
 import { Footer } from '../components/footer';
+import { Header } from '../components/header';
 // import { CartContainer } from '../views/cart/cart.container';
 
 // import {
@@ -89,7 +90,7 @@ export const Layout: FC<LayoutProps> = ({ handleSelectedProduct }) => {
 
 	return (
 		<div className="App">
-			{/*<Header />*/}
+			{pathname !== '/' && <Header />}
 			<Container sx={{ pt: 2, pb: 9 }} maxWidth={'md'}>
 				{pathname === '/' ? (
 					<Home />

@@ -1,9 +1,9 @@
 import { CategoryModel } from '../models/categories';
 
-import food from '../assets/food.gif';
-import flowers from '../assets/flowers.gif';
-import rent from '../assets/rent.gif';
-import tours from '../assets/tours.gif';
+import food from '../assets/food.jpg';
+import flowers from '../assets/flowers.jpg';
+import rent from '../assets/rent.jpg';
+import tours from '../assets/tours.jpg';
 
 export const categories: CategoryModel[] = [
 	{ title: 'Food', image: food },

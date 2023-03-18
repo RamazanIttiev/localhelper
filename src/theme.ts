@@ -2,24 +2,16 @@ import { createTheme } from '@mui/material';
 
 export const theme = createTheme({
 	palette: {
-		primary: { main: '#ff335f' },
+		primary: { main: '#0088CC' },
+		secondary: { main: '#212121' },
+		background: {
+			default: '#212121',
+		},
 	},
 	typography: {
 		fontFamily: 'Montserrat, sans-serif',
-	},
-	components: {
-		// Name of the component
-
-		MuiButtonBase: {
-			styleOverrides: {
-				// Name of the slot
-				root: {
-					'& .Mui-selected': {
-						// Some CSS
-						color: '#fff',
-					},
-				},
-			},
+		allVariants: {
+			color: '#fff',
 		},
 	},
 });

@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 
+import { LoadingButton } from '@mui/lab';
 import { ProductModel } from '../models/productModel';
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { Card, CardActions, CardContent, CardMedia, Typography, styled } from '@mui/material';
 
 import { useAirtableView } from '../hooks';
 import { useParams } from 'react-router-dom';
@@ -16,12 +17,24 @@ interface ProductProps {
 	// handleOpenModal: (currentProduct: ProductModel | null) => void;
 }
 
+const CustomLoadingButton = styled(LoadingButton)(props => ({
+	'&.Mui-disabled': {
+		backgroundColor: props.theme.palette.primary.main,
+		'& > div': {
+			color: '#fff',
+		},
+	},
+}));
+
 export const Product: FC<ProductProps> = ({ product }) => {
 	const { category } = useParams();
-
 	const { title, price, image } = product;
 	const idForBot = useAirtableView(category);
 	// const productInCart = isProductInCart(cart, product)
+
+	const handleClick = () => {
+		sendWebAppDeepLink(idForBot, 'lhelper', { itemName: title, itemPrice: price });
+	};
 	return (
 		<>
 			<Card
@@ -32,7 +45,7 @@ export const Product: FC<ProductProps> = ({ product }) => {
 					pb: 2,
 					height: 'auto',
 					borderRadius: 2,
-					minHeight: '264px',
+					minHeight: '296px',
 				}}>
 				{image ? (
 					<CardMedia component="img" image={image[0].url} alt={image[0].alt} sx={{ height: '10rem' }} />
@@ -84,13 +97,14 @@ export const Product: FC<ProductProps> = ({ product }) => {
 					{/*		removeFromCart={removeFromCart}*/}
 					{/*	/>*/}
 					{/*) : (*/}
-					<Button
+					<CustomLoadingButton
+						loading={false}
 						sx={{ height: '32px', borderRadius: 2, textTransform: 'capitalize' }}
 						variant={'contained'}
 						fullWidth
-						onClick={() => sendWebAppDeepLink(idForBot, 'lhelper', { itemName: title, itemPrice: price })}>
+						onClick={handleClick}>
 						Rs&nbsp;<strong>{price}</strong>
-					</Button>
+					</CustomLoadingButton>
 					{/*)}*/}
 				</CardActions>
 			</Card>

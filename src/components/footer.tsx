@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BottomNavigation, BottomNavigationAction, Box, IconButton, styled, useTheme } from '@mui/material';
+import { BottomNavigation, BottomNavigationAction, Box, styled, useTheme } from '@mui/material';
 import { House } from '@mui/icons-material';
 
 interface FooterProps {}
@@ -12,8 +12,8 @@ const CustomBottomNavigationAction = styled(BottomNavigationAction)(`
 		color: #fff;
 		
 		.MuiBox-root {
-			height: 2rem;
-			width: 2rem;
+			height: 2.5rem;
+			width: 2.5rem;
 			display: flex;
 			border-radius: 50%;
 			background: #0088CC;
@@ -39,7 +39,6 @@ export const Footer: FC<FooterProps> = () => {
 			}}
 			value={activeButton}
 			onChange={(event, newValue) => {
-				console.log(newValue);
 				setActiveButton(newValue);
 			}}>
 			<CustomBottomNavigationAction

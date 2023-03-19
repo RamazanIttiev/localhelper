@@ -4,6 +4,12 @@ declare global {
 	}
 }
 
+interface SendData {
+	range: number[];
+	scope: unknown;
+	variables: { itemName: string; itemPrice: number } | {} | undefined;
+}
+
 const Telegram = window.Telegram;
 
 const sendWebAppMessage = (text: string) => {
@@ -11,14 +17,20 @@ const sendWebAppMessage = (text: string) => {
 		message: text,
 		queryId: Telegram.WebApp.initDataUnsafe.query_id,
 	};
-	const xhr = new XMLHttpRequest();
-	xhr.addEventListener('readystatechange', function () {
-		if (this.readyState === 4) {
-			console.log(this.responseText);
-		}
-	});
-	xhr.open('POST', '/sendMessage.php');
-	xhr.send(JSON.stringify(send));
+
+	fetch('/sendMessage.php', {
+		method: 'POST',
+		body: JSON.stringify(send),
+	})
+		.then(res => {
+			return res.json();
+		})
+		.then(data => {
+			return data;
+		})
+		.catch(error => {
+			console.log(error);
+		});
 };
 
 export const sendWebAppDeepLink = (
@@ -26,21 +38,24 @@ export const sendWebAppDeepLink = (
 	domain: string,
 	products?: { itemName: string; itemPrice: number } | {},
 ) => {
-	const sendData = {
+	const sendData: SendData = {
 		range: [],
 		scope: {},
 		variables: products,
 	};
-	const xhr = new XMLHttpRequest();
-	xhr.open('POST', 'https://' + domain + '.customer.smartsender.eu/api/i/store');
-	xhr.setRequestHeader('Content-type', 'application/json');
-	xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-	xhr.onreadystatechange = function () {
-		if (this.readyState === 4 && this.status === 200) {
-			const store = JSON.parse(this.responseText);
+	fetch('https://' + domain + '.customer.smartsender.eu/api/i/store', {
+		headers: {
+			'Content-type': 'application/json',
+			'X-Requested-With': 'XMLHttpRequest',
+		},
+		method: 'POST',
+		body: JSON.stringify(sendData),
+	})
+		.then(res => {
+			return res.json();
+		})
+		.then(store => {
 			// eslint-disable-next-line @typescript-eslint/restrict-plus-operands
 			sendWebAppMessage('/start ' + btoa(atob(identifier) + '|' + store.id).replace(/=/g, ''));
-		}
-	};
-	xhr.send(JSON.stringify(sendData));
+		});
 };

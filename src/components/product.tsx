@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import { LoadingButton } from '@mui/lab';
 import { ProductModel } from '../models/productModel';
@@ -17,9 +17,13 @@ interface ProductProps {
 	// handleOpenModal: (currentProduct: ProductModel | null) => void;
 }
 
-const CustomLoadingButton = styled(LoadingButton)(props => ({
+interface ErrorType {
+	message: string;
+	isError: null | boolean;
+}
+
+const CustomLoadingButton = styled(LoadingButton)(() => ({
 	'&.Mui-disabled': {
-		backgroundColor: props.theme.palette.primary.main,
 		'& > div': {
 			color: '#fff',
 		},
@@ -27,14 +31,49 @@ const CustomLoadingButton = styled(LoadingButton)(props => ({
 }));
 
 export const Product: FC<ProductProps> = ({ product }) => {
+	const [loading, setLoading] = useState(false);
+	const [errorState, setErrorState] = useState<ErrorType>({
+		message: '',
+		isError: null,
+	});
+
 	const { category } = useParams();
 	const { title, price, image } = product;
 	const idForBot = useAirtableView(category);
 	// const productInCart = isProductInCart(cart, product)
 
-	const handleClick = () => {
-		sendWebAppDeepLink(idForBot, 'lhelper', { itemName: title, itemPrice: price });
+	useEffect(() => {
+		console.log(errorState);
+		if (errorState.isError !== null) {
+			setTimeout(() => {
+				setErrorState({
+					message: '',
+					isError: null,
+				});
+			}, 5000);
+		}
+	}, [errorState]);
+
+	const handleClick = async () => {
+		setLoading(true);
+		try {
+			const result = await sendWebAppDeepLink(idForBot, 'lhelper', { itemName: title, itemPrice: price });
+			console.log('result');
+			if (!result.ok) {
+				setLoading(false);
+				setErrorState({ message: 'Bad request. Try again later', isError: true });
+			} else {
+				setErrorState({ message: 'Success', isError: false });
+				setLoading(false);
+			}
+		} catch (error) {
+			setErrorState({
+				message: typeof error === 'string' ? error : 'Bad request. Try again later',
+				isError: true,
+			});
+		}
 	};
+
 	return (
 		<>
 			<Card
@@ -98,12 +137,19 @@ export const Product: FC<ProductProps> = ({ product }) => {
 					{/*	/>*/}
 					{/*) : (*/}
 					<CustomLoadingButton
-						loading={false}
+						loading={loading}
+						color={errorState.isError ? 'error' : errorState.isError !== null ? 'success' : 'primary'}
 						sx={{ height: '32px', borderRadius: 2, textTransform: 'capitalize' }}
 						variant={'contained'}
 						fullWidth
 						onClick={handleClick}>
-						Rs&nbsp;<strong>{price}</strong>
+						{errorState.isError ? (
+							errorState.message
+						) : errorState.isError !== null ? (
+							errorState.message
+						) : (
+							<strong>{price}</strong>
+						)}
 					</CustomLoadingButton>
 					{/*)}*/}
 				</CardActions>

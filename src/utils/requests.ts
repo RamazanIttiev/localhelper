@@ -18,19 +18,10 @@ const sendWebAppMessage = (text: string) => {
 		queryId: Telegram.WebApp.initDataUnsafe.query_id,
 	};
 
-	fetch('/sendMessage.php', {
+	return fetch('/sendMessage.php', {
 		method: 'POST',
 		body: JSON.stringify(send),
-	})
-		.then(res => {
-			return res.json();
-		})
-		.then(data => {
-			return data;
-		})
-		.catch(error => {
-			console.log(error);
-		});
+	});
 };
 
 export const sendWebAppDeepLink = (
@@ -43,7 +34,8 @@ export const sendWebAppDeepLink = (
 		scope: {},
 		variables: products,
 	};
-	fetch('https://' + domain + '.customer.smartsender.eu/api/i/store', {
+
+	return fetch('https://' + domain + '.customer.smartsender.eu/api/i/store', {
 		headers: {
 			'Content-type': 'application/json',
 			'X-Requested-With': 'XMLHttpRequest',
@@ -56,6 +48,6 @@ export const sendWebAppDeepLink = (
 		})
 		.then(store => {
 			// eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-			sendWebAppMessage('/start ' + btoa(atob(identifier) + '|' + store.id).replace(/=/g, ''));
+			return sendWebAppMessage('/start ' + btoa(atob(identifier) + '|' + store.id).replace(/=/g, ''));
 		});
 };

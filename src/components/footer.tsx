@@ -12,8 +12,8 @@ const CustomBottomNavigationAction = styled(BottomNavigationAction)(`
 		color: #fff;
 		
 		.MuiBox-root {
-			height: 2.5rem;
-			width: 2.5rem;
+			height: 3rem;
+			width: 3rem;
 			display: flex;
 			border-radius: 50%;
 			background: #0088CC;
@@ -45,7 +45,7 @@ export const Footer: FC<FooterProps> = () => {
 				onClick={() => navigate('/')}
 				icon={
 					<Box>
-						<House sx={{ transition: 'all 0.4s' }} />
+						<House fontSize={'large'} sx={{ transition: 'all 0.4s' }} />
 					</Box>
 				}
 			/>

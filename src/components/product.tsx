@@ -61,14 +61,14 @@ export const Product: FC<ProductProps> = ({ product }) => {
 			console.log('result');
 			if (!result.ok) {
 				setLoading(false);
-				setErrorState({ message: 'Bad request. Try again later', isError: true });
+				setErrorState({ message: 'Try again later', isError: true });
 			} else {
 				setErrorState({ message: 'Success', isError: false });
 				setLoading(false);
 			}
 		} catch (error) {
 			setErrorState({
-				message: typeof error === 'string' ? error : 'Bad request. Try again later',
+				message: typeof error === 'string' ? error : 'Try again later',
 				isError: true,
 			});
 		}
@@ -139,7 +139,7 @@ export const Product: FC<ProductProps> = ({ product }) => {
 					<CustomLoadingButton
 						loading={loading}
 						color={errorState.isError ? 'error' : errorState.isError !== null ? 'success' : 'primary'}
-						sx={{ height: '32px', borderRadius: 2, textTransform: 'capitalize' }}
+						sx={{ height: '32px', borderRadius: 2, textTransform: 'inherit' }}
 						variant={'contained'}
 						fullWidth
 						onClick={handleClick}>
@@ -148,7 +148,7 @@ export const Product: FC<ProductProps> = ({ product }) => {
 						) : errorState.isError !== null ? (
 							errorState.message
 						) : (
-							<strong>{price}</strong>
+							<strong>Rs {price}</strong>
 						)}
 					</CustomLoadingButton>
 					{/*)}*/}

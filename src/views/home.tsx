@@ -6,6 +6,7 @@ import { CategoryModel } from '../models/categories';
 
 import bonus from '../assets/bonus.jpg';
 import exchange from '../assets/exchange.jpg';
+import transfer from '../assets/transfer.jpg';
 
 interface HomeProps {}
 
@@ -17,6 +18,7 @@ export const Home: FC<HomeProps> = () => {
 			})}
 			<Category title={'Bonus'} image={bonus} idForBot={'ZGw6MTI3Mjc4'} />
 			<Category title={'Exchange'} image={exchange} idForBot={'ZGw6MTI3Mjgx'} />
+			<Category title={'Transfer'} image={transfer} idForBot={'ZGw6MTI1MDQ5'} />
 		</Grid>
 	);
 };

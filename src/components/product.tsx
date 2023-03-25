@@ -43,7 +43,6 @@ export const Product: FC<ProductProps> = ({ product }) => {
 	// const productInCart = isProductInCart(cart, product)
 
 	useEffect(() => {
-		console.log(errorState);
 		if (errorState.isError !== null) {
 			setTimeout(() => {
 				setErrorState({
@@ -58,7 +57,6 @@ export const Product: FC<ProductProps> = ({ product }) => {
 		setLoading(true);
 		try {
 			const result = await sendWebAppDeepLink(idForBot, 'lhelper', { itemName: title, itemPrice: price });
-			console.log('result');
 			if (!result.ok) {
 				setLoading(false);
 				setErrorState({ message: 'Try again later', isError: true });

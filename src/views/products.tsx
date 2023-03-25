@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
-import { Grid, Box } from '@mui/material';
+import { Grid } from '@mui/material';
 import { Product } from '../components/product';
 import { ProductModel } from '../models/productModel';
+import { SkeletonLoader } from '../components/skeletonLoader';
 
 interface ProductsProps {
 	// cart: ProductModel[];
@@ -31,25 +32,29 @@ export const Products: FC<ProductsProps> = ({ products, handleSelectedProduct })
 	// 	setOpenModal(true);
 	// };
 	// const handleCloseModal = () => setOpenModal(false);
-
 	return (
-		<Box sx={{ display: 'flex', justifyContent: 'center' }}>
+		<>
 			<Grid container spacing={2} sx={{ pt: 3, justifyContent: 'center' }}>
-				{products.map((product: ProductModel) => {
-					return (
-						<Grid item xs={6} md={5} key={product.id}>
-							<Product
-								product={product}
-								// cart={cart}
-								// addToCart={addToCart}
-								// removeFromCart={removeFromCart}
-								handleSelectedProduct={handleSelectedProduct}
-								// handleOpenModal={handleOpenModal}
-							/>
-						</Grid>
-					);
-				})}
+				{products.length !== 0 ? (
+					products.map((product: ProductModel) => {
+						return (
+							<Grid item xs={6} md={5} key={product.id}>
+								<Product
+									product={product}
+									// cart={cart}
+									// addToCart={addToCart}
+									// removeFromCart={removeFromCart}
+									handleSelectedProduct={handleSelectedProduct}
+									// handleOpenModal={handleOpenModal}
+								/>
+							</Grid>
+						);
+					})
+				) : (
+					<SkeletonLoader />
+				)}
 			</Grid>
+
 			{/*<ProductModal*/}
 			{/*	// cart={cart}*/}
 			{/*	// addToCart={addToCart}*/}
@@ -79,6 +84,6 @@ export const Products: FC<ProductsProps> = ({ products, handleSelectedProduct })
 			{/*		onChange={handlePageChange}*/}
 			{/*	/>*/}
 			{/*)}*/}
-		</Box>
+		</>
 	);
 };

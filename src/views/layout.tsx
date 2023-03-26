@@ -10,13 +10,12 @@ import { mapData } from '../utils/mappers';
 
 import { ProductModel } from '../models/productModel';
 
-import { Home } from './home';
 import { Products } from './products';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
 
-import { isUserAgentTelegram } from '../utils/user-agent';
-import { browserName } from 'react-device-detect';
+import { device, isUserAgentTelegram } from '../utils/user-agent';
+import { browserName, deviceType, engineName, isAndroid, isDesktop, isIOS, isMobile } from 'react-device-detect';
 // import { CartContainer } from '../views/cart/cart.container';
 
 // import {
@@ -94,13 +93,34 @@ export const Layout: FC<LayoutProps> = ({ handleSelectedProduct }) => {
 		<div className="App">
 			{pathname !== '/' && <Header />}
 			<Container sx={{ pt: 2, pb: 11 }} maxWidth={'md'}>
-				<strong>{isUserAgentTelegram ? 'UserAgent is Telegram' : 'Browser'}</strong>
-				<br />
-				browserName <strong>{browserName === 'WebKit' ? 'ios WebKit' : browserName}</strong>
-				<br />
-				browserName <strong>{browserName === 'Chrome WebView' ? 'android Chrome WebView' : browserName}</strong>
 				{pathname === '/' ? (
-					<Home />
+					// <Home />
+					<div>
+						<strong>{isUserAgentTelegram ? 'UserAgent is Telegram' : 'UserAgent is Browser'}</strong>
+						<br />
+						<br />
+						{isIOS ? (
+							<strong>BrowserName: {browserName === 'WebKit' ? 'ios WebKit' : browserName}</strong>
+						) : isAndroid ? (
+							<strong>
+								BrowserName: {browserName === 'Chrome WebView' ? 'android Chrome WebView' : browserName}
+							</strong>
+						) : null}
+						<br />
+						<br />
+						Device data
+						<br />
+						{JSON.stringify(device)}
+						<br />
+						<br />
+						EngineName: {engineName}
+						<br />
+						<br />
+						DeviceType: {deviceType}
+						<br />
+						<br />
+						{isDesktop ? 'isDesktop' : isMobile ? 'isMobile' : null}
+					</div>
 				) : (
 					<Products products={products} handleSelectedProduct={handleSelectedProduct} />
 				)}

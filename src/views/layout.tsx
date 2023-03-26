@@ -14,6 +14,9 @@ import { Home } from './home';
 import { Products } from './products';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
+
+import { isUserAgentTelegram } from '../utils/user-agent';
+import { browserName } from 'react-device-detect';
 // import { CartContainer } from '../views/cart/cart.container';
 
 // import {
@@ -52,7 +55,6 @@ export const Layout: FC<LayoutProps> = ({ handleSelectedProduct }) => {
 					// @ts-ignore
 					return setProducts(mapData(records));
 				});
-
 		return () => {
 			setProducts([]);
 		};
@@ -92,6 +94,11 @@ export const Layout: FC<LayoutProps> = ({ handleSelectedProduct }) => {
 		<div className="App">
 			{pathname !== '/' && <Header />}
 			<Container sx={{ pt: 2, pb: 11 }} maxWidth={'md'}>
+				<strong>{isUserAgentTelegram ? 'UserAgent is Telegram' : 'Browser'}</strong>
+				<br />
+				browserName <strong>{browserName === 'WebKit' ? 'ios WebKit' : browserName}</strong>
+				<br />
+				browserName <strong>{browserName === 'Chrome WebView' ? 'android Chrome WebView' : browserName}</strong>
 				{pathname === '/' ? (
 					<Home />
 				) : (

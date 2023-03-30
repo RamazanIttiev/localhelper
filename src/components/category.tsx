@@ -24,7 +24,7 @@ export const Category: FC<CategoryProps> = ({ title, image, isLink = false, idFo
 					cursor: 'pointer',
 					background: 'inherit',
 				}}>
-				<Box component={isLink ? Link : Box} to={`categories/${title.toLowerCase()}`}>
+				<Box component={isLink ? Link : Box} to={title.toLowerCase()}>
 					<CardMedia>
 						<Box
 							component={'img'}

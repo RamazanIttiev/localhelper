@@ -1,26 +1,31 @@
 import React, { FC } from 'react';
-import { ProductModel } from '../models/productModel';
-import { Box, Button, Card, CardContent, Typography, CardActions } from '@mui/material';
+import { Button, Card, CardContent, CardActions, Box, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
+import { ProductModel } from '../models/productModel';
 
 interface ProductDetailsProps {
 	products: ProductModel[];
 }
 
 export const ProductDetails: FC<ProductDetailsProps> = ({ products }) => {
-	const { product } = useParams();
+	const { productId } = useParams();
+
 	const selectedProduct = products.find(item => {
-		return item.title === product;
+		return item.title.toLowerCase() === productId;
 	});
+
 	return (
 		<Card>
 			<CardContent sx={{ m: 0, p: 2 }}>
-				<Box
-					component={'img'}
-					src={selectedProduct?.image[0].url}
-					alt={selectedProduct?.image[0].alt}
-					width={'100%'}
-				/>
+				{productId}
+				{selectedProduct?.image && (
+					<Box
+						component={'img'}
+						src={selectedProduct?.image[0].url}
+						alt={selectedProduct?.image[0].alt}
+						width={'100%'}
+					/>
+				)}
 				<Box sx={{ width: '100%', pr: 2, pl: 2 }}>
 					<Typography id="transition-modal-title" variant="h6" component="h2" textAlign={'center'}>
 						{selectedProduct?.title}

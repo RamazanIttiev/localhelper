@@ -36,6 +36,7 @@ export const Footer: FC<FooterProps> = () => {
 				position: 'fixed',
 				width: '100%',
 				bottom: 0,
+				p: '4px 0',
 			}}
 			value={activeButton}
 			onChange={(event, newValue) => {

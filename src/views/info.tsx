@@ -18,13 +18,13 @@ export const Info = () => (
 		<br />
 		Device data
 		<br />
-		{JSON.stringify(device)}
+		<p style={{ overflow: 'auto' }}>{JSON.stringify(device)}</p>
 		<br />
 		<br />
-		EngineName: {engineName}
+		<p>EngineName: {engineName}</p>
 		<br />
 		<br />
-		DeviceType: {deviceType}
+		<p>DeviceType: {deviceType}</p>
 		<br />
 		<br />
 		{isDesktop ? 'isDesktop' : isMobile ? 'isMobile' : null}

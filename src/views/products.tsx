@@ -35,9 +35,9 @@ export const Products: FC<ProductsProps> = ({ products, handleProducts }) => {
 					// @ts-ignore
 					return handleProducts(mapData(records));
 				});
-		return () => {
-			handleProducts([]);
-		};
+		// return () => {
+		// 	handleProducts([]);
+		// };
 	}, [handleProducts, pathname, airtableView, categoryId]);
 
 	return (

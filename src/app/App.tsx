@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Airtable from 'airtable';
@@ -9,7 +9,6 @@ import { Header } from '../components/header';
 import { Footer } from '../components/footer';
 import { Categories } from '../views/categories';
 import { ProductDetails } from '../views/productDetails';
-import { ProductModel } from '../models/productModel';
 
 export const airtableBase = new Airtable({
 	apiKey: process.env.REACT_APP_AIRTABLE_PRIVATE_KEY,
@@ -17,11 +16,6 @@ export const airtableBase = new Airtable({
 
 export const App = () => {
 	const { pathname } = useLocation();
-	const [products, setProducts] = useState<ProductModel[]>([]);
-
-	const handleProducts = useCallback((value: ProductModel[]) => {
-		setProducts(value);
-	}, []);
 
 	return (
 		<div className="App">
@@ -31,11 +25,8 @@ export const App = () => {
 				<Routes>
 					<Route path="/" element={<Categories />} />
 
-					<Route
-						path=":categoryId"
-						element={<Products products={products} handleProducts={handleProducts} />}
-					/>
-					<Route path=":categoryId/:productId" element={<ProductDetails products={products} />} />
+					<Route path=":categoryId" element={<Products />} />
+					<Route path=":categoryId/:productId" element={<ProductDetails />} />
 
 					<Route path="info" element={<Info />} />
 				</Routes>

@@ -1,19 +1,19 @@
 import React, { FC } from 'react';
 import { Button, Card, CardContent, CardActions, Box, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { ProductModel } from '../models/productModel';
+import { useAirtableData } from '../hooks';
 
-interface ProductDetailsProps {
-	products: ProductModel[];
-}
+interface ProductDetailsProps {}
 
-export const ProductDetails: FC<ProductDetailsProps> = ({ products }) => {
-	const { productId } = useParams();
+export const ProductDetails: FC<ProductDetailsProps> = () => {
+	const { categoryId, productId } = useParams();
+
+	const products = useAirtableData(categoryId);
 
 	const selectedProduct = products.find(item => {
 		return item.title.toLowerCase() === productId;
 	});
-	console.log(products);
+
 	return (
 		<Card>
 			<CardContent sx={{ m: 0, p: 2 }}>

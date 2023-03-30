@@ -4,7 +4,7 @@ import { LoadingButton } from '@mui/lab';
 import { ProductModel } from '../models/productModel';
 import { Card, CardActions, CardContent, CardMedia, Typography, styled } from '@mui/material';
 
-import { useAirtableView } from '../hooks';
+import { getAirtableView } from '../hooks';
 import { useParams } from 'react-router-dom';
 import { sendWebAppDeepLink } from '../utils/requests';
 
@@ -35,9 +35,9 @@ export const Product: FC<ProductProps> = ({ product }) => {
 		isError: null,
 	});
 
-	const { category } = useParams();
+	const { categoryId } = useParams();
 	const { title, price, image } = product;
-	const idForBot = useAirtableView(category);
+	const idForBot = getAirtableView(categoryId);
 	// const productInCart = isProductInCart(cart, product)
 
 	useEffect(() => {

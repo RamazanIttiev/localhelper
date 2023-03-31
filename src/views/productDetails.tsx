@@ -1,18 +1,60 @@
-import React, { FC } from 'react';
-import { Button, Card, CardContent, CardActions, Box, Typography } from '@mui/material';
+import React, { FC, useEffect, useState } from 'react';
+import { Card, CardContent, CardActions, Box, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { useAirtableData } from '../hooks';
+import { getAirtableView, useAirtableData } from '../hooks';
+import { sendWebAppDeepLink } from '../utils/requests';
+import { ErrorType } from '../models/error';
+import { CustomLoadingButton } from '../components/reactkit/button';
 
 interface ProductDetailsProps {}
 
 export const ProductDetails: FC<ProductDetailsProps> = () => {
 	const { categoryId, productId } = useParams();
+	const [loading, setLoading] = useState(false);
+	const [errorState, setErrorState] = useState<ErrorType>({
+		message: '',
+		isError: null,
+	});
+
+	const idForBot = getAirtableView(categoryId);
 
 	const products = useAirtableData(categoryId);
+	useEffect(() => {
+		if (errorState.isError !== null) {
+			setTimeout(() => {
+				setErrorState({
+					message: '',
+					isError: null,
+				});
+			}, 5000);
+		}
+	}, [errorState]);
 
 	const selectedProduct = products.find(item => {
 		return item.title.toLowerCase() === productId;
 	});
+
+	const handleClick = async () => {
+		setLoading(true);
+		try {
+			const result = await sendWebAppDeepLink(idForBot, 'lhelper', {
+				itemName: selectedProduct?.title,
+				itemPrice: selectedProduct?.price,
+			});
+			if (!result.ok) {
+				setLoading(false);
+				setErrorState({ message: 'Try again later', isError: true });
+			} else {
+				setErrorState({ message: 'Success', isError: false });
+				setLoading(false);
+			}
+		} catch (error) {
+			setErrorState({
+				message: typeof error === 'string' ? error : 'Try again later',
+				isError: true,
+			});
+		}
+	};
 
 	return (
 		<Card>
@@ -63,9 +105,22 @@ export const ProductDetails: FC<ProductDetailsProps> = () => {
 				{/*		removeFromCart={removeFromCart}*/}
 				{/*	/>*/}
 				{/*) : (*/}
-				<Button variant={'contained'} fullWidth>
-					Buy
-				</Button>
+
+				<CustomLoadingButton
+					loading={loading}
+					color={errorState.isError ? 'error' : errorState.isError !== null ? 'success' : 'primary'}
+					sx={{ height: '32px', borderRadius: 2, textTransform: 'inherit' }}
+					variant={'contained'}
+					fullWidth
+					onClick={handleClick}>
+					{errorState.isError ? (
+						errorState.message
+					) : errorState.isError !== null ? (
+						errorState.message
+					) : (
+						<strong>Rs {selectedProduct?.price}</strong>
+					)}
+				</CustomLoadingButton>
 				{/*)}*/}
 			</CardActions>
 		</Card>

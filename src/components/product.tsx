@@ -1,32 +1,20 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import { LoadingButton } from '@mui/lab';
 import { ProductModel } from '../models/productModel';
-import { Card, CardActions, CardContent, CardMedia, Typography, styled } from '@mui/material';
+import { Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 import { getAirtableView } from '../hooks';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { sendWebAppDeepLink } from '../utils/requests';
+import { CustomLoadingButton } from './reactkit/button';
+import { ErrorType } from '../models/error';
 
 interface ProductProps {
 	product: ProductModel;
-	// cart: ProductModel[];
-	// removeFromCart: (product: ProductModel) => void;
-	// addToCart: (selectedProduct: ProductModel) => void;
+	// cart: Product[];
+	// removeFromCart: (product: Product) => void;
+	// addToCart: (selectedProduct: Product) => void;
 }
-
-interface ErrorType {
-	message: string;
-	isError: null | boolean;
-}
-
-const CustomLoadingButton = styled(LoadingButton)(() => ({
-	'&.Mui-disabled': {
-		'& > div': {
-			color: '#fff',
-		},
-	},
-}));
 
 export const Product: FC<ProductProps> = ({ product }) => {
 	const [loading, setLoading] = useState(false);
@@ -81,46 +69,49 @@ export const Product: FC<ProductProps> = ({ product }) => {
 				borderRadius: 2,
 				minHeight: '296px',
 			}}>
-			{image ? (
-				<CardMedia component="img" image={image[0].url} alt={image[0].alt} sx={{ height: '10rem' }} />
-			) : (
-				<Typography
-					fontSize={'small'}
+			<Link to={title.toLowerCase()}>
+				{image ? (
+					<CardMedia component="img" image={image[0].url} alt={image[0].alt} sx={{ height: '10rem' }} />
+				) : (
+					<Typography
+						fontSize={'small'}
+						sx={{
+							p: 1,
+							height: '10rem',
+							display: 'flex',
+							alignItems: 'center',
+							fontFamily: 'monospace',
+							justifyContent: 'center',
+						}}>
+						Image is not loaded ;(
+					</Typography>
+				)}
+				<CardContent
 					sx={{
-						p: 1,
-						height: '10rem',
+						'&:last-child': { pb: 0, pt: 0.5 },
+						height: '100%',
 						display: 'flex',
-						alignItems: 'center',
-						fontFamily: 'monospace',
+						alignItems: 'baseline',
+						flexDirection: 'column',
 						justifyContent: 'center',
+						m: '8px auto',
 					}}>
-					Image is not loaded ;(
-				</Typography>
-			)}
-
-			<CardContent
-				sx={{
-					'&:last-child': { pb: 0, pt: 0.5 },
-					height: '100%',
-					display: 'flex',
-					alignItems: 'baseline',
-					flexDirection: 'column',
-					justifyContent: 'center',
-				}}>
-				<Typography
-					sx={{
-						mb: 1,
-						display: 'flex',
-						fontSize: '16px',
-						fontWeight: '600',
-						alignItems: 'center',
-						justifyContent: 'center',
-						textTransform: 'capitalize',
-					}}
-					component="h3">
-					{title.toLowerCase()}
-				</Typography>
-			</CardContent>
+					<Typography
+						sx={{
+							mb: 1,
+							m: '0px auto',
+							display: 'flex',
+							fontSize: '16px',
+							fontWeight: '600',
+							alignItems: 'center',
+							justifyContent: 'center',
+							textTransform: 'capitalize',
+						}}
+						component="h3">
+						{title.toLowerCase()}
+					</Typography>
+				</CardContent>
+			</Link>
 			{/*</Box>*/}
 			<CardActions sx={{ flexDirection: 'column', p: '0 16px 0 16px' }}>
 				{/*{productInCart ? (*/}

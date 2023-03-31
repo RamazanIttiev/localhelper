@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { AppBar, Toolbar, IconButton, Icon, Typography } from '@mui/material';
 // import { ProductModel } from '../models/productModel';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useMatch, useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
 	// cart: ProductModel[];
@@ -9,25 +9,24 @@ interface HeaderProps {
 }
 export const Header: FC<HeaderProps> = () => {
 	const navigate = useNavigate();
-	const { category } = useParams();
+	const pathData = useMatch(':categoryId');
 	const { pathname } = useLocation();
 	// const cartTotalAmount = cart.reduce((previous, current): number => {
 	// 	return previous + current.amount;
 	// }, 0);
-
 	return (
-		<AppBar position={'static'} color={'secondary'} sx={{ height: '34px' }}>
+		<AppBar position={'static'} color={'secondary'} sx={{ height: '42px' }}>
 			<Toolbar sx={{ justifyContent: 'center', minHeight: '100%', p: 1 }}>
 				<IconButton
 					sx={{ position: 'absolute', left: 8, top: 0 }}
 					color={'inherit'}
-					size={'small'}
+					size={'large'}
 					onClick={() => navigate(-1)}>
 					<Icon>arrow_circle_left</Icon>
 				</IconButton>
 				{pathname !== '/' && (
 					<Typography textAlign={'center'} variant={'h5'} textTransform={'capitalize'}>
-						{category}
+						{pathData?.params.categoryId}
 					</Typography>
 				)}
 			</Toolbar>

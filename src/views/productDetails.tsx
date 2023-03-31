@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Card, CardContent, CardActions, Box, Typography } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useMatch } from 'react-router-dom';
 import { getAirtableView, useAirtableData } from '../hooks';
 import { sendWebAppDeepLink } from '../utils/requests';
 import { ErrorType } from '../models/error';
@@ -9,16 +9,17 @@ import { CustomLoadingButton } from '../components/reactkit/button';
 interface ProductDetailsProps {}
 
 export const ProductDetails: FC<ProductDetailsProps> = () => {
-	const { categoryId, productId } = useParams();
+	const pathData = useMatch('/:categoryId/:productId');
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
 		message: '',
 		isError: null,
 	});
 
-	const idForBot = getAirtableView(categoryId);
+	const idForBot = getAirtableView(pathData?.params.categoryId);
 
-	const products = useAirtableData(categoryId);
+	const products = useAirtableData(pathData?.params.categoryId);
+
 	useEffect(() => {
 		if (errorState.isError !== null) {
 			setTimeout(() => {
@@ -31,7 +32,7 @@ export const ProductDetails: FC<ProductDetailsProps> = () => {
 	}, [errorState]);
 
 	const selectedProduct = products.find(item => {
-		return item.title.toLowerCase() === productId;
+		return item.title.toLowerCase() === pathData?.params.productId;
 	});
 
 	const handleClick = async () => {
@@ -109,7 +110,7 @@ export const ProductDetails: FC<ProductDetailsProps> = () => {
 				<CustomLoadingButton
 					loading={loading}
 					color={errorState.isError ? 'error' : errorState.isError !== null ? 'success' : 'primary'}
-					sx={{ height: '32px', borderRadius: 2, textTransform: 'inherit' }}
+					sx={{ borderRadius: 2, textTransform: 'inherit' }}
 					variant={'contained'}
 					fullWidth
 					onClick={handleClick}>

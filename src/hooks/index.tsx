@@ -18,6 +18,9 @@ export const getAirtableView = (tableTitle: string | undefined) => {
 		case 'tours': {
 			return 'ZGw6MTI5Mzc1';
 		}
+		case 'transport': {
+			return 'ZGw6MTM2Nzcz';
+		}
 		default: {
 			return 'ZGw6MTI0OTQ3';
 		}

@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, Box, styled, useTheme } from '@mui/material';
-import { House, Info } from '@mui/icons-material';
+import { House } from '@mui/icons-material';
 
 interface FooterProps {}
 
@@ -47,14 +47,6 @@ export const Footer: FC<FooterProps> = () => {
 				icon={
 					<Box>
 						<House fontSize={'large'} sx={{ transition: 'all 0.4s' }} />
-					</Box>
-				}
-			/>
-			<CustomBottomNavigationAction
-				onClick={() => navigate('/info')}
-				icon={
-					<Box>
-						<Info fontSize={'large'} sx={{ transition: 'all 0.4s' }} />
 					</Box>
 				}
 			/>

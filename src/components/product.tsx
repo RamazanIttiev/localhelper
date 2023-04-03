@@ -42,7 +42,7 @@ export const Product: FC<ProductProps> = ({ product }) => {
 	const handleClick = async () => {
 		setLoading(true);
 		try {
-			const result = await sendWebAppDeepLink(idForBot, 'lhelper', { itemName: title, itemPrice: price });
+			const result = await sendWebAppDeepLink(idForBot, 'lhelper', { itemName: title });
 			if (!result.ok) {
 				setLoading(false);
 				setErrorState({ message: 'Try again later', isError: true });
@@ -71,7 +71,7 @@ export const Product: FC<ProductProps> = ({ product }) => {
 			}}>
 			<Link to={title.toLowerCase()}>
 				{image ? (
-					<CardMedia component="img" image={image[0].url} alt={image[0].alt} sx={{ height: '10rem' }} />
+					<CardMedia component="img" image={image[0].url} alt={image[0].alt} sx={{ height: '11rem' }} />
 				) : (
 					<Typography
 						fontSize={'small'}

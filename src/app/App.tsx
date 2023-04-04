@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Airtable from 'airtable';
-import { Info } from '../views/info';
 import { Container } from '@mui/material';
 import { Products } from '../views/products';
 import { Header } from '../components/header';
@@ -27,8 +26,6 @@ export const App = () => {
 
 					<Route path=":categoryId" element={<Products />} />
 					<Route path=":categoryId/:productId" element={<ProductDetails />} />
-
-					<Route path="info" element={<Info />} />
 				</Routes>
 			</Container>
 			<Footer />

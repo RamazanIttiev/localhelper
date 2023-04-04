@@ -1,10 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Card, CardContent, CardActions, Box, Typography } from '@mui/material';
+import { Card, CardContent, CardActions, Box, Typography, CardMedia } from '@mui/material';
 import { useMatch } from 'react-router-dom';
 import { getAirtableView, useAirtableData } from '../hooks';
 import { sendWebAppDeepLink } from '../utils/requests';
 import { ErrorType } from '../models/error';
 import { CustomLoadingButton } from '../components/reactkit/button';
+import { MuiCarousel } from '../components/carousel';
 
 interface ProductDetailsProps {}
 
@@ -59,21 +60,15 @@ export const ProductDetails: FC<ProductDetailsProps> = () => {
 
 	return (
 		<Card>
-			<CardContent sx={{ m: 0, p: 2 }}>
-				{selectedProduct?.image ? (
-					<Box
-						component={'img'}
-						src={selectedProduct?.image[0].url}
-						alt={selectedProduct?.image[0].alt}
-						width={'100%'}
-						sx={{ borderRadius: 0.5 }}
-					/>
+			<CardMedia>
+				{selectedProduct?.image !== undefined ? (
+					<MuiCarousel selectedProduct={selectedProduct} />
 				) : (
 					<Typography
 						fontSize={'small'}
 						sx={{
 							p: 1,
-							height: '10rem',
+							height: '20rem',
 							display: 'flex',
 							alignItems: 'center',
 							fontFamily: 'monospace',
@@ -82,16 +77,19 @@ export const ProductDetails: FC<ProductDetailsProps> = () => {
 						Image is not loaded ;(
 					</Typography>
 				)}
+			</CardMedia>
+
+			<CardContent sx={{ m: 0, p: 2 }}>
 				<Box sx={{ width: '100%', pr: 2, pl: 2 }}>
 					<Typography id="transition-modal-title" variant="h6" component="h2" textAlign={'center'}>
 						{selectedProduct?.title}
 					</Typography>
-					<Typography sx={{ mt: 2 }}>
-						<strong>Price:</strong> {selectedProduct?.price}
-					</Typography>
 					{selectedProduct?.description && (
 						<Typography sx={{ mt: 2 }}>
-							<strong>Description:</strong> {selectedProduct?.description}
+							<strong>Description:</strong>
+							<br />
+							<br />
+							{selectedProduct?.description}
 						</Typography>
 					)}
 				</Box>

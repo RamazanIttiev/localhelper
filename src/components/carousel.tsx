@@ -1,0 +1,40 @@
+import React from 'react';
+import { Box } from '@mui/material';
+import { ProductModel } from '../models/productModel';
+import Carousel from 'react-material-ui-carousel';
+
+interface CarouselProps {
+	selectedProduct: ProductModel;
+}
+
+export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
+	return selectedProduct.image.length === 1 ? (
+		<Box
+			component={'img'}
+			src={selectedProduct.image[0].url}
+			alt={selectedProduct.image[0].alt}
+			width={'100%'}
+			sx={{ borderBottomLeftRadius: 16, borderBottomRightRadius: 16, height: '20rem' }}
+		/>
+	) : (
+		<Carousel
+			autoPlay={false}
+			stopAutoPlayOnHover
+			animation={'slide'}
+			navButtonsAlwaysVisible
+			indicatorIconButtonProps={{ style: { margin: '0 0.3rem' } }}
+			activeIndicatorIconButtonProps={{ style: { color: '#212121' } }}>
+			{selectedProduct.image.map(({ url, alt }) => {
+				return (
+					<Box
+						component={'img'}
+						src={url}
+						alt={alt}
+						width={'100%'}
+						sx={{ borderBottomLeftRadius: 16, borderBottomRightRadius: 16, height: '20rem' }}
+					/>
+				);
+			})}
+		</Carousel>
+	);
+};

@@ -13,7 +13,7 @@ export const airtableBase = new Airtable({
 	apiKey: process.env.REACT_APP_AIRTABLE_PRIVATE_KEY,
 }).base('appN5D5g87uz2gY2j');
 
-export const App = () => {
+const App = () => {
 	const { pathname } = useLocation();
 
 	return (
@@ -41,3 +41,5 @@ export const App = () => {
 		</div>
 	);
 };
+
+export default App;

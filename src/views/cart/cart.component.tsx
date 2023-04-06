@@ -1,130 +1,121 @@
 import React, { FC } from 'react';
+import { ErrorType } from '../../models/error';
 import { ProductModel } from '../../models/productModel';
-import {
-	Box,
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogTitle,
-	Divider,
-	List,
-	ListItem,
-	Typography,
-} from '@mui/material';
 import { AmountButtons } from '../../components/amountButtons';
+import { CustomLoadingButton } from '../../components/reactkit/button';
+import { Box, Divider, List, ListItem, Typography, useTheme } from '@mui/material';
+
+import dishImage from '../../assets/food.jpg';
 
 interface CartProps {
-	isCartOpened: boolean;
-	toggleCart: () => void;
+	loading: boolean;
+	errorState: ErrorType;
 	cartTotalAmount: number;
-	cart: ProductModel[] | [];
-	// sendWebAppDeepLink: (id: string, domain: string, products: ProductsInCart[]) => void;
-	removeFromCart: (product: ProductModel) => void;
+	handleOrder: () => void;
+	cartProducts: ProductModel[] | [];
 	addToCart: (product: ProductModel) => void;
+	removeFromCart: (product: ProductModel) => void;
 }
 
 export const Cart: FC<CartProps> = ({
-	cart,
-	isCartOpened,
-	toggleCart,
+	cartProducts,
 	cartTotalAmount,
+	loading,
+	errorState,
 	addToCart,
 	removeFromCart,
-	// sendWebAppDeepLink,
+	handleOrder,
 }) => {
-	// const allProducts = cart.map(({ title, amount }) => {
-	// 	return { title, amount };
-	// });
-
-	// const cartData = {
-	// 	products: allProducts,
-	// 	// totalPrice: cartTotalAmount,
-	// };
+	const theme = useTheme();
 
 	return (
-		<Dialog onClose={toggleCart} open={isCartOpened}>
-			{cart.length !== 0 ? (
-				<>
-					<DialogTitle textAlign={'center'}>Shopping cart</DialogTitle>
-					<DialogContent dividers>
-						<List sx={{ pt: 0 }}>
-							{cart.map(product => {
-								return (
-									<>
-										<ListItem disableGutters>
-											<Box
-												component={'img'}
-												src={product.image[0].url}
-												alt={product.image[0].alt}
-												sx={{ width: '25%', borderRadius: 1, mr: 2 }}
-											/>
-											<Box
+		<>
+			<Box>
+				<List sx={{ pt: 0 }}>
+					{cartProducts.map(product => {
+						return (
+							<>
+								<ListItem key={product.id} disableGutters>
+									{product.image !== undefined ? (
+										<Box
+											component={'img'}
+											src={product.image[0].url}
+											alt={product.image[0].alt}
+											sx={{ width: '25%', borderRadius: 1, mr: 2 }}
+										/>
+									) : (
+										<Box
+											component={'img'}
+											src={dishImage}
+											alt={product.title}
+											sx={{ width: '25%', borderRadius: 1, mr: 2 }}
+										/>
+									)}
+									<Box
+										sx={{
+											width: '100%',
+										}}>
+										<Typography component={'h3'} variant={'h6'} gutterBottom>
+											{product.title}
+										</Typography>
+										<Box sx={{ display: 'flex', alignItems: 'center' }}>
+											<Typography
+												variant={'body1'}
 												sx={{
-													width: '100%',
+													background: theme.palette.primary.main,
+													borderRadius: '50%',
+													width: '24px',
+													height: '24px',
+													color: ' #fff',
+													textAlign: ' center',
+													mr: 0.5,
 												}}>
-												<Typography component={'h3'} variant={'h6'} gutterBottom>
-													{product.title}
-												</Typography>
-												<Box sx={{ display: 'flex', alignItems: 'center' }}>
-													<Typography
-														variant={'body1'}
-														sx={{
-															background: ' #ff335f',
-															borderRadius: '50%',
-															width: '24px',
-															height: '24px',
-															color: ' #fff',
-															textAlign: ' center',
-															mr: 0.5,
-														}}>
-														{product.amount}
-													</Typography>
-													<Typography variant={'body1'}>
-														x <strong>{product.price}</strong>
-													</Typography>
-												</Box>
-											</Box>
-											<AmountButtons
-												product={product}
-												addToCart={addToCart}
-												amount={product.amount}
-												removeFromCart={removeFromCart}
-											/>
-										</ListItem>
-										<Divider />
-									</>
-								);
-							})}
-						</List>
-						<Box
-							sx={{
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'space-between',
-								marginTop: '24px',
-							}}>
-							<strong>Total: </strong>
-							<Typography sx={{ borderBottom: '2px solid #ff335f', fontWeight: '600' }}>
-								{cartTotalAmount} Rs
-							</Typography>
-						</Box>
-					</DialogContent>
-					<DialogActions>
-						<Button
-							variant={'contained'}
-							fullWidth
-							// onClick={() => sendWebAppDeepLink('ZGw6MTM2Nzcz', 'lhelper', allProducts)}
-						>
-							Buy
-						</Button>
-					</DialogActions>
-				</>
-			) : (
-				<DialogContent dividers>
-					<Typography>Your cart is still empty! Order add something here)</Typography>
-				</DialogContent>
-			)}
-		</Dialog>
+												{product.amount}
+											</Typography>
+											<Typography variant={'body1'}>
+												x <strong>{product.price}</strong>
+											</Typography>
+										</Box>
+									</Box>
+									<AmountButtons
+										product={product}
+										addToCart={addToCart}
+										amount={product.amount}
+										removeFromCart={removeFromCart}
+									/>
+								</ListItem>
+								<Divider />
+							</>
+						);
+					})}
+				</List>
+				<Box
+					sx={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'space-between',
+						marginTop: '24px',
+						fontWeight: '600',
+					}}>
+					<Typography sx={{ fontWeight: '600' }}>Total:</Typography>
+					<Typography sx={{ fontWeight: '600' }}>{cartTotalAmount} Rs</Typography>
+				</Box>
+			</Box>
+			<CustomLoadingButton
+				loading={loading}
+				color={errorState.isError ? 'error' : errorState.isError !== null ? 'success' : 'primary'}
+				sx={{ mt: 3, borderRadius: 2, textTransform: 'inherit' }}
+				variant={'contained'}
+				fullWidth
+				onClick={handleOrder}>
+				{errorState.isError ? (
+					errorState.message
+				) : errorState.isError !== null ? (
+					errorState.message
+				) : (
+					<strong>Order</strong>
+				)}
+			</CustomLoadingButton>
+		</>
 	);
 };

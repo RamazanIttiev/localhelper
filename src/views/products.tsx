@@ -4,17 +4,17 @@ import { useAirtableData } from '../hooks';
 import { Product } from '../components/product';
 import { useParams } from 'react-router-dom';
 import { SkeletonLoader } from '../components/skeletonLoader';
+import { ProductModel } from '../models/productModel';
 
 interface ProductsProps {
-	// cart: Product[];
-	// removeFromCart: (product: Product) => void;
-	// addToCart: (selectedProduct: Product) => void;
+	cartProducts: ProductModel[];
+	removeFromCart: (product: ProductModel) => void;
+	addToCart: (selectedProduct: ProductModel) => void;
 }
 
-export const Products: FC<ProductsProps> = () => {
+export const Products: FC<ProductsProps> = ({ cartProducts, removeFromCart, addToCart }) => {
 	const { categoryId } = useParams();
-	// const [isCartOpened, setOpenCart] = useState(false);
-	// const [cart, setCart] = useState<Product[] | []>(JSON.parse(localStorage.getItem('products') || '[]'));
+
 	const products = useAirtableData(categoryId);
 
 	return (
@@ -26,9 +26,9 @@ export const Products: FC<ProductsProps> = () => {
 							<Grid item xs={6} md={5} key={product.id}>
 								<Product
 									product={product}
-									// cart={cart}
-									// addToCart={addToCart}
-									// removeFromCart={removeFromCart}
+									cartProducts={cartProducts}
+									addToCart={addToCart}
+									removeFromCart={removeFromCart}
 								/>
 							</Grid>
 						);

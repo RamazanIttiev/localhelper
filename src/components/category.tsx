@@ -67,4 +67,3 @@ export const Category: FC<CategoryProps> = ({ title, image, isLink = false, idFo
 		</>
 	);
 };
-export default Category;

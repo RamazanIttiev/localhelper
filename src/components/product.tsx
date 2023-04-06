@@ -1,62 +1,22 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 
 import { ProductModel } from '../models/productModel';
-import { Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
-import { getAirtableView } from '../hooks';
-import { Link, useParams } from 'react-router-dom';
-import { sendWebAppDeepLink } from '../utils/requests';
-import { CustomLoadingButton } from './reactkit/button';
-import { ErrorType } from '../models/error';
+import { Link } from 'react-router-dom';
+import { isProductInCart } from '../utils/cart';
+import { AmountButtons } from './amountButtons';
 
 interface ProductProps {
 	product: ProductModel;
-	// cart: Product[];
-	// removeFromCart: (product: Product) => void;
-	// addToCart: (selectedProduct: Product) => void;
+	cartProducts: ProductModel[];
+	removeFromCart: (product: ProductModel) => void;
+	addToCart: (selectedProduct: ProductModel) => void;
 }
 
-export const Product: FC<ProductProps> = ({ product }) => {
-	const [loading, setLoading] = useState(false);
-	const [errorState, setErrorState] = useState<ErrorType>({
-		message: '',
-		isError: null,
-	});
-
-	const { categoryId } = useParams();
+export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, removeFromCart }) => {
 	const { title, price, image } = product;
-	const idForBot = getAirtableView(categoryId);
-	// const productInCart = isProductInCart(cart, product)
-
-	useEffect(() => {
-		if (errorState.isError !== null) {
-			setTimeout(() => {
-				setErrorState({
-					message: '',
-					isError: null,
-				});
-			}, 5000);
-		}
-	}, [errorState]);
-
-	const handleClick = async () => {
-		setLoading(true);
-		try {
-			const result = await sendWebAppDeepLink(idForBot, 'lhelper', { itemName: title });
-			if (!result.ok) {
-				setLoading(false);
-				setErrorState({ message: 'Try again later', isError: true });
-			} else {
-				setErrorState({ message: 'Success', isError: false });
-				setLoading(false);
-			}
-		} catch (error) {
-			setErrorState({
-				message: typeof error === 'string' ? error : 'Try again later',
-				isError: true,
-			});
-		}
-	};
+	const productInCart = isProductInCart(cartProducts, product);
 
 	return (
 		<Card
@@ -112,32 +72,23 @@ export const Product: FC<ProductProps> = ({ product }) => {
 					</Typography>
 				</CardContent>
 			</Link>
-			{/*</Box>*/}
 			<CardActions sx={{ flexDirection: 'column', p: '0 16px 0 16px' }}>
-				{/*{productInCart ? (*/}
-				{/*	<AmountButtons*/}
-				{/*		product={product}*/}
-				{/*		amount={productInCart.amount}*/}
-				{/*		addToCart={addToCart}*/}
-				{/*		removeFromCart={removeFromCart}*/}
-				{/*	/>*/}
-				{/*) : (*/}
-				<CustomLoadingButton
-					loading={loading}
-					color={errorState.isError ? 'error' : errorState.isError !== null ? 'success' : 'primary'}
-					sx={{ height: '32px', borderRadius: 2, textTransform: 'inherit' }}
-					variant={'contained'}
-					fullWidth
-					onClick={handleClick}>
-					{errorState.isError ? (
-						errorState.message
-					) : errorState.isError !== null ? (
-						errorState.message
-					) : (
+				{productInCart ? (
+					<AmountButtons
+						product={product}
+						amount={productInCart.amount}
+						addToCart={addToCart}
+						removeFromCart={removeFromCart}
+					/>
+				) : (
+					<Button
+						sx={{ borderRadius: 2, textTransform: 'inherit' }}
+						variant={'contained'}
+						fullWidth
+						onClick={() => addToCart(product)}>
 						<strong>Rs {price}</strong>
-					)}
-				</CustomLoadingButton>
-				{/*)}*/}
+					</Button>
+				)}
 			</CardActions>
 		</Card>
 	);

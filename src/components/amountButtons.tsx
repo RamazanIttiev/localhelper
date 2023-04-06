@@ -13,7 +13,7 @@ export const AmountButtons: FC<AmountButtonsProps> = ({ product, addToCart, remo
 	return (
 		<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', width: '100%' }}>
 			<Button
-				variant={'outlined'}
+				variant={'contained'}
 				size={'small'}
 				sx={{ minWidth: 32, fontSize: 24, lineHeight: 1 }}
 				onClick={() => removeFromCart(product)}>
@@ -21,7 +21,7 @@ export const AmountButtons: FC<AmountButtonsProps> = ({ product, addToCart, remo
 			</Button>
 			<Typography sx={{ minWidth: '24px', textAlign: 'center' }}>{amount}</Typography>
 			<Button
-				variant={'outlined'}
+				variant={'contained'}
 				size={'small'}
 				sx={{ minWidth: 32, fontSize: 24, lineHeight: 1 }}
 				onClick={() => addToCart(product)}>

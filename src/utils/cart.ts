@@ -1,6 +1,6 @@
 import { ProductModel } from '../models/productModel';
 
-export const isProductInCart = (products: ProductModel[], selectedProduct: ProductModel | null) =>
+export const isProductInCart = (products: ProductModel[], selectedProduct: ProductModel | undefined) =>
 	products.find(product => product.id === selectedProduct?.id);
 
 export const incrementProductInCart = (products: ProductModel[], selectedProduct: ProductModel) => {
@@ -27,3 +27,14 @@ export const addNewProductToCart = (products: ProductModel[], selectedProduct: P
 	localStorage.setItem('products', JSON.stringify(newProduct));
 	return newProduct;
 };
+
+export const getOrderString = (orderItems: string[], cartTotalAmount: number) =>
+	`
+Ваш заказ: 
+	
+			${JSON.stringify(orderItems, null, 2)} 
+		
+Total: ${cartTotalAmount}
+
+Доставка: бесплатно
+Способ оплаты: наличные`.replace(/\[|\]|"/g, '');

@@ -6,6 +6,7 @@ import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@
 import { Link } from 'react-router-dom';
 import { isProductInCart } from '../utils/cart';
 import { AmountButtons } from './amountButtons';
+import { InfoBadge } from './reactkit/infoBadge';
 
 interface ProductProps {
 	product: ProductModel;
@@ -15,7 +16,7 @@ interface ProductProps {
 }
 
 export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, removeFromCart }) => {
-	const { title, price, image } = product;
+	const { title, price, image, infoBadges } = product;
 	const productInCart = isProductInCart(cartProducts, product);
 
 	return (
@@ -29,9 +30,23 @@ export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, re
 				borderRadius: 2,
 				minHeight: '296px',
 			}}>
-			<Link to={title.toLowerCase()}>
+			<Link to={title.toLowerCase()} style={{ position: 'relative' }}>
 				{image ? (
-					<CardMedia component="img" image={image[0].url} alt={image[0].alt} sx={{ height: '11rem' }} />
+					<>
+						<CardMedia component="img" image={image[0].url} alt={image[0].alt} sx={{ height: '11rem' }} />
+						{infoBadges && (
+							<InfoBadge
+								iterable={infoBadges}
+								containerStyles={{
+									display: 'flex',
+									position: 'absolute',
+									top: '0.5rem',
+									left: '0.5rem',
+								}}
+								iconStyles={{ margin: '0 2px' }}
+							/>
+						)}
+					</>
 				) : (
 					<Typography
 						fontSize={'small'}

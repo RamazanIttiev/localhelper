@@ -6,6 +6,7 @@ export interface ProductModel {
 	tableName?: string;
 	description: string;
 	image: { url: string; alt: string }[];
+	infoBadges?: string[];
 
 	// food props
 	spicy?: number;
@@ -13,7 +14,7 @@ export interface ProductModel {
 	location?: string;
 	vegetarian?: string;
 
-	// hotel props
+	// rent props
 
 	tv?: boolean;
 	ac?: boolean;

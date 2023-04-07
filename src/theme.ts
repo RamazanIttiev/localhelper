@@ -8,6 +8,7 @@ export const theme = createTheme({
 			default: '#212121',
 			paper: '#303030',
 		},
+		info: { main: '#fff' },
 	},
 	typography: {
 		fontFamily: 'Montserrat, sans-serif',

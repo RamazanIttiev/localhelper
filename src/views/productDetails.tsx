@@ -25,7 +25,7 @@ export const ProductDetails: FC<ProductDetailsProps> = ({ cartProducts, addToCar
 	const productInCart = isProductInCart(cartProducts, selectedProduct);
 
 	return (
-		<Card sx={{ width: '90%', m: '0 auto' }}>
+		<Card sx={{ width: '90%', m: '0 auto', position: 'relative' }}>
 			<CardMedia>
 				{selectedProduct?.image !== undefined ? (
 					<MuiCarousel selectedProduct={selectedProduct} />

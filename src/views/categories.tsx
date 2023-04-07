@@ -17,8 +17,8 @@ export const Categories: FC<CategoriesProps> = () => {
 			{categories.map(({ title, image }: CategoryModel) => {
 				return <Category key={title} isLink title={title} image={image} />;
 			})}
-			<Category title={'Bonus'} image={bonus} idForBot={'ZGw6MTI3Mjc4'} />
 			<Category title={'Exchange'} image={exchange} idForBot={'ZGw6MTI3Mjgx'} />
+			<Category title={'Bonus'} image={bonus} idForBot={'ZGw6MTI3Mjc4'} />
 			<Category title={'Transfer'} image={transfer} idForBot={'ZGw6MTI1MDQ5'} />
 			<Outlet />
 		</Grid>

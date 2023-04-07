@@ -19,6 +19,31 @@ export const mapData = (airTableData: Records<FieldSet>) => {
 					return { url, alt: item.title };
 				}),
 			tableName: table._table.name,
+			infoBadges: item.infoBadges?.map(facility => {
+				switch (facility) {
+					case 'ac': {
+						return 'ac_unit';
+					}
+					case 'wifi': {
+						return 'wifi';
+					}
+					case 'pool': {
+						return 'pool';
+					}
+					case 'breakfast': {
+						return 'restaurant';
+					}
+					case 'vegetarian': {
+						return 'grass';
+					}
+					case 'spicy': {
+						return 'local_fire_department';
+					}
+					default: {
+						return '';
+					}
+				}
+			}),
 		};
 		switch (table._table.name) {
 			case 'food': {

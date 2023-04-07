@@ -33,7 +33,7 @@ export const CartContainer: FC<CartContainerProps> = ({ cartProducts, addToCart,
 	}, [errorState]);
 
 	const cartTotalAmount = (cartProducts as ProductModel[]).reduce((previous, current): number => {
-		return previous + current.amount * current.price;
+		return previous + current.amount! * current.price;
 	}, 0);
 
 	const orderItems = cartProducts.map(({ title, amount, price }, id) => {

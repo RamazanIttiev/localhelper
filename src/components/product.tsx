@@ -76,7 +76,7 @@ export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, re
 				{productInCart ? (
 					<AmountButtons
 						product={product}
-						amount={productInCart.amount}
+						amount={productInCart.amount!}
 						addToCart={addToCart}
 						removeFromCart={removeFromCart}
 					/>

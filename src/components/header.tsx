@@ -15,7 +15,7 @@ export const Header: FC<HeaderProps> = ({ cartProducts, handleEmptyCart }) => {
 	const productRouteData = useMatch('/food/:productId');
 
 	const cartTotalAmount = cartProducts.reduce((previous, current): number => {
-		return previous + current.amount;
+		return previous + current.amount!;
 	}, 0);
 
 	const handleNavigate = () => (productRouteData?.pattern.path === ':categoryId' ? navigate('/') : navigate(-1));

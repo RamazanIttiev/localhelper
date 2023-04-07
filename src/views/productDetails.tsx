@@ -65,7 +65,7 @@ export const ProductDetails: FC<ProductDetailsProps> = ({ cartProducts, addToCar
 				{productInCart ? (
 					<AmountButtons
 						product={selectedProduct!}
-						amount={productInCart.amount}
+						amount={productInCart.amount!}
 						addToCart={addToCart}
 						removeFromCart={removeFromCart}
 					/>

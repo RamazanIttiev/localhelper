@@ -52,7 +52,7 @@ const App = () => {
 			return (prevState as ProductModel[]).reduce(
 				(accumulator: [] | ProductModel[], product: ProductModel): ProductModel[] => {
 					if (product.id === selectedProduct.id) {
-						if (product.amount === 1) {
+						if (product.amount! === 1) {
 							pathname === '/shopping-cart' && navigate('/food');
 							return removeProductFromCart(accumulator);
 						}

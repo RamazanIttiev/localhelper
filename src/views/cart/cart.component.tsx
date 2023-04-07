@@ -70,7 +70,7 @@ export const Cart: FC<CartProps> = ({
 													textAlign: ' center',
 													mr: 0.5,
 												}}>
-												{product.amount}
+												{product.amount!}
 											</Typography>
 											<Typography variant={'body1'}>
 												x <strong>{product.price}</strong>
@@ -80,7 +80,7 @@ export const Cart: FC<CartProps> = ({
 									<AmountButtons
 										product={product}
 										addToCart={addToCart}
-										amount={product.amount}
+										amount={product.amount!}
 										removeFromCart={removeFromCart}
 									/>
 								</ListItem>

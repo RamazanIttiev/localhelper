@@ -3,12 +3,21 @@ export interface ProductModel {
 	title: string;
 	place: string;
 	price: number;
-	image: { url: string; alt: string }[];
+	tableName?: string;
 	description: string;
-	amount: number;
-}
+	image: { url: string; alt: string }[];
 
-export interface ProductsInCart {
-	title: string;
-	amount: number;
+	// food props
+	spicy?: number;
+	amount?: number;
+	location?: string;
+	vegetarian?: string;
+
+	// hotel props
+
+	tv?: boolean;
+	ac?: boolean;
+	wifi?: boolean;
+	pool?: boolean;
+	breakfast?: boolean;
 }

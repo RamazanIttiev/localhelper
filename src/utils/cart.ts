@@ -5,14 +5,19 @@ export const isProductInCart = (products: ProductModel[], selectedProduct: Produ
 
 export const incrementProductInCart = (products: ProductModel[], selectedProduct: ProductModel) => {
 	const existingProduct = products.map(product => {
-		return product.id === selectedProduct.id ? { ...product, amount: product.amount! + 1 } : product;
+		return product.id === selectedProduct.id && product.amount !== undefined
+			? { ...product, amount: product.amount + 1 }
+			: product;
 	});
 	localStorage.setItem('products', JSON.stringify(existingProduct));
 	return existingProduct;
 };
 
 export const decrementProduct = (accumulator: ProductModel[], product: ProductModel) => {
-	const severalProducts = [...accumulator, { ...product, amount: product.amount! - 1 }];
+	const severalProducts = [
+		...accumulator,
+		{ ...product, amount: product.amount !== undefined ? product.amount - 1 : 0 },
+	];
 	localStorage.setItem('products', JSON.stringify(severalProducts));
 	return severalProducts;
 };

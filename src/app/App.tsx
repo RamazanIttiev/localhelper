@@ -53,7 +53,7 @@ const App = () => {
 				(accumulator: [] | ProductModel[], product: ProductModel): ProductModel[] => {
 					if (product.id === selectedProduct.id) {
 						if (product.amount! === 1) {
-							pathname === '/shopping-cart' && navigate('/food');
+							pathname === '/shopping-cart' && prevState.length === 1 && navigate('/food');
 							return removeProductFromCart(accumulator);
 						}
 						return decrementProduct(accumulator, product);

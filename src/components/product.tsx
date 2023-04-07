@@ -1,12 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import { ProductModel } from '../models/productModel';
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
-import { Link } from 'react-router-dom';
+import { Link, useMatch } from 'react-router-dom';
 import { isProductInCart } from '../utils/cart';
 import { AmountButtons } from './amountButtons';
 import { InfoBadge } from './reactkit/infoBadge';
+import { sendWebAppDeepLink } from '../utils/requests';
+import { getAirtableView } from '../hooks';
+import { ErrorType } from '../models/error';
+import { CustomLoadingButton } from './reactkit/button';
 
 interface ProductProps {
 	product: ProductModel;
@@ -16,8 +20,47 @@ interface ProductProps {
 }
 
 export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, removeFromCart }) => {
+	const [loading, setLoading] = useState(false);
+	const [errorState, setErrorState] = useState<ErrorType>({
+		message: '',
+		isError: null,
+	});
+
+	useEffect(() => {
+		if (errorState.isError !== null) {
+			setTimeout(() => {
+				setErrorState({
+					message: '',
+					isError: null,
+				});
+			}, 5000);
+		}
+	}, [errorState]);
+
+	const routeData = useMatch('/:categoryId');
 	const { title, price, image, infoBadges } = product;
 	const productInCart = isProductInCart(cartProducts, product);
+
+	const idForBot = getAirtableView(routeData?.params.categoryId);
+
+	const handleOrder = async () => {
+		setLoading(true);
+		try {
+			const result = await sendWebAppDeepLink(idForBot, 'lhelper', { itemName: title });
+			if (!result.ok) {
+				setLoading(false);
+				setErrorState({ message: 'Try again later', isError: true });
+			} else {
+				setErrorState({ message: 'Success', isError: false });
+				setLoading(false);
+			}
+		} catch (error) {
+			setErrorState({
+				message: typeof error === 'string' ? error : 'Try again later',
+				isError: true,
+			});
+		}
+	};
 
 	return (
 		<Card
@@ -88,21 +131,39 @@ export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, re
 				</CardContent>
 			</Link>
 			<CardActions sx={{ flexDirection: 'column', p: '0 16px 0 16px' }}>
-				{productInCart ? (
-					<AmountButtons
-						product={product}
-						amount={productInCart.amount!}
-						addToCart={addToCart}
-						removeFromCart={removeFromCart}
-					/>
+				{routeData?.pathname === '/food' ? (
+					productInCart ? (
+						<AmountButtons
+							product={product}
+							amount={productInCart.amount!}
+							addToCart={addToCart}
+							removeFromCart={removeFromCart}
+						/>
+					) : (
+						<Button
+							sx={{ borderRadius: 2, textTransform: 'inherit' }}
+							variant={'contained'}
+							fullWidth
+							onClick={() => addToCart(product)}>
+							<strong>Rs {price}</strong>
+						</Button>
+					)
 				) : (
-					<Button
-						sx={{ borderRadius: 2, textTransform: 'inherit' }}
+					<CustomLoadingButton
+						loading={loading}
+						color={errorState.isError ? 'error' : errorState.isError !== null ? 'success' : 'primary'}
+						sx={{ mt: 3, borderRadius: 2, textTransform: 'inherit' }}
 						variant={'contained'}
 						fullWidth
-						onClick={() => addToCart(product)}>
-						<strong>Rs {price}</strong>
-					</Button>
+						onClick={handleOrder}>
+						{errorState.isError ? (
+							errorState.message
+						) : errorState.isError !== null ? (
+							errorState.message
+						) : (
+							<strong>Rs {price}</strong>
+						)}
+					</CustomLoadingButton>
 				)}
 			</CardActions>
 		</Card>

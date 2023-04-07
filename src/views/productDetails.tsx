@@ -1,11 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Card, CardContent, CardActions, Box, Typography, CardMedia, Button } from '@mui/material';
 import { useMatch } from 'react-router-dom';
-import { useAirtableData } from '../hooks';
+import { getAirtableView, useAirtableData } from '../hooks';
 import { MuiCarousel } from '../components/carousel';
 import { ProductModel } from '../models/productModel';
 import { AmountButtons } from '../components/amountButtons';
 import { isProductInCart } from '../utils/cart';
+import { sendWebAppDeepLink } from '../utils/requests';
+import { CustomLoadingButton } from '../components/reactkit/button';
+import { ErrorType } from '../models/error';
 
 interface ProductDetailsProps {
 	cartProducts: ProductModel[];
@@ -14,15 +17,53 @@ interface ProductDetailsProps {
 }
 
 export const ProductDetails: FC<ProductDetailsProps> = ({ cartProducts, addToCart, removeFromCart }) => {
-	const pathData = useMatch('/:categoryId/:productId');
+	const [loading, setLoading] = useState(false);
+	const [errorState, setErrorState] = useState<ErrorType>({
+		message: '',
+		isError: null,
+	});
 
-	const products = useAirtableData(pathData?.params.categoryId);
+	useEffect(() => {
+		if (errorState.isError !== null) {
+			setTimeout(() => {
+				setErrorState({
+					message: '',
+					isError: null,
+				});
+			}, 5000);
+		}
+	}, [errorState]);
+
+	const routeData = useMatch('/:categoryId/:productId');
+	const categoryId = useMatch('/:categoryId');
+
+	const products = useAirtableData(routeData?.params.categoryId);
 
 	const selectedProduct = products.find(item => {
-		return item.title.toLowerCase() === pathData?.params.productId;
+		return item.title.toLowerCase() === routeData?.params.productId;
 	});
 
 	const productInCart = isProductInCart(cartProducts, selectedProduct);
+	const idForBot = getAirtableView(categoryId?.params.categoryId);
+
+	const handleOrder = async () => {
+		setLoading(true);
+		try {
+			const result = await sendWebAppDeepLink(idForBot, 'lhelper', { itemName: selectedProduct?.title });
+			if (!result.ok) {
+				setLoading(false);
+				setErrorState({ message: 'Try again later', isError: true });
+			} else {
+				setErrorState({ message: 'Success', isError: false });
+				setLoading(false);
+			}
+		} catch (error) {
+			setErrorState({
+				message: typeof error === 'string' ? error : 'Try again later',
+				isError: true,
+			});
+		}
+	};
 
 	return (
 		<Card sx={{ width: '90%', m: '0 auto', position: 'relative' }}>
@@ -62,21 +103,39 @@ export const ProductDetails: FC<ProductDetailsProps> = ({ cartProducts, addToCar
 			</CardContent>
 
 			<CardActions sx={{ flexDirection: 'column', p: '0 16px 16px 16px' }}>
-				{productInCart ? (
-					<AmountButtons
-						product={selectedProduct!}
-						amount={productInCart.amount!}
-						addToCart={addToCart}
-						removeFromCart={removeFromCart}
-					/>
+				{routeData?.pathname === '/food' ? (
+					productInCart ? (
+						<AmountButtons
+							product={selectedProduct!}
+							amount={productInCart.amount!}
+							addToCart={addToCart}
+							removeFromCart={removeFromCart}
+						/>
+					) : (
+						<Button
+							sx={{ borderRadius: 2, textTransform: 'inherit' }}
+							variant={'contained'}
+							fullWidth
+							onClick={() => addToCart(selectedProduct!)}>
+							<strong>Rs {selectedProduct?.price}</strong>
+						</Button>
+					)
 				) : (
-					<Button
-						sx={{ borderRadius: 2, textTransform: 'inherit' }}
+					<CustomLoadingButton
+						loading={loading}
+						color={errorState.isError ? 'error' : errorState.isError !== null ? 'success' : 'primary'}
+						sx={{ mt: 3, borderRadius: 2, textTransform: 'inherit' }}
 						variant={'contained'}
 						fullWidth
-						onClick={() => addToCart(selectedProduct!)}>
-						<strong>Rs {selectedProduct?.price}</strong>
-					</Button>
+						onClick={handleOrder}>
+						{errorState.isError ? (
+							errorState.message
+						) : errorState.isError !== null ? (
+							errorState.message
+						) : (
+							<strong>Rs {selectedProduct?.price}</strong>
+						)}
+					</CustomLoadingButton>
 				)}
 			</CardActions>
 		</Card>

@@ -46,7 +46,7 @@ export const CartContainer: FC<CartContainerProps> = ({ cartProducts, addToCart,
 	const handleOrder = async () => {
 		setLoading(true);
 		try {
-			const result = await sendWebAppDeepLink(idForBot, 'lhelper', order);
+			const result = await sendWebAppDeepLink(idForBot, 'lhelper', { order });
 			if (!result.ok) {
 				setLoading(false);
 				setErrorState({ message: 'Try again later', isError: true });

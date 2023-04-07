@@ -27,7 +27,7 @@ const sendWebAppMessage = (text: string) => {
 export const sendWebAppDeepLink = (
 	identifier: string,
 	domain: string,
-	products?: { itemName: string; itemPrice: number } | {},
+	products?: { itemName: string; order: string } | {},
 ) => {
 	const sendData: SendData = {
 		range: [],

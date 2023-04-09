@@ -11,7 +11,7 @@ interface AmountButtonsProps {
 
 export const AmountButtons: FC<AmountButtonsProps> = ({ product, productInCart, addToCart, removeFromCart }) => {
 	const theme = useTheme();
-	console.log(productInCart);
+
 	return (
 		<Box
 			sx={{

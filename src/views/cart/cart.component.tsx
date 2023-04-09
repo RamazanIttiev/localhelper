@@ -80,6 +80,7 @@ export const Cart: FC<CartProps> = ({
 									<AmountButtons
 										product={product}
 										addToCart={addToCart}
+										productInCart={product}
 										removeFromCart={removeFromCart}
 									/>
 								</ListItem>

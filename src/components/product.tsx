@@ -1,16 +1,16 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import { ProductModel } from '../models/productModel';
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
-
-import { Link, useMatch } from 'react-router-dom';
+import { Telegram } from '../app/App';
+import { getAirtableView } from '../hooks';
+import { ErrorType } from '../models/error';
 import { isProductInCart } from '../utils/cart';
 import { AmountButtons } from './amountButtons';
 import { InfoBadge } from './reactkit/infoBadge';
-import { sendWebAppDeepLink } from '../utils/requests';
-import { getAirtableView } from '../hooks';
-import { ErrorType } from '../models/error';
-import { CustomLoadingButton } from './reactkit/button';
+import { Link, useMatch } from 'react-router-dom';
+import { ProductModel } from '../models/productModel';
+import { LoaderButton } from './reactkit/loaderButton';
+import { clearResponseMessage, handleOrder } from '../actions/global-actions';
+import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 interface ProductProps {
 	product: ProductModel;
@@ -20,6 +20,7 @@ interface ProductProps {
 }
 
 export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, removeFromCart }) => {
+	const routeData = useMatch('/:categoryId');
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
 		message: '',
@@ -27,43 +28,20 @@ export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, re
 	});
 
 	useEffect(() => {
-		if (errorState.isError !== null) {
-			setTimeout(() => {
-				setErrorState({
-					message: '',
-					isError: null,
-				});
-			}, 5000);
-		}
+		clearResponseMessage(errorState, handleError);
 	}, [errorState]);
 
-	const routeData = useMatch('/:categoryId');
 	const { title, price, image, infoBadges } = product;
 	const productInCart = isProductInCart(cartProducts, product);
 
 	const idForBot = getAirtableView(routeData?.params.categoryId);
 
-	const handleOrder = async () => {
-		setLoading(true);
-		try {
-			const result = await sendWebAppDeepLink(idForBot, 'lhelper', { itemName: title });
-			if (!result.ok) {
-				setLoading(false);
-				setErrorState({ message: 'Try again later', isError: true });
-			} else {
-				setErrorState({ message: 'Success', isError: false });
-				setLoading(false);
-			}
-		} catch (error) {
-			setErrorState({
-				message: typeof error === 'string' ? error : 'Try again later',
-				isError: true,
-			});
-		}
-	};
+	const handleLoading = (value: boolean) => setLoading(value);
+	const handleError = (value: ErrorType) => setErrorState(value);
 
 	return (
 		<Card
+			onClick={() => Telegram.WebApp.HapticFeedback.impactOccurred('soft')}
 			sx={{
 				display: 'flex',
 				flexDirection: 'column',
@@ -149,21 +127,12 @@ export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, re
 						</Button>
 					)
 				) : (
-					<CustomLoadingButton
+					<LoaderButton
+						text={price}
 						loading={loading}
-						color={errorState.isError ? 'error' : errorState.isError !== null ? 'success' : 'primary'}
-						sx={{ mt: 3, borderRadius: 2, textTransform: 'inherit' }}
-						variant={'contained'}
-						fullWidth
-						onClick={handleOrder}>
-						{errorState.isError ? (
-							errorState.message
-						) : errorState.isError !== null ? (
-							errorState.message
-						) : (
-							<strong>Rs {price}</strong>
-						)}
-					</CustomLoadingButton>
+						errorState={errorState}
+						handleClick={() => handleOrder(idForBot, title, handleLoading, handleError)}
+					/>
 				)}
 			</CardActions>
 		</Card>

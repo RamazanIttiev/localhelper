@@ -15,6 +15,7 @@ export const InfoBadge = ({ containerStyles, iconStyles, iterable }: InfoBadgePr
 				icon =>
 					icon && (
 						<Icon
+							key={icon}
 							sx={{
 								...iconStyles,
 								display: 'flex',

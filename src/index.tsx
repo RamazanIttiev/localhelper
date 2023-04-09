@@ -7,6 +7,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import { theme } from './theme';
 
+declare global {
+	interface Window {
+		Telegram: any;
+	}
+}
+
 const App = lazy(() => import('./app/App'));
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

@@ -1,16 +1,10 @@
-declare global {
-	interface Window {
-		Telegram: any;
-	}
-}
+import { Telegram } from '../app/App';
 
 interface SendData {
 	range: number[];
 	scope: unknown;
 	variables: { itemName: string; itemPrice: number } | {} | undefined;
 }
-
-const Telegram = window.Telegram;
 
 const sendWebAppMessage = (text: string) => {
 	const send = {

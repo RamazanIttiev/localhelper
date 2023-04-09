@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { ErrorType } from '../../models/error';
 import { ProductModel } from '../../models/productModel';
 import { AmountButtons } from '../../components/amountButtons';
-import { CustomLoadingButton } from '../../components/reactkit/button';
+import { LoaderButton } from '../../components/reactkit/loaderButton';
 import { Box, Divider, List, ListItem, Typography, useTheme } from '@mui/material';
 
 import dishImage from '../../assets/food.jpg';
@@ -101,21 +101,7 @@ export const Cart: FC<CartProps> = ({
 					<Typography sx={{ fontWeight: '600' }}>{cartTotalAmount} Rs</Typography>
 				</Box>
 			</Box>
-			<CustomLoadingButton
-				loading={loading}
-				color={errorState.isError ? 'error' : errorState.isError !== null ? 'success' : 'primary'}
-				sx={{ mt: 3, borderRadius: 2, textTransform: 'inherit' }}
-				variant={'contained'}
-				fullWidth
-				onClick={handleOrder}>
-				{errorState.isError ? (
-					errorState.message
-				) : errorState.isError !== null ? (
-					errorState.message
-				) : (
-					<strong>Order</strong>
-				)}
-			</CustomLoadingButton>
+			<LoaderButton text={'Order'} loading={loading} errorState={errorState} handleClick={handleOrder} />
 		</>
 	);
 };

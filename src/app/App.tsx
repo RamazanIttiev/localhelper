@@ -18,6 +18,7 @@ import {
 	removeProductFromCart,
 } from '../utils/cart';
 
+export const Telegram = window.Telegram;
 export const airtableBase = new Airtable({
 	apiKey: process.env.REACT_APP_AIRTABLE_PRIVATE_KEY,
 }).base('appN5D5g87uz2gY2j');
@@ -26,6 +27,17 @@ const App = () => {
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
 	const [cartProducts, setCartProducts] = useState<ProductModel[] | []>([]);
+
+	useEffect(() => {
+		Telegram.WebApp.ready();
+		Telegram.WebApp.expand();
+		Telegram.WebApp.enableClosingConfirmation();
+
+		pathname !== '/' ? Telegram.WebApp.BackButton.show() : Telegram.WebApp.BackButton.hide();
+		Telegram.WebApp.onEvent('backButtonClicked', () => {
+			navigate(-1);
+		});
+	}, [navigate, pathname]);
 
 	useEffect(() => {
 		setCartProducts(JSON.parse(localStorage.getItem('products') || '[]'));
@@ -38,6 +50,7 @@ const App = () => {
 	};
 
 	const addToCart = (selectedProduct: ProductModel) => {
+		Telegram.WebApp.HapticFeedback.impactOccurred('soft');
 		setCartProducts(prevState => {
 			if (isProductInCart(prevState, selectedProduct)) {
 				return incrementProductInCart(prevState, selectedProduct);
@@ -46,14 +59,14 @@ const App = () => {
 			}
 		});
 	};
-
 	const removeFromCart = (selectedProduct: ProductModel) => {
+		Telegram.WebApp.HapticFeedback.impactOccurred('soft');
 		setCartProducts(prevState => {
 			return (prevState as ProductModel[]).reduce(
 				(accumulator: [] | ProductModel[], product: ProductModel): ProductModel[] => {
 					if (product.id === selectedProduct.id) {
 						if (product.amount! === 1) {
-							pathname === '/shopping-cart' && prevState.length === 1 && navigate('/food');
+							pathname === '/shopping-cart' && cartProducts.length === 1 && navigate('/food');
 							return removeProductFromCart(accumulator);
 						}
 						return decrementProduct(accumulator, product);

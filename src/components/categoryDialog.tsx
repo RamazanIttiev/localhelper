@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Dialog, DialogActions, DialogContent, Slide, Typography } from '@mui/material';
-import { CustomLoadingButton } from './reactkit/button';
 import { ErrorType } from '../models/error';
-import { sendWebAppDeepLink } from '../utils/requests';
+import { LoaderButton } from './reactkit/loaderButton';
+import { clearResponseMessage, handleOrder } from '../actions/global-actions';
 import { TransitionProps } from '@mui/material/transitions';
+import { Box, Dialog, DialogActions, DialogContent, Slide, Typography } from '@mui/material';
 
 interface CategoryDialogProps {
 	title: string;
@@ -30,34 +30,12 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }
 	});
 
 	useEffect(() => {
-		if (errorState.isError !== null) {
-			setTimeout(() => {
-				setErrorState({
-					message: '',
-					isError: null,
-				});
-			}, 5000);
-		}
+		clearResponseMessage(errorState, handleError);
 	}, [errorState]);
 
-	const handleClick = async () => {
-		setLoading(true);
-		try {
-			const result = await sendWebAppDeepLink(idForBot, 'lhelper', {});
-			if (!result.ok) {
-				setLoading(false);
-				setErrorState({ message: 'Try again later', isError: true });
-			} else {
-				setErrorState({ message: 'Success', isError: false });
-				setLoading(false);
-			}
-		} catch (error) {
-			setErrorState({
-				message: typeof error === 'string' ? error : 'Try again later',
-				isError: true,
-			});
-		}
-	};
+	const handleLoading = (value: boolean) => setLoading(value);
+	const handleError = (value: ErrorType) => setErrorState(value);
+
 	return (
 		<Dialog TransitionComponent={Transition} keepMounted onClose={handleClose} open={isOpened}>
 			<DialogContent sx={{ p: '3rem 3rem' }}>
@@ -78,21 +56,12 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }
 					{title}
 				</Typography>
 				<DialogActions>
-					<CustomLoadingButton
+					<LoaderButton
+						text={'Buy'}
 						loading={loading}
-						color={errorState.isError ? 'error' : errorState.isError !== null ? 'success' : 'primary'}
-						sx={{ height: '32px', borderRadius: 2, textTransform: 'inherit' }}
-						variant={'contained'}
-						fullWidth
-						onClick={handleClick}>
-						{errorState.isError ? (
-							errorState.message
-						) : errorState.isError !== null ? (
-							errorState.message
-						) : (
-							<strong>Buy</strong>
-						)}
-					</CustomLoadingButton>
+						errorState={errorState}
+						handleClick={() => handleOrder(idForBot, title, handleLoading, handleError)}
+					/>
 				</DialogActions>
 			</DialogContent>
 		</Dialog>

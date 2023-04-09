@@ -33,7 +33,7 @@ export const addNewProductToCart = (products: ProductModel[], selectedProduct: P
 	return newProduct;
 };
 
-export const getOrderString = (orderItems: string[], cartTotalAmount: number) =>
+export const getFoodCartString = (orderItems: string[], cartTotalAmount: number) =>
 	`
 Ваш заказ: 
 	

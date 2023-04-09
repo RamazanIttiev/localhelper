@@ -3,9 +3,9 @@ import { Cart } from './cart.component';
 import { useMatch } from 'react-router-dom';
 import { getAirtableView } from '../../hooks';
 import { ErrorType } from '../../models/error';
+import { getFoodCartString } from '../../utils/cart';
 import { ProductModel } from '../../models/productModel';
-import { sendWebAppDeepLink } from '../../utils/requests';
-import { getOrderString } from '../../utils/cart';
+import { handleOrder } from '../../actions/global-actions';
 
 interface CartContainerProps {
 	cartProducts: ProductModel[] | [];
@@ -32,6 +32,11 @@ export const CartContainer: FC<CartContainerProps> = ({ cartProducts, addToCart,
 		}
 	}, [errorState]);
 
+	const idForBot = getAirtableView(routeData?.params.categoryId);
+
+	const handleLoading = (value: boolean) => setLoading(value);
+	const handleError = (value: ErrorType) => setErrorState(value);
+
 	const cartTotalAmount = (cartProducts as ProductModel[]).reduce((previous, current): number => {
 		return previous + current.amount! * current.price;
 	}, 0);
@@ -40,35 +45,17 @@ export const CartContainer: FC<CartContainerProps> = ({ cartProducts, addToCart,
 		return `${id + 1}. ${title} ${amount} x ${price}`;
 	});
 
-	const order = getOrderString(orderItems, cartTotalAmount);
-	const idForBot = getAirtableView(routeData?.params.categoryId);
+	const cartOrder = getFoodCartString(orderItems, cartTotalAmount);
 
-	const handleOrder = async () => {
-		setLoading(true);
-		try {
-			const result = await sendWebAppDeepLink(idForBot, 'lhelper', { order });
-			if (!result.ok) {
-				setLoading(false);
-				setErrorState({ message: 'Try again later', isError: true });
-			} else {
-				setErrorState({ message: 'Success', isError: false });
-				setLoading(false);
-			}
-		} catch (error) {
-			setErrorState({
-				message: typeof error === 'string' ? error : 'Try again later',
-				isError: true,
-			});
-		}
-	};
+	const handleCartOrder = () => handleOrder(idForBot, cartOrder, handleLoading, handleError);
 
 	return (
 		<Cart
 			loading={loading}
 			addToCart={addToCart}
 			errorState={errorState}
-			handleOrder={handleOrder}
 			cartProducts={cartProducts}
+			handleOrder={handleCartOrder}
 			removeFromCart={removeFromCart}
 			cartTotalAmount={cartTotalAmount}
 		/>

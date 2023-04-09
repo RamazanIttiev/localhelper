@@ -1,14 +1,14 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Card, CardContent, CardActions, Box, Typography, CardMedia, Button } from '@mui/material';
 import { useMatch } from 'react-router-dom';
-import { getAirtableView, useAirtableData } from '../hooks';
+import { ErrorType } from '../models/error';
+import { isProductInCart } from '../utils/cart';
 import { MuiCarousel } from '../components/carousel';
 import { ProductModel } from '../models/productModel';
 import { AmountButtons } from '../components/amountButtons';
-import { isProductInCart } from '../utils/cart';
-import { sendWebAppDeepLink } from '../utils/requests';
-import { CustomLoadingButton } from '../components/reactkit/button';
-import { ErrorType } from '../models/error';
+import { getAirtableView, useAirtableData } from '../hooks';
+import { LoaderButton } from '../components/reactkit/loaderButton';
+import { clearResponseMessage, handleOrder } from '../actions/global-actions';
+import { Card, CardContent, CardActions, Box, Typography, CardMedia, Button } from '@mui/material';
 
 interface ProductDetailsProps {
 	cartProducts: ProductModel[];
@@ -24,15 +24,11 @@ export const ProductDetails: FC<ProductDetailsProps> = ({ cartProducts, addToCar
 	});
 
 	useEffect(() => {
-		if (errorState.isError !== null) {
-			setTimeout(() => {
-				setErrorState({
-					message: '',
-					isError: null,
-				});
-			}, 5000);
-		}
+		clearResponseMessage(errorState, handleError);
 	}, [errorState]);
+
+	const handleLoading = (value: boolean) => setLoading(value);
+	const handleError = (value: ErrorType) => setErrorState(value);
 
 	const routeData = useMatch('/:categoryId/:productId');
 	const categoryId = useMatch('/:categoryId');
@@ -42,28 +38,8 @@ export const ProductDetails: FC<ProductDetailsProps> = ({ cartProducts, addToCar
 	const selectedProduct = products.find(item => {
 		return item.title.toLowerCase() === routeData?.params.productId;
 	});
-
 	const productInCart = isProductInCart(cartProducts, selectedProduct);
 	const idForBot = getAirtableView(categoryId?.params.categoryId);
-
-	const handleOrder = async () => {
-		setLoading(true);
-		try {
-			const result = await sendWebAppDeepLink(idForBot, 'lhelper', { itemName: selectedProduct?.title });
-			if (!result.ok) {
-				setLoading(false);
-				setErrorState({ message: 'Try again later', isError: true });
-			} else {
-				setErrorState({ message: 'Success', isError: false });
-				setLoading(false);
-			}
-		} catch (error) {
-			setErrorState({
-				message: typeof error === 'string' ? error : 'Try again later',
-				isError: true,
-			});
-		}
-	};
 
 	return (
 		<Card sx={{ width: '90%', m: '0 auto', position: 'relative' }}>
@@ -103,7 +79,7 @@ export const ProductDetails: FC<ProductDetailsProps> = ({ cartProducts, addToCar
 			</CardContent>
 
 			<CardActions sx={{ flexDirection: 'column', p: '0 16px 16px 16px' }}>
-				{routeData?.pathname === '/food' ? (
+				{routeData?.pathname === '/food' || routeData?.params.productId !== undefined ? (
 					productInCart ? (
 						<AmountButtons
 							product={selectedProduct!}
@@ -121,21 +97,12 @@ export const ProductDetails: FC<ProductDetailsProps> = ({ cartProducts, addToCar
 						</Button>
 					)
 				) : (
-					<CustomLoadingButton
+					<LoaderButton
 						loading={loading}
-						color={errorState.isError ? 'error' : errorState.isError !== null ? 'success' : 'primary'}
-						sx={{ mt: 3, borderRadius: 2, textTransform: 'inherit' }}
-						variant={'contained'}
-						fullWidth
-						onClick={handleOrder}>
-						{errorState.isError ? (
-							errorState.message
-						) : errorState.isError !== null ? (
-							errorState.message
-						) : (
-							<strong>Rs {selectedProduct?.price}</strong>
-						)}
-					</CustomLoadingButton>
+						errorState={errorState}
+						text={selectedProduct?.price}
+						handleClick={() => handleOrder(idForBot, selectedProduct?.title, handleLoading, handleError)}
+					/>
 				)}
 			</CardActions>
 		</Card>

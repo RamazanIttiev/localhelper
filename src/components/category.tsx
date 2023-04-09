@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Box, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 
 import { CategoryDialog } from './categoryDialog';
+import { Telegram } from '../app/App';
 
 interface CategoryProps {
 	title: string;
@@ -24,7 +25,7 @@ export const Category: FC<CategoryProps> = ({ title, image, isLink = false, idFo
 
 	return (
 		<>
-			<Grid item xs={5} md={4} key={title}>
+			<Grid item xs={5} md={4} key={title} onClick={() => Telegram.WebApp.HapticFeedback.impactOccurred('soft')}>
 				<Card
 					onClick={handleOpen}
 					sx={{

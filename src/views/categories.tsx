@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Grid } from '@mui/material';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { Category } from '../components/category';
 import { categories } from '../mock/categories';
 import { CategoryModel } from '../models/categories';
@@ -12,8 +12,10 @@ import transfer from '../assets/transfer.jpg';
 interface CategoriesProps {}
 
 export const Categories: FC<CategoriesProps> = () => {
+	const { pathname } = useLocation();
+
 	return (
-		<Grid container justifyContent={'center'} spacing={4} sx={{ pt: 3 }}>
+		<Grid container justifyContent={'center'} spacing={4} sx={{ pt: pathname === '/' ? 3 : 0 }}>
 			{categories.map(({ title, image }: CategoryModel) => {
 				return <Category key={title} isLink title={title} image={image} />;
 			})}

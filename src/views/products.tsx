@@ -19,7 +19,7 @@ export const Products: FC<ProductsProps> = ({ cartProducts, removeFromCart, addT
 
 	return (
 		<>
-			<Grid container spacing={2} sx={{ pt: 3, justifyContent: 'center' }}>
+			<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
 				{products.length !== 0 ? (
 					products.map((product: any) => {
 						return (

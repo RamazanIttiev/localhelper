@@ -65,7 +65,7 @@ export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, re
 								sx={{
 									top: 0,
 									display: 'flex',
-									width: ' 100%',
+									width: '100%',
 									height: '11rem',
 									borderRadius: '2rem',
 									position: 'absolute',
@@ -96,7 +96,7 @@ export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, re
 						fontSize={'small'}
 						sx={{
 							p: 1,
-							height: '10rem',
+							height: '11rem',
 							display: 'flex',
 							alignItems: 'center',
 							fontFamily: 'monospace',

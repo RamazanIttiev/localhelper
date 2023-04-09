@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { ProductModel } from '../models/productModel';
-import { Typography, Icon, IconButton, Box, useTheme } from '@mui/material';
+import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
 
 interface AmountButtonsProps {
 	product?: ProductModel;

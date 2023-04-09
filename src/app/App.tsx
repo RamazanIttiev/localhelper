@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Route, Routes, useLocation, useMatch, useNavigate } from 'react-router-dom';
 
 import Airtable from 'airtable';
 import { Container } from '@mui/material';
 import { Products } from '../views/products';
-import { Header } from '../components/header';
 import { Footer } from '../components/footer';
 import { Categories } from '../views/categories';
 import { ProductDetails } from '../views/productDetails';
-import { CartContainer } from '../views/cart/cart.container';
 import { ProductModel } from '../models/productModel';
 import {
 	addNewProductToCart,
@@ -17,6 +15,10 @@ import {
 	isProductInCart,
 	removeProductFromCart,
 } from '../utils/cart';
+import { getAirtableView } from '../hooks';
+import { CartContainer } from '../views/cart/cart.container';
+import { Header } from '../components/header';
+import { isUserAgentTelegram } from '../utils/deviceInfo';
 
 export const Telegram = window.Telegram;
 export const airtableBase = new Airtable({
@@ -26,7 +28,12 @@ export const airtableBase = new Airtable({
 const App = () => {
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
+	const routeData = useMatch('/:categoryId');
+	const productDetailsParams = useMatch('/:categoryId/:productId');
 	const [cartProducts, setCartProducts] = useState<ProductModel[] | []>([]);
+	const isCartEmpty = cartProducts.length === 0;
+
+	const botIdForCart = getAirtableView(routeData?.params.categoryId);
 
 	useEffect(() => {
 		Telegram.WebApp.ready();
@@ -43,11 +50,7 @@ const App = () => {
 		setCartProducts(JSON.parse(localStorage.getItem('products') || '[]'));
 	}, []);
 
-	const handleEmptyCart = () => {
-		setCartProducts([]);
-		localStorage.removeItem('products');
-		navigate('/food');
-	};
+	const clearState = () => setCartProducts([]);
 
 	const addToCart = (selectedProduct: ProductModel) => {
 		Telegram.WebApp.HapticFeedback.impactOccurred('soft');
@@ -59,6 +62,7 @@ const App = () => {
 			}
 		});
 	};
+
 	const removeFromCart = (selectedProduct: ProductModel) => {
 		Telegram.WebApp.HapticFeedback.impactOccurred('soft');
 		setCartProducts(prevState => {
@@ -80,8 +84,8 @@ const App = () => {
 	};
 
 	return (
-		<div className="App">
-			{pathname !== '/' && <Header cartProducts={cartProducts} handleEmptyCart={handleEmptyCart} />}
+		<>
+			{pathname !== '/' && !isUserAgentTelegram && <Header cartProducts={cartProducts} />}
 
 			<Container sx={{ pt: 2, pb: 11 }} maxWidth={'md'}>
 				<Routes>
@@ -107,20 +111,20 @@ const App = () => {
 							/>
 						}
 					/>
-					<Route
-						path="shopping-cart"
-						element={
-							<CartContainer
-								addToCart={addToCart}
-								cartProducts={cartProducts}
-								removeFromCart={removeFromCart}
-							/>
-						}
-					/>
 				</Routes>
 			</Container>
+			{!isCartEmpty &&
+				(pathname === '/food' || productDetailsParams?.pattern.path === '/:categoryId/:productId') && (
+					<CartContainer
+						addToCart={addToCart}
+						clearState={clearState}
+						cartProducts={cartProducts}
+						botIdForCart={botIdForCart}
+						removeFromCart={removeFromCart}
+					/>
+				)}
 			<Footer />
-		</div>
+		</>
 	);
 };
 

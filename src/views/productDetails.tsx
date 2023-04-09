@@ -8,7 +8,7 @@ import { AmountButtons } from '../components/amountButtons';
 import { getAirtableView, useAirtableData } from '../hooks';
 import { LoaderButton } from '../components/reactkit/loaderButton';
 import { clearResponseMessage, handleOrder } from '../actions/global-actions';
-import { Card, CardContent, CardActions, Box, Typography, CardMedia, Button } from '@mui/material';
+import { Card, CardContent, CardActions, Box, Typography, CardMedia } from '@mui/material';
 
 interface ProductDetailsProps {
 	cartProducts: ProductModel[];
@@ -79,23 +79,13 @@ export const ProductDetails: FC<ProductDetailsProps> = ({ cartProducts, addToCar
 			</CardContent>
 
 			<CardActions sx={{ flexDirection: 'column', p: '0 16px 16px 16px' }}>
-				{routeData?.pathname === '/food' || routeData?.params.productId !== undefined ? (
-					productInCart ? (
-						<AmountButtons
-							product={selectedProduct!}
-							amount={productInCart.amount!}
-							addToCart={addToCart}
-							removeFromCart={removeFromCart}
-						/>
-					) : (
-						<Button
-							sx={{ borderRadius: 2, textTransform: 'inherit' }}
-							variant={'contained'}
-							fullWidth
-							onClick={() => addToCart(selectedProduct!)}>
-							<strong>Rs {selectedProduct?.price}</strong>
-						</Button>
-					)
+				{(routeData?.pathname === '/food' && productInCart) || routeData?.params.productId !== undefined ? (
+					<AmountButtons
+						addToCart={addToCart}
+						product={selectedProduct}
+						productInCart={productInCart}
+						removeFromCart={removeFromCart}
+					/>
 				) : (
 					<LoaderButton
 						loading={loading}

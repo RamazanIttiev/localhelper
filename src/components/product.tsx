@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import { Telegram } from '../app/App';
 import { getAirtableView } from '../hooks';
 import { ErrorType } from '../models/error';
 import { isProductInCart } from '../utils/cart';
@@ -9,8 +8,8 @@ import { InfoBadge } from './reactkit/infoBadge';
 import { Link, useMatch } from 'react-router-dom';
 import { ProductModel } from '../models/productModel';
 import { LoaderButton } from './reactkit/loaderButton';
-import { clearResponseMessage, handleOrder } from '../actions/global-actions';
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { clearResponseMessage, handleOrder, setHaptic } from '../actions/global-actions';
+import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 interface ProductProps {
 	product: ProductModel;
@@ -41,20 +40,44 @@ export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, re
 
 	return (
 		<Card
-			onClick={() => Telegram.WebApp.HapticFeedback.impactOccurred('soft')}
+			onClick={() => setHaptic('light')}
 			sx={{
-				display: 'flex',
-				flexDirection: 'column',
-				justifyContent: 'space-between',
 				pb: 2,
+				display: 'flex',
 				height: 'auto',
-				borderRadius: 2,
-				minHeight: '296px',
+				boxShadow: 'none',
+				minHeight: '16rem',
+				flexDirection: 'column',
+				background: 'transparent',
+				justifyContent: 'space-between',
 			}}>
 			<Link to={title.toLowerCase()} style={{ position: 'relative' }}>
 				{image ? (
 					<>
-						<CardMedia component="img" image={image[0].url} alt={image[0].alt} sx={{ height: '11rem' }} />
+						<CardMedia
+							component="img"
+							image={image[0].url}
+							alt={image[0].alt}
+							sx={{ height: '11rem', borderRadius: '2rem' }}
+						/>
+						{productInCart && (
+							<Box
+								sx={{
+									top: 0,
+									display: 'flex',
+									width: ' 100%',
+									height: '11rem',
+									borderRadius: '2rem',
+									position: 'absolute',
+									alignItems: 'center',
+									justifyContent: 'center',
+									background: 'rgba(0,0,0,0.5)',
+								}}>
+								<Typography variant={'body1'} fontSize={'1rem'}>
+									{productInCart.amount}
+								</Typography>
+							</Box>
+						)}
 						{infoBadges && (
 							<InfoBadge
 								iterable={infoBadges}
@@ -84,20 +107,21 @@ export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, re
 				)}
 				<CardContent
 					sx={{
-						'&:last-child': { pb: 0, pt: 0.5 },
+						'&:last-child': { pb: 0 },
+						p: 0,
 						height: '100%',
 						display: 'flex',
 						alignItems: 'baseline',
 						flexDirection: 'column',
 						justifyContent: 'center',
-						m: '8px auto',
+						mt: '1rem',
+						mb: '0.5rem',
 					}}>
 					<Typography
 						sx={{
-							mb: 1,
-							m: '0px auto',
+							m: 0,
 							display: 'flex',
-							fontSize: '16px',
+							fontSize: '0.8rem',
 							fontWeight: '600',
 							alignItems: 'center',
 							justifyContent: 'center',
@@ -108,24 +132,17 @@ export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, re
 					</Typography>
 				</CardContent>
 			</Link>
-			<CardActions sx={{ flexDirection: 'column', p: '0 16px 0 16px' }}>
+			<CardActions
+				sx={{
+					p: 0,
+				}}>
 				{routeData?.pathname === '/food' ? (
-					productInCart ? (
-						<AmountButtons
-							product={product}
-							amount={productInCart.amount!}
-							addToCart={addToCart}
-							removeFromCart={removeFromCart}
-						/>
-					) : (
-						<Button
-							sx={{ borderRadius: 2, textTransform: 'inherit' }}
-							variant={'contained'}
-							fullWidth
-							onClick={() => addToCart(product)}>
-							<strong>Rs {price}</strong>
-						</Button>
-					)
+					<AmountButtons
+						product={product}
+						addToCart={addToCart}
+						productInCart={productInCart}
+						removeFromCart={removeFromCart}
+					/>
 				) : (
 					<LoaderButton
 						text={price}

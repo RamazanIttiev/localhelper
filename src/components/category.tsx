@@ -24,7 +24,7 @@ export const Category: FC<CategoryProps> = ({ title, image, isLink = false, idFo
 
 	return (
 		<>
-			<Grid item xs={5} md={4} key={title} onClick={setHaptic('light')}>
+			<Grid item xs={5} md={4} key={title} onClick={() => setHaptic('light')}>
 				<Card
 					onClick={handleOpen}
 					sx={{

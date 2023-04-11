@@ -141,8 +141,8 @@ export const CartUI = ({
 							<List sx={{ pt: 0 }}>
 								{cartProducts.map(product => {
 									return (
-										<>
-											<ListItem key={product.id} disableGutters>
+										<React.Fragment key={product.id}>
+											<ListItem disableGutters>
 												{product.image !== undefined ? (
 													<Box
 														component={'img'}
@@ -192,7 +192,7 @@ export const CartUI = ({
 												/>
 											</ListItem>
 											<Divider />
-										</>
+										</React.Fragment>
 									);
 								})}
 							</List>

@@ -5,9 +5,12 @@ export const useReactRouter = () => {
 	const productsRoute = useMatch('/:categoryId');
 	const productDetailsRoute = useMatch('/:categoryId/:productId');
 
+	const isProductDetailsRoute = productDetailsRoute?.pattern.path === '/:categoryId/:productId';
+
 	return {
 		pathname,
 		productsRoute,
 		productDetailsRoute,
+		isProductDetailsRoute,
 	};
 };

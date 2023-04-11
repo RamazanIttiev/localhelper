@@ -1,16 +1,25 @@
-import React, { FC } from 'react';
+import React, { CSSProperties, FC } from 'react';
 import { ProductModel } from '../pages/productDetails/models/productModel';
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
+import { useReactRouter } from '../hooks/useReactRouter';
 
 interface AmountButtonsProps {
+	styles?: CSSProperties;
 	product?: ProductModel;
 	productFromCart?: ProductModel;
 	removeFromCart: (product: ProductModel) => void;
 	addToCart: (product: ProductModel) => void;
 }
 
-export const AmountButtons: FC<AmountButtonsProps> = ({ product, productFromCart, addToCart, removeFromCart }) => {
+export const AmountButtons: FC<AmountButtonsProps> = ({
+	styles,
+	product,
+	addToCart,
+	removeFromCart,
+	productFromCart,
+}) => {
 	const theme = useTheme();
+	const { isProductDetailsRoute } = useReactRouter();
 
 	return (
 		<Box
@@ -24,6 +33,7 @@ export const AmountButtons: FC<AmountButtonsProps> = ({ product, productFromCart
 				justifyContent: 'space-between',
 				width: productFromCart ? '7rem' : '5rem',
 				background: productFromCart ? theme.palette.primary.main : theme.palette.background.paper,
+				...styles,
 			}}>
 			<IconButton
 				sx={{ transition: 'all 0.4s' }}
@@ -34,7 +44,14 @@ export const AmountButtons: FC<AmountButtonsProps> = ({ product, productFromCart
 			<Typography
 				fontSize={'0.7rem'}
 				sx={{ fontWeight: 700, letterSpacing: ' 0.1rem', pl: productFromCart ? 0 : '0.5rem' }}>
-				{product?.price}
+				{isProductDetailsRoute ? (
+					<>
+						{productFromCart?.amount}
+						{productFromCart && 'x'} {product?.price}
+					</>
+				) : (
+					product?.price
+				)}
 			</Typography>
 			<IconButton size={'small'} onClick={product !== undefined ? () => addToCart(product) : undefined}>
 				<Icon fontSize={'small'} sx={{ color: '#fff' }}>

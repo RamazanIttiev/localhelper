@@ -1,7 +1,7 @@
 import { ProductModel } from '../pages/productDetails/models/productModel';
 import { FieldSet, Records } from 'airtable';
 
-export const mapData = (airTableData: Records<FieldSet>) => {
+export const mapData = (airTableData: Records<FieldSet>, categoryId: string | undefined) => {
 	return airTableData.map(table => {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
@@ -18,7 +18,6 @@ export const mapData = (airTableData: Records<FieldSet>) => {
 				item.image.map(({ url }: { url: string }) => {
 					return { url, alt: item.title };
 				}),
-			tableName: table._table.name,
 			infoBadges: item.infoBadges?.map(facility => {
 				switch (facility) {
 					case 'ac': {
@@ -45,7 +44,7 @@ export const mapData = (airTableData: Records<FieldSet>) => {
 				}
 			}),
 		};
-		switch (table._table.name) {
+		switch (categoryId) {
 			case 'food': {
 				return {
 					...productDefault,

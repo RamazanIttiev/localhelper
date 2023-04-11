@@ -12,7 +12,7 @@ interface ProductDetailsUIProps {
 	loading: boolean;
 	errorState: ErrorType;
 	productFromCart?: ProductModel;
-	amountButtonsVisible: boolean;
+	amountButtonsVisible?: boolean;
 	selectedProduct?: ProductModel;
 	handleError: (value: ErrorType) => void;
 	handleLoading: (value: boolean) => void;
@@ -29,10 +29,10 @@ export const ProductDetailsUI = ({
 	productFromCart,
 	removeFromCart,
 	selectedProduct,
-	amountButtonsVisible,
+	amountButtonsVisible = false,
 }: ProductDetailsUIProps) => {
 	return (
-		<Card sx={{ width: '90%', m: '0 auto', position: 'relative' }}>
+		<Card sx={{ width: '90%', m: '0 auto', position: 'relative', background: 'transparent', boxShadow: 'none' }}>
 			<CardMedia>
 				{selectedProduct?.image !== undefined ? (
 					<MuiCarousel selectedProduct={selectedProduct} />
@@ -71,6 +71,7 @@ export const ProductDetailsUI = ({
 			<CardActions sx={{ flexDirection: 'column', p: '0 16px 16px 16px' }}>
 				{amountButtonsVisible ? (
 					<AmountButtons
+						styles={{ maxWidth: '9rem', width: '9rem' }}
 						addToCart={addToCart}
 						product={selectedProduct}
 						productFromCart={productFromCart}

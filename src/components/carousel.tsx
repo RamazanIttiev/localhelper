@@ -41,7 +41,7 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 			activeIndicatorIconButtonProps={{ style: { color: '#212121' } }}>
 			{selectedProduct.image.map(({ url, alt }) => {
 				return (
-					<>
+					<React.Fragment key={alt}>
 						<Box
 							component={'img'}
 							src={url}
@@ -61,7 +61,7 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 								iconStyles={{ margin: '0 2px' }}
 							/>
 						)}
-					</>
+					</React.Fragment>
 				);
 			})}
 		</Carousel>

@@ -6,7 +6,7 @@ export const expandWebApp = () => Telegram.WebApp.expand();
 export const enableWebAppClosingConfirmation = () => Telegram.WebApp.enableClosingConfirmation();
 export const showBackButton = () => Telegram.WebApp.BackButton.show();
 export const hideBackButton = () => Telegram.WebApp.BackButton.hide();
-
+export const setHaptic = (state: string) => Telegram.WebApp.HapticFeedback.impactOccurred(state);
 export const handleBackButton = (navigate: NavigateFunction) =>
 	Telegram.WebApp.onEvent('backButtonClicked', () => {
 		navigate(-1);

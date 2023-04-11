@@ -1,8 +1,6 @@
-import { Telegram } from '../app/App';
 import { ErrorType } from '../models/error';
+import { setHaptic } from './webApp-actions';
 import { sendWebAppDeepLink } from '../utils/requests';
-
-export const setHaptic = (state: string) => Telegram.WebApp.HapticFeedback.impactOccurred(state);
 
 export const handleOrder = async (
 	idForBot: string,

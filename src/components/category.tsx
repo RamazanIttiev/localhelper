@@ -1,9 +1,8 @@
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
-
 import { CategoryDialog } from './categoryDialog';
-import { Telegram } from '../app/App';
+import { setHaptic } from '../actions/webApp-actions';
+import { Box, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 
 interface CategoryProps {
 	title: string;
@@ -25,7 +24,7 @@ export const Category: FC<CategoryProps> = ({ title, image, isLink = false, idFo
 
 	return (
 		<>
-			<Grid item xs={5} md={4} key={title} onClick={() => Telegram.WebApp.HapticFeedback.impactOccurred('soft')}>
+			<Grid item xs={5} md={4} key={title} onClick={setHaptic('light')}>
 				<Card
 					onClick={handleOpen}
 					sx={{

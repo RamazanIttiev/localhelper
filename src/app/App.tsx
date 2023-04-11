@@ -28,15 +28,15 @@ export const airtableBase = new Airtable({
 }).base('appN5D5g87uz2gY2j');
 
 const App = () => {
-	const { isCartEmpty } = useCart();
 	const navigate = useNavigate();
+	const { isCartEmpty } = useCart();
 	const { pathname, productDetailsRoute } = useReactRouter();
 
 	useEffect(() => {
 		webAppIsReady();
 		expandWebApp();
 		enableWebAppClosingConfirmation();
-		pathname === '/' ? hideBackButton() : showBackButton;
+		pathname === '/' ? hideBackButton() : showBackButton();
 		handleBackButton(navigate);
 	}, [pathname, navigate]);
 	return (

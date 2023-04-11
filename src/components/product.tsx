@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
-
-import { getAirtableView } from '../hooks';
+import { Link } from 'react-router-dom';
 import { ErrorType } from '../models/error';
-import { isProductInCart } from '../utils/cart';
 import { AmountButtons } from './amountButtons';
 import { InfoBadge } from './reactkit/infoBadge';
-import { Link, useMatch } from 'react-router-dom';
-import { ProductModel } from '../models/productModel';
+import { getAirtableView } from '../utils/airtable';
 import { LoaderButton } from './reactkit/loaderButton';
+import { useReactRouter } from '../hooks/useReactRouter';
+import { useProducts } from '../pages/products/hooks/useProducts';
+import { ProductModel } from '../pages/productDetails/models/productModel';
 import { clearResponseMessage, handleOrder, setHaptic } from '../actions/global-actions';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
@@ -19,7 +19,9 @@ interface ProductProps {
 }
 
 export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, removeFromCart }) => {
-	const routeData = useMatch('/:categoryId');
+	const { productsRoute } = useReactRouter();
+	const { getProductFromCart } = useProducts();
+
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
 		message: '',
@@ -31,9 +33,10 @@ export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, re
 	}, [errorState]);
 
 	const { title, price, image, infoBadges } = product;
-	const productInCart = isProductInCart(cartProducts, product);
 
-	const idForBot = getAirtableView(routeData?.params.categoryId);
+	const productFromCart = getProductFromCart(cartProducts, product);
+
+	const idForBot = getAirtableView(productsRoute?.params.categoryId);
 
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
@@ -60,7 +63,7 @@ export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, re
 							alt={image[0].alt}
 							sx={{ height: '11rem', borderRadius: '2rem' }}
 						/>
-						{productInCart && (
+						{productFromCart && (
 							<Box
 								sx={{
 									top: 0,
@@ -74,7 +77,7 @@ export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, re
 									background: 'rgba(0,0,0,0.5)',
 								}}>
 								<Typography variant={'body1'} fontSize={'1rem'}>
-									{productInCart.amount}
+									{productFromCart.amount}
 								</Typography>
 							</Box>
 						)}
@@ -136,11 +139,11 @@ export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, re
 				sx={{
 					p: 0,
 				}}>
-				{routeData?.pathname === '/food' ? (
+				{productsRoute?.pathname === '/food' ? (
 					<AmountButtons
 						product={product}
 						addToCart={addToCart}
-						productInCart={productInCart}
+						productFromCart={productFromCart}
 						removeFromCart={removeFromCart}
 					/>
 				) : (

@@ -1,18 +1,17 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Grid } from '@mui/material';
-import { Outlet, useLocation } from 'react-router-dom';
-import { Category } from '../components/category';
-import { categories } from '../mock/categories';
-import { CategoryModel } from '../models/categories';
+import { categories } from './mock/categories';
+import { CategoryModel } from './models/categories';
+import { Category } from '../../components/category';
+import { Outlet } from 'react-router-dom';
+import { useReactRouter } from '../../hooks/useReactRouter';
 
-import bonus from '../assets/bonus.jpg';
-import exchange from '../assets/exchange.jpg';
-import transfer from '../assets/transfer.jpg';
+import bonus from '../../assets/bonus.jpg';
+import exchange from '../../assets/exchange.jpg';
+import transfer from '../../assets/transfer.jpg';
 
-interface CategoriesProps {}
-
-export const Categories: FC<CategoriesProps> = () => {
-	const { pathname } = useLocation();
+export const Categories = () => {
+	const { pathname } = useReactRouter();
 
 	return (
 		<Grid container justifyContent={'center'} spacing={4} sx={{ pt: pathname === '/' ? 3 : 0 }}>

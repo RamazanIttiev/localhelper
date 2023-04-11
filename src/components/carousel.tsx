@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { ProductModel } from '../models/productModel';
+import { ProductModel } from '../pages/productDetails/models/productModel';
 import Carousel from 'react-material-ui-carousel';
 import { InfoBadge } from './reactkit/infoBadge';
 

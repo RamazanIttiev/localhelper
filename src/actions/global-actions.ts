@@ -17,6 +17,12 @@ export const handleOrder = async (
 		if (result.ok) {
 			handleLoading(false);
 			handleError({ message: 'Success', isError: false });
+		} else {
+			handleLoading(false);
+			handleError({
+				message: 'Try again later',
+				isError: true,
+			});
 		}
 	} catch (error) {
 		handleLoading(false);

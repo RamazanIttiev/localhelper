@@ -15,11 +15,14 @@ import {
 	showBackButton,
 	webAppIsReady,
 } from '../actions/webApp-actions';
+import { useDocumentTitle } from 'usehooks-ts';
 
 export const Layout = () => {
 	const navigate = useNavigate();
 	const { isCartEmpty } = useCart();
 	const { pathname } = useReactRouter();
+
+	useDocumentTitle('LocalHelper');
 
 	useEffect(() => {
 		webAppIsReady();

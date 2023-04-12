@@ -38,9 +38,9 @@ export const CartContainer = () => {
 
 	const cartTotalAmount = cartProducts.reduce((previous, current): number => {
 		if (current.amount !== undefined) {
-			return previous + current.amount;
+			return previous + current.amount * current.price;
 		}
-		return previous;
+		return current.price;
 	}, 0);
 
 	const cartOrder = getCartOrderString(orderItems, cartTotalAmount);

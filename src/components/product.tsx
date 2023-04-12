@@ -68,16 +68,17 @@ export const Product: FC<ProductProps> = ({ cartProducts, product, addToCart, re
 							<Box
 								sx={{
 									top: 0,
+									pr: '1rem',
 									display: 'flex',
 									width: '100%',
 									height: '11rem',
 									borderRadius: '2rem',
 									position: 'absolute',
-									alignItems: 'center',
-									justifyContent: 'center',
+									alignItems: 'start',
+									justifyContent: 'flex-end',
 									background: 'rgba(0,0,0,0.5)',
 								}}>
-								<Typography variant={'body1'} fontSize={'1rem'}>
+								<Typography variant={'body1'} fontSize={'1.5rem'}>
 									{productFromCart.amount}
 								</Typography>
 							</Box>

@@ -47,7 +47,7 @@ export const AmountButtons: FC<AmountButtonsProps> = ({
 				{isProductDetailsRoute ? (
 					<>
 						{productFromCart?.amount}
-						{productFromCart && 'x'} {product?.price}
+						{productFromCart && ' x'} {product?.price}
 					</>
 				) : (
 					product?.price

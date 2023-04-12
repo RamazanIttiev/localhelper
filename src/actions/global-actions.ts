@@ -11,7 +11,7 @@ export const handleOrder = async (
 	setHaptic('light');
 	handleLoading(true);
 	try {
-		const result = await sendWebAppDeepLink(idForBot, 'lhelper', { itemName: item });
+		const result = await sendWebAppDeepLink(idForBot, 'lhelper', { itemName: item, order: item });
 		if (result.ok) {
 			handleLoading(false);
 			handleError({ message: 'Success', isError: false });

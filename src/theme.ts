@@ -21,7 +21,7 @@ export const theme = createTheme({
 			styleOverrides: {
 				root: {
 					'& .MuiPaper-root': {
-						height: '87%',
+						height: '85%',
 						overflow: 'visible',
 					},
 				},

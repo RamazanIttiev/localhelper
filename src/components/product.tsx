@@ -9,10 +9,9 @@ import { useReactRouter } from '../hooks/useReactRouter';
 import { useProducts } from '../pages/products/hooks/useProducts';
 import { ProductModel } from '../models/productModel';
 import { clearResponseMessage, handleOrder } from '../actions/global-actions';
-import { Box, Card, CardActions, CardContent, CardMedia, Icon, IconButton, Typography } from '@mui/material';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import { ProductDetailsContainer } from './productDetails/productDetails.container';
-import { theme } from '../theme';
+import { Drawer } from './drawer/drawer';
 
 interface ProductProps {
 	product: ProductModel;
@@ -177,59 +176,11 @@ export const Product: FC<ProductProps> = ({
 				</CardActions>
 			</Card>
 
-			<SwipeableDrawer
-				anchor="bottom"
-				open={isOpened}
-				keepMounted={false}
-				onClose={toggleProductDetails(false)}
-				onOpen={toggleProductDetails(true)}
-				swipeAreaWidth={72}
-				disableSwipeToOpen={false}
-				ModalProps={{
-					keepMounted: true,
-				}}>
-				<Box
-					sx={{
-						px: 2,
-						pb: 2,
-						height: '100%',
-						overflow: 'auto',
-					}}>
-					{isOpened && (
-						<Box
-							sx={{
-								position: 'absolute',
-								top: -72,
-								borderTopLeftRadius: 8,
-								borderTopRightRadius: 8,
-								visibility: 'visible',
-								right: 0,
-								left: 0,
-								zIndex: 100,
-								backgroundColor: theme.palette.background.paper,
-								height: '72px',
-							}}>
-							<Box
-								sx={{
-									width: 30,
-									height: 6,
-									backgroundColor: '#fff',
-									borderRadius: 3,
-									position: 'absolute',
-									top: '1rem',
-									left: 'calc(50% - 15px)',
-								}}
-							/>
-							<IconButton
-								sx={{ position: 'absolute', right: 8, top: '1rem', color: '#fff' }}
-								onClick={toggleProductDetails(false)}>
-								<Icon>close</Icon>
-							</IconButton>
-						</Box>
-					)}
-					<ProductDetailsContainer product={product} />
-				</Box>
-			</SwipeableDrawer>
+			<Drawer
+				isOpened={isOpened}
+				toggleDrawer={toggleProductDetails}
+				children={<ProductDetailsContainer product={product} />}
+			/>
 		</>
 	);
 };

@@ -24,11 +24,6 @@ export const CartContainer = () => {
 
 	const botIdForCart = getAirtableView(productsRoute?.params.categoryId);
 
-	const handleClearCart = () => {
-		clearCart();
-		setOpenCart(false);
-	};
-
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
 
@@ -54,11 +49,11 @@ export const CartContainer = () => {
 		<CartUI
 			loading={loading}
 			addToCart={addToCart}
+			clearCart={clearCart}
 			toggleCart={toggleCart}
 			errorState={errorState}
 			cartProducts={cartProducts}
 			isCartOpened={isCartOpened}
-			clearCart={handleClearCart}
 			handleOrder={handleCartOrder}
 			removeFromCart={removeFromCart}
 			cartTotalAmount={cartTotalAmount}

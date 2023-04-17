@@ -1,0 +1,36 @@
+import React, { ReactNode } from 'react';
+import { Box } from '@mui/material';
+import { DrawerHeader } from './drawer-header';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+
+interface DrawerProps {
+	icon?: string;
+	isOpened: boolean;
+	children: ReactNode;
+	swipeAreaWidth?: number;
+	toggleDrawer: (value: boolean) => () => void;
+}
+
+export const Drawer = ({ icon, isOpened, toggleDrawer, children, swipeAreaWidth = 72 }: DrawerProps) => {
+	return (
+		<SwipeableDrawer
+			anchor="bottom"
+			open={isOpened}
+			keepMounted={true}
+			swipeAreaWidth={swipeAreaWidth}
+			onOpen={toggleDrawer(true)}
+			onClose={toggleDrawer(false)}
+			ModalProps={{
+				keepMounted: true,
+			}}>
+			<DrawerHeader icon={icon} toggleDrawer={toggleDrawer} />
+			<Box
+				sx={{
+					height: '100%',
+					overflow: 'auto',
+				}}>
+				{children}
+			</Box>
+		</SwipeableDrawer>
+	);
+};

@@ -1,17 +1,19 @@
 import React, { Suspense } from 'react';
-import { Grid } from '@mui/material';
 import { useCart } from '../cart/hooks/useCart';
+import { Container, Grid } from '@mui/material';
 import { Product } from '../../components/product';
 import { Await, useLoaderData } from 'react-router-dom';
 import { SkeletonLoader } from '../../components/skeletonLoader';
-import { ProductModel } from '../productDetails/models/productModel';
+import { ProductModel } from '../../components/productDetails/models/productModel';
+import { useReactRouter } from '../../hooks/useReactRouter';
 
 export const Products = () => {
-	const { products } = useLoaderData() as { products: ProductModel[] };
+	const { isRestaurantRoute } = useReactRouter();
 	const { removeFromCart, addToCart, cartProducts } = useCart();
+	const { products } = useLoaderData() as { products: ProductModel[] };
 
 	return (
-		<>
+		<Container sx={{ pt: 2, pb: 11 }} maxWidth={'md'}>
 			<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
 				<Suspense fallback={<SkeletonLoader />}>
 					<Await resolve={products}>
@@ -24,6 +26,7 @@ export const Products = () => {
 											addToCart={addToCart}
 											cartProducts={cartProducts}
 											removeFromCart={removeFromCart}
+											amountButtonsVisible={isRestaurantRoute}
 										/>
 									</Grid>
 								);
@@ -32,6 +35,6 @@ export const Products = () => {
 					</Await>
 				</Suspense>
 			</Grid>
-		</>
+		</Container>
 	);
 };

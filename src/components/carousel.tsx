@@ -1,8 +1,9 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { ProductModel } from '../pages/productDetails/models/productModel';
+import { ProductModel } from '../models/productModel';
 import Carousel from 'react-material-ui-carousel';
 import { InfoBadge } from './reactkit/infoBadge';
+import { isUserAgentTelegram } from '../utils/deviceInfo';
 
 interface CarouselProps {
 	selectedProduct: ProductModel;
@@ -36,7 +37,8 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 			autoPlay={false}
 			stopAutoPlayOnHover
 			animation={'slide'}
-			navButtonsAlwaysVisible
+			navButtonsAlwaysInvisible={isUserAgentTelegram}
+			navButtonsAlwaysVisible={!isUserAgentTelegram}
 			indicatorIconButtonProps={{ style: { margin: '0 0.3rem' } }}
 			activeIndicatorIconButtonProps={{ style: { color: '#212121' } }}>
 			{selectedProduct.image.map(({ url, alt }) => {

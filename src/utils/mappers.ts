@@ -1,4 +1,4 @@
-import { ProductModel } from '../pages/productDetails/models/productModel';
+import { ProductModel } from '../models/productModel';
 import { FieldSet, Records } from 'airtable';
 
 export const mapData = (airTableData: Records<FieldSet>, categoryId: string | undefined) => {

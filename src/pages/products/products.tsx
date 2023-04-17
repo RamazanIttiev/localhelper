@@ -4,7 +4,7 @@ import { Container, Grid } from '@mui/material';
 import { Product } from '../../components/product';
 import { Await, useLoaderData } from 'react-router-dom';
 import { SkeletonLoader } from '../../components/skeletonLoader';
-import { ProductModel } from '../../components/productDetails/models/productModel';
+import { ProductModel } from '../../models/productModel';
 import { useReactRouter } from '../../hooks/useReactRouter';
 
 export const Products = () => {

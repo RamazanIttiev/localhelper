@@ -1,4 +1,4 @@
-import { ProductModel } from '../../productDetails/models/productModel';
+import { ProductModel } from '../../../models/productModel';
 
 export const incrementProductInCart = (products: ProductModel[], selectedProduct: ProductModel) => {
 	return products.map(product => {

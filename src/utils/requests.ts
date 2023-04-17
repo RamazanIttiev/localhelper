@@ -3,7 +3,7 @@ import { Telegram } from '../app/App';
 interface SendData {
 	range: number[];
 	scope: unknown;
-	variables: { itemName: string; itemPrice: number } | {} | undefined;
+	variables: { order: string; itemName?: undefined } | { itemName: string; order?: undefined } | undefined;
 }
 
 const sendWebAppMessage = (text: string) => {
@@ -21,12 +21,12 @@ const sendWebAppMessage = (text: string) => {
 export const sendWebAppDeepLink = (
 	identifier: string,
 	domain: string,
-	products?: { itemName: string; order: string } | {},
+	order: { order: string; itemName?: undefined } | { itemName: string; order?: undefined } | undefined,
 ) => {
 	const sendData: SendData = {
 		range: [],
 		scope: {},
-		variables: products,
+		variables: order,
 	};
 
 	return fetch('https://' + domain + '.customer.smartsender.eu/api/i/store', {

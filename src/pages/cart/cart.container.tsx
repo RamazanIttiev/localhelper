@@ -44,8 +44,7 @@ export const CartContainer = () => {
 	}, 0);
 
 	const cartOrder = getCartOrderString(orderItems, cartTotalAmount);
-
-	const handleCartOrder = () => handleOrder(botIdForCart, cartOrder, handleLoading, handleError);
+	const handleCartOrder = () => handleOrder(botIdForCart, { order: cartOrder }, handleLoading, handleError);
 
 	const toggleCart = (newOpen: boolean) => () => {
 		setOpenCart(newOpen);

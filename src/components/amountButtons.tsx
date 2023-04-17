@@ -1,9 +1,9 @@
 import React, { CSSProperties, FC } from 'react';
-import { ProductModel } from '../pages/productDetails/models/productModel';
+import { ProductModel } from '../models/productModel';
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
-import { useReactRouter } from '../hooks/useReactRouter';
 
 interface AmountButtonsProps {
+	showAmount?: boolean;
 	styles?: CSSProperties;
 	product?: ProductModel;
 	productFromCart?: ProductModel;
@@ -14,12 +14,12 @@ interface AmountButtonsProps {
 export const AmountButtons: FC<AmountButtonsProps> = ({
 	styles,
 	product,
+	showAmount = true,
 	addToCart,
 	removeFromCart,
 	productFromCart,
 }) => {
 	const theme = useTheme();
-	const { isProductDetailsRoute } = useReactRouter();
 
 	return (
 		<Box
@@ -31,29 +31,28 @@ export const AmountButtons: FC<AmountButtonsProps> = ({
 				display: 'flex',
 				alignItems: 'center',
 				justifyContent: 'space-between',
-				width: productFromCart ? '7rem' : '5rem',
+				width: productFromCart ? '7rem' : '6rem',
 				background: productFromCart ? theme.palette.primary.main : theme.palette.background.paper,
 				...styles,
 			}}>
 			<IconButton
-				sx={{ transition: 'all 0.4s' }}
-				size={'small'}
+				sx={{ p: productFromCart ? 1 : 0, transition: 'all 0.4s' }}
+				size={'medium'}
 				onClick={productFromCart !== undefined ? () => removeFromCart(productFromCart) : undefined}>
-				<Icon sx={{ color: '#fff', fontSize: productFromCart ? '1.125rem' : 0 }}>remove</Icon>
+				<Icon fontSize={'small'} sx={{ color: '#fff', opacity: productFromCart ? 1 : 0 }}>
+					remove
+				</Icon>
 			</IconButton>
-			<Typography
-				fontSize={'0.7rem'}
-				sx={{ fontWeight: 700, letterSpacing: ' 0.1rem', pl: productFromCart ? 0 : '0.5rem' }}>
-				{isProductDetailsRoute ? (
+			<Typography fontSize={'0.7rem'} sx={{ fontWeight: 700, letterSpacing: ' 0.1rem' }}>
+				{showAmount && productFromCart ? (
 					<>
-						{productFromCart?.amount}
-						{productFromCart && ' x'} {product?.price}
+						{productFromCart?.amount} x {product?.price}
 					</>
 				) : (
 					product?.price
 				)}
 			</Typography>
-			<IconButton size={'small'} onClick={product !== undefined ? () => addToCart(product) : undefined}>
+			<IconButton size={'medium'} onClick={product !== undefined ? () => addToCart(product) : undefined}>
 				<Icon fontSize={'small'} sx={{ color: '#fff' }}>
 					add
 				</Icon>

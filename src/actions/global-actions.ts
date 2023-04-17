@@ -4,14 +4,14 @@ import { sendWebAppDeepLink } from '../utils/requests';
 
 export const handleOrder = async (
 	idForBot: string,
-	item: string | number | {} | undefined,
+	order: { order: string; itemName?: undefined } | { itemName: string; order?: undefined },
 	handleLoading: (value: boolean) => void,
 	handleError: (value: ErrorType) => void,
 ) => {
 	setHaptic('light');
 	handleLoading(true);
 	try {
-		const result = await sendWebAppDeepLink(idForBot, 'lhelper', { itemName: item, order: item });
+		const result = await sendWebAppDeepLink(idForBot, 'lhelper', order);
 		if (result.ok) {
 			handleLoading(false);
 			handleError({ message: 'Success', isError: false });

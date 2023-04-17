@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
-import { Container } from '@mui/material';
-import { Header } from '../components/header';
 import { Footer } from '../components/footer';
 import { useCart } from '../pages/cart/hooks/useCart';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useReactRouter } from '../hooks/useReactRouter';
-import { isUserAgentTelegram } from '../utils/deviceInfo';
 import { CartContainer } from '../pages/cart/cart.container';
 import {
 	enableWebAppClosingConfirmation,
@@ -16,11 +13,14 @@ import {
 	webAppIsReady,
 } from '../actions/webApp-actions';
 import { useDocumentTitle } from 'usehooks-ts';
+import { Global } from '@emotion/react';
+import { isUserAgentTelegram } from '../utils/deviceInfo';
+import { Header } from '../components/header';
 
 export const Layout = () => {
 	const navigate = useNavigate();
 	const { isCartEmpty } = useCart();
-	const { pathname } = useReactRouter();
+	const { pathname, isRestaurantRoute } = useReactRouter();
 
 	useDocumentTitle('LocalHelper');
 
@@ -34,13 +34,19 @@ export const Layout = () => {
 
 	return (
 		<>
-			{pathname !== '/' && !isUserAgentTelegram && <Header />}
+			<Global
+				styles={{
+					'.PrivateSwipeArea-root': {
+						zIndex: '0 !important',
+					},
+				}}
+			/>
 
-			<Container sx={{ pt: 2, pb: 11 }} maxWidth={'md'}>
-				<Outlet />
-			</Container>
+			{pathname !== '/' && !isRestaurantRoute && !isUserAgentTelegram && <Header />}
 
-			{!isCartEmpty && pathname === '/food' && <CartContainer />}
+			<Outlet />
+
+			{!isCartEmpty && isRestaurantRoute && <CartContainer />}
 
 			<Footer />
 		</>

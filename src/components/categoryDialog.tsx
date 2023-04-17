@@ -4,6 +4,7 @@ import { LoaderButton } from './reactkit/loaderButton';
 import { clearResponseMessage, handleOrder } from '../actions/global-actions';
 import { TransitionProps } from '@mui/material/transitions';
 import { Box, Dialog, DialogActions, DialogContent, Slide, Typography } from '@mui/material';
+import { useReactRouter } from '../hooks/useReactRouter';
 
 interface CategoryDialogProps {
 	title: string;
@@ -23,6 +24,7 @@ const Transition = React.forwardRef(function Transition(
 });
 
 export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }: CategoryDialogProps) => {
+	const { isRestaurantRoute } = useReactRouter();
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
 		message: '',
@@ -35,6 +37,8 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }
 
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
+
+	const order = isRestaurantRoute ? { order: title } : { itemName: title };
 
 	return (
 		<Dialog TransitionComponent={Transition} keepMounted onClose={handleClose} open={isOpened}>
@@ -60,7 +64,7 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }
 						text={'Buy'}
 						loading={loading}
 						errorState={errorState}
-						handleClick={() => handleOrder(idForBot, title, handleLoading, handleError)}
+						handleClick={() => handleOrder(idForBot, order, handleLoading, handleError)}
 					/>
 				</DialogActions>
 			</DialogContent>

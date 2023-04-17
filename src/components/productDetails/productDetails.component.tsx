@@ -4,7 +4,7 @@ import { MuiCarousel } from '../carousel';
 import { AmountButtons } from '../amountButtons';
 import { LoaderButton } from '../reactkit/loaderButton';
 import { handleOrder } from '../../actions/global-actions';
-import { ProductModel } from './models/productModel';
+import { ProductModel } from '../../models/productModel';
 import { ErrorType } from '../../models/error';
 
 interface ProductDetailsUIProps {

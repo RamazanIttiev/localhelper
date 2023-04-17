@@ -1,7 +1,6 @@
 import React from 'react';
-import { Global } from '@emotion/react';
 import { ErrorType } from '../../models/error';
-import { ProductModel } from '../productDetails/models/productModel';
+import { ProductModel } from '../../models/productModel';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { AmountButtons } from '../../components/amountButtons';
 import { LoaderButton } from '../../components/reactkit/loaderButton';
@@ -41,21 +40,13 @@ export const CartUI = ({
 	return (
 		<>
 			<Box sx={{ height: '100%', backgroundColor: theme.palette.background.paper }}>
-				<Global
-					styles={{
-						'.MuiDrawer-root > .MuiPaper-root': {
-							height: `calc(95% - ${drawerBleeding}px)`,
-							overflow: 'visible',
-						},
-					}}
-				/>
 				{!isCartOpened && (
 					<Box
 						sx={{
 							position: 'fixed',
 							bottom: 0,
 							height: '72px',
-							zIndex: 9999,
+							zIndex: 100,
 							width: '100%',
 							display: 'flex',
 							alignItems: 'center',
@@ -108,22 +99,22 @@ export const CartUI = ({
 							left: 0,
 							backgroundColor: theme.palette.background.paper,
 						}}>
-						<Box
-							sx={{
-								width: 30,
-								height: 6,
-								backgroundColor: '#fff',
-								borderRadius: 3,
-								position: 'absolute',
-								top: 8,
-								left: 'calc(50% - 15px)',
-							}}
-						/>
 						{isCartOpened && (
 							<>
+								<Box
+									sx={{
+										width: 30,
+										height: 6,
+										backgroundColor: '#fff',
+										borderRadius: 3,
+										position: 'absolute',
+										top: '0.5rem',
+										left: 'calc(50% - 15px)',
+									}}
+								/>
 								<Typography sx={{ p: 3, color: '#fff', textAlign: 'center' }}>Your order</Typography>
 								<IconButton
-									sx={{ position: 'absolute', right: 8, top: 16, color: '#fff' }}
+									sx={{ position: 'absolute', right: 8, top: '1rem', color: '#fff' }}
 									onClick={clearCart}>
 									<Icon>delete</Icon>
 								</IconButton>
@@ -186,6 +177,7 @@ export const CartUI = ({
 												</Box>
 												<AmountButtons
 													product={product}
+													showAmount={false}
 													addToCart={addToCart}
 													productFromCart={product}
 													removeFromCart={removeFromCart}

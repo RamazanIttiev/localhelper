@@ -7,7 +7,7 @@ import { setHaptic } from '../actions/webApp-actions';
 import { LoaderButton } from './reactkit/loaderButton';
 import { useReactRouter } from '../hooks/useReactRouter';
 import { useProducts } from '../pages/products/hooks/useProducts';
-import { ProductModel } from './productDetails/models/productModel';
+import { ProductModel } from '../models/productModel';
 import { clearResponseMessage, handleOrder } from '../actions/global-actions';
 import { Box, Card, CardActions, CardContent, CardMedia, Icon, IconButton, Typography } from '@mui/material';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';

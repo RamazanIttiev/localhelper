@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container } from '@mui/material';
 import { ErrorType } from '../../models/error';
 import { useCart } from '../../pages/cart/hooks/useCart';
-import { ProductModel } from './models/productModel';
+import { ProductModel } from '../../models/productModel';
 import { getAirtableView } from '../../utils/airtable';
 import { useProducts } from '../../pages/products/hooks/useProducts';
 import { useReactRouter } from '../../hooks/useReactRouter';

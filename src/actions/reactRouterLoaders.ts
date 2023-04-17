@@ -18,12 +18,6 @@ const fetchProducts = async (categoryId: string | undefined) => {
 
 export const loadProducts = async ({ params }: LoaderFunctionArgs) => {
 	return defer({
-		products: fetchProducts(params.categoryId),
-	});
-};
-
-export const loadProductDetails = async ({ params }: LoaderFunctionArgs) => {
-	return defer({
-		products: await fetchProducts(params.categoryId),
+		products: fetchProducts(params.categoryId || 'food'),
 	});
 };

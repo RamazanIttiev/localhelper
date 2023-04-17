@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
-import { MuiCarousel } from '../../components/carousel';
-import { AmountButtons } from '../../components/amountButtons';
-import { LoaderButton } from '../../components/reactkit/loaderButton';
+import { Box, Card, CardActions, CardContent, CardMedia, Typography, useTheme } from '@mui/material';
+import { MuiCarousel } from '../carousel';
+import { AmountButtons } from '../amountButtons';
+import { LoaderButton } from '../reactkit/loaderButton';
 import { handleOrder } from '../../actions/global-actions';
 import { ProductModel } from './models/productModel';
 import { ErrorType } from '../../models/error';
@@ -18,8 +18,10 @@ interface ProductDetailsUIProps {
 	handleLoading: (value: boolean) => void;
 	addToCart: (selectedProduct: ProductModel) => void;
 	removeFromCart: (selectedProduct: ProductModel) => void;
+	order: { order: string; itemName?: undefined } | { itemName: string; order?: undefined };
 }
 export const ProductDetailsUI = ({
+	order,
 	loading,
 	idForBot,
 	addToCart,
@@ -31,6 +33,8 @@ export const ProductDetailsUI = ({
 	selectedProduct,
 	amountButtonsVisible = false,
 }: ProductDetailsUIProps) => {
+	const theme = useTheme();
+
 	return (
 		<Card sx={{ width: '90%', m: '0 auto', position: 'relative', background: 'transparent', boxShadow: 'none' }}>
 			<CardMedia>
@@ -68,10 +72,14 @@ export const ProductDetailsUI = ({
 				</Box>
 			</CardContent>
 
-			<CardActions sx={{ flexDirection: 'column', p: '0 16px 16px 16px' }}>
+			<CardActions sx={{ flexDirection: 'column', m: '2rem 0' }}>
 				{amountButtonsVisible ? (
 					<AmountButtons
-						styles={{ maxWidth: '9rem', width: '9rem' }}
+						styles={{
+							maxWidth: '9rem',
+							width: productFromCart ? '9rem' : '8rem',
+							background: productFromCart ? theme.palette.primary.main : theme.palette.background.default,
+						}}
 						addToCart={addToCart}
 						product={selectedProduct}
 						productFromCart={productFromCart}
@@ -82,7 +90,7 @@ export const ProductDetailsUI = ({
 						loading={loading}
 						errorState={errorState}
 						text={selectedProduct?.price}
-						handleClick={() => handleOrder(idForBot, selectedProduct?.title, handleLoading, handleError)}
+						handleClick={() => handleOrder(idForBot, order, handleLoading, handleError)}
 					/>
 				)}
 			</CardActions>

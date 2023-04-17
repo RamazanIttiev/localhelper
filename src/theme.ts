@@ -16,4 +16,16 @@ export const theme = createTheme({
 			color: '#fff',
 		},
 	},
+	components: {
+		MuiDrawer: {
+			styleOverrides: {
+				root: {
+					'& .MuiPaper-root': {
+						height: '87%',
+						overflow: 'visible',
+					},
+				},
+			},
+		},
+	},
 });

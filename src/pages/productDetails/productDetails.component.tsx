@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography, useTheme } from '@mui/material';
-import { MuiCarousel } from '../carousel';
-import { AmountButtons } from '../amountButtons';
-import { LoaderButton } from '../reactkit/loaderButton';
+import { MuiCarousel } from '../../components/carousel';
+import { AmountButtons } from '../../components/amountButtons';
+import { LoaderButton } from '../../components/reactkit/loaderButton';
 import { handleOrder } from '../../actions/global-actions';
 import { ProductModel } from '../../models/productModel';
 import { ErrorType } from '../../models/error';

@@ -10,11 +10,10 @@ import { useProducts } from '../../pages/products/hooks/useProducts';
 import { ProductModel } from '../../models/productModel';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
-import { ProductDetailsContainer } from '../productDetails/productDetails.container';
-import { Drawer } from '../drawer/drawer';
 
 import dishImage from '../../assets/food.jpg';
 import { ImageBackdrop } from './imageBackdrop';
+import { Link } from 'react-router-dom';
 
 interface ProductProps {
 	product: ProductModel;
@@ -32,7 +31,6 @@ export const Product: FC<ProductProps> = ({
 	amountButtonsVisible,
 }) => {
 	const { getProductFromCart } = useProducts();
-	const [isOpened, setIsOpened] = useState(false);
 	const { productsRoute, isServiceRoute } = useReactRouter();
 
 	const [loading, setLoading] = useState(false);
@@ -54,10 +52,6 @@ export const Product: FC<ProductProps> = ({
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
 
-	const toggleProductDetails = (newOpen: boolean) => () => {
-		setIsOpened(newOpen);
-	};
-
 	const order = isServiceRoute ? { order: title } : { itemName: title };
 
 	return (
@@ -74,7 +68,7 @@ export const Product: FC<ProductProps> = ({
 					background: 'transparent',
 					justifyContent: 'space-between',
 				}}>
-				<Box onClick={toggleProductDetails(true)} style={{ position: 'relative' }}>
+				<Link to={title.toLowerCase()} state={product} style={{ position: 'relative' }}>
 					{image ? (
 						<>
 							<CardMedia
@@ -144,7 +138,7 @@ export const Product: FC<ProductProps> = ({
 							{title.toLowerCase()}
 						</Typography>
 					</CardContent>
-				</Box>
+				</Link>
 				<CardActions
 					sx={{
 						p: 0,
@@ -155,7 +149,7 @@ export const Product: FC<ProductProps> = ({
 							addToCart={addToCart}
 							productFromCart={productFromCart}
 							removeFromCart={removeFromCart}
-							showAmount={isOpened}
+							showAmount={false}
 						/>
 					) : (
 						<LoaderButton
@@ -168,12 +162,6 @@ export const Product: FC<ProductProps> = ({
 					)}
 				</CardActions>
 			</Card>
-
-			<Drawer
-				isOpened={isOpened}
-				toggleDrawer={toggleProductDetails}
-				children={<ProductDetailsContainer product={product} />}
-			/>
 		</>
 	);
 };

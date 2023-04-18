@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 import { ErrorType } from '../../models/error';
-import { useCart } from '../../pages/cart/hooks/useCart';
-import { ProductModel } from '../../models/productModel';
 import { getAirtableView } from '../../utils/airtable';
-import { useProducts } from '../../pages/products/hooks/useProducts';
+import { useCart } from '../cart/hooks/useCart';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { ProductDetailsUI } from './productDetails.component';
 import { clearResponseMessage } from '../../actions/global-actions';
+import { useProducts } from '../products/hooks/useProducts';
 
-export const ProductDetailsContainer = ({ product }: { product: ProductModel }) => {
+export const ProductDetailsContainer = () => {
+	const { state } = useLocation();
+	const product = state;
+
 	const { getProductFromCart } = useProducts();
 	const { cartProducts, addToCart, removeFromCart } = useCart();
 	const { productsRoute, isServiceRoute } = useReactRouter();

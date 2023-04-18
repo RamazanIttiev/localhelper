@@ -8,8 +8,8 @@ import transport from '../../../assets/transport.jpg';
 
 export const categories: CategoryModel[] = [
 	{ title: 'Food', image: food },
-	{ title: 'Flowers', image: flowers },
-	{ title: 'Rent', image: rent },
-	{ title: 'Tours', image: tours },
 	{ title: 'Transport', image: transport },
+	{ title: 'Rent', image: rent },
+	{ title: 'Flowers', image: flowers },
+	{ title: 'Tours', image: tours },
 ];

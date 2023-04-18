@@ -19,7 +19,7 @@ import { Header } from '../components/header';
 export const Layout = () => {
 	const navigate = useNavigate();
 	const { isCartEmpty } = useCart();
-	const { pathname, isRestaurantRoute } = useReactRouter();
+	const { pathname, isServiceRoute } = useReactRouter();
 
 	useDocumentTitle('LocalHelper');
 
@@ -41,11 +41,11 @@ export const Layout = () => {
 				}}
 			/>
 
-			{pathname !== '/' && !isRestaurantRoute && !isUserAgentTelegram && <Header />}
+			{pathname !== '/' && !isServiceRoute && !isUserAgentTelegram && <Header />}
 
 			<Outlet />
 
-			{!isCartEmpty && isRestaurantRoute && <CartContainer />}
+			{!isCartEmpty && isServiceRoute && <CartContainer />}
 		</>
 	);
 };

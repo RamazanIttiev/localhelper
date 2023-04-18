@@ -1,12 +1,11 @@
 import React from 'react';
-import { setHaptic } from '../../actions/webApp-actions';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { setHaptic } from '../../actions/webApp-actions';
 import { InfoBadge } from '../../components/reactkit/infoBadge';
+import { ServiceModel } from '../../components/service/models/service';
+import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 
-import moochies from '../../assets/moochies.jpg';
-
-export const RestaurantsUI = () => {
+export const ServicesUI = ({ title, image }: ServiceModel) => {
 	return (
 		<Card
 			onClick={() => setHaptic('light')}
@@ -20,8 +19,8 @@ export const RestaurantsUI = () => {
 				background: 'transparent',
 				justifyContent: 'space-between',
 			}}>
-			<Link to={'moochies'} style={{ position: 'relative' }}>
-				<CardMedia component="img" image={moochies} sx={{ height: '11rem', borderRadius: '2rem' }} />
+			<Link to={`${title}`} state={{ title, image }} style={{ position: 'relative' }}>
+				<CardMedia component="img" image={image} sx={{ height: '11rem', borderRadius: '2rem' }} />
 
 				<InfoBadge
 					iterable={[]}
@@ -57,7 +56,7 @@ export const RestaurantsUI = () => {
 							textTransform: 'capitalize',
 						}}
 						component="h3">
-						Moochie's
+						{title}
 					</Typography>
 				</CardContent>
 			</Link>

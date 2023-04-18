@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { CategoryDialog } from './categoryDialog';
 import { setHaptic } from '../actions/webApp-actions';
 import { Box, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import { getServicesRoute } from '../pages/services/utils/services';
 
 interface CategoryProps {
 	title: string;
@@ -22,6 +23,8 @@ export const Category: FC<CategoryProps> = ({ title, image, isLink = false, idFo
 		setIsOpened(false);
 	};
 
+	const route = getServicesRoute(title);
+
 	return (
 		<>
 			<Grid item xs={5} md={4} key={title} onClick={() => setHaptic('light')}>
@@ -33,7 +36,7 @@ export const Category: FC<CategoryProps> = ({ title, image, isLink = false, idFo
 						cursor: 'pointer',
 						background: 'inherit',
 					}}>
-					<Box component={isLink ? Link : Box} to={title === 'Food' ? '/restaurants' : title.toLowerCase()}>
+					<Box component={isLink ? Link : Box} to={route}>
 						<CardMedia>
 							<Box
 								component={'img'}

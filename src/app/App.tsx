@@ -3,8 +3,8 @@ import { Layout } from './Layout';
 import { Products } from '../pages/products/products';
 import { Categories } from '../pages/categories/categories';
 import { loadProducts } from '../actions/reactRouterLoaders';
-import { RestaurantContainer } from '../pages/restaurant/restaurant.container';
-import { RestaurantsContainer } from '../pages/restaurants/restaurants.container';
+import { ServiceContainer } from '../components/service/service.container';
+import { ServicesContainer } from '../pages/services/services.container';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 
 export const Telegram = window.Telegram.WebApp;
@@ -16,8 +16,8 @@ const router = createBrowserRouter(
 		<Route path="/" element={<Layout />}>
 			<Route index element={<Categories />} />
 			<Route path=":categoryId" element={<Products />} loader={loadProducts} />
-			<Route path="restaurants" element={<RestaurantsContainer />} loader={loadProducts} />
-			<Route path="restaurants/:restaurantId" element={<RestaurantContainer />} loader={loadProducts} />
+			<Route path="services/:categoryId" element={<ServicesContainer />} />
+			<Route path="services/:categoryId/:serviceId" element={<ServiceContainer />} loader={loadProducts} />
 		</Route>,
 	),
 );

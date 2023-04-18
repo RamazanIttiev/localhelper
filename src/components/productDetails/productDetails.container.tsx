@@ -12,7 +12,7 @@ import { clearResponseMessage } from '../../actions/global-actions';
 export const ProductDetailsContainer = ({ product }: { product: ProductModel }) => {
 	const { getProductFromCart } = useProducts();
 	const { cartProducts, addToCart, removeFromCart } = useCart();
-	const { productsRoute, isRestaurantRoute } = useReactRouter();
+	const { productsRoute, isServiceRoute } = useReactRouter();
 
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -32,7 +32,7 @@ export const ProductDetailsContainer = ({ product }: { product: ProductModel }) 
 
 	const handleError = (value: ErrorType) => setErrorState(value);
 
-	const order = isRestaurantRoute ? { order: product.title } : { itemName: product.title };
+	const order = isServiceRoute ? { order: product.title } : { itemName: product.title };
 
 	return (
 		<Container sx={{ pt: 2, pb: 2, px: 6 }} maxWidth={'xs'}>
@@ -47,7 +47,7 @@ export const ProductDetailsContainer = ({ product }: { product: ProductModel }) 
 				handleLoading={handleLoading}
 				removeFromCart={removeFromCart}
 				productFromCart={productFromCart}
-				amountButtonsVisible={isRestaurantRoute}
+				amountButtonsVisible={isServiceRoute}
 			/>
 		</Container>
 	);

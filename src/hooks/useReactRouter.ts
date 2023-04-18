@@ -3,13 +3,15 @@ import { useLocation, useMatch } from 'react-router-dom';
 export const useReactRouter = () => {
 	const { pathname } = useLocation();
 	const productsRoute = useMatch('/:categoryId');
-	const restaurantRoute = useMatch('/restaurants/:restaurantId');
+	const servicesRoute = useMatch('/services/:categoryId');
+	const serviceRoute = useMatch('/services/:categoryId/:serviceId');
 
-	const isRestaurantRoute = restaurantRoute?.pattern.path === '/restaurants/:restaurantId';
+	const isServiceRoute = serviceRoute?.pattern.path === '/services/:categoryId/:serviceId';
 
 	return {
 		pathname,
 		productsRoute,
-		isRestaurantRoute,
+		servicesRoute,
+		isServiceRoute,
 	};
 };

@@ -1,12 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Products } from '../products/products';
+import { Products } from '../../pages/products/products';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { Box, Container, Icon, IconButton, Typography, useTheme } from '@mui/material';
+import { ServiceModel } from './models/service';
 
-import moochies from '../../assets/moochies.jpg';
+interface ServiceProps {
+	service: ServiceModel;
+}
 
-export const RestaurantUI = () => {
+export const ServiceUI = ({ service }: ServiceProps) => {
 	const theme = useTheme();
 	const navigate = useNavigate();
 
@@ -23,7 +26,7 @@ export const RestaurantUI = () => {
 			)}
 			<Box
 				component="img"
-				src={moochies}
+				src={service.image}
 				sx={{
 					display: 'block',
 					backgroundSize: 'cover',
@@ -47,7 +50,7 @@ export const RestaurantUI = () => {
 					background: `linear-gradient(to bottom, rgba(255,255,255, 0), ${theme.palette.background.default})`,
 				}}>
 				<Typography variant={'body1'} fontSize={'2rem'}>
-					Moochie's
+					{service.title}
 				</Typography>
 			</Box>
 			<Container sx={{ pt: 4, pb: 11 }} maxWidth={'md'}>

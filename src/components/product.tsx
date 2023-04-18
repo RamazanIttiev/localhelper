@@ -30,7 +30,7 @@ export const Product: FC<ProductProps> = ({
 	removeFromCart,
 	amountButtonsVisible,
 }) => {
-	const { productsRoute, isRestaurantRoute } = useReactRouter();
+	const { productsRoute, isServiceRoute } = useReactRouter();
 	const { getProductFromCart } = useProducts();
 	const [isOpened, setIsOpened] = useState(false);
 
@@ -57,7 +57,7 @@ export const Product: FC<ProductProps> = ({
 		setIsOpened(newOpen);
 	};
 
-	const order = isRestaurantRoute ? { order: title } : { itemName: title };
+	const order = isServiceRoute ? { order: title } : { itemName: title };
 
 	return (
 		<>

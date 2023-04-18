@@ -24,7 +24,7 @@ const Transition = React.forwardRef(function Transition(
 });
 
 export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }: CategoryDialogProps) => {
-	const { isRestaurantRoute } = useReactRouter();
+	const { isServiceRoute } = useReactRouter();
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
 		message: '',
@@ -38,7 +38,7 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
 
-	const order = isRestaurantRoute ? { order: title } : { itemName: title };
+	const order = isServiceRoute ? { order: title } : { itemName: title };
 
 	return (
 		<Dialog TransitionComponent={Transition} keepMounted onClose={handleClose} open={isOpened}>

@@ -8,7 +8,7 @@ import { ProductModel } from '../../models/productModel';
 import { useReactRouter } from '../../hooks/useReactRouter';
 
 export const Products = () => {
-	const { isRestaurantRoute } = useReactRouter();
+	const { isServiceRoute } = useReactRouter();
 	const { removeFromCart, addToCart, cartProducts } = useCart();
 	const { products } = useLoaderData() as { products: ProductModel[] };
 
@@ -26,7 +26,7 @@ export const Products = () => {
 											addToCart={addToCart}
 											cartProducts={cartProducts}
 											removeFromCart={removeFromCart}
-											amountButtonsVisible={isRestaurantRoute}
+											amountButtonsVisible={isServiceRoute}
 										/>
 									</Grid>
 								);

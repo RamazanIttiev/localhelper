@@ -78,7 +78,7 @@ export const ProductDetailsUI = ({
 						styles={{
 							maxWidth: '13rem',
 							width: productFromCart ? '13rem' : '12rem',
-							background: productFromCart ? theme.palette.primary.main : theme.palette.background.default,
+							background: theme.palette.background.paper,
 						}}
 						addToCart={addToCart}
 						product={selectedProduct}

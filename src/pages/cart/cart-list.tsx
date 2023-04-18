@@ -13,7 +13,7 @@ interface CartListProps {
 
 export const CartList = ({ cartProducts, addToCart, removeFromCart }: CartListProps) => {
 	return (
-		<List sx={{ pt: 0 }}>
+		<List sx={{ pb: '5rem' }}>
 			{cartProducts.map(product => {
 				return (
 					<React.Fragment key={product.id}>

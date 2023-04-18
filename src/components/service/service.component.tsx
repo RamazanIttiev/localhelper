@@ -2,8 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Products } from '../../pages/products/products';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
-import { Box, Container, Icon, IconButton, Typography, useTheme } from '@mui/material';
+import { Box, Button, Container, Icon, IconButton, Typography, useTheme } from '@mui/material';
 import { ServiceModel } from './models/service';
+import { useCart } from '../../pages/cart/hooks/useCart';
+import { useReactRouter } from '../../hooks/useReactRouter';
 
 interface ServiceProps {
 	service: ServiceModel;
@@ -12,6 +14,8 @@ interface ServiceProps {
 export const ServiceUI = ({ service }: ServiceProps) => {
 	const theme = useTheme();
 	const navigate = useNavigate();
+	const { isCartEmpty } = useCart();
+	const { isServiceRoute } = useReactRouter();
 
 	return (
 		<Box>
@@ -55,6 +59,20 @@ export const ServiceUI = ({ service }: ServiceProps) => {
 			</Box>
 			<Container sx={{ pt: 4, pb: 11 }} maxWidth={'md'}>
 				<Products />
+				{!isCartEmpty && isServiceRoute && !isUserAgentTelegram && (
+					<Button
+						sx={{
+							left: '50%',
+							bottom: '1rem',
+							width: '50%',
+							position: 'fixed',
+							transform: 'translate(-50%)',
+						}}
+						variant={'contained'}
+						onClick={() => navigate('/services/food/shopping-cart')}>
+						Order
+					</Button>
+				)}
 			</Container>
 		</Box>
 	);

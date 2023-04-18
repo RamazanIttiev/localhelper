@@ -1,13 +1,15 @@
 import { Telegram } from '../app/App';
 import { NavigateFunction } from 'react-router-dom';
 
-export const webAppIsReady = () => Telegram.WebApp.ready();
-export const expandWebApp = () => Telegram.WebApp.expand();
-export const enableWebAppClosingConfirmation = () => Telegram.WebApp.enableClosingConfirmation();
-export const showBackButton = () => Telegram.WebApp.BackButton.show();
-export const hideBackButton = () => Telegram.WebApp.BackButton.hide();
-export const setHaptic = (state: string) => Telegram.WebApp.HapticFeedback.impactOccurred(state);
-export const handleBackButton = (navigate: NavigateFunction) =>
-	Telegram.WebApp.onEvent('backButtonClicked', () => {
+export const webAppIsReady = () => Telegram.ready();
+export const expandWebApp = () => Telegram.expand();
+export const enableWebAppClosingConfirmation = () => Telegram.enableClosingConfirmation();
+export const showBackButton = () => Telegram.BackButton.show();
+export const hideBackButton = () => Telegram.BackButton.hide();
+export const setHaptic = (state: string) => Telegram.HapticFeedback.impactOccurred(state);
+export const handleBackButton = (navigate: NavigateFunction) => {
+	setHaptic('light');
+	Telegram.onEvent('backButtonClicked', () => {
 		navigate(-1);
 	});
+};

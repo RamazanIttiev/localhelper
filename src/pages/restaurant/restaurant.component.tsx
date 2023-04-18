@@ -1,12 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Products } from '../products/products';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
-import { Box, Container, Icon, IconButton, Typography } from '@mui/material';
+import { Box, Container, Icon, IconButton, Typography, useTheme } from '@mui/material';
 
 import moochies from '../../assets/moochies.jpg';
-import { useNavigate } from 'react-router-dom';
 
 export const RestaurantUI = () => {
+	const theme = useTheme();
 	const navigate = useNavigate();
 
 	return (
@@ -43,7 +44,7 @@ export const RestaurantUI = () => {
 					height: '18rem',
 					alignItems: ' end',
 					position: 'absolute',
-					background: ' linear-gradient(to bottom, rgba(255,255,255, 0), rgba(33,33,33, 1))',
+					background: `linear-gradient(to bottom, rgba(255,255,255, 0), ${theme.palette.background.default})`,
 				}}>
 				<Typography variant={'body1'} fontSize={'2rem'}>
 					Moochie's

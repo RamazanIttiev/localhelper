@@ -40,7 +40,8 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "2.1.1",
-    "react-material-ui-carousel": "^3.4.2"
+    "react-material-ui-carousel": "^3.4.2",
+    "telegram-webapps-types": "^1.0.5"
   },
   "scripts": {
     "start": "react-scripts start",

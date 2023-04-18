@@ -7,8 +7,9 @@ interface LoaderButtonProps {
 	loading: boolean;
 	errorState: ErrorType;
 	text?: string | number;
-	styles?: React.CSSProperties;
 	handleClick: () => void;
+	styles?: React.CSSProperties;
+	textStyles?: React.CSSProperties;
 }
 
 export const CustomLoadingButton = styled(LoadingButton)(() => ({
@@ -19,12 +20,12 @@ export const CustomLoadingButton = styled(LoadingButton)(() => ({
 	},
 }));
 
-export const LoaderButton = ({ loading, errorState, handleClick, styles, text }: LoaderButtonProps) => {
+export const LoaderButton = ({ loading, errorState, handleClick, styles, text, textStyles }: LoaderButtonProps) => {
 	return (
 		<CustomLoadingButton
 			loading={loading}
 			color={errorState.isError ? 'error' : errorState.isError !== null ? 'success' : 'primary'}
-			sx={{ marginTop: 3, borderRadius: 2, textTransform: 'inherit', height: 32, ...styles }}
+			sx={{ textTransform: 'inherit', ...styles }}
 			variant={'contained'}
 			fullWidth
 			onClick={handleClick}>
@@ -32,7 +33,13 @@ export const LoaderButton = ({ loading, errorState, handleClick, styles, text }:
 				? errorState.message
 				: errorState.isError !== null
 				? errorState.message
-				: !loading && <Typography variant={'button'}>{text}</Typography>}
+				: !loading && (
+						<Typography
+							variant={'button'}
+							sx={{ fontSize: '1rem', fontWeight: '600', letterSpacing: '0.1rem', ...textStyles }}>
+							{text}
+						</Typography>
+				  )}
 		</CustomLoadingButton>
 	);
 };

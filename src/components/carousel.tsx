@@ -1,15 +1,18 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import { ProductModel } from '../models/productModel';
 import Carousel from 'react-material-ui-carousel';
 import { InfoBadge } from './reactkit/infoBadge';
 import { isUserAgentTelegram } from '../utils/deviceInfo';
+import { isDesktop } from 'react-device-detect';
 
 interface CarouselProps {
 	selectedProduct: ProductModel;
 }
 
 export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
+	const theme = useTheme();
+
 	return selectedProduct.image.length === 1 ? (
 		<>
 			<Box
@@ -17,7 +20,13 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 				src={selectedProduct.image[0].url}
 				alt={selectedProduct.image[0].alt}
 				width={'100%'}
-				sx={{ borderBottomLeftRadius: 16, borderBottomRightRadius: 16, height: '20rem' }}
+				sx={{
+					borderRadius: 3,
+					height: '20rem',
+					margin: '0 auto',
+					display: 'block',
+					objectFit: 'cover',
+				}}
 			/>
 			{selectedProduct.infoBadges && (
 				<InfoBadge
@@ -26,7 +35,7 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 						display: 'flex',
 						position: 'absolute',
 						top: '0.5rem',
-						left: '0.5rem',
+						left: '1.5rem',
 					}}
 					iconStyles={{ margin: '0 2px' }}
 				/>
@@ -37,10 +46,10 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 			autoPlay={false}
 			stopAutoPlayOnHover
 			animation={'slide'}
-			navButtonsAlwaysInvisible={isUserAgentTelegram}
-			navButtonsAlwaysVisible={!isUserAgentTelegram}
+			navButtonsAlwaysInvisible={isUserAgentTelegram && !isDesktop}
+			navButtonsAlwaysVisible={!isUserAgentTelegram && isDesktop}
 			indicatorIconButtonProps={{ style: { margin: '0 0.3rem' } }}
-			activeIndicatorIconButtonProps={{ style: { color: '#212121' } }}>
+			activeIndicatorIconButtonProps={{ style: { color: theme.palette.background.paper } }}>
 			{selectedProduct.image.map(({ url, alt }) => {
 				return (
 					<React.Fragment key={alt}>
@@ -49,7 +58,13 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 							src={url}
 							alt={alt}
 							width={'100%'}
-							sx={{ borderBottomLeftRadius: 16, borderBottomRightRadius: 16, height: '20rem' }}
+							sx={{
+								borderRadius: 3,
+								height: '20rem',
+								margin: '0 auto',
+								display: 'block',
+								objectFit: 'cover',
+							}}
 						/>
 						{selectedProduct.infoBadges && (
 							<InfoBadge

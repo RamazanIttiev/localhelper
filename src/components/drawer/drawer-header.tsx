@@ -17,7 +17,7 @@ export const DrawerHeader = ({ icon = 'close', toggleDrawer }: DrawerHeaderProps
 				right: 0,
 				left: 0,
 				zIndex: 100,
-				backgroundColor: theme.palette.background.paper,
+				backgroundColor: theme.palette.background.default,
 				height: '72px',
 				top: '-72px',
 			}}>

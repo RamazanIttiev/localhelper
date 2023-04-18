@@ -13,6 +13,8 @@ import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui
 import { ProductDetailsContainer } from './productDetails/productDetails.container';
 import { Drawer } from './drawer/drawer';
 
+import dishImage from '../assets/food.jpg';
+
 interface ProductProps {
 	product: ProductModel;
 	cartProducts: ProductModel[];
@@ -78,7 +80,7 @@ export const Product: FC<ProductProps> = ({
 								component="img"
 								image={image[0].url}
 								alt={image[0].alt}
-								sx={{ height: '11rem', borderRadius: '2rem' }}
+								sx={{ height: '11rem', borderRadius: '1rem' }}
 							/>
 							{productFromCart && (
 								<Box
@@ -88,7 +90,7 @@ export const Product: FC<ProductProps> = ({
 										display: 'flex',
 										width: '100%',
 										height: '11rem',
-										borderRadius: '2rem',
+										borderRadius: '1rem',
 										position: 'absolute',
 										alignItems: 'start',
 										justifyContent: 'flex-end',
@@ -113,18 +115,19 @@ export const Product: FC<ProductProps> = ({
 							)}
 						</>
 					) : (
-						<Typography
-							fontSize={'small'}
+						<Box
+							component={'img'}
+							src={dishImage}
+							alt={product.title}
+							width={'100%'}
 							sx={{
-								p: 1,
+								borderRadius: '1rem',
 								height: '11rem',
-								display: 'flex',
-								alignItems: 'center',
-								fontFamily: 'monospace',
-								justifyContent: 'center',
-							}}>
-							Image is not loaded ;(
-						</Typography>
+								width: '100%',
+								margin: '0 auto',
+								display: 'block',
+							}}
+						/>
 					)}
 					<CardContent
 						sx={{
@@ -170,6 +173,7 @@ export const Product: FC<ProductProps> = ({
 							text={price}
 							loading={loading}
 							errorState={errorState}
+							textStyles={{ fontSize: '0.8rem' }}
 							handleClick={() => handleOrder(idForBot, order, handleLoading, handleError)}
 						/>
 					)}

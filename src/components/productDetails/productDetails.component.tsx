@@ -7,6 +7,8 @@ import { handleOrder } from '../../actions/global-actions';
 import { ProductModel } from '../../models/productModel';
 import { ErrorType } from '../../models/error';
 
+import dishImage from '../../assets/food.jpg';
+
 interface ProductDetailsUIProps {
 	idForBot: string;
 	loading: boolean;
@@ -36,48 +38,46 @@ export const ProductDetailsUI = ({
 	const theme = useTheme();
 
 	return (
-		<Card sx={{ width: '90%', m: '0 auto', position: 'relative', background: 'transparent', boxShadow: 'none' }}>
+		<Card sx={{ position: 'relative', background: 'transparent', boxShadow: 'none' }}>
 			<CardMedia>
 				{selectedProduct?.image !== undefined ? (
 					<MuiCarousel selectedProduct={selectedProduct} />
 				) : (
-					<Typography
-						fontSize={'small'}
+					<Box
+						component={'img'}
+						src={dishImage}
+						alt={selectedProduct?.title}
+						width={'100%'}
 						sx={{
-							p: 1,
+							borderRadius: 3,
 							height: '20rem',
-							display: 'flex',
-							alignItems: 'center',
-							fontFamily: 'monospace',
-							justifyContent: 'center',
-						}}>
-						Image is not loaded ;(
-					</Typography>
+							margin: '0 auto',
+							display: 'block',
+							objectFit: 'cover',
+						}}
+					/>
 				)}
 			</CardMedia>
 
-			<CardContent sx={{ m: 0, p: 2 }}>
-				<Box sx={{ width: '100%', pr: 2, pl: 2 }}>
-					<Typography id="transition-modal-title" variant="h6" component="h2" textAlign={'center'}>
+			<CardContent sx={{ m: '2rem 0', p: 0 }}>
+				<Box sx={{ width: '100%' }}>
+					<Typography id="transition-modal-title" variant="h5" component="h2" fontWeight={700}>
 						{selectedProduct?.title}
 					</Typography>
 					{selectedProduct?.description && (
-						<Typography sx={{ mt: 2 }}>
-							<strong>Description:</strong>
-							<br />
-							<br />
+						<Typography sx={{ mt: 2, color: theme.typography.subtitle1 }}>
 							{selectedProduct?.description}
 						</Typography>
 					)}
 				</Box>
 			</CardContent>
 
-			<CardActions sx={{ flexDirection: 'column', m: '2rem 0' }}>
+			<CardActions sx={{ flexDirection: 'column', p: 0 }}>
 				{amountButtonsVisible ? (
 					<AmountButtons
 						styles={{
-							maxWidth: '9rem',
-							width: productFromCart ? '9rem' : '8rem',
+							maxWidth: '13rem',
+							width: productFromCart ? '13rem' : '12rem',
 							background: productFromCart ? theme.palette.primary.main : theme.palette.background.default,
 						}}
 						addToCart={addToCart}

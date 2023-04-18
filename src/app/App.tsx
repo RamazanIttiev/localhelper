@@ -7,7 +7,9 @@ import { RestaurantContainer } from '../pages/restaurant/restaurant.container';
 import { RestaurantsContainer } from '../pages/restaurants/restaurants.container';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 
-export const Telegram = window.Telegram;
+export const Telegram = window.Telegram.WebApp;
+export const TelegramUser = window.Telegram.initDataUnsafe?.user;
+export const TelegramTheme = Telegram.themeParams !== undefined ? Telegram.themeParams : null;
 
 const router = createBrowserRouter(
 	createRoutesFromElements(

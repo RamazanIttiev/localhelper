@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Footer } from '../components/footer';
 import { useCart } from '../pages/cart/hooks/useCart';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useReactRouter } from '../hooks/useReactRouter';
@@ -47,8 +46,6 @@ export const Layout = () => {
 			<Outlet />
 
 			{!isCartEmpty && isRestaurantRoute && <CartContainer />}
-
-			<Footer />
 		</>
 	);
 };

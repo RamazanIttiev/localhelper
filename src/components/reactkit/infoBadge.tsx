@@ -25,7 +25,7 @@ export const InfoBadge = ({ containerStyles, iconStyles, iterable }: InfoBadgePr
 								alignItems: 'center',
 								borderRadius: '0.5rem',
 								justifyContent: 'center',
-								background: theme.palette.background.paper,
+								background: theme.palette.background.default,
 							}}
 							color={'info'}>
 							{icon}

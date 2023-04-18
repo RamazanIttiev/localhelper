@@ -32,7 +32,7 @@ export const Footer: FC<FooterProps> = () => {
 	return (
 		<BottomNavigation
 			sx={{
-				background: theme.palette.secondary.main,
+				background: theme.palette.background.default,
 				position: 'fixed',
 				width: '100%',
 				bottom: 0,

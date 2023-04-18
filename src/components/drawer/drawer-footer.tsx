@@ -9,7 +9,7 @@ export const DrawerFooter = ({ toggleDrawer }: DrawerFooterProps) => {
 	const theme = useTheme();
 
 	return (
-		<Box sx={{ height: '100%', backgroundColor: theme.palette.background.paper }}>
+		<Box sx={{ height: '100%', backgroundColor: theme.palette.background.default }}>
 			<Box
 				sx={{
 					position: 'fixed',
@@ -24,7 +24,7 @@ export const DrawerFooter = ({ toggleDrawer }: DrawerFooterProps) => {
 					paddingBottom: '8px',
 					borderTopLeftRadius: '1rem',
 					borderTopRightRadius: '1rem',
-					backgroundColor: theme.palette.background.paper,
+					backgroundColor: theme.palette.background.default,
 				}}>
 				<Box
 					sx={{
@@ -37,7 +37,10 @@ export const DrawerFooter = ({ toggleDrawer }: DrawerFooterProps) => {
 						left: 'calc(50% - 15px)',
 					}}
 				/>
-				<Button onClick={toggleDrawer(true)} variant={'contained'} sx={{ m: '24px auto 0', width: '60%' }}>
+				<Button
+					onClick={toggleDrawer(true)}
+					variant={'contained'}
+					sx={{ m: '24px auto 0', width: '60%', fontSize: '1rem' }}>
 					Your order
 				</Button>
 			</Box>

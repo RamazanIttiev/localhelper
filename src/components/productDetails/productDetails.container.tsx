@@ -35,7 +35,7 @@ export const ProductDetailsContainer = ({ product }: { product: ProductModel }) 
 	const order = isRestaurantRoute ? { order: product.title } : { itemName: product.title };
 
 	return (
-		<Container sx={{ pt: 2, pb: 11 }} maxWidth={'md'}>
+		<Container sx={{ pt: 2, pb: 2, px: 6 }} maxWidth={'xs'}>
 			<ProductDetailsUI
 				order={order}
 				loading={loading}

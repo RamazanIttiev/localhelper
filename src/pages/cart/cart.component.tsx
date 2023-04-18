@@ -48,7 +48,13 @@ export const CartUI = ({
 						<Typography sx={{ fontWeight: '600' }}>Total:</Typography>
 						<Typography sx={{ fontWeight: '600' }}>{cartTotalAmount} Rs</Typography>
 					</Box>
-					<LoaderButton text={'Order'} loading={loading} errorState={errorState} handleClick={handleOrder} />
+					<LoaderButton
+						text={'Order'}
+						loading={loading}
+						errorState={errorState}
+						handleClick={handleOrder}
+						styles={{ marginTop: 2 }}
+					/>
 				</Container>
 			</Drawer>
 		</>

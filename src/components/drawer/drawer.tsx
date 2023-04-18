@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Box } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import { DrawerHeader } from './drawer-header';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
@@ -12,6 +12,8 @@ interface DrawerProps {
 }
 
 export const Drawer = ({ icon, isOpened, toggleDrawer, children, swipeAreaWidth = 72 }: DrawerProps) => {
+	const theme = useTheme();
+
 	return (
 		<SwipeableDrawer
 			anchor="bottom"
@@ -28,6 +30,7 @@ export const Drawer = ({ icon, isOpened, toggleDrawer, children, swipeAreaWidth 
 				sx={{
 					height: '100%',
 					overflow: 'auto',
+					background: theme.palette.background.default,
 				}}>
 				{children}
 			</Box>

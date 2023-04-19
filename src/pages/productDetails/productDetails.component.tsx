@@ -8,6 +8,7 @@ import { ProductModel } from '../../models/productModel';
 import { ErrorType } from '../../models/error';
 
 import dishImage from '../../assets/food.jpg';
+import { isUserAgentTelegram } from '../../utils/deviceInfo';
 
 interface ProductDetailsUIProps {
 	idForBot: string;
@@ -86,12 +87,14 @@ export const ProductDetailsUI = ({
 						removeFromCart={removeFromCart}
 					/>
 				) : (
-					<LoaderButton
-						loading={loading}
-						errorState={errorState}
-						text={selectedProduct?.price}
-						handleClick={() => handleOrder(idForBot, order, handleLoading, handleError)}
-					/>
+					!isUserAgentTelegram && (
+						<LoaderButton
+							loading={loading}
+							errorState={errorState}
+							text={selectedProduct?.price}
+							handleClick={() => handleOrder(idForBot, order, handleLoading, handleError)}
+						/>
+					)
 				)}
 			</CardActions>
 		</Card>

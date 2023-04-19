@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ErrorType } from '../models/error';
 import { LoaderButton } from './reactkit/loaderButton';
 import { clearResponseMessage, handleOrder } from '../actions/global-actions';
-import { TransitionProps } from '@mui/material/transitions';
-import { Box, Dialog, DialogActions, DialogContent, Slide, Typography, useTheme } from '@mui/material';
+import { Box, Drawer, Typography } from '@mui/material';
 import { useReactRouter } from '../hooks/useReactRouter';
+import { handleMainButton, hideMainButton, setMainButtonText, showMainButton } from '../actions/webApp-actions';
+import { isUserAgentTelegram } from '../utils/deviceInfo';
 
 interface CategoryDialogProps {
 	title: string;
@@ -14,17 +15,7 @@ interface CategoryDialogProps {
 	handleClose: () => void;
 }
 
-const Transition = React.forwardRef(function Transition(
-	props: TransitionProps & {
-		children: React.ReactElement<any, any>;
-	},
-	ref: React.Ref<unknown>,
-) {
-	return <Slide direction="up" ref={ref} {...props} />;
-});
-
 export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }: CategoryDialogProps) => {
-	const theme = useTheme();
 	const { isServiceRoute } = useReactRouter();
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -39,16 +30,19 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
 
-	const order = isServiceRoute ? { order: title } : { itemName: title };
+	const order = useMemo(() => (isServiceRoute ? { order: title } : { itemName: title }), [isServiceRoute, title]);
+
+	useEffect(() => {
+		showMainButton();
+		setMainButtonText('Buy');
+		handleMainButton(() => handleOrder(idForBot, order, handleLoading, handleError));
+
+		return () => hideMainButton();
+	}, [idForBot, order]);
 
 	return (
-		<Dialog
-			TransitionComponent={Transition}
-			keepMounted
-			onClose={handleClose}
-			open={isOpened}
-			sx={{ background: theme.palette.background.default }}>
-			<DialogContent sx={{ p: '3rem 3rem' }}>
+		<Drawer anchor={'bottom'} onClose={handleClose} open={isOpened}>
+			<Box sx={{ p: '3rem 3rem', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
 				<Box
 					component={'img'}
 					src={image}
@@ -62,18 +56,18 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }
 						borderRadius: '50%',
 					}}
 				/>
-				<Typography sx={{ textAlign: 'center', fontWeight: '600' }} component={'p'} variant="body1">
+				<Typography sx={{ textAlign: 'center', fontWeight: '600', mb: '1rem' }} component={'p'} variant="body1">
 					{title}
 				</Typography>
-				<DialogActions>
+				{!isUserAgentTelegram && (
 					<LoaderButton
 						text={'Buy'}
 						loading={loading}
 						errorState={errorState}
 						handleClick={() => handleOrder(idForBot, order, handleLoading, handleError)}
 					/>
-				</DialogActions>
-			</DialogContent>
-		</Dialog>
+				)}
+			</Box>
+		</Drawer>
 	);
 };

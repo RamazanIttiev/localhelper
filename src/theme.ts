@@ -24,8 +24,8 @@ export const theme = createTheme({
 			styleOverrides: {
 				root: {
 					'& .MuiPaper-root': {
-						height: '85%',
-						overflow: 'visible',
+						borderTopRightRadius: '1rem',
+						borderTopLeftRadius: '1rem',
 					},
 				},
 			},

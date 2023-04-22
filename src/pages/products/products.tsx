@@ -2,7 +2,11 @@ import React from 'react';
 import { useCart } from '../cart/hooks/useCart';
 import { Container, Grid } from '@mui/material';
 import { useLoaderData } from 'react-router-dom';
+import { Await, useLoaderData } from 'react-router-dom';
+import { SkeletonLoader } from '../../components/skeletonLoader';
+import { ProductModel } from '../../models/productModel';
 import { useReactRouter } from '../../hooks/useReactRouter';
+import { ProductContainer } from '../../components/product/product.container';
 
 export const Products = () => {
 	const { isServiceRoute } = useReactRouter();

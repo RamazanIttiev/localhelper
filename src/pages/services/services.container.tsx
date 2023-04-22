@@ -12,7 +12,7 @@ export const ServicesContainer = () => {
 	return (
 		<Container sx={{ pt: 2, pb: 11 }} maxWidth={'md'}>
 			{currentService.map(({ title, image }: ServiceModel) => {
-				return <ServicesUI title={title} image={image} />;
+				return <ServicesUI key={title} title={title} image={image} />;
 			})}
 		</Container>
 	);

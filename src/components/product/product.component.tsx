@@ -7,20 +7,17 @@ import { InfoBadge } from '../reactkit/infoBadge';
 import { LoaderButton } from '../reactkit/loaderButton';
 import { ProductModel } from '../../models/productModel';
 import { setHaptic } from '../../actions/webApp-actions';
-import { handleOrder } from '../../actions/global-actions';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 import dishImage from '../../assets/food.jpg';
 
 interface ProductProps {
 	loading: boolean;
-	idForBot: string;
 	errorState: ErrorType;
 	product: ProductModel;
 	productFromCart?: ProductModel;
 	amountButtonsVisible?: boolean;
-	handleError: (value: ErrorType) => void;
-	handleLoading: (value: boolean) => void;
+	handleProductOrder: () => Promise<void>;
 	removeFromCart: (product: ProductModel) => void;
 	addToCart: (selectedProduct: ProductModel) => void;
 }
@@ -28,13 +25,11 @@ interface ProductProps {
 export const ProductComponent: FC<ProductProps> = ({
 	loading,
 	product,
-	idForBot,
 	addToCart,
 	errorState,
-	handleError,
-	handleLoading,
 	removeFromCart,
 	productFromCart,
+	handleProductOrder,
 	amountButtonsVisible,
 }) => {
 	return (
@@ -140,9 +135,7 @@ export const ProductComponent: FC<ProductProps> = ({
 							loading={loading}
 							errorState={errorState}
 							textStyles={{ fontSize: '0.8rem' }}
-							handleClick={() =>
-								handleOrder(idForBot, { itemName: product.title }, handleLoading, handleError)
-							}
+							handleClick={handleProductOrder}
 						/>
 					)}
 				</CardActions>

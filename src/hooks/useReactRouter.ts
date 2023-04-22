@@ -5,6 +5,7 @@ export const useReactRouter = () => {
 	const productsRoute = useMatch('/:categoryId');
 	const servicesRoute = useMatch('/services/:categoryId');
 	const serviceRoute = useMatch('/services/:categoryId/:serviceId');
+	const productDetailsRoute = useMatch('/:categoryId/:productId');
 	const serviceDetailsRoute = useMatch('/services/:categoryId/:serviceId/:productId');
 
 	const isServiceRoute = serviceRoute?.pattern.path === '/services/:categoryId/:serviceId';
@@ -15,6 +16,7 @@ export const useReactRouter = () => {
 		productsRoute,
 		servicesRoute,
 		isServiceRoute,
+		productDetailsRoute,
 		isServiceDetailsRoute,
 	};
 };

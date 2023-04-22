@@ -24,7 +24,7 @@ export const ProductDetailsContainer = () => {
 
 	const { getProductFromCart } = useProducts();
 	const { cartProducts, addToCart, removeFromCart } = useCart();
-	const { productsRoute, isServiceDetailsRoute } = useReactRouter();
+	const { productDetailsRoute, isServiceDetailsRoute } = useReactRouter();
 
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -34,7 +34,7 @@ export const ProductDetailsContainer = () => {
 
 	const order = { itemName: product.title };
 
-	const idForBot = getAirtableView(productsRoute?.params.categoryId);
+	const idForBot = getAirtableView(productDetailsRoute?.params.categoryId);
 
 	const handleProductOrder = useCallback(() => {
 		return handleOrder(idForBot, { itemName: product.title }, handleLoading, handleError);

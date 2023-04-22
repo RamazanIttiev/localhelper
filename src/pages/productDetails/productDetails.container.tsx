@@ -1,15 +1,21 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Container } from '@mui/material';
-import { useLocation } from 'react-router-dom';
 import { ErrorType } from '../../models/error';
-import { getAirtableView } from '../../utils/airtable';
+import { useLocation } from 'react-router-dom';
 import { useCart } from '../cart/hooks/useCart';
+import { getAirtableView } from '../../utils/airtable';
+import { ProductModel } from '../../models/productModel';
+import { useProducts } from '../products/hooks/useProducts';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { ProductDetailsUI } from './productDetails.component';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
-import { useProducts } from '../products/hooks/useProducts';
-import { handleMainButton, hideMainButton, setMainButtonText, showMainButton } from '../../actions/webApp-actions';
-import { ProductModel } from '../../models/productModel';
+import {
+	handleMainButton,
+	hideMainButton,
+	removeMainButtonEvent,
+	setMainButtonText,
+	showMainButton,
+} from '../../actions/webApp-actions';
 
 export const ProductDetailsContainer = () => {
 	const { state } = useLocation();
@@ -18,7 +24,7 @@ export const ProductDetailsContainer = () => {
 
 	const { getProductFromCart } = useProducts();
 	const { cartProducts, addToCart, removeFromCart } = useCart();
-	const { productsRoute, isServiceRoute, isServiceDetailsRoute } = useReactRouter();
+	const { productsRoute, isServiceDetailsRoute } = useReactRouter();
 
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -26,22 +32,26 @@ export const ProductDetailsContainer = () => {
 		isError: null,
 	});
 
-	const order = useMemo(
-		() => (isServiceRoute ? { order: product.title } : { itemName: product.title }),
-		[isServiceRoute, product.title],
-	);
+	const order = { itemName: product.title };
 
 	const idForBot = getAirtableView(productsRoute?.params.categoryId);
+
+	const handleProductOrder = useCallback(() => {
+		return handleOrder(idForBot, { itemName: product.title }, handleLoading, handleError);
+	}, [idForBot, product.title]);
 
 	useEffect(() => {
 		if (!isServiceDetailsRoute) {
 			showMainButton();
 			setMainButtonText(`${product.price} Rs`);
-			handleMainButton(() => handleOrder(idForBot, order, handleLoading, handleError));
+			handleMainButton(handleProductOrder);
 		}
 
-		return () => hideMainButton();
-	}, [idForBot, isServiceDetailsRoute, order, product.price]);
+		return () => {
+			hideMainButton();
+			removeMainButtonEvent(handleProductOrder);
+		};
+	}, [handleProductOrder, idForBot, isServiceDetailsRoute, product.price, product.title]);
 
 	useEffect(() => {
 		clearResponseMessage(errorState, handleError);

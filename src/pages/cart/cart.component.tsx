@@ -1,22 +1,21 @@
 import React from 'react';
 import { CartList } from './cart-list';
 import { ErrorType } from '../../models/error';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { ProductModel } from '../../models/productModel';
 import { LoaderButton } from '../../components/reactkit/loaderButton';
 import { theme } from '../../theme';
 import { CartHeader } from './cartHeader';
+import { isUserAgentTelegram } from '../../utils/deviceInfo';
 
 interface CartProps {
 	loading: boolean;
-	isCartOpened: boolean;
 	errorState: ErrorType;
 	clearCart?: () => void;
 	cartTotalAmount: number;
 	handleOrder: () => void;
 	cartProducts: ProductModel[] | [];
 	addToCart: (product: ProductModel) => void;
-	toggleCart: (value: boolean) => () => void;
 	removeFromCart: (product: ProductModel) => void;
 }
 
@@ -42,24 +41,15 @@ export const CartUI = ({
 					padding: 2,
 					backgroundColor: theme.palette.background.default,
 				}}>
-				<Box
-					sx={{
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'space-between',
-						marginTop: '24px',
-						fontWeight: '600',
-					}}>
-					<Typography sx={{ fontWeight: '600' }}>Total:</Typography>
-					<Typography sx={{ fontWeight: '600' }}>{cartTotalAmount} Rs</Typography>
-				</Box>
-				<LoaderButton
-					text={'Order'}
-					loading={loading}
-					errorState={errorState}
-					handleClick={handleOrder}
-					styles={{ marginTop: 2 }}
-				/>
+				{!isUserAgentTelegram && (
+					<LoaderButton
+						loading={loading}
+						errorState={errorState}
+						handleClick={handleOrder}
+						styles={{ marginTop: 2 }}
+						text={`${cartTotalAmount.toString()} Rs`}
+					/>
+				)}
 			</Box>
 		</Container>
 	);

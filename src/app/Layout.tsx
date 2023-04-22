@@ -11,12 +11,10 @@ import {
 } from '../actions/webApp-actions';
 import { useDocumentTitle } from 'usehooks-ts';
 import { Global } from '@emotion/react';
-import { isUserAgentTelegram } from '../utils/deviceInfo';
-import { Header } from '../components/header';
 
 export const Layout = () => {
 	const navigate = useNavigate();
-	const { pathname, isServiceRoute } = useReactRouter();
+	const { pathname } = useReactRouter();
 
 	useDocumentTitle('LocalHelper');
 
@@ -37,8 +35,6 @@ export const Layout = () => {
 					},
 				}}
 			/>
-
-			{pathname !== '/' && !isServiceRoute && !isUserAgentTelegram && <Header />}
 
 			<Outlet />
 		</>

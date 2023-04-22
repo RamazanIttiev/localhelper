@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { ServicesUI } from './services.component';
-import { getCurrentActivity } from './utils/services';
+import { getCurrentActivity } from './utils/service';
 import { ServiceModel } from '../../components/service/models/service';
 
 export const ServicesContainer = () => {

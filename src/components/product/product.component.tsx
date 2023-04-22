@@ -1,59 +1,42 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { ErrorType } from '../../models/error';
+import { ImageBackdrop } from './imageBackdrop';
 import { AmountButtons } from '../amountButtons';
 import { InfoBadge } from '../reactkit/infoBadge';
-import { getAirtableView } from '../../utils/airtable';
-import { setHaptic } from '../../actions/webApp-actions';
 import { LoaderButton } from '../reactkit/loaderButton';
-import { useReactRouter } from '../../hooks/useReactRouter';
-import { useProducts } from '../../pages/products/hooks/useProducts';
 import { ProductModel } from '../../models/productModel';
-import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
+import { setHaptic } from '../../actions/webApp-actions';
+import { handleOrder } from '../../actions/global-actions';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 import dishImage from '../../assets/food.jpg';
-import { ImageBackdrop } from './imageBackdrop';
-import { Link } from 'react-router-dom';
 
 interface ProductProps {
+	loading: boolean;
+	idForBot: string;
+	errorState: ErrorType;
 	product: ProductModel;
-	cartProducts: ProductModel[];
+	productFromCart?: ProductModel;
 	amountButtonsVisible?: boolean;
+	handleError: (value: ErrorType) => void;
+	handleLoading: (value: boolean) => void;
 	removeFromCart: (product: ProductModel) => void;
 	addToCart: (selectedProduct: ProductModel) => void;
 }
 
-export const Product: FC<ProductProps> = ({
-	cartProducts,
+export const ProductComponent: FC<ProductProps> = ({
+	loading,
 	product,
+	idForBot,
 	addToCart,
+	errorState,
+	handleError,
+	handleLoading,
 	removeFromCart,
+	productFromCart,
 	amountButtonsVisible,
 }) => {
-	const { getProductFromCart } = useProducts();
-	const { productsRoute, isServiceRoute } = useReactRouter();
-
-	const [loading, setLoading] = useState(false);
-	const [errorState, setErrorState] = useState<ErrorType>({
-		message: '',
-		isError: null,
-	});
-
-	useEffect(() => {
-		clearResponseMessage(errorState, handleError);
-	}, [errorState]);
-
-	const { title, price, image, infoBadges } = product;
-
-	const productFromCart = getProductFromCart(cartProducts, product);
-
-	const idForBot = getAirtableView(productsRoute?.params.categoryId);
-
-	const handleLoading = (value: boolean) => setLoading(value);
-	const handleError = (value: ErrorType) => setErrorState(value);
-
-	const order = isServiceRoute ? { order: title } : { itemName: title };
-
 	return (
 		<>
 			<Card
@@ -68,18 +51,18 @@ export const Product: FC<ProductProps> = ({
 					background: 'transparent',
 					justifyContent: 'space-between',
 				}}>
-				<Link to={title.toLowerCase()} state={product} style={{ position: 'relative' }}>
-					{image ? (
+				<Link to={product.title.toLowerCase()} state={product} style={{ position: 'relative' }}>
+					{product.image ? (
 						<>
 							<CardMedia
 								component="img"
-								image={image[0].url}
-								alt={image[0].alt}
+								image={product.image[0].url}
+								alt={product.image[0].alt}
 								sx={{ height: '11rem', borderRadius: '1rem' }}
 							/>
-							{infoBadges && (
+							{product.infoBadges && (
 								<InfoBadge
-									iterable={infoBadges}
+									iterable={product.infoBadges}
 									containerStyles={{
 										display: 'flex',
 										position: 'absolute',
@@ -135,7 +118,7 @@ export const Product: FC<ProductProps> = ({
 								textTransform: 'capitalize',
 							}}
 							component="h3">
-							{title.toLowerCase()}
+							{product.title.toLowerCase()}
 						</Typography>
 					</CardContent>
 				</Link>
@@ -153,11 +136,13 @@ export const Product: FC<ProductProps> = ({
 						/>
 					) : (
 						<LoaderButton
-							text={price}
+							text={product.price}
 							loading={loading}
 							errorState={errorState}
 							textStyles={{ fontSize: '0.8rem' }}
-							handleClick={() => handleOrder(idForBot, order, handleLoading, handleError)}
+							handleClick={() =>
+								handleOrder(idForBot, { itemName: product.title }, handleLoading, handleError)
+							}
 						/>
 					)}
 				</CardActions>

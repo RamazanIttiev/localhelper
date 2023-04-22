@@ -9,7 +9,7 @@ interface SendData {
 const sendWebAppMessage = (text: string) => {
 	const send = {
 		message: text,
-		queryId: Telegram.WebApp.initDataUnsafe.query_id,
+		queryId: Telegram.initDataUnsafe.query_id,
 	};
 
 	return fetch('/sendMessage.php', {

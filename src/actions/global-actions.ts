@@ -1,10 +1,11 @@
 import { ErrorType } from '../models/error';
 import { setHaptic } from './webApp-actions';
 import { sendWebAppDeepLink } from '../utils/requests';
+import { CartOrderData, SingleOrderData } from '../models/orderData';
 
 export const handleOrder = async (
 	idForBot: string,
-	order: { order: string; itemName?: undefined } | { itemName: string; order?: undefined },
+	order: CartOrderData | SingleOrderData,
 	handleLoading: (value: boolean) => void,
 	handleError: (value: ErrorType) => void,
 ) => {

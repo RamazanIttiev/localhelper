@@ -1,11 +1,16 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ErrorType } from '../models/error';
 import { LoaderButton } from './reactkit/loaderButton';
-import { clearResponseMessage, handleOrder } from '../actions/global-actions';
-import { Box, Drawer, Typography } from '@mui/material';
-import { useReactRouter } from '../hooks/useReactRouter';
-import { handleMainButton, hideMainButton, setMainButtonText, showMainButton } from '../actions/webApp-actions';
 import { isUserAgentTelegram } from '../utils/deviceInfo';
+import { Box, Drawer, Typography, useTheme } from '@mui/material';
+import { clearResponseMessage, handleOrder } from '../actions/global-actions';
+import {
+	handleMainButton,
+	hideMainButton,
+	removeMainButtonEvent,
+	setMainButtonText,
+	showMainButton,
+} from '../actions/webApp-actions';
 
 interface CategoryDialogProps {
 	title: string;
@@ -16,7 +21,7 @@ interface CategoryDialogProps {
 }
 
 export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }: CategoryDialogProps) => {
-	const { isServiceRoute } = useReactRouter();
+	const theme = useTheme();
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
 		message: '',
@@ -30,19 +35,33 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
 
-	const order = useMemo(() => (isServiceRoute ? { order: title } : { itemName: title }), [isServiceRoute, title]);
+	const handleProductOrder = useCallback(() => {
+		return handleOrder(idForBot, { itemName: title }, handleLoading, handleError);
+	}, [idForBot, title]);
 
 	useEffect(() => {
-		showMainButton();
-		setMainButtonText('Buy');
-		handleMainButton(() => handleOrder(idForBot, order, handleLoading, handleError));
+		if (isOpened) {
+			showMainButton();
+			setMainButtonText('Buy');
+			handleMainButton(handleProductOrder);
+		}
 
-		return () => hideMainButton();
-	}, [idForBot, order]);
+		return () => {
+			hideMainButton();
+			removeMainButtonEvent(handleProductOrder);
+		};
+	}, [isOpened, idForBot, title, handleProductOrder]);
 
 	return (
 		<Drawer anchor={'bottom'} onClose={handleClose} open={isOpened}>
-			<Box sx={{ p: '3rem 3rem', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+			<Box
+				sx={{
+					p: '3rem 3rem',
+					display: 'flex',
+					alignItems: 'center',
+					flexDirection: 'column',
+					background: theme.palette.background.default,
+				}}>
 				<Box
 					component={'img'}
 					src={image}
@@ -64,7 +83,7 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }
 						text={'Buy'}
 						loading={loading}
 						errorState={errorState}
-						handleClick={() => handleOrder(idForBot, order, handleLoading, handleError)}
+						handleClick={() => handleOrder(idForBot, { itemName: title }, handleLoading, handleError)}
 					/>
 				)}
 			</Box>

@@ -16,13 +16,11 @@ export const addNewProductToCart = (products: ProductModel[], selectedProduct: P
 	return [...products, { ...selectedProduct, amount: 1 }];
 };
 
-export const getCartOrderString = (orderItems: string[], cartTotalAmount: number) =>
+export const getCartOrderString = (orderItems: string[]) =>
 	`
 Ваш заказ: 
 	
 			${JSON.stringify(orderItems, null, 2)} 
 		
-Total: ${cartTotalAmount}
-
 Доставка: бесплатно
 Способ оплаты: наличные`.replace(/\[|\]|"/g, '');

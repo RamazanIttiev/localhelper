@@ -2,8 +2,8 @@ import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CategoryDialog } from './categoryDialog';
 import { setHaptic } from '../actions/webApp-actions';
+import { getServicesRoute } from '../pages/services/utils/service';
 import { Box, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
-import { getServicesRoute } from '../pages/services/utils/services';
 
 interface CategoryProps {
 	title: string;

@@ -9,11 +9,13 @@ import { ErrorType } from '../../models/error';
 
 import dishImage from '../../assets/food.jpg';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
+import { SingleOrderData } from '../../models/orderData';
 
 interface ProductDetailsUIProps {
 	idForBot: string;
 	loading: boolean;
 	errorState: ErrorType;
+	order: SingleOrderData;
 	productFromCart?: ProductModel;
 	amountButtonsVisible?: boolean;
 	selectedProduct?: ProductModel;
@@ -21,7 +23,6 @@ interface ProductDetailsUIProps {
 	handleLoading: (value: boolean) => void;
 	addToCart: (selectedProduct: ProductModel) => void;
 	removeFromCart: (selectedProduct: ProductModel) => void;
-	order: { order: string; itemName?: undefined } | { itemName: string; order?: undefined };
 }
 export const ProductDetailsUI = ({
 	order,
@@ -62,11 +63,19 @@ export const ProductDetailsUI = ({
 
 			<CardContent sx={{ m: '2rem 0', p: 0 }}>
 				<Box sx={{ width: '100%' }}>
-					<Typography id="transition-modal-title" variant="h5" component="h2" fontWeight={700}>
+					<Typography id="transition-modal-title" variant="h6" component="h2" fontWeight={700}>
 						{selectedProduct?.title}
 					</Typography>
 					{selectedProduct?.description && (
-						<Typography sx={{ mt: 2, color: theme.typography.subtitle1 }}>
+						<Typography
+							variant={'subtitle2'}
+							sx={{
+								mt: 2,
+								padding: '1rem',
+								borderRadius: '1rem',
+								color: theme.typography.subtitle1,
+								background: theme.palette.background.paper,
+							}}>
 							{selectedProduct?.description}
 						</Typography>
 					)}

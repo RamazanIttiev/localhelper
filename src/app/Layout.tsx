@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLoaderData, useNavigate } from 'react-router-dom';
 import { useReactRouter } from '../hooks/useReactRouter';
 import {
 	enableWebAppClosingConfirmation,
@@ -15,7 +15,8 @@ import { Global } from '@emotion/react';
 export const Layout = () => {
 	const navigate = useNavigate();
 	const { pathname } = useReactRouter();
-
+	const productPageData = useLoaderData() as any;
+	console.log(productPageData);
 	useDocumentTitle('LocalHelper');
 
 	useEffect(() => {

@@ -1,13 +1,18 @@
-import { ProductModel } from '../models/productModel';
+import { DefaultProductModel, FoodModel, ProductModel, RentModel } from '../models/productModel';
 import { FieldSet, Records } from 'airtable';
 
-export const mapData = (airTableData: Records<FieldSet>, categoryId: string | undefined) => {
+import transport from '../assets/bike-rent.jpg';
+
+export const mapRecords = (airTableData: Records<FieldSet>, categoryId: string | undefined) => {
 	return airTableData.map(table => {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
 		const item: ProductModel = table.fields;
 
-		const productDefault: ProductModel = {
+		const isFoodModel = (item: ProductModel): item is FoodModel => !!item;
+		const isRentModel = (item: ProductModel): item is RentModel => !!item;
+
+		const productDefault: DefaultProductModel = {
 			id: item.id,
 			title: item.title,
 			place: item.place,
@@ -45,38 +50,78 @@ export const mapData = (airTableData: Records<FieldSet>, categoryId: string | un
 			}),
 		};
 		switch (categoryId) {
-			case 'food': {
-				return {
-					...productDefault,
-					spicy: item.spicy,
-					amount: item.amount,
-					location: item.location,
-					vegetarian: item.vegetarian,
-				};
-			}
-			case 'rent': {
-				return {
-					...productDefault,
-					tv: item.tv,
-					ac: item.ac,
-					wifi: item.wifi,
-					pool: item.pool,
-				};
-			}
+			case 'food':
+				if (isFoodModel(item)) {
+					return {
+						...productDefault,
+						spicy: item.spicy,
+						amount: item.amount,
+						location: item.location,
+						vegetarian: item.vegetarian,
+					};
+				}
+				break;
+			case 'rent':
+				if (isRentModel(item)) {
+					return {
+						...productDefault,
+						tv: item.tv,
+						ac: item.ac,
+						wifi: item.wifi,
+						pool: item.pool,
+					};
+				}
+				break;
 			case 'tours':
 			case 'flowers':
-			case 'transport': {
+			case 'transport':
 				return {
 					...productDefault,
 				};
-			}
+
 			case 'bonus':
-			case 'exchange': {
+			case 'exchange':
 				return {
 					title: item.title,
 					id: item.id,
 				};
-			}
+			default:
+				return item;
 		}
 	});
+};
+
+export const getProductPageData = (airTableData: Records<FieldSet>, categoryId: string | undefined) => {
+	const products = mapRecords(airTableData, categoryId);
+	switch (categoryId) {
+		case 'food': {
+			return {
+				title: categoryId,
+				headerImage: transport,
+				products,
+			};
+		}
+		case 'rent': {
+			return {
+				title: categoryId,
+				headerImage: transport,
+				products,
+			};
+		}
+		case 'tours':
+		case 'flowers':
+		case 'transport': {
+			return {
+				title: categoryId,
+				headerImage: transport,
+				products,
+			};
+		}
+		case 'bonus':
+		case 'exchange': {
+			return {
+				products,
+			};
+		}
+	}
 };

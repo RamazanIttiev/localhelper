@@ -1,40 +1,40 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { useCart } from '../cart/hooks/useCart';
 import { Container, Grid } from '@mui/material';
-import { Product } from '../../components/product/product';
-import { Await, useLoaderData } from 'react-router-dom';
-import { SkeletonLoader } from '../../components/skeletonLoader';
-import { ProductModel } from '../../models/productModel';
+import { useLoaderData } from 'react-router-dom';
 import { useReactRouter } from '../../hooks/useReactRouter';
 
 export const Products = () => {
 	const { isServiceRoute } = useReactRouter();
 	const { removeFromCart, addToCart, cartProducts } = useCart();
-	const { products } = useLoaderData() as { products: ProductModel[] };
-
+	const { productPageData } = useLoaderData() as any;
+	console.log(productPageData);
 	return (
-		<Container sx={{ pt: 2, pb: 11 }} maxWidth={'md'}>
-			<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
-				<Suspense fallback={<SkeletonLoader />}>
-					<Await resolve={products}>
-						{(resolvedProducts: ProductModel[]) => {
-							return resolvedProducts.map((product: ProductModel) => {
-								return (
-									<Grid item xs={6} md={5} key={product.id}>
-										<Product
-											product={product}
-											addToCart={addToCart}
-											cartProducts={cartProducts}
-											removeFromCart={removeFromCart}
-											amountButtonsVisible={isServiceRoute}
-										/>
-									</Grid>
-								);
-							});
-						}}
-					</Await>
-				</Suspense>
-			</Grid>
-		</Container>
+		<>
+			{/*<HeaderImage image={data?.headerImage} title={data?.title} />*/}
+			<Container sx={{ pt: 2 }} maxWidth={'md'}>
+				<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
+					{/*<Suspense fallback={<SkeletonLoader />}>*/}
+					{/*	<Await resolve={productPageData}>*/}
+					{/*		{(resolvedProducts: ProductPageData) => {*/}
+					{/*			return resolvedProducts.products.map((product: ProductModel) => {*/}
+					{/*				return (*/}
+					{/*					<Grid item xs={6} md={5} key={product.id}>*/}
+					{/*						<ProductContainer*/}
+					{/*							product={product}*/}
+					{/*							addToCart={addToCart}*/}
+					{/*							cartProducts={cartProducts}*/}
+					{/*							removeFromCart={removeFromCart}*/}
+					{/*							amountButtonsVisible={isServiceRoute}*/}
+					{/*						/>*/}
+					{/*					</Grid>*/}
+					{/*				);*/}
+					{/*			});*/}
+					{/*		}}*/}
+					{/*	</Await>*/}
+					{/*</Suspense>*/}
+				</Grid>
+			</Container>
+		</>
 	);
 };

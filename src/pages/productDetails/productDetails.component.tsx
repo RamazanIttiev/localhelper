@@ -12,7 +12,7 @@ import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { SingleOrderData } from '../../models/orderData';
 
 interface ProductDetailsUIProps {
-	idForBot: string;
+	flowId: string;
 	loading: boolean;
 	errorState: ErrorType;
 	order: SingleOrderData;
@@ -27,7 +27,7 @@ interface ProductDetailsUIProps {
 export const ProductDetailsUI = ({
 	order,
 	loading,
-	idForBot,
+	flowId,
 	addToCart,
 	errorState,
 	handleError,
@@ -73,8 +73,8 @@ export const ProductDetailsUI = ({
 								mt: 2,
 								padding: '1rem',
 								borderRadius: '1rem',
-								color: theme.typography.subtitle1,
-								background: theme.palette.background.paper,
+								color: '#fff',
+								background: '#303030',
 							}}>
 							{selectedProduct?.description}
 						</Typography>
@@ -101,7 +101,7 @@ export const ProductDetailsUI = ({
 							loading={loading}
 							errorState={errorState}
 							text={selectedProduct?.price}
-							handleClick={() => handleOrder(idForBot, order, handleLoading, handleError)}
+							handleClick={() => handleOrder(flowId, order, handleLoading, handleError)}
 						/>
 					)
 				)}

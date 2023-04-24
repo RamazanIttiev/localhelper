@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, useTheme } from '@mui/material';
 import { ProductModel } from '../models/productModel';
 import Carousel from 'react-material-ui-carousel';
-import { InfoBadge } from './reactkit/infoBadge';
 import { isUserAgentTelegram } from '../utils/deviceInfo';
 import { isDesktop } from 'react-device-detect';
 
@@ -28,18 +27,18 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 					objectFit: 'cover',
 				}}
 			/>
-			{selectedProduct.infoBadges && (
-				<InfoBadge
-					iterable={selectedProduct.infoBadges}
-					containerStyles={{
-						display: 'flex',
-						position: 'absolute',
-						top: '0.5rem',
-						left: '1.5rem',
-					}}
-					iconStyles={{ margin: '0 2px' }}
-				/>
-			)}
+			{/*{selectedProduct.infoBadges && (*/}
+			{/*	<InfoBadge*/}
+			{/*		iterable={selectedProduct.infoBadges}*/}
+			{/*		containerStyles={{*/}
+			{/*			display: 'flex',*/}
+			{/*			position: 'absolute',*/}
+			{/*			top: '0.5rem',*/}
+			{/*			left: '1.5rem',*/}
+			{/*		}}*/}
+			{/*		iconStyles={{ margin: '0 2px' }}*/}
+			{/*	/>*/}
+			{/*)}*/}
 		</>
 	) : (
 		<Carousel
@@ -66,18 +65,18 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 								objectFit: 'cover',
 							}}
 						/>
-						{selectedProduct.infoBadges && (
-							<InfoBadge
-								iterable={selectedProduct.infoBadges}
-								containerStyles={{
-									display: 'flex',
-									position: 'absolute',
-									top: '0.5rem',
-									left: '0.5rem',
-								}}
-								iconStyles={{ margin: '0 2px' }}
-							/>
-						)}
+						{/*{selectedProduct.infoBadges && (*/}
+						{/*	<InfoBadge*/}
+						{/*		iterable={selectedProduct.infoBadges}*/}
+						{/*		containerStyles={{*/}
+						{/*			display: 'flex',*/}
+						{/*			position: 'absolute',*/}
+						{/*			top: '0.5rem',*/}
+						{/*			left: '0.5rem',*/}
+						{/*		}}*/}
+						{/*		iconStyles={{ margin: '0 2px' }}*/}
+						{/*	/>*/}
+						{/*)}*/}
 					</React.Fragment>
 				);
 			})}

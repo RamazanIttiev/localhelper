@@ -4,7 +4,7 @@ import { Box, Icon, IconButton, Typography } from '@mui/material';
 import { theme } from '../../theme';
 import { useNavigate } from 'react-router-dom';
 
-export const HeaderImage = ({ image, title }: { image: string; title: string }) => {
+export const HeaderImage = ({ image, title }: { image?: string; title?: string }) => {
 	const navigate = useNavigate();
 
 	return (

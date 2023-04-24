@@ -1,9 +1,9 @@
-import { DefaultProductModel, FoodModel, ProductModel, RentModel } from '../models/productModel';
+import { CategoryModel, DefaultProductModel, FoodModel, ProductModel, RentModel } from '../models/productModel';
 import { FieldSet, Records } from 'airtable';
 
 import transport from '../assets/bike-rent.jpg';
 
-export const mapRecords = (airTableData: Records<FieldSet>, categoryId: string | undefined) => {
+export const mapRecords1 = (airTableData: Records<FieldSet>, categoryId: string | undefined) => {
 	return airTableData.map(table => {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
@@ -92,7 +92,7 @@ export const mapRecords = (airTableData: Records<FieldSet>, categoryId: string |
 };
 
 export const getProductPageData = (airTableData: Records<FieldSet>, categoryId: string | undefined) => {
-	const products = mapRecords(airTableData, categoryId);
+	const products = mapRecords1(airTableData, categoryId);
 	switch (categoryId) {
 		case 'food': {
 			return {
@@ -124,4 +124,10 @@ export const getProductPageData = (airTableData: Records<FieldSet>, categoryId: 
 			};
 		}
 	}
+};
+
+export const mapRecords = (records: { fields: CategoryModel | ProductModel }[]) => {
+	return records.map(item => {
+		return item.fields;
+	});
 };

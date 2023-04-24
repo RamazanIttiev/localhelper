@@ -2,10 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { setHaptic } from '../../actions/webApp-actions';
 import { InfoBadge } from '../../components/reactkit/infoBadge';
-import { ServiceModel } from '../../components/service/models/service';
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 
-export const ServicesUI = ({ title, image }: ServiceModel) => {
+export const ServicesUI = ({ title, image }: { title: string; image: string }) => {
 	return (
 		<Card
 			onClick={() => setHaptic('light')}

@@ -4,7 +4,7 @@ import { sendWebAppDeepLink } from '../utils/requests';
 import { CartOrderData, SingleOrderData } from '../models/orderData';
 
 export const handleOrder = async (
-	idForBot: string,
+	flowId: string,
 	order: CartOrderData | SingleOrderData,
 	handleLoading: (value: boolean) => void,
 	handleError: (value: ErrorType) => void,
@@ -12,7 +12,7 @@ export const handleOrder = async (
 	setHaptic('light');
 	handleLoading(true);
 	try {
-		const result = await sendWebAppDeepLink(idForBot, 'lhelper', order);
+		const result = await sendWebAppDeepLink(flowId, 'lhelper', order);
 		if (result.ok) {
 			handleLoading(false);
 			handleError({ message: 'Success', isError: false });

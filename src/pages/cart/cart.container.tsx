@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { CartUI } from './cart.component';
 import { useCart } from './hooks/useCart';
 import { ErrorType } from '../../models/error';
-import { getAirtableView } from '../../utils/airtable';
 import { getCartOrderString } from './utils/cart.utlis';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
@@ -15,7 +14,7 @@ import {
 } from '../../actions/webApp-actions';
 
 export const CartContainer = () => {
-	const { productsRoute } = useReactRouter();
+	const { flowId } = useReactRouter();
 	const { addToCart, removeFromCart, clearCart, cartProducts } = useCart();
 
 	const [loading, setLoading] = useState(false);
@@ -27,9 +26,6 @@ export const CartContainer = () => {
 	useEffect(() => {
 		clearResponseMessage(errorState, handleError);
 	}, [errorState]);
-
-	const idForBot = getAirtableView(productsRoute?.params.categoryId);
-
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
 
@@ -47,8 +43,8 @@ export const CartContainer = () => {
 	const cartOrder = getCartOrderString(orderItems);
 
 	const handleCartOrder = useCallback(() => {
-		return handleOrder(idForBot, { order: cartOrder, orderTotal: cartTotalAmount }, handleLoading, handleError);
-	}, [cartOrder, cartTotalAmount, idForBot]);
+		return handleOrder(flowId, { order: cartOrder, orderTotal: cartTotalAmount }, handleLoading, handleError);
+	}, [cartOrder, cartTotalAmount, flowId]);
 
 	useEffect(() => {
 		showMainButton();
@@ -59,7 +55,7 @@ export const CartContainer = () => {
 			hideMainButton();
 			removeMainButtonEvent(handleCartOrder);
 		};
-	}, [idForBot, cartOrder, cartTotalAmount, handleCartOrder]);
+	}, [flowId, cartOrder, cartTotalAmount, handleCartOrder]);
 
 	return (
 		<CartUI

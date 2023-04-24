@@ -18,9 +18,9 @@ export const Categories = () => {
 				{categories.map(({ title, image }: CategoryModel) => {
 					return <Category key={title} isLink title={title} image={image} />;
 				})}
-				<Category title={'Exchange'} image={exchange} idForBot={'ZGw6MTI3Mjgx'} />
-				<Category title={'Bonus'} image={bonus} idForBot={'ZGw6MTI3Mjc4'} />
-				<Category title={'Transfer'} image={transfer} idForBot={'ZGw6MTI1MDQ5'} />
+				<Category title={'Exchange'} image={exchange} flowId={'ZGw6MTI3Mjgx'} />
+				<Category title={'Bonus'} image={bonus} flowId={'ZGw6MTI3Mjc4'} />
+				<Category title={'Transfer'} image={transfer} flowId={'ZGw6MTI1MDQ5'} />
 			</Grid>
 		</Container>
 	);

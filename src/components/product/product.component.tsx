@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { ErrorType } from '../../models/error';
 import { ImageBackdrop } from './imageBackdrop';
 import { AmountButtons } from '../amountButtons';
-import { InfoBadge } from '../reactkit/infoBadge';
 import { LoaderButton } from '../reactkit/loaderButton';
 import { ProductModel } from '../../models/productModel';
 import { setHaptic } from '../../actions/webApp-actions';
@@ -55,18 +54,18 @@ export const ProductComponent: FC<ProductProps> = ({
 								alt={product.image[0].alt}
 								sx={{ height: '11rem', borderRadius: '1rem' }}
 							/>
-							{product.infoBadges && (
-								<InfoBadge
-									iterable={product.infoBadges}
-									containerStyles={{
-										display: 'flex',
-										position: 'absolute',
-										top: '0.5rem',
-										left: '0.5rem',
-									}}
-									iconStyles={{ margin: '0 2px' }}
-								/>
-							)}
+							{/*{product.infoBadges && (*/}
+							{/*	<InfoBadge*/}
+							{/*		iterable={product.infoBadges}*/}
+							{/*		containerStyles={{*/}
+							{/*			display: 'flex',*/}
+							{/*			position: 'absolute',*/}
+							{/*			top: '0.5rem',*/}
+							{/*			left: '0.5rem',*/}
+							{/*		}}*/}
+							{/*		iconStyles={{ margin: '0 2px' }}*/}
+							{/*	/>*/}
+							{/*)}*/}
 						</>
 					) : (
 						<Box

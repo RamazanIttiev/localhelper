@@ -1,13 +1,12 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { ProductComponent } from './product.component';
 import { useProducts } from '../../pages/products/hooks/useProducts';
-import { useReactRouter } from '../../hooks/useReactRouter';
 import { ErrorType } from '../../models/error';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
-import { getAirtableView } from '../../utils/airtable';
 import { ProductModel } from '../../models/productModel';
 
 interface ProductContainerProps {
+	flowId: string;
 	product: ProductModel;
 	cartProducts: ProductModel[];
 	amountButtonsVisible?: boolean;
@@ -16,13 +15,13 @@ interface ProductContainerProps {
 }
 
 export const ProductContainer: FC<ProductContainerProps> = ({
+	flowId,
 	product,
 	addToCart,
 	cartProducts,
 	removeFromCart,
 	amountButtonsVisible,
 }) => {
-	const { productsRoute } = useReactRouter();
 	const { getProductFromCart } = useProducts();
 
 	const [loading, setLoading] = useState(false);
@@ -37,14 +36,12 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 
 	const productFromCart = getProductFromCart(cartProducts, product);
 
-	const idForBot = getAirtableView(productsRoute?.params.categoryId);
-
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
 
 	const handleProductOrder = useCallback(() => {
-		return handleOrder(idForBot, { itemName: product.title }, handleLoading, handleError);
-	}, [idForBot, product.title]);
+		return handleOrder(flowId, { itemName: product.title }, handleLoading, handleError);
+	}, [flowId, product.title]);
 
 	return (
 		<ProductComponent

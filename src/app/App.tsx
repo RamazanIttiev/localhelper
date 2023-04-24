@@ -3,7 +3,6 @@ import { Layout } from './Layout';
 import { Products } from '../pages/products/products';
 import { Categories } from '../pages/categories/categories';
 import { loadProducts } from '../actions/reactRouterLoaders';
-import { ServiceContainer } from '../components/service/service.container';
 import { ServicesContainer } from '../pages/services/services.container';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { ProductDetailsContainer } from '../pages/productDetails/productDetails.container';
@@ -15,12 +14,12 @@ export const TelegramTheme = Telegram.themeParams !== undefined ? Telegram.theme
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
-		<Route path="/" element={<Layout />} loader={loadProducts}>
+		<Route path="/" element={<Layout />} loader={loadProducts} id={'Layout'}>
 			<Route index element={<Categories />} />
 			<Route path=":categoryId" element={<Products />} />
 
 			<Route path="services/:categoryId" element={<ServicesContainer />} />
-			<Route path="services/:categoryId/:serviceId" element={<ServiceContainer />} loader={loadProducts} />
+			<Route path="services/:categoryId/:serviceId" element={<Products />} />
 
 			<Route path=":categoryId/:productId" element={<ProductDetailsContainer />} />
 			<Route path="services/:categoryId/:serviceId/:productId" element={<ProductDetailsContainer />} />

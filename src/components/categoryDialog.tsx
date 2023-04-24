@@ -16,11 +16,11 @@ interface CategoryDialogProps {
 	title: string;
 	image: string;
 	isOpened: boolean;
-	idForBot: string;
+	flowId: string;
 	handleClose: () => void;
 }
 
-export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }: CategoryDialogProps) => {
+export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId }: CategoryDialogProps) => {
 	const theme = useTheme();
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -36,8 +36,8 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }
 	const handleError = (value: ErrorType) => setErrorState(value);
 
 	const handleProductOrder = useCallback(() => {
-		return handleOrder(idForBot, { itemName: title }, handleLoading, handleError);
-	}, [idForBot, title]);
+		return handleOrder(flowId, { itemName: title }, handleLoading, handleError);
+	}, [flowId, title]);
 
 	useEffect(() => {
 		if (isOpened) {
@@ -50,7 +50,7 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }
 			hideMainButton();
 			removeMainButtonEvent(handleProductOrder);
 		};
-	}, [isOpened, idForBot, title, handleProductOrder]);
+	}, [isOpened, flowId, title, handleProductOrder]);
 
 	return (
 		<Drawer anchor={'bottom'} onClose={handleClose} open={isOpened}>
@@ -83,7 +83,7 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, idForBot }
 						text={'Buy'}
 						loading={loading}
 						errorState={errorState}
-						handleClick={() => handleOrder(idForBot, { itemName: title }, handleLoading, handleError)}
+						handleClick={() => handleOrder(flowId, { itemName: title }, handleLoading, handleError)}
 					/>
 				)}
 			</Box>

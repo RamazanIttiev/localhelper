@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { Outlet, useLoaderData, useNavigate } from 'react-router-dom';
-import { useReactRouter } from '../hooks/useReactRouter';
+import { Global } from '@emotion/react';
 import {
 	enableWebAppClosingConfirmation,
 	expandWebApp,
@@ -10,13 +9,16 @@ import {
 	webAppIsReady,
 } from '../actions/webApp-actions';
 import { useDocumentTitle } from 'usehooks-ts';
-import { Global } from '@emotion/react';
+import { useReactRouter } from '../hooks/useReactRouter';
+import { Categories } from '../pages/categories/categories';
+import { Await, Outlet, useLoaderData, useNavigate } from 'react-router-dom';
 
 export const Layout = () => {
 	const navigate = useNavigate();
 	const { pathname } = useReactRouter();
-	const productPageData = useLoaderData() as any;
-	console.log(productPageData);
+
+	const { appData } = useLoaderData() as any;
+
 	useDocumentTitle('LocalHelper');
 
 	useEffect(() => {
@@ -37,7 +39,15 @@ export const Layout = () => {
 				}}
 			/>
 
-			<Outlet />
+			<React.Suspense fallback={pathname === '/' && <Categories />}>
+				<Await
+					resolve={appData}
+					errorElement={<div>Could not load reviews 😬</div>}
+					children={appData => {
+						return <Outlet context={appData} />;
+					}}
+				/>
+			</React.Suspense>
 		</>
 	);
 };

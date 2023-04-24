@@ -1,42 +1,32 @@
-import { defer, LoaderFunctionArgs } from 'react-router-dom';
+import { defer } from 'react-router-dom';
+import { mapRecords } from '../utils/mappers';
 
-const urls = [
-	'https://api.airtable.com/v0/appN5D5g87uz2gY2j/Categories?view=CategoriesView',
-	'https://api.airtable.com/v0/appN5D5g87uz2gY2j/Products?view=ProductsView',
-];
-
-const fetchProductPage = async (categoryId: string | undefined) => {
-	const requests = urls.map(url =>
-		fetch(url, {
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_PRIVATE_KEY}` || '',
-			},
-		}),
-	);
-
-	return Promise.all(requests).then(responses =>
-		responses.forEach(response => {
-			response.json().then(({ records }) => {
-				return records;
-			});
-		}),
-	);
-
-	// const airtableView = getAirtableView(categoryId);
-	//
-	// const categories = await fetch(`https://api.airtable.com/v0/appN5D5g87uz2gY2j/Categories?view=CategoriesView`, {
-	// 	headers: {
-	// 		'Content-Type': 'application/json',
-	// 		Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_PRIVATE_KEY}` || '',
-	// 	},
-	// });
-	// const airtableCategories = await categories.json();
-	// return mapRecords(airtableCategories.records, categoryId);
+const fetchData = async (
+	url: string,
+	options = {
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_PRIVATE_KEY}` || '',
+		},
+	},
+) => {
+	return fetch(url, options);
 };
 
-export const loadProducts = async ({ params }: LoaderFunctionArgs) => {
-	return defer({
-		productPageData: fetchProductPage(params.categoryId || 'food'),
-	});
+const fetchProductPage = async () => {
+	const categories = await fetchData('https://api.airtable.com/v0/appN5D5g87uz2gY2j/Categories?view=CategoriesView');
+	const products = await fetchData('https://api.airtable.com/v0/appN5D5g87uz2gY2j/Products?view=ProductsView');
+
+	const resolvedCategories = await categories.json();
+	const resolvedProducts = await products.json();
+
+	return {
+		resolvedCategories: mapRecords(resolvedCategories.records),
+		resolvedProducts: mapRecords(resolvedProducts.records),
+	};
+};
+
+export const loadProducts = async () => {
+	const appData = fetchProductPage();
+	return defer({ appData });
 };

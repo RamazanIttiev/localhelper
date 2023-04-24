@@ -3,7 +3,6 @@ import { Container } from '@mui/material';
 import { ErrorType } from '../../models/error';
 import { useLocation } from 'react-router-dom';
 import { useCart } from '../cart/hooks/useCart';
-import { getAirtableView } from '../../utils/airtable';
 import { ProductModel } from '../../models/productModel';
 import { useProducts } from '../products/hooks/useProducts';
 import { useReactRouter } from '../../hooks/useReactRouter';
@@ -24,7 +23,7 @@ export const ProductDetailsContainer = () => {
 
 	const { getProductFromCart } = useProducts();
 	const { cartProducts, addToCart, removeFromCart } = useCart();
-	const { productDetailsRoute, isServiceDetailsRoute } = useReactRouter();
+	const { flowId, isServiceDetailsRoute } = useReactRouter();
 
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -34,11 +33,9 @@ export const ProductDetailsContainer = () => {
 
 	const order = { itemName: product.title };
 
-	const idForBot = getAirtableView(productDetailsRoute?.params.categoryId);
-
 	const handleProductOrder = useCallback(() => {
-		return handleOrder(idForBot, { itemName: product.title }, handleLoading, handleError);
-	}, [idForBot, product.title]);
+		return handleOrder(flowId, { itemName: product.title }, handleLoading, handleError);
+	}, [flowId, product.title]);
 
 	useEffect(() => {
 		if (!isServiceDetailsRoute) {
@@ -51,7 +48,7 @@ export const ProductDetailsContainer = () => {
 			hideMainButton();
 			removeMainButtonEvent(handleProductOrder);
 		};
-	}, [handleProductOrder, idForBot, isServiceDetailsRoute, product.price, product.title]);
+	}, [handleProductOrder, flowId, isServiceDetailsRoute, product.price, product.title]);
 
 	useEffect(() => {
 		clearResponseMessage(errorState, handleError);
@@ -68,7 +65,7 @@ export const ProductDetailsContainer = () => {
 			<ProductDetailsUI
 				order={order}
 				loading={loading}
-				idForBot={idForBot}
+				flowId={flowId}
 				addToCart={addToCart}
 				errorState={errorState}
 				selectedProduct={product}

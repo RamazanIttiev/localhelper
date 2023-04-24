@@ -7,6 +7,8 @@ export interface DefaultProductModel {
 	description: string;
 	image: { url: string; alt: string }[];
 	infoBadges?: string[];
+	Category?: string[];
+	position?: string;
 }
 
 export interface FoodModel extends DefaultProductModel {
@@ -26,8 +28,15 @@ export interface RentModel extends DefaultProductModel {
 
 export type ProductModel = DefaultProductModel & FoodModel & RentModel;
 
-export interface ProductPageData {
-	title: string;
-	headerImage: string;
-	products: ProductModel[];
+export interface CategoryModel {
+	Flow: string;
+	FlowId: string;
+	Id: string;
+	HeaderImage: string;
+	HeaderTitle: string;
+}
+
+export interface AppData {
+	resolvedCategories: CategoryModel[] | null;
+	resolvedProducts: ProductModel[] | null;
 }

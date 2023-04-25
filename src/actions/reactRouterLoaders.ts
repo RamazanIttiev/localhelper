@@ -1,5 +1,5 @@
 import { defer } from 'react-router-dom';
-import { mapRecords } from '../utils/mappers';
+import { mapCategories } from '../utils/mappers';
 
 const fetchData = async (
 	url: string,
@@ -13,20 +13,28 @@ const fetchData = async (
 	return fetch(url, options);
 };
 
-const fetchProductPage = async () => {
+const fetchAppData = async () => {
 	const categories = await fetchData('https://api.airtable.com/v0/appN5D5g87uz2gY2j/Categories?view=CategoriesView');
 	const products = await fetchData('https://api.airtable.com/v0/appN5D5g87uz2gY2j/Products?view=ProductsView');
+	const restaurants = await fetchData(
+		'https://api.airtable.com/v0/appN5D5g87uz2gY2j/Restaurants?view=RestaurantsView',
+	);
 
 	const resolvedCategories = await categories.json();
 	const resolvedProducts = await products.json();
+	const resolvedRestaurants = await restaurants.json();
 
 	return {
-		resolvedCategories: mapRecords(resolvedCategories.records),
-		resolvedProducts: mapRecords(resolvedProducts.records),
+		resolvedCategories: mapCategories(
+			resolvedCategories.records,
+			resolvedProducts.records,
+			resolvedRestaurants.records,
+		),
+		resolvedProducts: resolvedProducts.records,
 	};
 };
 
-export const loadProducts = async () => {
-	const appData = fetchProductPage();
+export const loadAppData = async () => {
+	const appData = fetchAppData();
 	return defer({ appData });
 };

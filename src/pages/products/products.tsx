@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { useCart } from '../cart/hooks/useCart';
 import { Button, Container, Grid } from '@mui/material';
 import { useReactRouter } from '../../hooks/useReactRouter';
-import { ProductModel } from '../../models/productModel';
 import { ProductContainer } from '../../components/product/product.container';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
 	handleMainButton,
 	hideMainButton,
@@ -13,11 +12,15 @@ import {
 	setMainButtonText,
 	showMainButton,
 } from '../../actions/webApp-actions';
+import { HeaderImage } from './headerImage';
+import { ProductModel } from '../../models/productModel';
 
 export const Products = () => {
 	const navigate = useNavigate();
-	const { products, flowId, isServiceRoute } = useReactRouter();
+	const { products, category, flowId, isServiceRoute } = useReactRouter();
 	const { removeFromCart, addToCart, cartProducts, isCartEmpty } = useCart();
+
+	const { state } = useLocation();
 
 	useEffect(() => {
 		if (isServiceRoute && !isCartEmpty) {
@@ -32,12 +35,18 @@ export const Products = () => {
 		};
 	}, [isServiceRoute, isCartEmpty, navigate]);
 
+	const renderHeader = {
+		title: category?.HeaderTitle || state.Title,
+		image: (category?.HeaderImage !== undefined && category?.HeaderImage[0]?.url) || state.Image[0].url,
+	};
+	const renderProducts = products?.length !== 0 ? products : state.Products;
+
 	return (
 		<>
-			{/*<HeaderImage image={category?.HeaderImage} title={category?.HeaderTitle} />*/}
+			<HeaderImage header={renderHeader} />
 			<Container sx={{ pt: 2 }} maxWidth={'md'}>
 				<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
-					{products?.map((product: ProductModel) => {
+					{renderProducts?.map((product: ProductModel) => {
 						return (
 							<Grid item xs={6} md={5} key={product.id}>
 								<ProductContainer

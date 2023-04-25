@@ -4,6 +4,7 @@ import { ProductModel } from '../models/productModel';
 import Carousel from 'react-material-ui-carousel';
 import { isUserAgentTelegram } from '../utils/deviceInfo';
 import { isDesktop } from 'react-device-detect';
+import { InfoBadge } from './reactkit/infoBadge';
 
 interface CarouselProps {
 	selectedProduct: ProductModel;
@@ -27,18 +28,18 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 					objectFit: 'cover',
 				}}
 			/>
-			{/*{selectedProduct.infoBadges && (*/}
-			{/*	<InfoBadge*/}
-			{/*		iterable={selectedProduct.infoBadges}*/}
-			{/*		containerStyles={{*/}
-			{/*			display: 'flex',*/}
-			{/*			position: 'absolute',*/}
-			{/*			top: '0.5rem',*/}
-			{/*			left: '1.5rem',*/}
-			{/*		}}*/}
-			{/*		iconStyles={{ margin: '0 2px' }}*/}
-			{/*	/>*/}
-			{/*)}*/}
+			{selectedProduct.infoBadges && (
+				<InfoBadge
+					iterable={selectedProduct.infoBadges}
+					containerStyles={{
+						display: 'flex',
+						position: 'absolute',
+						top: '0.5rem',
+						left: '1.5rem',
+					}}
+					iconStyles={{ margin: '0 2px' }}
+				/>
+			)}
 		</>
 	) : (
 		<Carousel
@@ -65,18 +66,18 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 								objectFit: 'cover',
 							}}
 						/>
-						{/*{selectedProduct.infoBadges && (*/}
-						{/*	<InfoBadge*/}
-						{/*		iterable={selectedProduct.infoBadges}*/}
-						{/*		containerStyles={{*/}
-						{/*			display: 'flex',*/}
-						{/*			position: 'absolute',*/}
-						{/*			top: '0.5rem',*/}
-						{/*			left: '0.5rem',*/}
-						{/*		}}*/}
-						{/*		iconStyles={{ margin: '0 2px' }}*/}
-						{/*	/>*/}
-						{/*)}*/}
+						{selectedProduct.infoBadges && (
+							<InfoBadge
+								iterable={selectedProduct.infoBadges}
+								containerStyles={{
+									display: 'flex',
+									position: 'absolute',
+									top: '0.5rem',
+									left: '0.5rem',
+								}}
+								iconStyles={{ margin: '0 2px' }}
+							/>
+						)}
 					</React.Fragment>
 				);
 			})}

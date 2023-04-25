@@ -8,6 +8,7 @@ export interface DefaultProductModel {
 	image: { url: string; alt: string }[];
 	infoBadges?: string[];
 	Category?: string[];
+	Restaurants?: string[];
 	position?: string;
 }
 
@@ -32,11 +33,21 @@ export interface CategoryModel {
 	Flow: string;
 	FlowId: string;
 	Id: string;
-	HeaderImage: string;
+	HeaderImage: { url: string }[];
 	HeaderTitle: string;
+	Products: ProductModel[] | undefined;
+	Restaurants: RestaurantModel[] | undefined;
+}
+
+export interface RestaurantModel {
+	Id: string;
+	Title: string;
+	Image: { url: string }[];
+	Category: string[];
+	Products: ProductModel[] | undefined;
 }
 
 export interface AppData {
-	resolvedCategories: CategoryModel[] | null;
-	resolvedProducts: ProductModel[] | null;
+	resolvedCategories: CategoryModel[];
+	resolvedProducts: ProductModel[];
 }

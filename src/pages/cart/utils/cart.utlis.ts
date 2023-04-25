@@ -22,5 +22,5 @@ export const getCartOrderString = (orderItems: string[]) =>
 	
 			${JSON.stringify(orderItems, null, 2)} 
 		
-Доставка: бесплатно
+Доставка: 1 км = 100 Rs
 Способ оплаты: наличные`.replace(/\[|\]|"/g, '');

@@ -1,5 +1,4 @@
 import { CategoryModel } from '../models/categories';
-
 import food from '../../../assets/food.jpg';
 import flowers from '../../../assets/flowers.jpg';
 import rent from '../../../assets/rent.jpg';

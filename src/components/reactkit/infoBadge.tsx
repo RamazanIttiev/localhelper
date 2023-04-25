@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Icon, useTheme } from '@mui/material';
+import { mapInfoBadges } from '../../utils/mappers';
 
 interface InfoBadgeProps {
 	iterable: string[];
@@ -28,7 +29,7 @@ export const InfoBadge = ({ containerStyles, iconStyles, iterable }: InfoBadgePr
 								background: theme.palette.background.default,
 							}}
 							color={'info'}>
-							{icon}
+							{mapInfoBadges(icon)}
 						</Icon>
 					),
 			)}

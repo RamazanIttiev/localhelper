@@ -43,7 +43,7 @@ export const ProductDetailsUI = ({
 		<Card sx={{ position: 'relative', background: 'transparent', boxShadow: 'none' }}>
 			<CardMedia>
 				{selectedProduct?.image !== undefined ? (
-					<MuiCarousel selectedProduct={selectedProduct} />
+					<MuiCarousel key={selectedProduct.title} selectedProduct={selectedProduct} />
 				) : (
 					<Box
 						component={'img'}

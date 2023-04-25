@@ -4,9 +4,8 @@ import { Box, Icon, IconButton, Typography } from '@mui/material';
 import { theme } from '../../theme';
 import { useNavigate } from 'react-router-dom';
 
-export const HeaderImage = ({ image, title }: { image?: string; title?: string }) => {
+export const HeaderImage = ({ header }: { header: { image: string | undefined; title: string | undefined } }) => {
 	const navigate = useNavigate();
-
 	return (
 		<>
 			{!isUserAgentTelegram && (
@@ -18,19 +17,22 @@ export const HeaderImage = ({ image, title }: { image?: string; title?: string }
 					<Icon>arrow_circle_left</Icon>
 				</IconButton>
 			)}
-			<Box
-				component="img"
-				src={image}
-				sx={{
-					display: 'block',
-					backgroundSize: 'cover',
-					backgroundRepeat: 'no-repeat',
-					backgroundPosition: 'center',
-					width: '100%',
-					objectFit: 'cover',
-					height: '18rem',
-				}}
-			/>
+			{header.image && (
+				<Box
+					component="img"
+					src={header.image}
+					alt={header.title}
+					sx={{
+						display: 'block',
+						backgroundSize: 'cover',
+						backgroundRepeat: 'no-repeat',
+						backgroundPosition: 'center',
+						width: '100%',
+						objectFit: 'cover',
+						height: '18rem',
+					}}
+				/>
+			)}
 			<Box
 				sx={{
 					top: 0,
@@ -44,7 +46,7 @@ export const HeaderImage = ({ image, title }: { image?: string; title?: string }
 					background: `linear-gradient(to bottom, rgba(255,255,255, 0), ${theme.palette.background.default})`,
 				}}>
 				<Typography variant={'body1'} fontSize={'2rem'}>
-					{title}
+					{header.title}
 				</Typography>
 			</Box>
 		</>

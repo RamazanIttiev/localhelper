@@ -42,7 +42,7 @@ export const Layout = () => {
 			<React.Suspense fallback={pathname === '/' && <Categories />}>
 				<Await
 					resolve={appData}
-					errorElement={<div>Could not load reviews 😬</div>}
+					errorElement={<div>Could not load data 😬</div>}
 					children={appData => {
 						return <Outlet context={appData} />;
 					}}

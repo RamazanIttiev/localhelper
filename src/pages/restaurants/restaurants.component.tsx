@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { setHaptic } from '../../actions/webApp-actions';
+import { RestaurantModel } from '../../models/productModel';
 import { InfoBadge } from '../../components/reactkit/infoBadge';
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 
-export const ServicesUI = ({ title, image }: { title: string; image: string }) => {
+export const RestaurantsUI = ({ restaurant }: { restaurant: RestaurantModel }) => {
 	return (
 		<Card
 			onClick={() => setHaptic('light')}
@@ -18,8 +19,12 @@ export const ServicesUI = ({ title, image }: { title: string; image: string }) =
 				background: 'transparent',
 				justifyContent: 'space-between',
 			}}>
-			<Link to={`${title}`} state={{ title, image }} style={{ position: 'relative' }}>
-				<CardMedia component="img" image={image} sx={{ height: '11rem', borderRadius: '2rem' }} />
+			<Link to={`${restaurant.Title}`} state={restaurant} style={{ position: 'relative' }}>
+				<CardMedia
+					component="img"
+					image={restaurant.Image[0].url}
+					sx={{ height: '11rem', borderRadius: '2rem' }}
+				/>
 
 				<InfoBadge
 					iterable={[]}
@@ -55,7 +60,7 @@ export const ServicesUI = ({ title, image }: { title: string; image: string }) =
 							textTransform: 'capitalize',
 						}}
 						component="h3">
-						{title}
+						{restaurant.Title}
 					</Typography>
 				</CardContent>
 			</Link>

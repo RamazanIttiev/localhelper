@@ -9,6 +9,7 @@ import { setHaptic } from '../../actions/webApp-actions';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 import dishImage from '../../assets/food.jpg';
+import { InfoBadge } from '../reactkit/infoBadge';
 
 interface ProductProps {
 	loading: boolean;
@@ -54,18 +55,18 @@ export const ProductComponent: FC<ProductProps> = ({
 								alt={product.image[0].alt}
 								sx={{ height: '11rem', borderRadius: '1rem' }}
 							/>
-							{/*{product.infoBadges && (*/}
-							{/*	<InfoBadge*/}
-							{/*		iterable={product.infoBadges}*/}
-							{/*		containerStyles={{*/}
-							{/*			display: 'flex',*/}
-							{/*			position: 'absolute',*/}
-							{/*			top: '0.5rem',*/}
-							{/*			left: '0.5rem',*/}
-							{/*		}}*/}
-							{/*		iconStyles={{ margin: '0 2px' }}*/}
-							{/*	/>*/}
-							{/*)}*/}
+							{product.infoBadges && (
+								<InfoBadge
+									iterable={product.infoBadges}
+									containerStyles={{
+										display: 'flex',
+										position: 'absolute',
+										top: '0.5rem',
+										left: '0.5rem',
+									}}
+									iconStyles={{ margin: '0 2px' }}
+								/>
+							)}
 						</>
 					) : (
 						<Box

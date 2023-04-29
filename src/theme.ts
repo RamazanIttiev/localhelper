@@ -10,13 +10,25 @@ export const theme = createTheme({
 			paper: TelegramTheme?.button_color || '#303030',
 		},
 		info: { main: TelegramTheme?.hint_color || '#fff' },
+		success: { main: '#00ff0d' },
+		error: { main: '#ff0000' },
 	},
 	typography: {
 		fontFamily: 'Montserrat, sans-serif',
 		allVariants: {
 			color: TelegramTheme?.text_color || '#fff',
 		},
-		subtitle1: TelegramTheme?.hint_color || '#ccc',
+		caption: {
+			fontSize: '0.8rem',
+			color: TelegramTheme?.hint_color || '#ccc',
+		},
+		subtitle1: { fontSize: '1.2rem' },
+		body1: {
+			fontSize: '1rem',
+		},
+		body2: {
+			fontSize: '0.8rem',
+		},
 		button: TelegramTheme?.button_text_color || '#fff',
 	},
 	components: {

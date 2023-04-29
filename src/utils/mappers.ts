@@ -91,8 +91,5 @@ export const mapInfoBadges = (badge: string) => {
 		case 'tv': {
 			return 'tv';
 		}
-		default: {
-			return '';
-		}
 	}
 };

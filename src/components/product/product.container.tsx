@@ -7,6 +7,7 @@ import { ProductModel } from '../../models/productModel';
 
 interface ProductContainerProps {
 	flowId: string;
+	workingStatus: string;
 	product: ProductModel;
 	cartProducts: ProductModel[];
 	amountButtonsVisible?: boolean;
@@ -18,6 +19,7 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 	flowId,
 	product,
 	addToCart,
+	workingStatus,
 	cartProducts,
 	removeFromCart,
 	amountButtonsVisible,
@@ -49,6 +51,7 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 			loading={loading}
 			addToCart={addToCart}
 			errorState={errorState}
+			workingStatus={workingStatus}
 			removeFromCart={removeFromCart}
 			productFromCart={productFromCart}
 			handleProductOrder={handleProductOrder}

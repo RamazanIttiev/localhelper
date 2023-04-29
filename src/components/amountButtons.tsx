@@ -45,9 +45,7 @@ export const AmountButtons: FC<AmountButtonsProps> = ({
 			</IconButton>
 			{showAmount && productFromCart ? (
 				<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-					<Typography fontSize={'0.8rem'} sx={{ color: theme.typography.subtitle1 }}>
-						{productFromCart?.amount} x&nbsp;
-					</Typography>
+					<Typography variant={'caption'}>{productFromCart?.amount} x&nbsp;</Typography>
 					<Typography fontSize={'0.8rem'} sx={{ fontWeight: 600, letterSpacing: '0.1rem' }}>
 						{product?.price} Rs
 					</Typography>

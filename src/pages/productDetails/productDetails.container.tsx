@@ -20,6 +20,7 @@ export const ProductDetailsContainer = () => {
 	const { state } = useLocation();
 
 	const product: ProductModel = state;
+	const workingStatus = state.workingStatus;
 
 	const { getProductFromCart } = useProducts();
 	const { cartProducts, addToCart, removeFromCart } = useCart();
@@ -70,6 +71,7 @@ export const ProductDetailsContainer = () => {
 				errorState={errorState}
 				selectedProduct={product}
 				handleError={handleError}
+				workingStatus={workingStatus}
 				handleLoading={handleLoading}
 				removeFromCart={removeFromCart}
 				productFromCart={productFromCart}

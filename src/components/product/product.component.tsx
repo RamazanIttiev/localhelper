@@ -13,6 +13,7 @@ import { InfoBadge } from '../reactkit/infoBadge';
 
 interface ProductProps {
 	loading: boolean;
+	workingStatus: string;
 	errorState: ErrorType;
 	product: ProductModel;
 	productFromCart?: ProductModel;
@@ -27,6 +28,7 @@ export const ProductComponent: FC<ProductProps> = ({
 	product,
 	addToCart,
 	errorState,
+	workingStatus,
 	removeFromCart,
 	productFromCart,
 	handleProductOrder,
@@ -46,7 +48,10 @@ export const ProductComponent: FC<ProductProps> = ({
 					background: 'transparent',
 					justifyContent: 'space-between',
 				}}>
-				<Link to={product.title.toLowerCase()} state={product} style={{ position: 'relative' }}>
+				<Link
+					to={product.title.toLowerCase()}
+					state={{ ...product, workingStatus }}
+					style={{ position: 'relative' }}>
 					{product.image ? (
 						<>
 							<CardMedia
@@ -55,18 +60,18 @@ export const ProductComponent: FC<ProductProps> = ({
 								alt={product.image[0].alt}
 								sx={{ height: '11rem', borderRadius: '1rem' }}
 							/>
-							{product.infoBadges && (
-								<InfoBadge
-									iterable={product.infoBadges}
-									containerStyles={{
-										display: 'flex',
-										position: 'absolute',
-										top: '0.5rem',
-										left: '0.5rem',
-									}}
-									iconStyles={{ margin: '0 2px' }}
-								/>
-							)}
+							{product.infoBadges &&
+								product.infoBadges.map(icon => (
+									<InfoBadge
+										icon={icon}
+										containerStyles={{
+											position: 'absolute',
+											top: '0.5rem',
+											left: '1.5rem',
+										}}
+										iconStyles={{ margin: '0 2px' }}
+									/>
+								))}
 						</>
 					) : (
 						<Box
@@ -117,28 +122,30 @@ export const ProductComponent: FC<ProductProps> = ({
 						</Typography>
 					</CardContent>
 				</Link>
-				<CardActions
-					sx={{
-						p: 0,
-					}}>
-					{amountButtonsVisible ? (
-						<AmountButtons
-							product={product}
-							addToCart={addToCart}
-							productFromCart={productFromCart}
-							removeFromCart={removeFromCart}
-							showAmount={false}
-						/>
-					) : (
-						<LoaderButton
-							text={product.price}
-							loading={loading}
-							errorState={errorState}
-							textStyles={{ fontSize: '0.8rem' }}
-							handleClick={handleProductOrder}
-						/>
-					)}
-				</CardActions>
+				{workingStatus === 'Opened' && (
+					<CardActions
+						sx={{
+							p: 0,
+						}}>
+						{amountButtonsVisible ? (
+							<AmountButtons
+								product={product}
+								addToCart={addToCart}
+								productFromCart={productFromCart}
+								removeFromCart={removeFromCart}
+								showAmount={false}
+							/>
+						) : (
+							<LoaderButton
+								text={product.price}
+								loading={loading}
+								errorState={errorState}
+								textStyles={{ fontSize: '0.8rem' }}
+								handleClick={handleProductOrder}
+							/>
+						)}
+					</CardActions>
+				)}
 			</Card>
 		</>
 	);

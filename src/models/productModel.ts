@@ -45,6 +45,9 @@ export interface RestaurantModel {
 	Image: { url: string }[];
 	Category: string[];
 	Products: ProductModel[] | undefined;
+	OpenTime: string;
+	CloseTime: string;
+	Location: string;
 }
 
 export interface AppData {

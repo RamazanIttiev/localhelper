@@ -12,7 +12,7 @@ import {
 	setMainButtonText,
 	showMainButton,
 } from '../../actions/webApp-actions';
-import { HeaderImage } from './headerImage';
+import { Header } from './header';
 import { ProductModel } from '../../models/productModel';
 
 export const Products = () => {
@@ -35,15 +35,18 @@ export const Products = () => {
 		};
 	}, [isServiceRoute, isCartEmpty, navigate]);
 
-	const renderHeader = {
+	const restaurantHeader = {
 		title: category?.HeaderTitle || state.Title,
 		image: (category?.HeaderImage !== undefined && category?.HeaderImage[0]?.url) || state.Image[0].url,
+		workingStatus: state.workingStatus,
+		workingTime: state.workingTime,
+		location: state.Location,
 	};
 	const renderProducts = products?.length !== 0 ? products : state.Products;
 
 	return (
 		<>
-			<HeaderImage header={renderHeader} />
+			<Header {...restaurantHeader} />
 			<Container sx={{ pt: 2 }} maxWidth={'md'}>
 				<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
 					{renderProducts?.map((product: ProductModel) => {
@@ -55,6 +58,7 @@ export const Products = () => {
 									addToCart={addToCart}
 									cartProducts={cartProducts}
 									removeFromCart={removeFromCart}
+									workingStatus={state.workingStatus}
 									amountButtonsVisible={isServiceRoute}
 								/>
 							</Grid>

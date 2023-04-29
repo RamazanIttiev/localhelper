@@ -15,6 +15,7 @@ interface ProductDetailsUIProps {
 	flowId: string;
 	loading: boolean;
 	errorState: ErrorType;
+	workingStatus: string;
 	order: SingleOrderData;
 	productFromCart?: ProductModel;
 	amountButtonsVisible?: boolean;
@@ -32,6 +33,7 @@ export const ProductDetailsUI = ({
 	errorState,
 	handleError,
 	handleLoading,
+	workingStatus,
 	productFromCart,
 	removeFromCart,
 	selectedProduct,
@@ -82,30 +84,32 @@ export const ProductDetailsUI = ({
 				</Box>
 			</CardContent>
 
-			<CardActions sx={{ flexDirection: 'column', p: 0 }}>
-				{amountButtonsVisible ? (
-					<AmountButtons
-						styles={{
-							maxWidth: '13rem',
-							width: productFromCart ? '13rem' : '12rem',
-							background: theme.palette.background.paper,
-						}}
-						addToCart={addToCart}
-						product={selectedProduct}
-						productFromCart={productFromCart}
-						removeFromCart={removeFromCart}
-					/>
-				) : (
-					!isUserAgentTelegram && (
-						<LoaderButton
-							loading={loading}
-							errorState={errorState}
-							text={selectedProduct?.price}
-							handleClick={() => handleOrder(flowId, order, handleLoading, handleError)}
+			{workingStatus === 'Opened' && (
+				<CardActions sx={{ flexDirection: 'column', p: 0 }}>
+					{amountButtonsVisible ? (
+						<AmountButtons
+							styles={{
+								maxWidth: '13rem',
+								width: productFromCart ? '13rem' : '12rem',
+								background: theme.palette.background.paper,
+							}}
+							addToCart={addToCart}
+							product={selectedProduct}
+							productFromCart={productFromCart}
+							removeFromCart={removeFromCart}
 						/>
-					)
-				)}
-			</CardActions>
+					) : (
+						!isUserAgentTelegram && (
+							<LoaderButton
+								loading={loading}
+								errorState={errorState}
+								text={selectedProduct?.price}
+								handleClick={() => handleOrder(flowId, order, handleLoading, handleError)}
+							/>
+						)
+					)}
+				</CardActions>
+			)}
 		</Card>
 	);
 };

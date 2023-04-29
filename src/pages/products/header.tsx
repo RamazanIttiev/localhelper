@@ -3,8 +3,17 @@ import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { Box, Icon, IconButton, Typography } from '@mui/material';
 import { theme } from '../../theme';
 import { useNavigate } from 'react-router-dom';
+import { WorkingStatus } from '../../components/reactkit/workingStatus';
 
-export const HeaderImage = ({ header }: { header: { image: string | undefined; title: string | undefined } }) => {
+interface HeaderProps {
+	location: string;
+	workingTime: string;
+	workingStatus: string;
+	image: string | undefined;
+	title: string | undefined;
+}
+
+export const Header = ({ image, title, workingTime, workingStatus, location }: HeaderProps) => {
 	const navigate = useNavigate();
 	return (
 		<>
@@ -17,11 +26,11 @@ export const HeaderImage = ({ header }: { header: { image: string | undefined; t
 					<Icon>arrow_circle_left</Icon>
 				</IconButton>
 			)}
-			{header.image && (
+			{image && (
 				<Box
 					component="img"
-					src={header.image}
-					alt={header.title}
+					src={image}
+					alt={title}
 					sx={{
 						display: 'block',
 						backgroundSize: 'cover',
@@ -39,15 +48,41 @@ export const HeaderImage = ({ header }: { header: { image: string | undefined; t
 					pb: '2rem',
 					pl: '2rem',
 					width: '100%',
-					display: ' flex',
+					display: 'flex',
 					height: '18rem',
-					alignItems: ' end',
+					alignItems: 'flex-start',
+					justifyContent: 'end',
+					flexDirection: 'column',
 					position: 'absolute',
 					background: `linear-gradient(to bottom, rgba(255,255,255, 0), ${theme.palette.background.default})`,
 				}}>
 				<Typography variant={'body1'} fontSize={'2rem'}>
-					{header.title}
+					{title}
 				</Typography>
+				<Box
+					sx={{
+						width: '9rem',
+						display: 'flex',
+						flexDirection: 'column',
+						alignItems: 'baseline',
+						justifyContent: 'space-between',
+					}}>
+					<Box sx={{ marginBottom: '1rem' }}>
+						<WorkingStatus workingStatus={workingStatus} workingTime={workingTime} />
+					</Box>
+					<Box sx={{ display: 'flex', alignItems: 'baseline' }}>
+						<Icon
+							fontSize={'small'}
+							sx={{
+								marginRight: '0.2rem',
+							}}>
+							location_on
+						</Icon>
+						<Typography component="p" variant={'body1'}>
+							{location}
+						</Typography>
+					</Box>
+				</Box>
 			</Box>
 		</>
 	);

@@ -17,10 +17,4 @@ export const addNewProductToCart = (products: ProductModel[], selectedProduct: P
 };
 
 export const getCartOrderString = (orderItems: string[]) =>
-	`
-Ваш заказ: 
-	
-			${JSON.stringify(orderItems, null, 2)} 
-		
-Доставка: 1 км = 100 Rs
-Способ оплаты: наличные`.replace(/\[|\]|"/g, '');
+	`${JSON.stringify(orderItems, null, 2)}`.replace(/\[|\]|"/g, '');

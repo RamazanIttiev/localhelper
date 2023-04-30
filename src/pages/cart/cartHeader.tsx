@@ -1,8 +1,9 @@
 import React from 'react';
+import { useCart } from './hooks/useCart';
+import { useNavigate } from 'react-router-dom';
 import { Box, Icon, IconButton } from '@mui/material';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
-import { useNavigate } from 'react-router-dom';
-import { useCart } from './hooks/useCart';
+import { hideMainButton } from "../../actions/webApp-actions";
 
 export const CartHeader = () => {
 	const { clearCart } = useCart();
@@ -11,6 +12,7 @@ export const CartHeader = () => {
 	const handleClearCart = () => {
 		clearCart();
 		navigate(-1);
+		hideMainButton()
 	};
 	return (
 		<Box

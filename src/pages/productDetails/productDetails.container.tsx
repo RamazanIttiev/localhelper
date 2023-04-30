@@ -18,13 +18,11 @@ import {
 
 export const ProductDetailsContainer = () => {
 	const { state } = useLocation();
-
 	const product: ProductModel = state;
-	const workingStatus = state.workingStatus;
 
 	const { getProductFromCart } = useProducts();
 	const { cartProducts, addToCart, removeFromCart } = useCart();
-	const { flowId, isServiceDetailsRoute } = useReactRouter();
+	const { flowId, isRestaurantDetailsRoute } = useReactRouter();
 
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -32,16 +30,25 @@ export const ProductDetailsContainer = () => {
 		isError: null,
 	});
 
-	const order = { itemName: product.title };
+	const isRestaurantOpened = state?.isRestaurantOpened;
 
 	const handleProductOrder = useCallback(() => {
-		return handleOrder(flowId, { itemName: product.title }, handleLoading, handleError);
-	}, [flowId, product.title]);
+		return handleOrder(
+			flowId,
+			{
+				itemName: product.title,
+				coordinates: product.coordinates !== undefined ? product.coordinates : undefined,
+				contactPlace: product.Contact !== undefined ? product.Contact : undefined,
+			},
+			handleLoading,
+			handleError,
+		);
+	}, [flowId, product.Contact, product.coordinates, product.title]);
 
 	useEffect(() => {
-		if (!isServiceDetailsRoute) {
+		if (!isRestaurantDetailsRoute) {
 			showMainButton();
-			setMainButtonText(`${product.price} Rs`);
+			setMainButtonText(`${state?.price} Rs`);
 			handleMainButton(handleProductOrder);
 		}
 
@@ -49,7 +56,7 @@ export const ProductDetailsContainer = () => {
 			hideMainButton();
 			removeMainButtonEvent(handleProductOrder);
 		};
-	}, [handleProductOrder, flowId, isServiceDetailsRoute, product.price, product.title]);
+	}, [handleProductOrder, flowId, isRestaurantDetailsRoute, state?.price, state?.title]);
 
 	useEffect(() => {
 		clearResponseMessage(errorState, handleError);
@@ -64,18 +71,15 @@ export const ProductDetailsContainer = () => {
 	return (
 		<Container sx={{ pt: 2, pb: 2, px: 6 }} maxWidth={'xs'}>
 			<ProductDetailsUI
-				order={order}
 				loading={loading}
-				flowId={flowId}
 				addToCart={addToCart}
 				errorState={errorState}
 				selectedProduct={product}
-				handleError={handleError}
-				workingStatus={workingStatus}
-				handleLoading={handleLoading}
 				removeFromCart={removeFromCart}
 				productFromCart={productFromCart}
-				amountButtonsVisible={isServiceDetailsRoute}
+				handleProductOrder={handleProductOrder}
+				isRestaurantOpened={isRestaurantOpened}
+				amountButtonsVisible={isRestaurantDetailsRoute}
 			/>
 		</Container>
 	);

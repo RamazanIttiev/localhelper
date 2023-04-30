@@ -1,20 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
 import { CartUI } from './cart.component';
 import { useCart } from './hooks/useCart';
-import { ErrorType } from '../../models/error';
-import { getCartOrderString } from './utils/cart.utlis';
-import { useReactRouter } from '../../hooks/useReactRouter';
-import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 import {
 	handleMainButton,
-	hideMainButton,
 	removeMainButtonEvent,
 	setMainButtonText,
 	showMainButton,
 } from '../../actions/webApp-actions';
+import { ErrorType } from '../../models/error';
+import { useLocation } from 'react-router-dom';
+import { getCartOrderString } from './utils/cart.utlis';
+import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 
 export const CartContainer = () => {
-	const { flowId } = useReactRouter();
+	const { state } = useLocation();
 	const { addToCart, removeFromCart, clearCart, cartProducts } = useCart();
 
 	const [loading, setLoading] = useState(false);
@@ -43,19 +42,30 @@ export const CartContainer = () => {
 	const cartOrder = getCartOrderString(orderItems);
 
 	const handleCartOrder = useCallback(() => {
-		return handleOrder(flowId, { order: cartOrder, orderTotal: cartTotalAmount }, handleLoading, handleError);
-	}, [cartOrder, cartTotalAmount, flowId]);
+		return handleOrder(
+			state?.flowId,
+			{
+				order: cartOrder,
+				orderTotal: cartTotalAmount,
+				coordinates: state?.coordinates,
+			},
+			handleLoading,
+			handleError,
+		);
+	}, [cartOrder, cartTotalAmount, state?.coordinates, state?.flowId]);
 
 	useEffect(() => {
 		showMainButton();
-		setMainButtonText(`${cartTotalAmount.toString()} Rs`);
 		handleMainButton(handleCartOrder);
 
 		return () => {
-			hideMainButton();
 			removeMainButtonEvent(handleCartOrder);
 		};
-	}, [flowId, cartOrder, cartTotalAmount, handleCartOrder]);
+	}, [handleCartOrder]);
+
+	useEffect(() => {
+		setMainButtonText(`${cartTotalAmount.toString()} Rs`);
+	}, [cartTotalAmount]);
 
 	return (
 		<CartUI

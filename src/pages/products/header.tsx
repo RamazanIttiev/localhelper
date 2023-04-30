@@ -6,11 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { WorkingStatus } from '../../components/reactkit/workingStatus';
 
 interface HeaderProps {
-	location: string;
-	workingTime: string;
-	workingStatus: string;
-	image: string | undefined;
-	title: string | undefined;
+	image?: string;
+	title?: string;
+	location?: string;
+	workingTime?: string;
+	workingStatus?: string;
 }
 
 export const Header = ({ image, title, workingTime, workingStatus, location }: HeaderProps) => {
@@ -67,21 +67,25 @@ export const Header = ({ image, title, workingTime, workingStatus, location }: H
 						alignItems: 'baseline',
 						justifyContent: 'space-between',
 					}}>
-					<Box sx={{ marginBottom: '1rem' }}>
-						<WorkingStatus workingStatus={workingStatus} workingTime={workingTime} />
-					</Box>
-					<Box sx={{ display: 'flex', alignItems: 'baseline' }}>
-						<Icon
-							fontSize={'small'}
-							sx={{
-								marginRight: '0.2rem',
-							}}>
-							location_on
-						</Icon>
-						<Typography component="p" variant={'body1'}>
-							{location}
-						</Typography>
-					</Box>
+					{workingStatus && workingTime && (
+						<Box sx={{ marginBottom: '1rem' }}>
+							<WorkingStatus workingStatus={workingStatus} workingTime={workingTime} />
+						</Box>
+					)}
+					{location && (
+						<Box sx={{ display: 'flex', alignItems: 'baseline' }}>
+							<Icon
+								fontSize={'small'}
+								sx={{
+									marginRight: '0.2rem',
+								}}>
+								location_on
+							</Icon>
+							<Typography component="p" variant={'body1'}>
+								{location}
+							</Typography>
+						</Box>
+					)}
 				</Box>
 			</Box>
 		</>

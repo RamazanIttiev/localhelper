@@ -7,9 +7,9 @@ import { ProductModel } from '../../models/productModel';
 
 interface ProductContainerProps {
 	flowId: string;
-	workingStatus: string;
 	product: ProductModel;
 	cartProducts: ProductModel[];
+	isRestaurantOpened?: boolean;
 	amountButtonsVisible?: boolean;
 	removeFromCart: (product: ProductModel) => void;
 	addToCart: (selectedProduct: ProductModel) => void;
@@ -19,9 +19,9 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 	flowId,
 	product,
 	addToCart,
-	workingStatus,
 	cartProducts,
 	removeFromCart,
+	isRestaurantOpened,
 	amountButtonsVisible,
 }) => {
 	const { getProductFromCart } = useProducts();
@@ -42,8 +42,17 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 	const handleError = (value: ErrorType) => setErrorState(value);
 
 	const handleProductOrder = useCallback(() => {
-		return handleOrder(flowId, { itemName: product.title }, handleLoading, handleError);
-	}, [flowId, product.title]);
+		return handleOrder(
+			flowId,
+			{
+				itemName: product.title,
+				coordinates: product.coordinates !== undefined ? product.coordinates : undefined,
+				contactPlace: product.Contact !== undefined ? product.Contact : undefined,
+			},
+			handleLoading,
+			handleError,
+		);
+	}, [flowId, product.title, product.coordinates, product.Contact]);
 
 	return (
 		<ProductComponent
@@ -51,9 +60,9 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 			loading={loading}
 			addToCart={addToCart}
 			errorState={errorState}
-			workingStatus={workingStatus}
 			removeFromCart={removeFromCart}
 			productFromCart={productFromCart}
+			isRestaurantOpened={isRestaurantOpened}
 			handleProductOrder={handleProductOrder}
 			amountButtonsVisible={amountButtonsVisible}
 		/>

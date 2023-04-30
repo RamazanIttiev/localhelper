@@ -1,7 +1,7 @@
 export const getServicesRoute = (title: string) => {
 	switch (title) {
 		case 'Food':
-			return `services/${title.toLowerCase()}`;
+			return `${title.toLowerCase()}/restaurants`;
 		default:
 			return title.toLowerCase();
 	}
@@ -23,6 +23,5 @@ export const isWorkingHour = (open?: string, close?: string) => {
 	const [closeHour, closeMinute] = close ? close.split(':').map(Number) : [];
 	const closeHourValue = closeHour + closeMinute / 60;
 
-	console.log(currentMinute);
 	return currentTimeValue >= openHourValue && currentTimeValue < closeHourValue;
 };

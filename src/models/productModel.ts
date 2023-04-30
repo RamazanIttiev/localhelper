@@ -9,7 +9,6 @@ export interface DefaultProductModel {
 	infoBadges?: string[];
 	Category?: string[];
 	Restaurants?: string[];
-	position?: string;
 }
 
 export interface FoodModel extends DefaultProductModel {
@@ -24,10 +23,17 @@ export interface RentModel extends DefaultProductModel {
 	ac?: boolean;
 	wifi?: boolean;
 	pool?: boolean;
+	coordinates?: string;
 	breakfast?: boolean;
+	Contact?: string;
 }
 
-export type ProductModel = DefaultProductModel & FoodModel & RentModel;
+interface TransportModel {
+	coordinates?: string;
+	Contact?: string;
+}
+
+export type ProductModel = DefaultProductModel & FoodModel & RentModel & TransportModel;
 
 export interface CategoryModel {
 	Flow: string;
@@ -48,6 +54,8 @@ export interface RestaurantModel {
 	OpenTime: string;
 	CloseTime: string;
 	Location: string;
+	Contact: string;
+	Coordinates: string;
 }
 
 export interface AppData {

@@ -12,41 +12,57 @@ import {
 	setMainButtonText,
 	showMainButton,
 } from '../../actions/webApp-actions';
-import { Header } from './header';
 import { ProductModel } from '../../models/productModel';
+import { Header } from './header';
 
 export const Products = () => {
-	const navigate = useNavigate();
-	const { products, category, flowId, isServiceRoute } = useReactRouter();
-	const { removeFromCart, addToCart, cartProducts, isCartEmpty } = useCart();
-
 	const { state } = useLocation();
 
+	const navigate = useNavigate();
+	const { products, flowId, category, isRestaurantRoute } = useReactRouter();
+	const { removeFromCart, addToCart, cartProducts, isCartEmpty } = useCart();
+
 	useEffect(() => {
-		if (isServiceRoute && !isCartEmpty) {
+		if (isRestaurantRoute && !isCartEmpty) {
 			showMainButton();
 			setMainButtonText('Order');
-			handleMainButton(() => navigate('/services/food/shopping-cart'));
+			handleMainButton(() =>
+				navigate('/restaurants/food/shopping-cart', {
+					state: {
+						flowId,
+						coordinates: state?.coordinates !== undefined ? state.coordinates : undefined,
+					},
+				}),
+			);
 		} else hideMainButton();
 
 		return () => {
 			hideMainButton();
-			removeMainButtonEvent(() => navigate('/services/food/shopping-cart'));
+			removeMainButtonEvent(() =>
+				navigate('/restaurants/food/shopping-cart', {
+					state: {
+						flowId,
+						coordinates: state?.coordinates !== undefined ? state.coordinates : undefined,
+					},
+				}),
+			);
 		};
-	}, [isServiceRoute, isCartEmpty, navigate]);
+	}, [isRestaurantRoute, isCartEmpty, navigate, flowId, state?.coordinates]);
 
-	const restaurantHeader = {
-		title: category?.HeaderTitle || state.Title,
+	const renderHeader = {
+		title: category?.HeaderTitle || state?.Title,
+		location: state !== null ? state.Location : undefined,
+		workingTime: state !== null ? state.workingTime : undefined,
+		workingStatus: state !== null ? state.workingStatus : undefined,
 		image: (category?.HeaderImage !== undefined && category?.HeaderImage[0]?.url) || state.Image[0].url,
-		workingStatus: state.workingStatus,
-		workingTime: state.workingTime,
-		location: state.Location,
 	};
-	const renderProducts = products?.length !== 0 ? products : state.Products;
+
+	const isRestaurantOpened = state === null ? true : state?.workingStatus === 'Opened';
+	const renderProducts = products?.length !== 0 ? products : state !== null && state.Products;
 
 	return (
 		<>
-			<Header {...restaurantHeader} />
+			<Header {...renderHeader} />
 			<Container sx={{ pt: 2 }} maxWidth={'md'}>
 				<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
 					{renderProducts?.map((product: ProductModel) => {
@@ -58,14 +74,14 @@ export const Products = () => {
 									addToCart={addToCart}
 									cartProducts={cartProducts}
 									removeFromCart={removeFromCart}
-									workingStatus={state.workingStatus}
-									amountButtonsVisible={isServiceRoute}
+									isRestaurantOpened={isRestaurantOpened}
+									amountButtonsVisible={isRestaurantRoute}
 								/>
 							</Grid>
 						);
 					})}
 				</Grid>
-				{!isCartEmpty && isServiceRoute && !isUserAgentTelegram && (
+				{!isCartEmpty && isRestaurantRoute && !isUserAgentTelegram && (
 					<Button
 						sx={{
 							left: '50%',
@@ -75,7 +91,11 @@ export const Products = () => {
 							transform: 'translate(-50%)',
 						}}
 						variant={'contained'}
-						onClick={() => navigate('/services/food/shopping-cart')}>
+						onClick={() =>
+							navigate('/restaurants/food/shopping-cart', {
+								state: { flowId, coordinates: state !== null ? state.Coordinates : undefined },
+							})
+						}>
 						Order
 					</Button>
 				)}

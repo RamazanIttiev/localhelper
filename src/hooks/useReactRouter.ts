@@ -7,15 +7,16 @@ export const useReactRouter = () => {
 	const route = useMatch('*');
 	const productsRoute = useMatch('/:categoryId');
 
-	const servicesRoute = useMatch('/services/:categoryId');
-	const serviceRoute = useMatch('/services/:categoryId/:serviceId');
+	const restaurantsRoute = useMatch('/:categoryId/restaurants');
+	const restaurantRoute = useMatch('/:categoryId/restaurants/:restaurantId');
 
 	const productDetailsRoute = useMatch('/:categoryId/:productId');
-	const serviceDetailsRoute = useMatch('/services/:categoryId/:serviceId/:productId');
+	const restaurantDetailsRoute = useMatch('/:categoryId/restaurants/:restaurantId/:productId');
 
 	const isProductsRoute = productsRoute?.pattern.path === '/:categoryId';
-	const isServiceRoute = serviceRoute?.pattern.path === '/services/:categoryId/:serviceId';
-	const isServiceDetailsRoute = serviceDetailsRoute?.pattern.path === '/services/:categoryId/:serviceId/:productId';
+	const isRestaurantRoute = restaurantRoute?.pattern.path === '/:categoryId/restaurants/:restaurantId';
+	const isRestaurantDetailsRoute =
+		restaurantDetailsRoute?.pattern.path === '/:categoryId/restaurants/:restaurantId/:productId';
 
 	const appData = useOutletContext<AppData>();
 	const category = mapCategoryData(
@@ -23,10 +24,10 @@ export const useReactRouter = () => {
 			return (
 				category.Flow.toLowerCase() === route?.params['*'] ||
 				category.Flow.toLowerCase() === productsRoute?.params.categoryId ||
-				category.Flow.toLowerCase() === serviceRoute?.params.categoryId ||
-				category.Flow.toLowerCase() === servicesRoute?.params.categoryId ||
+				category.Flow.toLowerCase() === restaurantRoute?.params.categoryId ||
+				category.Flow.toLowerCase() === restaurantsRoute?.params.categoryId ||
 				category.Flow.toLowerCase() === productDetailsRoute?.params.categoryId ||
-				category.Flow.toLowerCase() === serviceDetailsRoute?.params.categoryId
+				category.Flow.toLowerCase() === restaurantDetailsRoute?.params.categoryId
 			);
 		}),
 		appData?.resolvedProducts,
@@ -40,10 +41,10 @@ export const useReactRouter = () => {
 		category,
 		products: category?.Products,
 		productsRoute,
-		servicesRoute,
-		isServiceRoute,
+		restaurantsRoute,
+		isRestaurantRoute,
 		isProductsRoute,
 		productDetailsRoute,
-		isServiceDetailsRoute,
+		isRestaurantDetailsRoute,
 	};
 };

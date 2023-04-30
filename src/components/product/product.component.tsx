@@ -13,10 +13,10 @@ import { InfoBadge } from '../reactkit/infoBadge';
 
 interface ProductProps {
 	loading: boolean;
-	workingStatus: string;
 	errorState: ErrorType;
 	product: ProductModel;
 	productFromCart?: ProductModel;
+	isRestaurantOpened?: boolean;
 	amountButtonsVisible?: boolean;
 	handleProductOrder: () => Promise<void>;
 	removeFromCart: (product: ProductModel) => void;
@@ -28,10 +28,10 @@ export const ProductComponent: FC<ProductProps> = ({
 	product,
 	addToCart,
 	errorState,
-	workingStatus,
 	removeFromCart,
 	productFromCart,
 	handleProductOrder,
+	isRestaurantOpened,
 	amountButtonsVisible,
 }) => {
 	return (
@@ -50,7 +50,7 @@ export const ProductComponent: FC<ProductProps> = ({
 				}}>
 				<Link
 					to={product.title.toLowerCase()}
-					state={{ ...product, workingStatus }}
+					state={{ ...product, isRestaurantOpened }}
 					style={{ position: 'relative' }}>
 					{product.image ? (
 						<>
@@ -122,7 +122,7 @@ export const ProductComponent: FC<ProductProps> = ({
 						</Typography>
 					</CardContent>
 				</Link>
-				{workingStatus === 'Opened' && (
+				{isRestaurantOpened && (
 					<CardActions
 						sx={{
 							p: 0,

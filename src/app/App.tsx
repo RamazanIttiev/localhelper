@@ -18,13 +18,13 @@ const router = createBrowserRouter(
 			<Route index element={<Categories />} />
 			<Route path=":categoryId" element={<Products />} />
 
-			<Route path="services/:categoryId" element={<RestaurantsContainer />} />
-			<Route path="services/:categoryId/:serviceId" element={<Products />} />
+			<Route path=":categoryId/restaurants" element={<RestaurantsContainer />} />
+			<Route path=":categoryId/restaurants/:restaurantId" element={<Products />} />
 
 			<Route path=":categoryId/:productId" element={<ProductDetailsContainer />} />
-			<Route path="services/:categoryId/:serviceId/:productId" element={<ProductDetailsContainer />} />
+			<Route path=":categoryId/restaurants/:restaurantId/:productId" element={<ProductDetailsContainer />} />
 
-			<Route path="services/food/shopping-cart" element={<CartContainer />} />
+			<Route path="restaurants/food/shopping-cart" element={<CartContainer />} />
 		</Route>,
 	),
 );

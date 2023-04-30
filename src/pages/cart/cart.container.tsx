@@ -14,7 +14,7 @@ import { clearResponseMessage, handleOrder } from '../../actions/global-actions'
 
 export const CartContainer = () => {
 	const { state } = useLocation();
-	const { addToCart, removeFromCart, clearCart, cartProducts } = useCart();
+	const { addToCart, removeFromCart, cartProducts } = useCart();
 
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -71,7 +71,6 @@ export const CartContainer = () => {
 		<CartUI
 			loading={loading}
 			addToCart={addToCart}
-			clearCart={clearCart}
 			errorState={errorState}
 			cartProducts={cartProducts}
 			handleOrder={handleCartOrder}

@@ -11,7 +11,6 @@ import { isUserAgentTelegram } from '../../utils/deviceInfo';
 interface CartProps {
 	loading: boolean;
 	errorState: ErrorType;
-	clearCart?: () => void;
 	cartTotalAmount: number;
 	handleOrder: () => void;
 	cartProducts: ProductModel[] | [];

@@ -3,16 +3,16 @@ import { useCart } from './hooks/useCart';
 import { useNavigate } from 'react-router-dom';
 import { Box, Icon, IconButton } from '@mui/material';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
-import { hideMainButton } from "../../actions/webApp-actions";
+import { hideMainButton } from '../../actions/webApp-actions';
 
 export const CartHeader = () => {
 	const { clearCart } = useCart();
 	const navigate = useNavigate();
 
 	const handleClearCart = () => {
-		clearCart();
 		navigate(-1);
-		hideMainButton()
+		clearCart();
+		hideMainButton();
 	};
 	return (
 		<Box

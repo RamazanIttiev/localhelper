@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useCart } from '../cart/hooks/useCart';
 import { Button, Container, Grid } from '@mui/material';
 import { useReactRouter } from '../../hooks/useReactRouter';
@@ -22,32 +22,29 @@ export const Products = () => {
 	const { products, flowId, category, isRestaurantRoute } = useReactRouter();
 	const { removeFromCart, addToCart, cartProducts, isCartEmpty } = useCart();
 
+	const navigateToCart = useCallback(
+		() =>
+			navigate('/restaurants/food/shopping-cart', {
+				state: {
+					flowId,
+					coordinates: state?.coordinates !== undefined ? state.coordinates : undefined,
+				},
+			}),
+		[flowId, navigate, state?.coordinates],
+	);
+
 	useEffect(() => {
 		if (isRestaurantRoute && !isCartEmpty) {
 			showMainButton();
 			setMainButtonText('Order');
-			handleMainButton(() =>
-				navigate('/restaurants/food/shopping-cart', {
-					state: {
-						flowId,
-						coordinates: state?.coordinates !== undefined ? state.coordinates : undefined,
-					},
-				}),
-			);
-		} else hideMainButton();
+			handleMainButton(navigateToCart);
+		}
 
 		return () => {
 			hideMainButton();
-			removeMainButtonEvent(() =>
-				navigate('/restaurants/food/shopping-cart', {
-					state: {
-						flowId,
-						coordinates: state?.coordinates !== undefined ? state.coordinates : undefined,
-					},
-				}),
-			);
+			removeMainButtonEvent(navigateToCart);
 		};
-	}, [isRestaurantRoute, isCartEmpty, navigate, flowId, state?.coordinates]);
+	}, [isRestaurantRoute, isCartEmpty, navigateToCart]);
 
 	const renderHeader = {
 		title: category?.HeaderTitle || state?.Title,

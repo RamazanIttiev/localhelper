@@ -67,7 +67,7 @@ export const ProductComponent: FC<ProductProps> = ({
 										containerStyles={{
 											position: 'absolute',
 											top: '0.5rem',
-											left: '1.5rem',
+											left: '0.5rem',
 										}}
 										iconStyles={{ margin: '0 2px' }}
 									/>

@@ -48,7 +48,6 @@ export const ProductDetailsContainer = () => {
 	useEffect(() => {
 		if (!isRestaurantDetailsRoute) {
 			showMainButton();
-			setMainButtonText(`${state?.price} Rs`);
 			handleMainButton(handleProductOrder);
 		}
 
@@ -56,7 +55,11 @@ export const ProductDetailsContainer = () => {
 			hideMainButton();
 			removeMainButtonEvent(handleProductOrder);
 		};
-	}, [handleProductOrder, flowId, isRestaurantDetailsRoute, state?.price, state?.title]);
+	}, [handleProductOrder, isRestaurantDetailsRoute]);
+
+	useEffect(() => {
+		setMainButtonText(`${state?.price} Rs`);
+	}, [state?.price]);
 
 	useEffect(() => {
 		clearResponseMessage(errorState, handleError);

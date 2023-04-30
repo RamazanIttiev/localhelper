@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { ErrorType } from '../../models/error';
 import { ImageBackdrop } from './imageBackdrop';
 import { AmountButtons } from '../amountButtons';
+import { InfoBadge } from '../reactkit/infoBadge';
 import { LoaderButton } from '../reactkit/loaderButton';
 import { ProductModel } from '../../models/productModel';
 import { setHaptic } from '../../actions/webApp-actions';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 import dishImage from '../../assets/food.jpg';
-import { InfoBadge } from '../reactkit/infoBadge';
 
 interface ProductProps {
 	loading: boolean;
@@ -129,15 +129,15 @@ export const ProductComponent: FC<ProductProps> = ({
 						}}>
 						{amountButtonsVisible ? (
 							<AmountButtons
+								showText
 								product={product}
 								addToCart={addToCart}
-								productFromCart={productFromCart}
 								removeFromCart={removeFromCart}
-								showAmount={false}
+								productFromCart={productFromCart}
 							/>
 						) : (
 							<LoaderButton
-								text={product.price}
+								text={`${product.price} Rs`}
 								loading={loading}
 								errorState={errorState}
 								textStyles={{ fontSize: '0.8rem' }}

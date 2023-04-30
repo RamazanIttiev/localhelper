@@ -10,7 +10,6 @@ export const CartHeader = () => {
 	const navigate = useNavigate();
 
 	const handleClearCart = () => {
-		navigate(-1);
 		clearCart();
 		hideMainButton();
 	};

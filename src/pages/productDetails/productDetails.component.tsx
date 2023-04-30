@@ -87,15 +87,18 @@ export const ProductDetailsUI = ({
 							}}
 							addToCart={addToCart}
 							product={selectedProduct}
-							productFromCart={productFromCart}
 							removeFromCart={removeFromCart}
+							productFromCart={productFromCart}
+							amountText={
+								productFromCart?.amount === undefined ? undefined : `${productFromCart?.amount} x`
+							}
 						/>
 					) : (
 						!isUserAgentTelegram && (
 							<LoaderButton
 								loading={loading}
 								errorState={errorState}
-								text={selectedProduct?.price}
+								text={`${selectedProduct?.price} Rs`}
 								handleClick={handleProductOrder}
 							/>
 						)

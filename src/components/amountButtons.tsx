@@ -3,21 +3,23 @@ import { ProductModel } from '../models/productModel';
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
 
 interface AmountButtonsProps {
-	showAmount?: boolean;
-	styles?: CSSProperties;
+	showText?: boolean;
 	product?: ProductModel;
+	styles?: CSSProperties;
+	amountText?: string | number;
 	productFromCart?: ProductModel;
-	removeFromCart: (product: ProductModel) => void;
 	addToCart: (product: ProductModel) => void;
+	removeFromCart: (product: ProductModel) => void;
 }
 
 export const AmountButtons: FC<AmountButtonsProps> = ({
 	styles,
 	product,
-	showAmount = true,
 	addToCart,
 	removeFromCart,
 	productFromCart,
+	amountText,
+	showText = true,
 }) => {
 	const theme = useTheme();
 
@@ -43,18 +45,14 @@ export const AmountButtons: FC<AmountButtonsProps> = ({
 					remove
 				</Icon>
 			</IconButton>
-			{showAmount && productFromCart ? (
-				<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-					<Typography variant={'caption'}>{productFromCart?.amount} x&nbsp;</Typography>
+			<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+				{amountText !== undefined ? <Typography variant={'caption'}>{amountText}</Typography> : null}
+				{showText && (
 					<Typography fontSize={'0.8rem'} sx={{ fontWeight: 600, letterSpacing: '0.1rem' }}>
-						{product?.price} Rs
+						&nbsp;{product?.price} Rs
 					</Typography>
-				</Box>
-			) : (
-				<Typography fontSize={'0.8rem'} sx={{ fontWeight: 600, letterSpacing: '0.1rem' }}>
-					{product?.price} Rs
-				</Typography>
-			)}
+				)}
+			</Box>
 			<IconButton size={'medium'} onClick={product !== undefined ? () => addToCart(product) : undefined}>
 				<Icon fontSize={'small'} sx={{ color: '#fff' }}>
 					add

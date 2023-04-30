@@ -8,13 +8,14 @@ import {
 	showMainButton,
 } from '../../actions/webApp-actions';
 import { ErrorType } from '../../models/error';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getCartOrderString } from './utils/cart.utlis';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 
 export const CartContainer = () => {
+	const navigate = useNavigate();
 	const { state } = useLocation();
-	const { addToCart, removeFromCart, cartProducts } = useCart();
+	const { addToCart, removeFromCart, cartProducts, isCartEmpty } = useCart();
 
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -61,7 +62,13 @@ export const CartContainer = () => {
 		return () => {
 			removeMainButtonEvent(handleCartOrder);
 		};
-	}, [handleCartOrder]);
+	}, [handleCartOrder, navigate]);
+
+	useEffect(() => {
+		if (isCartEmpty) {
+			navigate(-1);
+		}
+	}, [isCartEmpty, navigate]);
 
 	useEffect(() => {
 		setMainButtonText(`${cartTotalAmount.toString()} Rs`);

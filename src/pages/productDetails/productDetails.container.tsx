@@ -66,7 +66,7 @@ export const ProductDetailsContainer = () => {
 	}, [errorState]);
 
 	const productFromCart = getProductFromCart(cartProducts, product);
-
+	console.log(productFromCart);
 	const handleLoading = (value: boolean) => setLoading(value);
 
 	const handleError = (value: ErrorType) => setErrorState(value);

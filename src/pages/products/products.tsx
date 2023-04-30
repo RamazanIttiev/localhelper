@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useCart } from '../cart/hooks/useCart';
-import { Button, Container, Grid } from '@mui/material';
+import { Button, Container, Grid, Typography } from '@mui/material';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { ProductContainer } from '../../components/product/product.container';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
@@ -81,6 +81,7 @@ export const Products = () => {
 				{!isCartEmpty && isRestaurantRoute && !isUserAgentTelegram && (
 					<Button
 						sx={{
+							height: '36px',
 							left: '50%',
 							bottom: '1rem',
 							width: '50%',
@@ -88,12 +89,15 @@ export const Products = () => {
 							transform: 'translate(-50%)',
 						}}
 						variant={'contained'}
-						onClick={() =>
-							navigate('/restaurants/food/shopping-cart', {
-								state: { flowId, coordinates: state !== null ? state.Coordinates : undefined },
-							})
-						}>
-						Order
+						onClick={navigateToCart}>
+						<Typography
+							variant={'button'}
+							sx={{
+								fontWeight: '600',
+								letterSpacing: '0.1rem',
+							}}>
+							Order
+						</Typography>
 					</Button>
 				)}
 			</Container>

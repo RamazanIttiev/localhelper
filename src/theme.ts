@@ -29,7 +29,7 @@ export const theme = createTheme({
 		body2: {
 			fontSize: '0.8rem',
 		},
-		button: TelegramTheme?.button_text_color || '#fff',
+		button: { fontSize: '1rem', color: TelegramTheme?.button_text_color || '#fff' },
 	},
 	components: {
 		MuiDrawer: {

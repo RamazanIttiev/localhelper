@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Divider, List, ListItem, Typography } from '@mui/material';
 import dishImage from '../../assets/food.jpg';
 import { AmountButtons } from '../../components/amountButtons';
-import { theme } from '../../theme';
 import { ProductModel } from '../../models/productModel';
 
 interface CartListProps {
@@ -40,30 +39,17 @@ export const CartList = ({ cartProducts, addToCart, removeFromCart }: CartListPr
 								<Typography component={'h3'} variant={'h6'} gutterBottom>
 									{product.title}
 								</Typography>
-								<Box sx={{ display: 'flex', alignItems: 'center' }}>
-									<Typography
-										variant={'body1'}
-										sx={{
-											background: theme.palette.primary.main,
-											borderRadius: '50%',
-											width: '24px',
-											height: '24px',
-											color: ' #fff',
-											textAlign: ' center',
-											mr: 0.5,
-										}}>
-										{product.amount!}
-									</Typography>
-									<Typography variant={'body1'}>
-										x <strong>{product.price}</strong>
-									</Typography>
-								</Box>
+
+								<Typography variant={'body1'} fontWeight={600}>
+									{product.price} Rs
+								</Typography>
 							</Box>
 							<AmountButtons
+								showText={false}
 								product={product}
-								showAmount={false}
 								addToCart={addToCart}
 								productFromCart={product}
+								amountText={product?.amount}
 								removeFromCart={removeFromCart}
 							/>
 						</ListItem>

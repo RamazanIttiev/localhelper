@@ -48,7 +48,7 @@ export const CartContainer = () => {
 			{
 				order: cartOrder,
 				orderTotal: cartTotalAmount,
-				coordinates: state?.coordinates,
+				coordinates: state?.coordinates !== undefined ? state.coordinates : undefined,
 			},
 			handleLoading,
 			handleError,
@@ -83,6 +83,7 @@ export const CartContainer = () => {
 			handleOrder={handleCartOrder}
 			removeFromCart={removeFromCart}
 			cartTotalAmount={cartTotalAmount}
+			restaurantTitle={state?.restaurant !== undefined ? state.restaurant : undefined}
 		/>
 	);
 };

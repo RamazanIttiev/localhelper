@@ -22,7 +22,3 @@ export const removeMainButtonEvent = (callback: () => unknown) => {
 	setHaptic('light');
 	Telegram.offEvent('mainButtonClicked', callback);
 };
-
-export const showConfirmation = (message: string, callback: (answer: string) => string) => {
-	return Telegram.showConfirm(message, callback);
-};

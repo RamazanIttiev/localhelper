@@ -1,5 +1,5 @@
 import { useLocalStorage } from 'usehooks-ts';
-import { setHaptic, showConfirmation } from '../../../actions/webApp-actions';
+import { setHaptic } from '../../../actions/webApp-actions';
 import { useProducts } from '../../products/hooks/useProducts';
 import { ProductModel } from '../../../models/productModel';
 import { addNewProductToCart, decrementProduct, incrementProductInCart } from '../utils/cart.utlis';
@@ -28,11 +28,8 @@ export const useCart = () => {
 			});
 
 		if (!sameRestaurant) {
-			const userAnswer = showConfirmation('You should empty your cart for a new order', answer => answer);
-
 			const answer = confirm('You should empty your cart for a new order');
 			answer && clearCart();
-			userAnswer && clearCart();
 
 			setTimeout(() => setCart(), 0);
 		} else {

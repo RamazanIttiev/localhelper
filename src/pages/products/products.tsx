@@ -27,10 +27,11 @@ export const Products = () => {
 			navigate('/restaurants/food/shopping-cart', {
 				state: {
 					flowId,
-					coordinates: state?.coordinates !== undefined ? state.coordinates : undefined,
+					restaurant: state?.Title !== undefined ? state.Title : undefined,
+					coordinates: state?.Coordinates !== undefined ? state.Coordinates : undefined,
 				},
 			}),
-		[flowId, navigate, state?.coordinates],
+		[flowId, navigate, state.Coordinates, state.Title],
 	);
 
 	useEffect(() => {
@@ -38,10 +39,9 @@ export const Products = () => {
 			showMainButton();
 			setMainButtonText('Order');
 			handleMainButton(navigateToCart);
-		}
+		} else hideMainButton();
 
 		return () => {
-			hideMainButton();
 			removeMainButtonEvent(navigateToCart);
 		};
 	}, [isRestaurantRoute, isCartEmpty, navigateToCart]);

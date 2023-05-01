@@ -12,6 +12,7 @@ interface CartProps {
 	loading: boolean;
 	errorState: ErrorType;
 	cartTotalAmount: number;
+	restaurantTitle?: string;
 	handleOrder: () => void;
 	cartProducts: ProductModel[] | [];
 	addToCart: (product: ProductModel) => void;
@@ -26,10 +27,11 @@ export const CartUI = ({
 	cartProducts,
 	removeFromCart,
 	cartTotalAmount,
+	restaurantTitle,
 }: CartProps) => {
 	return (
 		<Container maxWidth={'md'}>
-			<CartHeader />
+			<CartHeader restaurantTitle={restaurantTitle} />
 			<CartList addToCart={addToCart} removeFromCart={removeFromCart} cartProducts={cartProducts} />
 			<Box
 				sx={{

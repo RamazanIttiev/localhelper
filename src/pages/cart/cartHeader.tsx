@@ -1,18 +1,17 @@
 import React from 'react';
 import { useCart } from './hooks/useCart';
-import { useNavigate } from 'react-router-dom';
-import { Box, Icon, IconButton } from '@mui/material';
-import { isUserAgentTelegram } from '../../utils/deviceInfo';
+import { Box, Icon, IconButton, Typography } from '@mui/material';
 import { hideMainButton } from '../../actions/webApp-actions';
 
-export const CartHeader = () => {
+export const CartHeader = ({ restaurantTitle }: { restaurantTitle?: string }) => {
 	const { clearCart } = useCart();
-	const navigate = useNavigate();
 
 	const handleClearCart = () => {
-		clearCart();
-		hideMainButton();
+		const answer = confirm('Do you want to clear your cart?');
+		answer && clearCart();
+		answer && hideMainButton();
 	};
+
 	return (
 		<Box
 			sx={{
@@ -20,11 +19,7 @@ export const CartHeader = () => {
 				alignItems: 'center',
 				justifyContent: 'space-between',
 			}}>
-			{!isUserAgentTelegram && (
-				<IconButton color={'inherit'} size={'large'} onClick={() => navigate(-1)}>
-					<Icon>arrow_circle_left</Icon>
-				</IconButton>
-			)}
+			<Typography variant={'subtitle1'}>{restaurantTitle}</Typography>
 			<IconButton size={'large'} color={'inherit'} sx={{ ml: 'auto' }} onClick={handleClearCart}>
 				<Icon>delete</Icon>
 			</IconButton>

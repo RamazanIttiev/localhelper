@@ -12,7 +12,7 @@ export const RestaurantsContainer = () => {
 	}, []);
 
 	return (
-		<Container sx={{ pt: 2, pb: 11 }} maxWidth={'md'}>
+		<Container sx={{ pt: 2 }} maxWidth={'sm'}>
 			{category.Restaurants !== undefined &&
 				category.Restaurants.map(restaurant => {
 					return <RestaurantsUI key={restaurant.Title} restaurant={restaurant} />;

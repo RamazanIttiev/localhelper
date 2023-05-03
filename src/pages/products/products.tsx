@@ -62,7 +62,7 @@ export const Products = () => {
 	return (
 		<>
 			<Header {...renderHeader} />
-			<Container sx={{ pt: 2 }} maxWidth={'md'}>
+			<Container sx={{ pt: 2 }} maxWidth={'sm'}>
 				<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
 					{renderProducts?.map((product: ProductModel) => {
 						return (

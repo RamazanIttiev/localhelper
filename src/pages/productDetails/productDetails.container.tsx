@@ -74,7 +74,7 @@ export const ProductDetailsContainer = () => {
 	const handleError = (value: ErrorType) => setErrorState(value);
 
 	return (
-		<Container sx={{ pt: 2, pb: 2, px: 6 }} maxWidth={'xs'}>
+		<Container sx={{ pt: 2, pb: 2, px: 6 }} maxWidth={'sm'}>
 			<ProductDetailsUI
 				loading={loading}
 				addToCart={addToCart}

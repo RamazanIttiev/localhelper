@@ -7,7 +7,7 @@ import { InfoBadge } from '../reactkit/infoBadge';
 import { LoaderButton } from '../reactkit/loaderButton';
 import { ProductModel } from '../../models/productModel';
 import { setHaptic } from '../../actions/webApp-actions';
-import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { Box, Card, CardActions, CardContent, CardMedia, Typography, useTheme } from '@mui/material';
 
 import dishImage from '../../assets/food.jpg';
 
@@ -34,6 +34,8 @@ export const ProductComponent: FC<ProductProps> = ({
 	isRestaurantOpened,
 	amountButtonsVisible,
 }) => {
+	const theme = useTheme();
+
 	return (
 		<>
 			<Card
@@ -119,7 +121,7 @@ export const ProductComponent: FC<ProductProps> = ({
 						</Typography>
 					</CardContent>
 				</Link>
-				{isRestaurantOpened && (
+				{isRestaurantOpened ? (
 					<CardActions
 						sx={{
 							p: 0,
@@ -142,6 +144,17 @@ export const ProductComponent: FC<ProductProps> = ({
 							/>
 						)}
 					</CardActions>
+				) : (
+					<Typography
+						variant="body2"
+						sx={{
+							padding: '0.5rem',
+							width: 'fit-content',
+							borderRadius: '1rem',
+							background: theme.palette.background.paper,
+						}}>
+						We are closed
+					</Typography>
 				)}
 			</Card>
 		</>

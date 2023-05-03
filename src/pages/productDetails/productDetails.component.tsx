@@ -76,7 +76,7 @@ export const ProductDetailsUI = ({
 				</Box>
 			</CardContent>
 
-			{isRestaurantOpened && (
+			{isRestaurantOpened ? (
 				<CardActions sx={{ flexDirection: 'column', p: 0 }}>
 					{amountButtonsVisible ? (
 						<AmountButtons
@@ -104,6 +104,17 @@ export const ProductDetailsUI = ({
 						)
 					)}
 				</CardActions>
+			) : (
+				<Typography
+					variant="body2"
+					sx={{
+						padding: '0.5rem',
+						width: 'fit-content',
+						borderRadius: '1rem',
+						background: theme.palette.background.paper,
+					}}>
+					We are closed
+				</Typography>
 			)}
 		</Card>
 	);

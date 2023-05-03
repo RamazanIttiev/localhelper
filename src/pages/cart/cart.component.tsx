@@ -1,7 +1,7 @@
 import React from 'react';
 import { CartList } from './cart-list';
 import { ErrorType } from '../../models/error';
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import { ProductModel } from '../../models/productModel';
 import { LoaderButton } from '../../components/reactkit/loaderButton';
 import { theme } from '../../theme';
@@ -30,7 +30,7 @@ export const CartUI = ({
 	restaurantTitle,
 }: CartProps) => {
 	return (
-		<Container maxWidth={'md'}>
+		<>
 			<CartHeader restaurantTitle={restaurantTitle} />
 			<CartList addToCart={addToCart} removeFromCart={removeFromCart} cartProducts={cartProducts} />
 			<Box
@@ -52,6 +52,6 @@ export const CartUI = ({
 					/>
 				)}
 			</Box>
-		</Container>
+		</>
 	);
 };

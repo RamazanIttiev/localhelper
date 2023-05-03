@@ -11,6 +11,7 @@ import { ErrorType } from '../../models/error';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getCartOrderString } from '../../utils/cart';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
+import { Container } from '@mui/material';
 
 export const CartContainer = () => {
 	const navigate = useNavigate();
@@ -75,15 +76,17 @@ export const CartContainer = () => {
 	}, [cartTotalAmount]);
 
 	return (
-		<CartUI
-			loading={loading}
-			addToCart={addToCart}
-			errorState={errorState}
-			cartProducts={cartProducts}
-			handleOrder={handleCartOrder}
-			removeFromCart={removeFromCart}
-			cartTotalAmount={cartTotalAmount}
-			restaurantTitle={state?.restaurant !== undefined ? state.restaurant : undefined}
-		/>
+		<Container maxWidth={'sm'}>
+			<CartUI
+				loading={loading}
+				addToCart={addToCart}
+				errorState={errorState}
+				cartProducts={cartProducts}
+				handleOrder={handleCartOrder}
+				removeFromCart={removeFromCart}
+				cartTotalAmount={cartTotalAmount}
+				restaurantTitle={state?.restaurant !== undefined ? state.restaurant : undefined}
+			/>
+		</Container>
 	);
 };

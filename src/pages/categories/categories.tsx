@@ -13,7 +13,7 @@ export const Categories = () => {
 	const { pathname } = useReactRouter();
 
 	return (
-		<Container maxWidth={'md'}>
+		<Container maxWidth={'md'} sx={{ pb: 1 }}>
 			<Grid container justifyContent={'center'} spacing={4} sx={{ pt: pathname === '/' ? 3 : 0 }}>
 				{categories.map(({ title, image }: CategoryModel) => {
 					return <Category key={title} isLink title={title} image={image} />;

@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Container } from '@mui/material';
+import { useCart } from '../../hooks/useCart';
 import { ErrorType } from '../../models/error';
 import { useLocation } from 'react-router-dom';
-import { useCart } from '../cart/hooks/useCart';
+import { useCategory } from '../../hooks/useCategory';
+import { useProducts } from '../../hooks/useProducts';
+import { useRestaurant } from '../../utils/restaurant';
 import { ProductModel } from '../../models/productModel';
-import { useProducts } from '../products/hooks/useProducts';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { ProductDetailsUI } from './productDetails.component';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
@@ -20,17 +22,17 @@ export const ProductDetailsContainer = () => {
 	const { state } = useLocation();
 	const product: ProductModel = state;
 
+	const { flowId } = useCategory();
+	const { isWorking } = useRestaurant();
 	const { getProductFromCart } = useProducts();
+	const { isRestaurantDetailsRoute } = useReactRouter();
 	const { cartProducts, addToCart, removeFromCart } = useCart();
-	const { flowId, isRestaurantDetailsRoute } = useReactRouter();
 
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
 		message: '',
 		isError: null,
 	});
-
-	const isRestaurantOpened = state?.isRestaurantOpened;
 
 	const handleProductOrder = useCallback(() => {
 		return handleOrder(
@@ -78,10 +80,10 @@ export const ProductDetailsContainer = () => {
 				addToCart={addToCart}
 				errorState={errorState}
 				selectedProduct={product}
+				isRestaurantOpened={isWorking}
 				removeFromCart={removeFromCart}
 				productFromCart={productFromCart}
 				handleProductOrder={handleProductOrder}
-				isRestaurantOpened={isRestaurantOpened}
 				amountButtonsVisible={isRestaurantDetailsRoute}
 			/>
 		</Container>

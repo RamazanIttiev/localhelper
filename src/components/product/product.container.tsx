@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { ProductComponent } from './product.component';
-import { useProducts } from '../../pages/products/hooks/useProducts';
+import { useProducts } from '../../hooks/useProducts';
 import { ErrorType } from '../../models/error';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 import { ProductModel } from '../../models/productModel';

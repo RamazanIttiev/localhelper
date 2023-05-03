@@ -1,4 +1,4 @@
-import { ProductModel } from '../../../models/productModel';
+import { ProductModel } from '../models/productModel';
 
 export const useProducts = () => {
 	const getProductFromCart = (cartProducts: ProductModel[], selectedProduct: ProductModel | undefined) =>

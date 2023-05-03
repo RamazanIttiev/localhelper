@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CategoryDialog } from './categoryDialog';
 import { setHaptic } from '../actions/webApp-actions';
-import { getServicesRoute } from '../pages/restaurants/utils/restaurant';
+import { getServicesRoute } from '../utils/restaurant';
 import { Box, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 
 interface CategoryProps {

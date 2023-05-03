@@ -1,8 +1,8 @@
 import { useLocalStorage } from 'usehooks-ts';
-import { setHaptic } from '../../../actions/webApp-actions';
-import { useProducts } from '../../products/hooks/useProducts';
-import { ProductModel } from '../../../models/productModel';
-import { addNewProductToCart, decrementProduct, incrementProductInCart } from '../utils/cart.utlis';
+import { setHaptic } from '../actions/webApp-actions';
+import { useProducts } from './useProducts';
+import { ProductModel } from '../models/productModel';
+import { addNewProductToCart, decrementProduct, incrementProductInCart } from '../utils/cart';
 
 export const useCart = () => {
 	const { checkProductInCart, isSameRestaurant } = useProducts();

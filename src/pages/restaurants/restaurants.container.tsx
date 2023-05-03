@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Container } from '@mui/material';
 import { RestaurantsUI } from './restaurants.component';
-import { useReactRouter } from '../../hooks/useReactRouter';
 import { hideMainButton } from '../../actions/webApp-actions';
+import { useCategory } from '../../hooks/useCategory';
 
 export const RestaurantsContainer = () => {
-	const { category } = useReactRouter();
+	const { category } = useCategory();
 
 	useEffect(() => {
 		hideMainButton();

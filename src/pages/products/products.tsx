@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { useCart } from '../cart/hooks/useCart';
+import { useCart } from '../../hooks/useCart';
 import { Button, Container, Grid, Typography } from '@mui/material';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { ProductContainer } from '../../components/product/product.container';
@@ -12,15 +12,18 @@ import {
 	setMainButtonText,
 	showMainButton,
 } from '../../actions/webApp-actions';
-import { ProductModel } from '../../models/productModel';
 import { Header } from './header';
+import { ProductModel } from '../../models/productModel';
+import { useRestaurant } from '../../utils/restaurant';
+import { useCategory } from '../../hooks/useCategory';
 
 export const Products = () => {
-	const { state } = useLocation();
-
 	const navigate = useNavigate();
-	const { products, flowId, category, isRestaurantRoute } = useReactRouter();
+	const { state } = useLocation();
+	const { isRestaurantRoute } = useReactRouter();
+	const { products, flowId, category } = useCategory();
 	const { removeFromCart, addToCart, cartProducts, isCartEmpty } = useCart();
+	const { title, isWorking, workingStatus, workingTime, location, headerImage, restaurantProducts } = useRestaurant();
 
 	const navigateToCart = useCallback(
 		() =>
@@ -47,15 +50,14 @@ export const Products = () => {
 	}, [isRestaurantRoute, isCartEmpty, navigateToCart]);
 
 	const renderHeader = {
-		title: category?.HeaderTitle || state?.Title,
-		location: state !== null ? state.Location : undefined,
-		workingTime: state !== null ? state.workingTime : undefined,
-		workingStatus: state !== null ? state.workingStatus : undefined,
-		image: (category?.HeaderImage !== undefined && category?.HeaderImage[0]?.url) || state.Image[0].url,
+		location,
+		workingTime,
+		workingStatus,
+		title: category?.HeaderTitle || title,
+		image: (category?.HeaderImage !== undefined && category?.HeaderImage[0]?.url) || headerImage,
 	};
 
-	const isRestaurantOpened = state === null ? true : state?.workingStatus === 'Opened';
-	const renderProducts = products?.length !== 0 ? products : state !== null && state.Products;
+	const renderProducts = products?.length !== 0 ? products : restaurantProducts;
 
 	return (
 		<>
@@ -70,8 +72,8 @@ export const Products = () => {
 									product={product}
 									addToCart={addToCart}
 									cartProducts={cartProducts}
+									isRestaurantOpened={isWorking}
 									removeFromCart={removeFromCart}
-									isRestaurantOpened={isRestaurantOpened}
 									amountButtonsVisible={isRestaurantRoute}
 								/>
 							</Grid>

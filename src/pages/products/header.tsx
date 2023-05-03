@@ -4,6 +4,7 @@ import { Box, Icon, IconButton, Typography } from '@mui/material';
 import { theme } from '../../theme';
 import { useNavigate } from 'react-router-dom';
 import { WorkingStatus } from '../../components/reactkit/workingStatus';
+import { useReactRouter } from '../../hooks/useReactRouter';
 
 interface HeaderProps {
 	image?: string;
@@ -15,6 +16,8 @@ interface HeaderProps {
 
 export const Header = ({ image, title, workingTime, workingStatus, location }: HeaderProps) => {
 	const navigate = useNavigate();
+	const { isRestaurantRoute } = useReactRouter();
+
 	return (
 		<>
 			{!isUserAgentTelegram && (
@@ -59,34 +62,36 @@ export const Header = ({ image, title, workingTime, workingStatus, location }: H
 				<Typography variant={'body1'} fontSize={'2rem'}>
 					{title}
 				</Typography>
-				<Box
-					sx={{
-						width: '9rem',
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'baseline',
-						justifyContent: 'space-between',
-					}}>
-					{workingStatus && workingTime && (
-						<Box sx={{ marginBottom: '1rem' }}>
-							<WorkingStatus workingStatus={workingStatus} workingTime={workingTime} />
-						</Box>
-					)}
-					{location && (
-						<Box sx={{ display: 'flex', alignItems: 'baseline' }}>
-							<Icon
-								fontSize={'small'}
-								sx={{
-									marginRight: '0.2rem',
-								}}>
-								location_on
-							</Icon>
-							<Typography component="p" variant={'body1'}>
-								{location}
-							</Typography>
-						</Box>
-					)}
-				</Box>
+				{isRestaurantRoute && (
+					<Box
+						sx={{
+							width: '9rem',
+							display: 'flex',
+							flexDirection: 'column',
+							alignItems: 'baseline',
+							justifyContent: 'space-between',
+						}}>
+						{workingStatus && workingTime && (
+							<Box sx={{ marginBottom: '1rem' }}>
+								<WorkingStatus workingStatus={workingStatus} workingTime={workingTime} />
+							</Box>
+						)}
+						{location && (
+							<Box sx={{ display: 'flex', alignItems: 'baseline' }}>
+								<Icon
+									fontSize={'small'}
+									sx={{
+										marginRight: '0.2rem',
+									}}>
+									location_on
+								</Icon>
+								<Typography component="p" variant={'body1'}>
+									{location}
+								</Typography>
+							</Box>
+						)}
+					</Box>
+				)}
 			</Box>
 		</>
 	);

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { CartUI } from './cart.component';
-import { useCart } from './hooks/useCart';
+import { useCart } from '../../hooks/useCart';
 import {
 	handleMainButton,
 	removeMainButtonEvent,
@@ -9,7 +9,7 @@ import {
 } from '../../actions/webApp-actions';
 import { ErrorType } from '../../models/error';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getCartOrderString } from './utils/cart.utlis';
+import { getCartOrderString } from '../../utils/cart';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 
 export const CartContainer = () => {

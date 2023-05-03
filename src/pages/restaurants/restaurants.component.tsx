@@ -2,15 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { setHaptic } from '../../actions/webApp-actions';
 import { RestaurantModel } from '../../models/productModel';
-import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import { isWorkingHour } from './utils/restaurant';
 import { WorkingStatus } from '../../components/reactkit/workingStatus';
+import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { useRestaurant } from '../../utils/restaurant';
 
-export const RestaurantsUI = ({ restaurant }: { restaurant: RestaurantModel }) => {
-	const isWorking = isWorkingHour(restaurant.OpenTime, restaurant.CloseTime);
+interface RestaurantsUIProps {
+	restaurant: RestaurantModel;
+}
 
-	const workingStatus = isWorking ? 'Opened' : 'Closed';
-	const workingTime = `${restaurant.OpenTime} - ${restaurant.CloseTime}`;
+export const RestaurantsUI = ({ restaurant }: RestaurantsUIProps) => {
+	const { workingStatus, workingTime } = useRestaurant(restaurant);
 
 	return (
 		<Card
@@ -25,10 +26,7 @@ export const RestaurantsUI = ({ restaurant }: { restaurant: RestaurantModel }) =
 				background: 'transparent',
 				justifyContent: 'space-between',
 			}}>
-			<Link
-				to={`${restaurant.Title}`}
-				state={{ ...restaurant, workingStatus, workingTime }}
-				style={{ position: 'relative' }}>
+			<Link to={`${restaurant.Title}`} style={{ position: 'relative' }}>
 				<CardMedia
 					component="img"
 					image={restaurant.Image[0].url}

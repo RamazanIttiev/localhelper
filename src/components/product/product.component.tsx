@@ -48,10 +48,7 @@ export const ProductComponent: FC<ProductProps> = ({
 					background: 'transparent',
 					justifyContent: 'space-between',
 				}}>
-				<Link
-					to={product.title.toLowerCase()}
-					state={{ ...product, isRestaurantOpened }}
-					style={{ position: 'relative' }}>
+				<Link to={product.title.toLowerCase()} state={{ ...product }} style={{ position: 'relative' }}>
 					{product.image ? (
 						<>
 							<CardMedia

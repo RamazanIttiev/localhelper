@@ -31,7 +31,7 @@ export const Products = () => {
 					coordinates: state?.Coordinates !== undefined ? state.Coordinates : undefined,
 				},
 			}),
-		[flowId, navigate, state.Coordinates, state.Title],
+		[flowId, navigate, state?.Coordinates, state?.Title],
 	);
 
 	useEffect(() => {

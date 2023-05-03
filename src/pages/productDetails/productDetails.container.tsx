@@ -49,7 +49,7 @@ export const ProductDetailsContainer = () => {
 		if (!isRestaurantDetailsRoute) {
 			showMainButton();
 			handleMainButton(handleProductOrder);
-		}
+		} else hideMainButton();
 
 		return () => {
 			hideMainButton();

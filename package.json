@@ -27,6 +27,7 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
+    "@types/react-lottie": "^1.2.6",
     "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
@@ -40,6 +41,8 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "2.1.1",
+    "prop-types": "^15.8.1",
+    "react-lottie": "^1.2.3",
     "react-material-ui-carousel": "^3.4.2",
     "telegram-webapps-types": "^1.0.5"
   },

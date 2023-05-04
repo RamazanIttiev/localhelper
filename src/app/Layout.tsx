@@ -8,6 +8,7 @@ import {
 	showBackButton,
 	webAppIsReady,
 } from '../actions/webApp-actions';
+import { ErrorPage } from '../pages/404/404';
 import { useDocumentTitle } from 'usehooks-ts';
 import { useReactRouter } from '../hooks/useReactRouter';
 import { Categories } from '../pages/categories/categories';
@@ -42,7 +43,7 @@ export const Layout = () => {
 			<React.Suspense fallback={pathname === '/' && <Categories />}>
 				<Await
 					resolve={appData}
-					errorElement={<div>Could not load data 😬</div>}
+					errorElement={<ErrorPage />}
 					children={appData => {
 						return <Outlet context={appData} />;
 					}}

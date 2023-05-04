@@ -1,6 +1,5 @@
 import React from 'react';
-import { isUserAgentTelegram } from '../../utils/deviceInfo';
-import { Box, Icon, IconButton, Typography } from '@mui/material';
+import { Box, Icon, Typography } from '@mui/material';
 import { theme } from '../../theme';
 import { useNavigate } from 'react-router-dom';
 import { WorkingStatus } from '../../components/reactkit/workingStatus';
@@ -20,15 +19,6 @@ export const Header = ({ image, title, workingTime, workingStatus, location }: H
 
 	return (
 		<>
-			{!isUserAgentTelegram && (
-				<IconButton
-					sx={{ position: 'absolute', left: 8, top: 0, zIndex: 1 }}
-					color={'inherit'}
-					size={'large'}
-					onClick={() => navigate(-1)}>
-					<Icon>arrow_circle_left</Icon>
-				</IconButton>
-			)}
 			{image && (
 				<Box
 					component="img"

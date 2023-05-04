@@ -1,5 +1,5 @@
 import { useLocalStorage } from 'usehooks-ts';
-import { setHaptic } from '../actions/webApp-actions';
+import { hideMainButton, setHaptic } from '../actions/webApp-actions';
 import { useProducts } from './useProducts';
 import { ProductModel } from '../models/productModel';
 import { addNewProductToCart, decrementProduct, incrementProductInCart } from '../utils/cart';
@@ -51,6 +51,14 @@ export const useCart = () => {
 				}
 			}, [] as ProductModel[]);
 		});
+
+		if (cartProducts.length === 1) {
+			const answer = confirm('Do you want to clear your cart?');
+			if (answer) {
+				clearCart();
+				hideMainButton();
+			}
+		}
 	};
 
 	return {

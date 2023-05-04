@@ -25,7 +25,7 @@ export const LoaderButton = ({ loading, errorState, handleClick, styles, text, t
 		<CustomLoadingButton
 			loading={loading}
 			color={errorState.isError ? 'error' : errorState.isError !== null ? 'success' : 'primary'}
-			sx={{ height: '36px', textTransform: 'inherit', ...styles }}
+			sx={{ height: '36px', textTransform: 'inherit', borderRadius: '2rem', ...styles }}
 			variant={'contained'}
 			fullWidth
 			onClick={handleClick}>

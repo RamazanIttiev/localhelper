@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { ProductComponent } from './product.component';
 import { useProducts } from '../../hooks/useProducts';
 import { ErrorType } from '../../models/error';
-import { handleOrder } from '../../actions/global-actions';
+import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 import { ProductModel } from '../../models/productModel';
 
 interface ProductContainerProps {
@@ -32,7 +32,7 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 	});
 
 	useEffect(() => {
-		// clearResponseMessage(errorState, handleError);
+		clearResponseMessage(errorState, handleError);
 	}, [errorState]);
 
 	const productFromCart = getProductFromCart(cartProducts, product);

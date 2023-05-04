@@ -33,6 +33,16 @@ export const LoaderButton = ({ loading, errorState, handleClick, styles, text, t
 		},
 	};
 
+	const iconStyles = {
+		width: '2rem',
+		height: 'auto',
+		overflow: 'hidden',
+		margin: '0px auto',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+	};
+
 	return (
 		<CustomLoadingButton
 			loading={loading}
@@ -46,9 +56,9 @@ export const LoaderButton = ({ loading, errorState, handleClick, styles, text, t
 			variant={errorState.isError ? 'outlined' : 'contained'}
 			onClick={handleClick}>
 			{errorState.isError ? (
-				<Lottie options={defaultOptions} speed={2} height={'3rem'} width={'auto'} />
+				<Lottie options={defaultOptions} speed={2} style={iconStyles} />
 			) : errorState.isError !== null ? (
-				<Lottie options={defaultOptions} speed={2} height={'3rem'} width={'auto'} />
+				<Lottie options={defaultOptions} speed={2} style={iconStyles} />
 			) : (
 				!loading && (
 					<Typography

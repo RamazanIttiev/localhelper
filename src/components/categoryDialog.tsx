@@ -24,7 +24,6 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId }: 
 	const theme = useTheme();
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
-		message: '',
 		isError: null,
 	});
 

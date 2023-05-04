@@ -139,7 +139,6 @@ export const ProductComponent: FC<ProductProps> = ({
 								text={`${product.price} Rs`}
 								loading={loading}
 								errorState={errorState}
-								textStyles={{ fontSize: '0.8rem' }}
 								handleClick={handleProductOrder}
 							/>
 						)}

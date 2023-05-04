@@ -30,7 +30,6 @@ export const ProductDetailsContainer = () => {
 
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
-		message: '',
 		isError: null,
 	});
 

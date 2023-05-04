@@ -15,18 +15,16 @@ export const handleOrder = async (
 		const result = await sendWebAppDeepLink(flowId, 'lhelper', order);
 		if (result.ok) {
 			handleLoading(false);
-			handleError({ message: 'Success', isError: false });
+			handleError({ isError: false });
 		} else {
 			handleLoading(false);
 			handleError({
-				message: 'Try again later',
 				isError: true,
 			});
 		}
 	} catch (error) {
 		handleLoading(false);
 		handleError({
-			message: typeof error === 'string' ? error : 'Try again later',
 			isError: true,
 		});
 	}
@@ -36,7 +34,6 @@ export const clearResponseMessage = (errorState: ErrorType, handleError: (value:
 	if (errorState.isError !== null) {
 		setTimeout(() => {
 			handleError({
-				message: '',
 				isError: null,
 			});
 		}, 5000);

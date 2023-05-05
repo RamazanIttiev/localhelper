@@ -48,7 +48,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "BUILD_PATH='./public_html' react-scripts build",
+    "build": "react-scripts build",
+    "build_deploy": "BUILD_PATH='./public_html' react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

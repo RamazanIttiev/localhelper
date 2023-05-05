@@ -24,10 +24,14 @@ export const Header = ({ image, title, workingTime, workingStatus, location }: H
 	};
 
 	const shareContent = async () => {
-		try {
-			await navigator.share(shareData);
-		} catch (error) {
-			console.log(error);
+		if (navigator.share) {
+			try {
+				await navigator.share(shareData).then(response => {
+					console.log(response);
+				});
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	};
 

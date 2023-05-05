@@ -97,7 +97,11 @@ export const Header = ({ image, title, workingTime, workingStatus, location }: H
 					</Box>
 				)}
 				{navigator.share !== undefined && (
-					<IconButton size={'large'} color={'inherit'} sx={{ ml: 'auto' }} onClick={shareContent}>
+					<IconButton
+						size={'large'}
+						color={'inherit'}
+						sx={{ position: 'absolute', top: '1rem', right: '1rem' }}
+						onClick={shareContent}>
 						<Icon>ios_share</Icon>
 					</IconButton>
 				)}

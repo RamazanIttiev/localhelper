@@ -21,7 +21,7 @@ export const Header = ({ image, title, workingTime, workingStatus, location }: H
 		title: title,
 		text: 'Welcome to Localhelper',
 		url: `https://test.localhelper.ru${pathname}`,
-		files: [new Blob(['<img src={image} alt={title}/>'], { type: 'text/html' })] as File[],
+		files: [new File(['<img src={image} alt={title}/>'], 'preview.html', { type: 'text/html' })],
 	};
 
 	const shareContent = async () => {

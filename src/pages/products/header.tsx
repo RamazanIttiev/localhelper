@@ -14,7 +14,7 @@ interface HeaderProps {
 }
 
 export const Header = ({ image, title, workingTime, workingStatus, location }: HeaderProps) => {
-	const pathname = useLocation();
+	const { pathname } = useLocation();
 	const { isRestaurantRoute } = useReactRouter();
 
 	const shareData = {
@@ -26,9 +26,7 @@ export const Header = ({ image, title, workingTime, workingStatus, location }: H
 	const shareContent = async () => {
 		if (navigator.share) {
 			try {
-				await navigator.share(shareData).then(response => {
-					console.log(response);
-				});
+				await navigator.share(shareData);
 			} catch (error) {
 				console.log(error);
 			}

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Icon, Typography } from '@mui/material';
+import { Box, Icon, IconButton, Typography } from '@mui/material';
 import { theme } from '../../theme';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { WorkingStatus } from '../../components/reactkit/workingStatus';
 import { useReactRouter } from '../../hooks/useReactRouter';
 
@@ -14,8 +14,22 @@ interface HeaderProps {
 }
 
 export const Header = ({ image, title, workingTime, workingStatus, location }: HeaderProps) => {
-	const navigate = useNavigate();
+	const pathname = useLocation();
 	const { isRestaurantRoute } = useReactRouter();
+
+	const shareData = {
+		title: title,
+		text: 'Welcome to Localhelper',
+		url: `https://test.localhelper.ru${pathname}`,
+	};
+
+	const shareContent = async () => {
+		try {
+			await navigator.share(shareData);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<>
@@ -81,6 +95,11 @@ export const Header = ({ image, title, workingTime, workingStatus, location }: H
 							</Box>
 						)}
 					</Box>
+				)}
+				{navigator.share !== undefined && (
+					<IconButton size={'large'} color={'inherit'} sx={{ ml: 'auto' }} onClick={shareContent}>
+						<Icon>ios_share</Icon>
+					</IconButton>
 				)}
 			</Box>
 		</>

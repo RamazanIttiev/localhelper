@@ -44,6 +44,7 @@ export const CartUI = ({
 				}}>
 				{!isUserAgentTelegram && (
 					<LoaderButton
+						fullWidth
 						loading={loading}
 						errorState={errorState}
 						handleClick={handleOrder}

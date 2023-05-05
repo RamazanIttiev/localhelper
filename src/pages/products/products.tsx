@@ -4,7 +4,7 @@ import { Button, Container, Grid, Typography } from '@mui/material';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { ProductContainer } from '../../components/product/product.container';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
 	handleMainButton,
 	hideMainButton,
@@ -19,22 +19,22 @@ import { useCategory } from '../../hooks/useCategory';
 
 export const Products = () => {
 	const navigate = useNavigate();
-	const { state } = useLocation();
 	const { isRestaurantRoute } = useReactRouter();
 	const { products, flowId, category } = useCategory();
 	const { removeFromCart, addToCart, cartProducts, isCartEmpty } = useCart();
-	const { title, isWorking, workingStatus, workingTime, location, headerImage, restaurantProducts } = useRestaurant();
+	const { title, isWorking, coordinates, workingStatus, workingTime, location, headerImage, restaurantProducts } =
+		useRestaurant();
 
 	const navigateToCart = useCallback(
 		() =>
 			navigate('/restaurants/food/shopping-cart', {
 				state: {
 					flowId,
-					restaurant: state?.Title !== undefined ? state.Title : undefined,
-					coordinates: state?.Coordinates !== undefined ? state.Coordinates : undefined,
+					restaurant: title,
+					coordinates: coordinates,
 				},
 			}),
-		[flowId, navigate, state?.Coordinates, state?.Title],
+		[flowId, navigate, coordinates, title],
 	);
 
 	useEffect(() => {

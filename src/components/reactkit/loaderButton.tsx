@@ -8,6 +8,7 @@ import successAnimation from '../../assets/lottie/happyFace.json';
 
 interface LoaderButtonProps {
 	loading: boolean;
+	fullWidth?: boolean;
 	errorState: ErrorType;
 	text?: string | number;
 	handleClick: () => void;
@@ -23,7 +24,15 @@ export const CustomLoadingButton = styled(LoadingButton)(() => ({
 	},
 }));
 
-export const LoaderButton = ({ loading, errorState, handleClick, styles, text, textStyles }: LoaderButtonProps) => {
+export const LoaderButton = ({
+	loading,
+	errorState,
+	handleClick,
+	styles,
+	text,
+	textStyles,
+	fullWidth,
+}: LoaderButtonProps) => {
 	const defaultOptions = {
 		loop: true,
 		autoplay: true,
@@ -50,15 +59,16 @@ export const LoaderButton = ({ loading, errorState, handleClick, styles, text, t
 				height: '36px',
 				textTransform: 'inherit',
 				borderRadius: '2rem',
-				width: '7rem',
+				width: !fullWidth ? '7rem' : undefined,
 				...styles,
 			}}
+			fullWidth={fullWidth}
 			variant={errorState.isError ? 'outlined' : 'contained'}
 			onClick={handleClick}>
 			{errorState.isError ? (
-				<Lottie options={defaultOptions} speed={2} style={iconStyles} />
+				<Lottie options={defaultOptions} speed={3} style={iconStyles} />
 			) : errorState.isError !== null ? (
-				<Lottie options={defaultOptions} speed={2} style={iconStyles} />
+				<Lottie options={defaultOptions} speed={3} style={iconStyles} />
 			) : (
 				!loading && (
 					<Typography

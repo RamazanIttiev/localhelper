@@ -49,6 +49,7 @@ export const useRestaurant = (currentRestaurant?: RestaurantModel) => {
 		workingStatus,
 		title: restaurant?.Title,
 		location: restaurant?.Location,
+		coordinates: restaurant?.Coordinates,
 		restaurantProducts: restaurant?.Products,
 		isWorking: params?.categoryId === 'food' ? isWorking : true,
 	};

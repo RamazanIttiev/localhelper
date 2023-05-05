@@ -12,8 +12,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getCartOrderString } from '../../utils/cart';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 import { Container } from '@mui/material';
+import { useRestaurant } from '../../utils/restaurant';
 
 export const CartContainer = () => {
+	const { title } = useRestaurant();
 	const navigate = useNavigate();
 	const { state } = useLocation();
 	const { addToCart, removeFromCart, cartProducts, isCartEmpty } = useCart();
@@ -22,7 +24,7 @@ export const CartContainer = () => {
 	const [errorState, setErrorState] = useState<ErrorType>({
 		isError: null,
 	});
-
+	console.log(title);
 	useEffect(() => {
 		clearResponseMessage(errorState, handleError);
 	}, [errorState]);

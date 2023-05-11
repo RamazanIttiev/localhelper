@@ -43,6 +43,13 @@ export const useCart = () => {
 			return prevState.reduce((accumulator: [] | ProductModel[], product: ProductModel): ProductModel[] => {
 				if (product.id === selectedProduct.id) {
 					if (product.amount! === 1) {
+						if (cartProducts.length === 1) {
+							const answer = confirm('Do you want to clear your cart?');
+							if (answer) {
+								clearCart();
+								hideMainButton();
+							}
+						}
 						return accumulator;
 					}
 					return decrementProduct(accumulator, product);
@@ -51,14 +58,7 @@ export const useCart = () => {
 				}
 			}, [] as ProductModel[]);
 		});
-
-		if (cartProducts.length === 1) {
-			const answer = confirm('Do you want to clear your cart?');
-			if (answer) {
-				clearCart();
-				hideMainButton();
-			}
-		}
+		console.log(cartProducts.length);
 	};
 
 	return {

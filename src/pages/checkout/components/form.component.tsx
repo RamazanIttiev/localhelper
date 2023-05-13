@@ -5,6 +5,7 @@ import { ErrorType } from '../../../models/error';
 import { FormInput } from '../checkout.container';
 import { LoaderButton } from '../../../reactkit/loaderButton';
 import { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
+import { isUserAgentTelegram } from '../../../utils/deviceInfo';
 
 interface FormUIProps {
 	loading: boolean;
@@ -60,13 +61,15 @@ export const FormUI = ({ handleSubmit, register, errors, onSubmit, loading, erro
 					{...register('userHotel', { required: false })}
 				/>
 
-				<LoaderButton
-					isMainButton
-					text={'Order'}
-					loading={loading}
-					errorState={errorState}
-					handleClick={handleSubmit(onSubmit)}
-				/>
+				{!isUserAgentTelegram && (
+					<LoaderButton
+						isMainButton
+						text={'Order'}
+						loading={loading}
+						errorState={errorState}
+						handleClick={handleSubmit(onSubmit)}
+					/>
+				)}
 			</form>
 		</>
 	);

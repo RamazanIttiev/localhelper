@@ -2,7 +2,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import { hideMainButton, setHaptic } from '../actions/webApp-actions';
 import { useProducts } from './useProducts';
 import { ProductModel } from '../models/productModel';
-import { addNewProductToCart, decrementProduct, incrementProductInCart } from '../utils/cart';
+import { addNewProductToCart, decrementProduct, getCartOrderString, incrementProductInCart } from '../utils/cart';
 
 export const useCart = () => {
 	const { checkProductInCart, isSameRestaurant } = useProducts();
@@ -48,7 +48,7 @@ export const useCart = () => {
 							if (answer) {
 								clearCart();
 								hideMainButton();
-							}
+							} else return [product];
 						}
 						return accumulator;
 					}
@@ -58,14 +58,28 @@ export const useCart = () => {
 				}
 			}, [] as ProductModel[]);
 		});
-		console.log(cartProducts.length);
 	};
 
+	const cartTotalAmount = cartProducts.reduce((previous, current): number => {
+		if (current.amount !== undefined) {
+			return previous + current.amount * current.price;
+		}
+		return current.price;
+	}, 0);
+
+	const orderItems = cartProducts.map(({ title, amount, price }, id) => {
+		return `${id + 1}. ${title} ${amount} x ${price}`;
+	});
+
+	const cartOrder = getCartOrderString(orderItems);
+
 	return {
-		cartProducts,
-		addToCart,
-		removeFromCart,
+		cartOrder,
 		clearCart,
+		addToCart,
 		isCartEmpty,
+		cartProducts,
+		removeFromCart,
+		cartTotalAmount,
 	};
 };

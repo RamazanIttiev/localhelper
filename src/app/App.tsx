@@ -7,6 +7,7 @@ import { RestaurantsContainer } from '../pages/restaurants/restaurants.container
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { ProductDetailsContainer } from '../pages/productDetails/productDetails.container';
 import { CartContainer } from '../pages/cart/cart.container';
+import { CheckoutContainer } from '../pages/checkout/checkout.container';
 
 export const Telegram = window.Telegram.WebApp;
 export const TelegramUser = window.Telegram.initDataUnsafe?.user;
@@ -25,6 +26,8 @@ const router = createBrowserRouter(
 			<Route path=":categoryId/restaurants/:restaurantId/:productId" element={<ProductDetailsContainer />} />
 
 			<Route path="restaurants/food/shopping-cart" element={<CartContainer />} />
+
+			<Route path="checkout" element={<CheckoutContainer />} />
 		</Route>,
 	),
 );

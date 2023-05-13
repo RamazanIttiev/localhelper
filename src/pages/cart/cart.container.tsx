@@ -9,62 +9,43 @@ import {
 } from '../../actions/webApp-actions';
 import { ErrorType } from '../../models/error';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getCartOrderString } from '../../utils/cart';
-import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
+import { clearResponseMessage } from '../../actions/global-actions';
 import { Container } from '@mui/material';
-import { useRestaurant } from '../../utils/restaurant';
 
 export const CartContainer = () => {
-	const { title } = useRestaurant();
 	const navigate = useNavigate();
 	const { state } = useLocation();
-	const { addToCart, removeFromCart, cartProducts, isCartEmpty } = useCart();
+	const { addToCart, removeFromCart, cartProducts, isCartEmpty, cartTotalAmount, cartOrder } = useCart();
 
-	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
 		isError: null,
 	});
-	console.log(title);
+
 	useEffect(() => {
 		clearResponseMessage(errorState, handleError);
 	}, [errorState]);
-	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
 
-	const orderItems = cartProducts.map(({ title, amount, price }, id) => {
-		return `${id + 1}. ${title} ${amount} x ${price}`;
-	});
-
-	const cartTotalAmount = cartProducts.reduce((previous, current): number => {
-		if (current.amount !== undefined) {
-			return previous + current.amount * current.price;
-		}
-		return current.price;
-	}, 0);
-
-	const cartOrder = getCartOrderString(orderItems);
-
-	const handleCartOrder = useCallback(() => {
-		return handleOrder(
-			state?.flowId,
-			{
+	const navigateToCheckout = useCallback(() => {
+		navigate('/checkout', {
+			state: {
+				flowId: state?.flowId,
 				order: cartOrder,
 				orderTotal: cartTotalAmount,
+				restaurant: state?.restaurant,
 				coordinates: state?.coordinates !== undefined ? state.coordinates : undefined,
 			},
-			handleLoading,
-			handleError,
-		);
-	}, [cartOrder, cartTotalAmount, state?.coordinates, state?.flowId]);
+		});
+	}, [cartOrder, cartTotalAmount, navigate, state?.restaurant, state.coordinates, state?.flowId]);
 
 	useEffect(() => {
 		showMainButton();
-		handleMainButton(handleCartOrder);
+		handleMainButton(navigateToCheckout);
 
 		return () => {
-			removeMainButtonEvent(handleCartOrder);
+			removeMainButtonEvent(navigateToCheckout);
 		};
-	}, [handleCartOrder, navigate]);
+	}, [navigateToCheckout, navigate]);
 
 	useEffect(() => {
 		if (isCartEmpty) {
@@ -73,19 +54,17 @@ export const CartContainer = () => {
 	}, [isCartEmpty, navigate]);
 
 	useEffect(() => {
-		setMainButtonText(`${cartTotalAmount.toString()} Rs`);
-	}, [cartTotalAmount]);
+		setMainButtonText('Checkout');
+	}, []);
 
 	return (
 		<Container maxWidth={'sm'}>
 			<CartUI
-				loading={loading}
 				addToCart={addToCart}
 				errorState={errorState}
 				cartProducts={cartProducts}
-				handleOrder={handleCartOrder}
 				removeFromCart={removeFromCart}
-				cartTotalAmount={cartTotalAmount}
+				navigateToCheckout={navigateToCheckout}
 				restaurantTitle={state?.restaurant !== undefined ? state.restaurant : undefined}
 			/>
 		</Container>

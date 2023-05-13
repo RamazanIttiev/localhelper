@@ -9,26 +9,15 @@ import { CartHeader } from './cartHeader';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 
 interface CartProps {
-	loading: boolean;
 	errorState: ErrorType;
-	cartTotalAmount: number;
 	restaurantTitle?: string;
-	handleOrder: () => void;
+	navigateToCheckout: () => void;
 	cartProducts: ProductModel[] | [];
 	addToCart: (product: ProductModel) => void;
 	removeFromCart: (product: ProductModel) => void;
 }
 
-export const CartUI = ({
-	loading,
-	addToCart,
-	errorState,
-	handleOrder,
-	cartProducts,
-	removeFromCart,
-	cartTotalAmount,
-	restaurantTitle,
-}: CartProps) => {
+export const CartUI = ({ addToCart, cartProducts, removeFromCart, restaurantTitle, navigateToCheckout }: CartProps) => {
 	return (
 		<>
 			<CartHeader restaurantTitle={restaurantTitle} />
@@ -45,11 +34,11 @@ export const CartUI = ({
 				{!isUserAgentTelegram && (
 					<LoaderButton
 						fullWidth
-						loading={loading}
-						errorState={errorState}
-						handleClick={handleOrder}
+						isMainButton
 						styles={{ marginTop: 2 }}
-						text={`${cartTotalAmount.toString()} Rs`}
+						errorState={{ isError: null }}
+						handleClick={navigateToCheckout}
+						text={'Checkout'}
 					/>
 				)}
 			</Box>

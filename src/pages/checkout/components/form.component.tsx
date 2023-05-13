@@ -25,9 +25,9 @@ export const FormUI = ({ handleSubmit, register, errors, onSubmit, loading, erro
 					type={'text'}
 					margin="dense"
 					color={'info'}
-					error={errors.userPhone !== undefined}
-					placeholder={errors.userPhone ? 'Name is required' : 'Name'}
-					{...register('userPhone', { required: true })}
+					error={errors.userName !== undefined}
+					placeholder={errors.userName ? 'Name is required' : 'Name'}
+					{...register('userName', { required: true })}
 				/>
 				<Input
 					autoComplete={'off'}

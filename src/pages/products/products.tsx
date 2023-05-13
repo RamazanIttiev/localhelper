@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useCart } from '../../hooks/useCart';
-import { Button, Container, Grid, Typography } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { ProductContainer } from '../../components/product/product.container';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
@@ -16,6 +16,7 @@ import { Header } from './header';
 import { ProductModel } from '../../models/productModel';
 import { useRestaurant } from '../../utils/restaurant';
 import { useCategory } from '../../hooks/useCategory';
+import { LoaderButton } from '../../reactkit/loaderButton';
 
 export const Products = () => {
 	const navigate = useNavigate();
@@ -62,7 +63,7 @@ export const Products = () => {
 	return (
 		<>
 			<Header {...renderHeader} />
-			<Container sx={{ pt: 2 }} maxWidth={'sm'}>
+			<Container sx={{ pt: 2, pb: !isUserAgentTelegram ? '3rem' : null }} maxWidth={'sm'}>
 				<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
 					{renderProducts?.map((product: ProductModel) => {
 						return (
@@ -81,26 +82,7 @@ export const Products = () => {
 					})}
 				</Grid>
 				{!isCartEmpty && isRestaurantRoute && !isUserAgentTelegram && (
-					<Button
-						sx={{
-							height: '36px',
-							left: '50%',
-							bottom: '1rem',
-							width: '50%',
-							position: 'fixed',
-							transform: 'translate(-50%)',
-						}}
-						variant={'contained'}
-						onClick={navigateToCart}>
-						<Typography
-							variant={'button'}
-							sx={{
-								fontWeight: '600',
-								letterSpacing: '0.1rem',
-							}}>
-							Order
-						</Typography>
-					</Button>
+					<LoaderButton isMainButton text={'Order'} handleClick={navigateToCart} />
 				)}
 			</Container>
 		</>

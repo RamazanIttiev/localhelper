@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ErrorType } from '../models/error';
-import { LoaderButton } from './reactkit/loaderButton';
+import { LoaderButton } from '../reactkit/loaderButton';
 import { isUserAgentTelegram } from '../utils/deviceInfo';
 import { Box, Drawer, Typography, useTheme } from '@mui/material';
 import { clearResponseMessage, handleOrder } from '../actions/global-actions';

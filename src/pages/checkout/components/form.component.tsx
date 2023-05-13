@@ -3,7 +3,7 @@ import { Input } from '../checkout.styled';
 import { FormGroupTitle } from './formGroupTitle';
 import { ErrorType } from '../../../models/error';
 import { FormInput } from '../checkout.container';
-import { LoaderButton } from '../../../components/reactkit/loaderButton';
+import { LoaderButton } from '../../../reactkit/loaderButton';
 import { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 
 interface FormUIProps {

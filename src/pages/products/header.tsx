@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Icon, Typography } from '@mui/material';
 import { theme } from '../../theme';
-import { WorkingStatus } from '../../components/reactkit/workingStatus';
+import { WorkingStatus } from '../../reactkit/workingStatus';
 import { useReactRouter } from '../../hooks/useReactRouter';
 
 interface HeaderProps {

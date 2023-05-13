@@ -1,10 +1,10 @@
 import React from 'react';
 import Lottie from 'react-lottie';
 import { LoadingButton } from '@mui/lab';
-import { ErrorType } from '../../models/error';
+import { ErrorType } from '../models/error';
 import { ButtonProps, styled, Typography } from '@mui/material';
-import errorAnimation from '../../assets/lottie/sadFace.json';
-import successAnimation from '../../assets/lottie/happyFace.json';
+import errorAnimation from '../assets/lottie/sadFace.json';
+import successAnimation from '../assets/lottie/happyFace.json';
 
 interface LoaderButtonProps extends ButtonProps {
 	loading?: boolean;
@@ -38,13 +38,13 @@ export const CustomLoadingButton = styled(LoadingButton)(() => ({
 
 export const LoaderButton = ({
 	loading,
-	errorState,
 	handleClick,
 	styles,
 	text,
 	textStyles,
 	isMainButton,
 	fullWidth,
+	errorState = { isError: null },
 }: LoaderButtonProps) => {
 	const defaultOptions = {
 		loop: true,
@@ -89,10 +89,8 @@ export const LoaderButton = ({
 			) : (
 				!loading && (
 					<Typography
-						variant={'body2'}
+						variant={'button'}
 						sx={{
-							fontWeight: '600',
-							letterSpacing: '0.1rem',
 							...textStyles,
 						}}>
 						{text}

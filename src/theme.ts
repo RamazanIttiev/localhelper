@@ -29,13 +29,19 @@ export const theme = createTheme({
 		},
 		body2: {
 			fontSize: '0.75rem',
+			letterSpacing: '1px',
 			color: TelegramTheme?.hint_color || '#ccc',
 		},
 		caption: {
 			fontSize: '0.75rem',
 			color: TelegramTheme?.hint_color || '#ccc',
 		},
-		button: { fontSize: '1rem', color: TelegramTheme?.button_text_color || '#fff' },
+		button: {
+			fontSize: '0.75rem',
+			color: TelegramTheme?.button_text_color || '#fff',
+			letterSpacing: '0.1rem',
+			fontWeight: 600,
+		},
 	},
 	components: {
 		MuiDrawer: {
@@ -54,6 +60,7 @@ export const theme = createTheme({
 					'&:-webkit-autofill': {
 						'-webkit-box-shadow': `0 0 0 100px ${TelegramTheme?.button_color || '#303030'} inset`,
 						'-webkit-text-fill-color': '#fff',
+						'-webkit-background-clip': 'text',
 					},
 				},
 			},

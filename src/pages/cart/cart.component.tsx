@@ -1,15 +1,13 @@
 import React from 'react';
-import { CartList } from './cart-list';
-import { ErrorType } from '../../models/error';
-import { Box } from '@mui/material';
-import { ProductModel } from '../../models/productModel';
-import { LoaderButton } from '../../components/reactkit/loaderButton';
 import { theme } from '../../theme';
+import { Box } from '@mui/material';
+import { CartList } from './cart-list';
 import { CartHeader } from './cartHeader';
+import { ProductModel } from '../../models/productModel';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
+import { LoaderButton } from '../../reactkit/loaderButton';
 
 interface CartProps {
-	errorState: ErrorType;
 	restaurantTitle?: string;
 	navigateToCheckout: () => void;
 	cartProducts: ProductModel[] | [];
@@ -32,14 +30,7 @@ export const CartUI = ({ addToCart, cartProducts, removeFromCart, restaurantTitl
 					backgroundColor: theme.palette.background.default,
 				}}>
 				{!isUserAgentTelegram && (
-					<LoaderButton
-						fullWidth
-						isMainButton
-						styles={{ marginTop: 2 }}
-						errorState={{ isError: null }}
-						handleClick={navigateToCheckout}
-						text={'Checkout'}
-					/>
+					<LoaderButton isMainButton text={'Checkout'} handleClick={navigateToCheckout} />
 				)}
 			</Box>
 		</>

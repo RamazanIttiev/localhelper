@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { CartUI } from './cart.component';
 import { useCart } from '../../hooks/useCart';
 import {
@@ -7,24 +7,13 @@ import {
 	setMainButtonText,
 	showMainButton,
 } from '../../actions/webApp-actions';
-import { ErrorType } from '../../models/error';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { clearResponseMessage } from '../../actions/global-actions';
 import { Container } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const CartContainer = () => {
 	const navigate = useNavigate();
 	const { state } = useLocation();
 	const { addToCart, removeFromCart, cartProducts, isCartEmpty, cartTotalAmount, cartOrder } = useCart();
-
-	const [errorState, setErrorState] = useState<ErrorType>({
-		isError: null,
-	});
-
-	useEffect(() => {
-		clearResponseMessage(errorState, handleError);
-	}, [errorState]);
-	const handleError = (value: ErrorType) => setErrorState(value);
 
 	const navigateToCheckout = useCallback(() => {
 		navigate('/checkout', {
@@ -61,7 +50,6 @@ export const CartContainer = () => {
 		<Container maxWidth={'sm'}>
 			<CartUI
 				addToCart={addToCart}
-				errorState={errorState}
 				cartProducts={cartProducts}
 				removeFromCart={removeFromCart}
 				navigateToCheckout={navigateToCheckout}

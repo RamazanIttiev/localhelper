@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography, useTheme } from '@mui/material';
 import { MuiCarousel } from '../../components/carousel';
 import { AmountButtons } from '../../components/amountButtons';
-import { LoaderButton } from '../../components/reactkit/loaderButton';
+import { LoaderButton } from '../../reactkit/loaderButton';
 import { ProductModel } from '../../models/productModel';
 import { ErrorType } from '../../models/error';
 
@@ -96,10 +96,11 @@ export const ProductDetailsUI = ({
 					) : (
 						!isUserAgentTelegram && (
 							<LoaderButton
+								isMainButton
 								loading={loading}
 								errorState={errorState}
-								text={`${selectedProduct?.price} Rs`}
 								handleClick={handleProductOrder}
+								text={`${selectedProduct?.price} Rs`}
 							/>
 						)
 					)}

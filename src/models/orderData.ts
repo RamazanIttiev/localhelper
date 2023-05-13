@@ -1,6 +1,7 @@
 export interface CartOrderData {
 	order: string;
 	orderTotal: number;
+	restaurant?: string;
 	coordinates?: string;
 }
 

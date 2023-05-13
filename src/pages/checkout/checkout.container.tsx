@@ -49,13 +49,14 @@ export const CheckoutContainer = () => {
 					...formData,
 					order: cartOrder,
 					orderTotal: cartTotalAmount,
+					restaurant: state?.restaurant,
 					coordinates: state?.coordinates !== undefined ? state.coordinates : undefined,
 				},
 				handleLoading,
 				handleError,
 			);
 		},
-		[cartOrder, cartTotalAmount, state.coordinates, state?.flowId],
+		[cartOrder, cartTotalAmount, state?.coordinates, state?.flowId, state?.restaurant],
 	);
 
 	useEffect(() => {
@@ -76,7 +77,7 @@ export const CheckoutContainer = () => {
 	}, [errorState, state]);
 
 	return (
-		<Container maxWidth={'sm'} sx={{ pt: '1rem', pb: '3rem', position: 'relative' }}>
+		<Container maxWidth={'sm'} sx={{ pt: '1rem', pb: '4rem', position: 'relative' }}>
 			<FormUI
 				errors={errors}
 				loading={loading}

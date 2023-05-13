@@ -1,6 +1,6 @@
 import React from 'react';
-import { Typography } from '@mui/material';
-import { theme } from '../../theme';
+import { Box, Typography } from '@mui/material';
+import { theme } from '../theme';
 
 interface WorkingStatusProps {
 	workingTime: string;
@@ -12,26 +12,37 @@ export const WorkingStatus = ({ workingStatus, workingTime }: WorkingStatusProps
 		<>
 			<Typography
 				sx={{
-					position: 'relative',
+					mr: 1,
 					width: 'fit-content',
-
-					'&::after': {
-						content: '""',
-						width: '8px',
-						height: '8px',
-						right: '-16px',
-						bottom: '6px',
-						border: 'none',
-						display: 'block',
-						background: workingStatus === 'Opened' ? theme.palette.success.main : theme.palette.error.main,
-						borderRadius: '50%',
-						position: 'absolute',
-					},
 				}}
 				component="p"
 				variant={'body2'}>
 				{workingStatus}
 			</Typography>
+			<Box
+				sx={{
+					mr: 1,
+					width: '8px',
+					height: '8px',
+					border: 'none',
+					display: 'block',
+					borderRadius: '50%',
+					position: 'relative',
+					background: workingStatus === 'Opened' ? theme.palette.success.main : theme.palette.error.main,
+
+					'&:after': {
+						content: '""',
+						width: '14px',
+						height: '14px',
+						display: 'block',
+						borderRadius: '50%',
+						background: workingStatus === 'Opened' ? '#00ff0d42' : '#ff000069',
+						position: 'absolute',
+						top: '-3px',
+						left: '-3px',
+					},
+				}}
+			/>
 			<Typography
 				sx={{
 					m: 0,

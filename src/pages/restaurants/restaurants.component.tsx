@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { setHaptic } from '../../actions/webApp-actions';
 import { RestaurantModel } from '../../models/productModel';
-import { WorkingStatus } from '../../components/reactkit/workingStatus';
+import { WorkingStatus } from '../../reactkit/workingStatus';
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { useRestaurant } from '../../utils/restaurant';
 
@@ -58,7 +58,6 @@ export const RestaurantsUI = ({ restaurant }: RestaurantsUIProps) => {
 					</Typography>
 					<Box
 						sx={{
-							width: '9rem',
 							display: 'flex',
 							alignItems: 'center',
 							justifyContent: 'space-between',

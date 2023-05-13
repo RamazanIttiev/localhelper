@@ -12,22 +12,23 @@ export const getServicesRoute = (title: string) => {
 };
 
 export const isWorkingHour = (open?: string, close?: string) => {
-	const currentTime = new Date().toLocaleTimeString('it-IT', {
-		timeZone: 'Asia/Colombo',
-		hour12: false,
-		hour: '2-digit',
-		minute: '2-digit',
-	});
-	const [currentHour, currentMinute] = currentTime.split(':').map(Number);
+	const sriLankaTime = new Date(new Date().setUTCHours(22, 15));
 
-	const currentTimeValue = currentHour + currentMinute / 60;
+	const currentDay = sriLankaTime.getUTCDate();
+	const currentMonth = sriLankaTime.getUTCMonth();
+	const currentYear = sriLankaTime.getUTCFullYear();
+
 	const [openHour, openMinute] = open ? open.split(':').map(Number) : [];
-	const openHourValue = openHour + openMinute / 60;
+	const openDateTime = new Date(currentYear, currentMonth, currentDay, openHour, openMinute);
 
 	const [closeHour, closeMinute] = close ? close.split(':').map(Number) : [];
-	const closeHourValue = closeHour + closeMinute / 60;
+	let closeDateTime = new Date(currentYear, currentMonth, currentDay, closeHour, closeMinute);
 
-	return currentTimeValue >= openHourValue && currentTimeValue < closeHourValue;
+	if (closeHour < openHour) {
+		closeDateTime = new Date(currentYear, currentMonth, currentDay + 1, closeHour, closeMinute);
+	}
+
+	return sriLankaTime >= openDateTime && sriLankaTime <= closeDateTime;
 };
 
 export const useRestaurant = (currentRestaurant?: RestaurantModel) => {

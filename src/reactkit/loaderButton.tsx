@@ -1,10 +1,7 @@
 import React from 'react';
-import Lottie from 'react-lottie';
 import { LoadingButton } from '@mui/lab';
 import { ErrorType } from '../models/error';
-import { ButtonProps, styled, Typography } from '@mui/material';
-import errorAnimation from '../assets/lottie/sadFace.json';
-import successAnimation from '../assets/lottie/happyFace.json';
+import { ButtonProps, Icon, styled, Typography } from '@mui/material';
 
 interface LoaderButtonProps extends ButtonProps {
 	loading?: boolean;
@@ -46,16 +43,8 @@ export const LoaderButton = ({
 	fullWidth,
 	errorState = { isError: null },
 }: LoaderButtonProps) => {
-	const defaultOptions = {
-		loop: true,
-		autoplay: true,
-		animationData: errorState?.isError ? errorAnimation : successAnimation,
-		rendererSettings: {
-			preserveAspectRatio: 'xMidYMid slice',
-		},
-	};
-
 	const iconStyles = {
+		color: '#fff',
 		width: '2rem',
 		height: 'auto',
 		overflow: 'hidden',
@@ -83,9 +72,13 @@ export const LoaderButton = ({
 			variant={errorState?.isError ? 'outlined' : 'contained'}
 			onClick={handleClick}>
 			{errorState?.isError ? (
-				<Lottie options={defaultOptions} speed={3} style={iconStyles} />
+				<Icon fontSize={'small'} style={iconStyles}>
+					sentiment_very_dissatisfied
+				</Icon>
 			) : errorState?.isError !== null ? (
-				<Lottie options={defaultOptions} speed={3} style={iconStyles} />
+				<Icon fontSize={'small'} style={iconStyles}>
+					sentiment_satisfied
+				</Icon>
 			) : (
 				!loading && (
 					<Typography

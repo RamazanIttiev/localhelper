@@ -6,7 +6,7 @@ import { LoaderButton } from '../../reactkit/loaderButton';
 import { ProductModel } from '../../models/productModel';
 import { ErrorType } from '../../models/error';
 
-import dishImage from '../../assets/food.jpg';
+import dishImage from '../../assets/food.webp';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 
 interface ProductDetailsUIProps {

@@ -9,7 +9,7 @@ import { ProductModel } from '../../models/productModel';
 import { setHaptic } from '../../actions/webApp-actions';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography, useTheme } from '@mui/material';
 
-import dishImage from '../../assets/food.jpg';
+import dishImage from '../../assets/food.webp';
 
 interface ProductProps {
 	loading: boolean;

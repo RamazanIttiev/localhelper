@@ -12,7 +12,12 @@ const sendWebAppMessage = (text: string) => {
 		queryId: Telegram.initDataUnsafe.query_id,
 	};
 
-	return fetch('https://test.localhelper.ru//sendMessage.php', {
+	console.log(window.location);
+	const url =
+		window.location.origin === 'https://menu.localhelper.ru'
+			? 'https://menu.localhelper.ru/sendMessage.php'
+			: 'https://test.localhelper.ru/sendMessage.php';
+	return fetch(url, {
 		method: 'POST',
 		body: JSON.stringify(send),
 	});

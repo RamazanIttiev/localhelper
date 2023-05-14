@@ -12,7 +12,6 @@ const sendWebAppMessage = (text: string) => {
 		queryId: Telegram.initDataUnsafe.query_id,
 	};
 
-	console.log(window.location);
 	const url =
 		window.location.origin === 'https://menu.localhelper.ru'
 			? 'https://menu.localhelper.ru/sendMessage.php'

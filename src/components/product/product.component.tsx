@@ -18,7 +18,7 @@ interface ProductProps {
 	productFromCart?: ProductModel;
 	isRestaurantOpened?: boolean;
 	amountButtonsVisible?: boolean;
-	handleProductOrder: () => Promise<void>;
+	handleProductOrder: () => Promise<Response | undefined>;
 	removeFromCart: (product: ProductModel) => void;
 	addToCart: (selectedProduct: ProductModel) => void;
 }

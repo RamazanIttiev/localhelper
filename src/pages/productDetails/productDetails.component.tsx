@@ -16,7 +16,7 @@ interface ProductDetailsUIProps {
 	productFromCart?: ProductModel;
 	amountButtonsVisible?: boolean;
 	selectedProduct?: ProductModel;
-	handleProductOrder: () => Promise<void>;
+	handleProductOrder: () => Promise<Response | undefined>;
 	addToCart: (selectedProduct: ProductModel) => void;
 	removeFromCart: (selectedProduct: ProductModel) => void;
 }

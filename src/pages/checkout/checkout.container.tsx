@@ -5,7 +5,7 @@ import { OrderInfo } from './components/orderInfo';
 import { SaveInfoField, SaveInfoWrapper } from './checkout.styled';
 import { ErrorType } from '../../models/error';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
 import { FormGroupTitle } from './components/formGroupTitle';
 import {
@@ -24,9 +24,10 @@ export interface FormInput {
 }
 
 export const CheckoutContainer = () => {
-	const theme = useTheme();
+	const navigate = useNavigate();
 	const { state } = useLocation();
-	const { cartTotalAmount, cartOrder } = useCart();
+	const theme = useTheme();
+	const { cartTotalAmount, cartOrder, clearCart } = useCart();
 	const {
 		register,
 		handleSubmit,
@@ -54,9 +55,16 @@ export const CheckoutContainer = () => {
 				},
 				handleLoading,
 				handleError,
-			);
+			).then(response => {
+				if (response?.ok) {
+					clearCart();
+					setTimeout(() => {
+						navigate('/');
+					}, 2000);
+				}
+			});
 		},
-		[cartOrder, cartTotalAmount, state?.coordinates, state?.flowId, state?.restaurant],
+		[navigate, clearCart, cartOrder, cartTotalAmount, state?.coordinates, state?.flowId, state?.restaurant],
 	);
 
 	useEffect(() => {

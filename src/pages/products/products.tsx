@@ -39,7 +39,7 @@ export const Products = () => {
 	);
 
 	useEffect(() => {
-		if (isRestaurantRoute && !isCartEmpty) {
+		if (isRestaurantRoute && !isCartEmpty && isWorking) {
 			showMainButton();
 			setMainButtonText('Order');
 			handleMainButton(navigateToCart);
@@ -48,7 +48,7 @@ export const Products = () => {
 		return () => {
 			removeMainButtonEvent(navigateToCart);
 		};
-	}, [isRestaurantRoute, isCartEmpty, navigateToCart]);
+	}, [isWorking, isRestaurantRoute, isCartEmpty, navigateToCart]);
 
 	const renderHeader = {
 		location,
@@ -81,7 +81,7 @@ export const Products = () => {
 						);
 					})}
 				</Grid>
-				{!isCartEmpty && isRestaurantRoute && !isUserAgentTelegram && (
+				{!isCartEmpty && isRestaurantRoute && !isUserAgentTelegram && isWorking && (
 					<LoaderButton isMainButton text={'Order'} handleClick={navigateToCart} />
 				)}
 			</Container>

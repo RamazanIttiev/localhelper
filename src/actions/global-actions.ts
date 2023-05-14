@@ -22,6 +22,7 @@ export const handleOrder = async (
 				isError: true,
 			});
 		}
+		return result;
 	} catch (error) {
 		handleLoading(false);
 		handleError({

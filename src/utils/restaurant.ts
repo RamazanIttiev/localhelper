@@ -12,20 +12,29 @@ export const getServicesRoute = (title: string) => {
 };
 
 export const isWorkingHour = (open?: string, close?: string) => {
-	const sriLankaTime = new Date(new Date().setUTCHours(22, 15));
-
-	const currentDay = sriLankaTime.getUTCDate();
-	const currentMonth = sriLankaTime.getUTCMonth();
-	const currentYear = sriLankaTime.getUTCFullYear();
+	const now = new Date();
+	const sriLankaTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Colombo' }));
 
 	const [openHour, openMinute] = open ? open.split(':').map(Number) : [];
-	const openDateTime = new Date(currentYear, currentMonth, currentDay, openHour, openMinute);
+	const openDateTime = new Date(
+		sriLankaTime.getFullYear(),
+		sriLankaTime.getMonth(),
+		sriLankaTime.getDate(),
+		openHour,
+		openMinute,
+	);
 
 	const [closeHour, closeMinute] = close ? close.split(':').map(Number) : [];
-	let closeDateTime = new Date(currentYear, currentMonth, currentDay, closeHour, closeMinute);
+	const closeDateTime = new Date(
+		sriLankaTime.getFullYear(),
+		sriLankaTime.getMonth(),
+		sriLankaTime.getDate(),
+		closeHour,
+		closeMinute,
+	);
 
 	if (closeHour < openHour) {
-		closeDateTime = new Date(currentYear, currentMonth, currentDay + 1, closeHour, closeMinute);
+		closeDateTime.setDate(closeDateTime.getDate() + 1);
 	}
 
 	return sriLankaTime >= openDateTime && sriLankaTime <= closeDateTime;

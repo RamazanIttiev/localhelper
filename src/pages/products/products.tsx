@@ -35,11 +35,22 @@ export const Products = () => {
 					flowId,
 					isRestaurantWorking,
 					restaurantWorkingTime,
-					restaurant: restaurant?.Title,
-					coordinates: restaurant?.Coordinates,
+					placeTitle: restaurant?.Title,
+					placeNumber: restaurant?.Contact,
+					placeLocation: restaurant?.Location,
+					placeCoordinates: restaurant?.Coordinates,
 				},
 			}),
-		[isRestaurantWorking, restaurantWorkingTime, flowId, navigate, restaurant?.Coordinates, restaurant?.Title],
+		[
+			navigate,
+			flowId,
+			isRestaurantWorking,
+			restaurantWorkingTime,
+			restaurant?.Title,
+			restaurant?.Contact,
+			restaurant?.Location,
+			restaurant?.Coordinates,
+		],
 	);
 
 	useEffect(() => {

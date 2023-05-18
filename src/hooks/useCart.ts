@@ -1,7 +1,7 @@
 import { useLocalStorage } from 'usehooks-ts';
 import { hideMainButton, setHaptic } from '../actions/webApp-actions';
 import { useProducts } from './useProducts';
-import { ProductModel } from '../models/productModel';
+import { FoodModel, ProductModel } from '../models/productModel';
 import { addNewProductToCart, decrementProduct, getCartOrderString, incrementProductInCart } from '../utils/cart';
 
 export const useCart = () => {
@@ -71,6 +71,10 @@ export const useCart = () => {
 		return `${id + 1}. ${title} ${amount} x ${price}`;
 	});
 
+	const orderCheckout: FoodModel[] = cartProducts.map(({ title, amount, price, image, place, id, description }) => {
+		return { image, title, price, amount, place, id, description };
+	});
+
 	const cartOrder = getCartOrderString(orderItems);
 
 	return {
@@ -79,6 +83,7 @@ export const useCart = () => {
 		addToCart,
 		isCartEmpty,
 		cartProducts,
+		orderCheckout,
 		removeFromCart,
 		cartTotalAmount,
 	};

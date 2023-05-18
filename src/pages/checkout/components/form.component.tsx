@@ -54,7 +54,7 @@ export const FormUI = ({ handleSubmit, register, errors, onSubmit, loading, erro
 
 				<Input
 					fullWidth
-					type={'tel'}
+					type={'text'}
 					color={'info'}
 					margin="dense"
 					placeholder={'Hotel'}

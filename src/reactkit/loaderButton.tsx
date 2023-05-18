@@ -17,6 +17,7 @@ interface LoaderButtonProps extends ButtonProps {
 const mainButtonStyles = {
 	left: 0,
 	bottom: 0,
+	zIndex: 1,
 	width: '100%',
 	height: '3rem',
 	position: 'fixed',
@@ -63,6 +64,7 @@ export const LoaderButton = ({
 				isMainButton
 					? mainButtonStyles
 					: {
+							zIndex: 1,
 							height: '36px',
 							textTransform: 'inherit',
 							borderRadius: '2rem',

@@ -1,17 +1,17 @@
 import React from 'react';
 import { Box, List, ListItem, Typography } from '@mui/material';
 import { AmountButtons } from '../../components/amountButtons';
-import { ProductModel } from '../../models/productModel';
+import { FoodModel } from '../../models/productModel';
 
 interface CartListProps {
-	cartProducts: ProductModel[];
-	addToCart: (product: ProductModel) => void;
-	removeFromCart: (product: ProductModel) => void;
+	cartProducts: FoodModel[];
+	addToCart?: (product: FoodModel) => void;
+	removeFromCart?: (product: FoodModel) => void;
 }
 
 export const CartList = ({ cartProducts, addToCart, removeFromCart }: CartListProps) => {
 	return (
-		<List sx={{ pb: '4rem' }}>
+		<List>
 			{cartProducts.map(product => {
 				return (
 					<React.Fragment key={product.id}>
@@ -42,14 +42,16 @@ export const CartList = ({ cartProducts, addToCart, removeFromCart }: CartListPr
 									{product.price} Rs
 								</Typography>
 							</Box>
-							<AmountButtons
-								showText={false}
-								product={product}
-								addToCart={addToCart}
-								productFromCart={product}
-								amountText={product?.amount}
-								removeFromCart={removeFromCart}
-							/>
+							{addToCart && removeFromCart && (
+								<AmountButtons
+									showText={false}
+									product={product}
+									addToCart={addToCart}
+									productFromCart={product}
+									amountText={product?.amount}
+									removeFromCart={removeFromCart}
+								/>
+							)}
 						</ListItem>
 					</React.Fragment>
 				);

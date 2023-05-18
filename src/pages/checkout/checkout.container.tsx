@@ -15,6 +15,7 @@ import {
 	showMainButton,
 } from '../../actions/webApp-actions';
 import { useForm } from 'react-hook-form';
+import { CartList } from '../cart/cart-list';
 
 export interface FormInput {
 	userName: string;
@@ -27,7 +28,7 @@ export const CheckoutContainer = () => {
 	const navigate = useNavigate();
 	const { state } = useLocation();
 	const theme = useTheme();
-	const { cartTotalAmount, cartOrder, clearCart } = useCart();
+	const { cartTotalAmount, cartOrder, clearCart, orderCheckout } = useCart();
 	const {
 		register,
 		handleSubmit,
@@ -50,8 +51,10 @@ export const CheckoutContainer = () => {
 					...formData,
 					order: cartOrder,
 					orderTotal: cartTotalAmount,
-					restaurant: state?.restaurant,
-					coordinates: state?.coordinates,
+					placeTitle: state?.placeTitle,
+					placeNumber: state?.placeNumber,
+					placeLocation: state?.placeLocation,
+					placeCoordinates: state?.placeCoordinates,
 				},
 				handleLoading,
 				handleError,
@@ -64,7 +67,17 @@ export const CheckoutContainer = () => {
 				}
 			});
 		},
-		[navigate, clearCart, cartOrder, cartTotalAmount, state?.coordinates, state?.flowId, state?.restaurant],
+		[
+			navigate,
+			clearCart,
+			cartOrder,
+			cartTotalAmount,
+			state?.flowId,
+			state?.placeTitle,
+			state?.placeNumber,
+			state?.placeLocation,
+			state?.placeCoordinates,
+		],
 	);
 
 	useEffect(() => {
@@ -102,6 +115,9 @@ export const CheckoutContainer = () => {
 				/>
 				<FormGroupTitle styles={{ marginTop: '0.5rem' }} text={'Save contact information for future orders'} />
 			</SaveInfoWrapper>
+
+			<FormGroupTitle styles={{ marginTop: '0.5rem', marginBottom: '0.5rem' }} text={'Check your order'} />
+			<CartList cartProducts={orderCheckout} />
 			<OrderInfo orderTotal={cartTotalAmount} />
 		</Container>
 	);

@@ -43,8 +43,8 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 			flowId,
 			{
 				itemName: product.title,
-				coordinates: product.coordinates !== undefined ? product.coordinates : undefined,
-				contactPlace: product.Contact !== undefined ? product.Contact : undefined,
+				placeNumber: product?.Contact,
+				placeCoordinates: product?.coordinates,
 			},
 			handleLoading,
 			handleError,

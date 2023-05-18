@@ -12,7 +12,7 @@ export const OrderInfo = ({ orderTotal, delivery = 'Free', payment = 'Cash' }: O
 	const theme = useTheme();
 
 	return (
-		<Box sx={{ display: 'flex', flexDirection: 'column', mt: '0.5rem' }}>
+		<Box sx={{ display: 'flex', flexDirection: 'column', mt: '2rem' }}>
 			<FormGroupTitle text={'Order info'} styles={{ marginBottom: '0.5rem' }} />
 			<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} mb={1}>
 				<Typography fontSize={'1rem'} component={'span'}>

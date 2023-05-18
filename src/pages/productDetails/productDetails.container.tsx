@@ -36,8 +36,8 @@ export const ProductDetailsContainer = () => {
 			flowId,
 			{
 				itemName: product.title,
-				contactPlace: product?.Contact,
-				coordinates: product?.coordinates,
+				placeNumber: product?.Contact,
+				placeCoordinates: product?.coordinates,
 			},
 			handleLoading,
 			handleError,

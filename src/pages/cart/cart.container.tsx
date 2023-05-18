@@ -14,19 +14,19 @@ import { useLocation, useNavigate } from 'react-router-dom';
 export const CartContainer = () => {
 	const navigate = useNavigate();
 	const { state } = useLocation();
-	const { addToCart, removeFromCart, cartProducts, isCartEmpty, cartTotalAmount, cartOrder } = useCart();
+	const { addToCart, removeFromCart, cartProducts, isCartEmpty } = useCart();
 
 	const navigateToCheckout = useCallback(() => {
 		navigate('/checkout', {
 			state: {
 				flowId: state?.flowId,
-				order: cartOrder,
-				orderTotal: cartTotalAmount,
-				restaurant: state?.restaurant,
-				coordinates: state?.coordinates,
+				placeTitle: state?.placeTitle,
+				placeNumber: state?.placeNumber,
+				placeLocation: state?.placeLocation,
+				placeCoordinates: state?.placeCoordinates,
 			},
 		});
-	}, [cartOrder, cartTotalAmount, navigate, state?.restaurant, state.coordinates, state?.flowId]);
+	}, [navigate, state?.flowId, state?.placeTitle, state?.placeNumber, state?.placeLocation, state?.placeCoordinates]);
 
 	useEffect(() => {
 		showMainButton();
@@ -52,7 +52,7 @@ export const CartContainer = () => {
 	}, []);
 
 	return (
-		<Container maxWidth={'sm'}>
+		<Container maxWidth={'sm'} sx={{ pb: 5 }}>
 			<CartUI
 				addToCart={addToCart}
 				cartProducts={cartProducts}

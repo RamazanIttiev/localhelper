@@ -1,5 +1,5 @@
 import React, { CSSProperties, FC } from 'react';
-import { FoodModel, ProductModel } from '../models/productModel';
+import { FoodModel } from '../models/productModel';
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
 
 interface AmountButtonsProps {

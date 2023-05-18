@@ -7,7 +7,7 @@ import { InfoBadge } from '../../reactkit/infoBadge';
 import { LoaderButton } from '../../reactkit/loaderButton';
 import { ProductModel } from '../../models/productModel';
 import { setHaptic } from '../../actions/webApp-actions';
-import { Box, Card, CardActions, CardContent, CardMedia, Typography, useTheme } from '@mui/material';
+import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 import dishImage from '../../assets/food.webp';
 

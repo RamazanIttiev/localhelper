@@ -25,7 +25,7 @@ const router = createBrowserRouter(
 			<Route path=":categoryId/:productId" element={<ProductDetailsContainer />} />
 			<Route path=":categoryId/restaurants/:restaurantId/:productId" element={<ProductDetailsContainer />} />
 
-			<Route path="restaurants/food/shopping-cart" element={<CartContainer />} />
+			<Route path="shopping-cart" element={<CartContainer />} />
 
 			<Route path="checkout" element={<CheckoutContainer />} />
 		</Route>,

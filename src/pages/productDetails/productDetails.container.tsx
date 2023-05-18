@@ -5,7 +5,6 @@ import { ErrorType } from '../../models/error';
 import { useLocation } from 'react-router-dom';
 import { useCategory } from '../../hooks/useCategory';
 import { useProducts } from '../../hooks/useProducts';
-import { useRestaurant } from '../../utils/restaurant';
 import { ProductModel } from '../../models/productModel';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { ProductDetailsUI } from './productDetails.component';
@@ -23,7 +22,6 @@ export const ProductDetailsContainer = () => {
 	const product: ProductModel = state;
 
 	const { flowId } = useCategory();
-	const { isWorking } = useRestaurant();
 	const { getProductFromCart } = useProducts();
 	const { isRestaurantDetailsRoute } = useReactRouter();
 	const { cartProducts, addToCart, removeFromCart } = useCart();
@@ -38,8 +36,8 @@ export const ProductDetailsContainer = () => {
 			flowId,
 			{
 				itemName: product.title,
-				coordinates: product.coordinates !== undefined ? product.coordinates : undefined,
-				contactPlace: product.Contact !== undefined ? product.Contact : undefined,
+				contactPlace: product?.Contact,
+				coordinates: product?.coordinates,
 			},
 			handleLoading,
 			handleError,
@@ -79,7 +77,6 @@ export const ProductDetailsContainer = () => {
 				addToCart={addToCart}
 				errorState={errorState}
 				selectedProduct={product}
-				isRestaurantOpened={isWorking}
 				removeFromCart={removeFromCart}
 				productFromCart={productFromCart}
 				handleProductOrder={handleProductOrder}

@@ -9,13 +9,23 @@ import { LoaderButton } from '../../reactkit/loaderButton';
 
 interface CartProps {
 	restaurantTitle?: string;
+	restaurantWorkingTime: string;
+	isRestaurantWorking?: boolean;
 	navigateToCheckout: () => void;
 	cartProducts: ProductModel[] | [];
 	addToCart: (product: ProductModel) => void;
 	removeFromCart: (product: ProductModel) => void;
 }
 
-export const CartUI = ({ addToCart, cartProducts, removeFromCart, restaurantTitle, navigateToCheckout }: CartProps) => {
+export const CartUI = ({
+	addToCart,
+	cartProducts,
+	removeFromCart,
+	restaurantTitle,
+	navigateToCheckout,
+	isRestaurantWorking,
+	restaurantWorkingTime,
+}: CartProps) => {
 	return (
 		<>
 			<CartHeader restaurantTitle={restaurantTitle} />
@@ -30,7 +40,12 @@ export const CartUI = ({ addToCart, cartProducts, removeFromCart, restaurantTitl
 					backgroundColor: theme.palette.background.default,
 				}}>
 				{!isUserAgentTelegram && (
-					<LoaderButton isMainButton text={'Checkout'} handleClick={navigateToCheckout} />
+					<LoaderButton
+						isMainButton
+						disabled={!isRestaurantWorking}
+						handleClick={navigateToCheckout}
+						text={isRestaurantWorking ? 'Checkout' : `Working time - ${restaurantWorkingTime}`}
+					/>
 				)}
 			</Box>
 		</>

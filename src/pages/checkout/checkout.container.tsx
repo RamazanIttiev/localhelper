@@ -51,7 +51,7 @@ export const CheckoutContainer = () => {
 					order: cartOrder,
 					orderTotal: cartTotalAmount,
 					restaurant: state?.restaurant,
-					coordinates: state?.coordinates !== undefined ? state.coordinates : undefined,
+					coordinates: state?.coordinates,
 				},
 				handleLoading,
 				handleError,
@@ -82,7 +82,7 @@ export const CheckoutContainer = () => {
 
 	useEffect(() => {
 		clearResponseMessage(errorState, handleError);
-	}, [errorState, state]);
+	}, [errorState]);
 
 	return (
 		<Container maxWidth={'sm'} sx={{ pt: '1rem', pb: '4rem', position: 'relative' }}>

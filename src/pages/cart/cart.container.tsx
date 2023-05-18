@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { CartUI } from './cart.component';
 import { useCart } from '../../hooks/useCart';
 import {
+	disableMainButton,
 	handleMainButton,
 	removeMainButtonEvent,
 	setMainButtonText,
@@ -22,7 +23,7 @@ export const CartContainer = () => {
 				order: cartOrder,
 				orderTotal: cartTotalAmount,
 				restaurant: state?.restaurant,
-				coordinates: state?.coordinates !== undefined ? state.coordinates : undefined,
+				coordinates: state?.coordinates,
 			},
 		});
 	}, [cartOrder, cartTotalAmount, navigate, state?.restaurant, state.coordinates, state?.flowId]);
@@ -31,10 +32,14 @@ export const CartContainer = () => {
 		showMainButton();
 		handleMainButton(navigateToCheckout);
 
+		if (!state?.isRestaurantWorking) {
+			disableMainButton();
+		}
+
 		return () => {
 			removeMainButtonEvent(navigateToCheckout);
 		};
-	}, [navigateToCheckout, navigate]);
+	}, [navigateToCheckout, navigate, state?.isRestaurantWorking]);
 
 	useEffect(() => {
 		if (isCartEmpty) {
@@ -53,6 +58,8 @@ export const CartContainer = () => {
 				cartProducts={cartProducts}
 				removeFromCart={removeFromCart}
 				navigateToCheckout={navigateToCheckout}
+				isRestaurantWorking={state?.isRestaurantWorking}
+				restaurantWorkingTime={state?.restaurantWorkingTime}
 				restaurantTitle={state?.restaurant !== undefined ? state.restaurant : undefined}
 			/>
 		</Container>

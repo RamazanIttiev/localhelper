@@ -7,12 +7,18 @@ import { useReactRouter } from '../../hooks/useReactRouter';
 interface HeaderProps {
 	image?: string;
 	title?: string;
-	location?: string;
-	workingTime?: string;
-	workingStatus?: string;
+	restaurantLocation?: string;
+	restaurantWorkingTime?: string;
+	restaurantWorkingStatus?: string;
 }
 
-export const Header = ({ image, title, workingTime, workingStatus, location }: HeaderProps) => {
+export const Header = ({
+	image,
+	title,
+	restaurantLocation,
+	restaurantWorkingTime,
+	restaurantWorkingStatus,
+}: HeaderProps) => {
 	const { isRestaurantRoute } = useReactRouter();
 
 	return (
@@ -59,9 +65,12 @@ export const Header = ({ image, title, workingTime, workingStatus, location }: H
 							alignItems: 'baseline',
 							justifyContent: 'space-between',
 						}}>
-						{workingStatus && workingTime && (
+						{restaurantWorkingStatus && restaurantWorkingTime && (
 							<Box sx={{ marginBottom: '1rem' }}>
-								<WorkingStatus workingStatus={workingStatus} workingTime={workingTime} />
+								<WorkingStatus
+									workingStatus={restaurantWorkingStatus}
+									workingTime={restaurantWorkingTime}
+								/>
 							</Box>
 						)}
 						{location && (
@@ -74,7 +83,7 @@ export const Header = ({ image, title, workingTime, workingStatus, location }: H
 									location_on
 								</Icon>
 								<Typography component="p" variant={'body1'}>
-									{location}
+									{restaurantLocation}
 								</Typography>
 							</Box>
 						)}

@@ -9,7 +9,6 @@ interface ProductContainerProps {
 	flowId: string;
 	product: ProductModel;
 	cartProducts: ProductModel[];
-	isRestaurantOpened?: boolean;
 	amountButtonsVisible?: boolean;
 	removeFromCart: (product: ProductModel) => void;
 	addToCart: (selectedProduct: ProductModel) => void;
@@ -21,7 +20,6 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 	addToCart,
 	cartProducts,
 	removeFromCart,
-	isRestaurantOpened,
 	amountButtonsVisible,
 }) => {
 	const { getProductFromCart } = useProducts();
@@ -61,7 +59,6 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 			errorState={errorState}
 			removeFromCart={removeFromCart}
 			productFromCart={productFromCart}
-			isRestaurantOpened={isRestaurantOpened}
 			handleProductOrder={handleProductOrder}
 			amountButtonsVisible={amountButtonsVisible}
 		/>

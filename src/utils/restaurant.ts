@@ -13,7 +13,7 @@ export const getServicesRoute = (title: string) => {
 
 export const isWorkingHour = (open?: string, close?: string) => {
 	const now = new Date();
-	const sriLankaTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Colombo' }));
+	const sriLankaTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Colombo', hour12: false }));
 
 	const [openHour, openMinute] = open ? open.split(':').map(Number) : [];
 	const openDateTime = new Date(
@@ -47,20 +47,14 @@ export const useRestaurant = (currentRestaurant?: RestaurantModel) => {
 	const restaurant: RestaurantModel | undefined =
 		category.Restaurants?.find(restaurant => restaurant.Title === params?.restaurantId) || currentRestaurant;
 
-	const isWorking = isWorkingHour(restaurant?.OpenTime, restaurant?.CloseTime);
+	const isRestaurantWorking = isWorkingHour(restaurant?.OpenTime, restaurant?.CloseTime);
 
-	const workingStatus = isWorking ? 'Opened' : 'Closed';
-	const workingTime = `${restaurant?.OpenTime} - ${restaurant?.CloseTime}`;
-	const headerImage = restaurant?.Image !== undefined ? restaurant?.Image[0]?.url : '';
+	const restaurantWorkingStatus = isRestaurantWorking ? 'Opened' : 'Closed';
+	const restaurantWorkingTime = `${restaurant?.OpenTime} - ${restaurant?.CloseTime}`;
 
 	return {
-		workingTime,
-		headerImage,
-		workingStatus,
-		title: restaurant?.Title,
-		location: restaurant?.Location,
-		coordinates: restaurant?.Coordinates,
-		restaurantProducts: restaurant?.Products,
-		isWorking: params?.categoryId === 'food' ? isWorking : true,
+		isRestaurantWorking,
+		restaurantWorkingTime,
+		restaurantWorkingStatus,
 	};
 };

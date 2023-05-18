@@ -4,7 +4,7 @@ import { Container, Grid } from '@mui/material';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { ProductContainer } from '../../components/product/product.container';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
 	handleMainButton,
 	hideMainButton,
@@ -13,33 +13,37 @@ import {
 	showMainButton,
 } from '../../actions/webApp-actions';
 import { Header } from './header';
-import { ProductModel } from '../../models/productModel';
-import { useRestaurant } from '../../utils/restaurant';
+import { ProductModel, RestaurantModel } from '../../models/productModel';
 import { useCategory } from '../../hooks/useCategory';
 import { LoaderButton } from '../../reactkit/loaderButton';
+import { useRestaurant } from '../../utils/restaurant';
 
 export const Products = () => {
+	const { state } = useLocation();
 	const navigate = useNavigate();
 	const { isRestaurantRoute } = useReactRouter();
-	const { products, flowId, category } = useCategory();
 	const { removeFromCart, addToCart, cartProducts, isCartEmpty } = useCart();
-	const { title, isWorking, coordinates, workingStatus, workingTime, location, headerImage, restaurantProducts } =
-		useRestaurant();
+	const { isRestaurantWorking, restaurantWorkingTime, restaurantWorkingStatus } = useRestaurant();
+	const { products, flowId, category } = useCategory();
+
+	const restaurant: RestaurantModel | undefined = state?.restaurant;
 
 	const navigateToCart = useCallback(
 		() =>
-			navigate('/restaurants/food/shopping-cart', {
+			navigate('/shopping-cart', {
 				state: {
 					flowId,
-					restaurant: title,
-					coordinates: coordinates,
+					isRestaurantWorking,
+					restaurantWorkingTime,
+					restaurant: restaurant?.Title,
+					coordinates: restaurant?.Coordinates,
 				},
 			}),
-		[flowId, navigate, coordinates, title],
+		[isRestaurantWorking, restaurantWorkingTime, flowId, navigate, restaurant?.Coordinates, restaurant?.Title],
 	);
 
 	useEffect(() => {
-		if (isRestaurantRoute && !isCartEmpty && isWorking) {
+		if (isRestaurantRoute && !isCartEmpty && isRestaurantWorking) {
 			showMainButton();
 			setMainButtonText('Order');
 			handleMainButton(navigateToCart);
@@ -48,17 +52,17 @@ export const Products = () => {
 		return () => {
 			removeMainButtonEvent(navigateToCart);
 		};
-	}, [isWorking, isRestaurantRoute, isCartEmpty, navigateToCart]);
+	}, [isRestaurantWorking, isRestaurantRoute, isCartEmpty, navigateToCart]);
 
 	const renderHeader = {
-		location,
-		workingTime,
-		workingStatus,
-		title: category?.HeaderTitle || title,
-		image: (category?.HeaderImage !== undefined && category?.HeaderImage[0]?.url) || headerImage,
+		restaurantWorkingTime,
+		restaurantWorkingStatus,
+		restaurantLocation: restaurant?.Location,
+		title: category?.HeaderTitle || restaurant?.Title,
+		image: (category?.HeaderImage !== undefined && category?.HeaderImage[0]?.url) || restaurant?.Image[0]?.url,
 	};
 
-	const renderProducts = products?.length !== 0 ? products : restaurantProducts;
+	const renderProducts = products?.length !== 0 ? products : restaurant?.Products;
 
 	return (
 		<>
@@ -73,7 +77,6 @@ export const Products = () => {
 									product={product}
 									addToCart={addToCart}
 									cartProducts={cartProducts}
-									isRestaurantOpened={isWorking}
 									removeFromCart={removeFromCart}
 									amountButtonsVisible={isRestaurantRoute}
 								/>
@@ -81,7 +84,7 @@ export const Products = () => {
 						);
 					})}
 				</Grid>
-				{!isCartEmpty && isRestaurantRoute && !isUserAgentTelegram && isWorking && (
+				{!isCartEmpty && isRestaurantRoute && !isUserAgentTelegram && (
 					<LoaderButton isMainButton text={'Order'} handleClick={navigateToCart} />
 				)}
 			</Container>

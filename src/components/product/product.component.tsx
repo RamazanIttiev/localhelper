@@ -16,7 +16,6 @@ interface ProductProps {
 	errorState: ErrorType;
 	product: ProductModel;
 	productFromCart?: ProductModel;
-	isRestaurantOpened?: boolean;
 	amountButtonsVisible?: boolean;
 	handleProductOrder: () => Promise<Response | undefined>;
 	removeFromCart: (product: ProductModel) => void;
@@ -31,11 +30,8 @@ export const ProductComponent: FC<ProductProps> = ({
 	removeFromCart,
 	productFromCart,
 	handleProductOrder,
-	isRestaurantOpened,
 	amountButtonsVisible,
 }) => {
-	const theme = useTheme();
-
 	return (
 		<>
 			<Card
@@ -121,40 +117,27 @@ export const ProductComponent: FC<ProductProps> = ({
 						</Typography>
 					</CardContent>
 				</Link>
-				{isRestaurantOpened ? (
-					<CardActions
-						sx={{
-							p: 0,
-						}}>
-						{amountButtonsVisible ? (
-							<AmountButtons
-								showText
-								product={product}
-								addToCart={addToCart}
-								removeFromCart={removeFromCart}
-								productFromCart={productFromCart}
-							/>
-						) : (
-							<LoaderButton
-								text={`${product.price} Rs`}
-								loading={loading}
-								errorState={errorState}
-								handleClick={handleProductOrder}
-							/>
-						)}
-					</CardActions>
-				) : (
-					<Typography
-						variant="body2"
-						sx={{
-							padding: '0.5rem',
-							width: 'fit-content',
-							borderRadius: '1rem',
-							background: theme.palette.background.paper,
-						}}>
-						We are closed
-					</Typography>
-				)}
+				<CardActions
+					sx={{
+						p: 0,
+					}}>
+					{amountButtonsVisible ? (
+						<AmountButtons
+							showText
+							product={product}
+							addToCart={addToCart}
+							removeFromCart={removeFromCart}
+							productFromCart={productFromCart}
+						/>
+					) : (
+						<LoaderButton
+							text={`${product.price} Rs`}
+							loading={loading}
+							errorState={errorState}
+							handleClick={handleProductOrder}
+						/>
+					)}
+				</CardActions>
 			</Card>
 		</>
 	);

@@ -11,7 +11,7 @@ interface RestaurantsUIProps {
 }
 
 export const RestaurantsUI = ({ restaurant }: RestaurantsUIProps) => {
-	const { workingStatus, workingTime } = useRestaurant(restaurant);
+	const { restaurantWorkingTime, restaurantWorkingStatus } = useRestaurant(restaurant);
 
 	return (
 		<Card
@@ -26,7 +26,7 @@ export const RestaurantsUI = ({ restaurant }: RestaurantsUIProps) => {
 				background: 'transparent',
 				justifyContent: 'space-between',
 			}}>
-			<Link to={`${restaurant.Title}`} style={{ position: 'relative' }}>
+			<Link to={`${restaurant.Title}`} state={{ restaurant }} style={{ position: 'relative' }}>
 				<CardMedia
 					component="img"
 					image={restaurant.Image[0].url}
@@ -62,7 +62,7 @@ export const RestaurantsUI = ({ restaurant }: RestaurantsUIProps) => {
 							alignItems: 'center',
 							justifyContent: 'space-between',
 						}}>
-						<WorkingStatus workingStatus={workingStatus} workingTime={workingTime} />
+						<WorkingStatus workingStatus={restaurantWorkingStatus} workingTime={restaurantWorkingTime} />
 					</Box>
 				</CardContent>
 			</Link>

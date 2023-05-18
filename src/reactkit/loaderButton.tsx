@@ -42,6 +42,7 @@ export const LoaderButton = ({
 	isMainButton,
 	fullWidth,
 	errorState = { isError: null },
+	...props
 }: LoaderButtonProps) => {
 	const iconStyles = {
 		color: '#fff',
@@ -56,6 +57,7 @@ export const LoaderButton = ({
 
 	return (
 		<CustomLoadingButton
+			disabled={props.disabled}
 			loading={loading}
 			sx={
 				isMainButton

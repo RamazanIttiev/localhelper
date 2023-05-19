@@ -12,7 +12,7 @@ export const theme = createTheme({
 		text: { primary: '#fff' },
 		info: { main: TelegramTheme?.hint_color || '#ccc' },
 		success: { main: '#00ff0d' },
-		error: { main: '#ff0000' },
+		error: { main: '#ff8a8a' },
 	},
 	typography: {
 		// fontFamily:

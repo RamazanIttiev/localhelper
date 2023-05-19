@@ -6,6 +6,8 @@ import { FormInput } from '../checkout.container';
 import { LoaderButton } from '../../../reactkit/loaderButton';
 import { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 import { isUserAgentTelegram } from '../../../utils/deviceInfo';
+import { Typography } from '@mui/material';
+import { ErrorText } from '../../../components/errorText';
 
 interface FormUIProps {
 	loading: boolean;
@@ -17,6 +19,7 @@ interface FormUIProps {
 }
 
 export const FormUI = ({ handleSubmit, register, errors, onSubmit, loading, errorState }: FormUIProps) => {
+	console.log(errors);
 	return (
 		<>
 			<form onSubmit={handleSubmit(onSubmit)}>
@@ -27,9 +30,20 @@ export const FormUI = ({ handleSubmit, register, errors, onSubmit, loading, erro
 					margin="dense"
 					color={'info'}
 					error={errors.userName !== undefined}
-					placeholder={errors.userName ? 'Name is required' : 'Name'}
-					{...register('userName', { required: true })}
+					placeholder={errors.userName?.type === 'required' ? errors.userName.message : 'Name'}
+					{...register('userName', {
+						required: {
+							value: true,
+							message: 'Name is required',
+						},
+						pattern: {
+							value: /^[a-zA-Z]+$/,
+							message: "I guess that's not a valid name...",
+						},
+					})}
 				/>
+				{errors.userName?.type !== 'required' && <ErrorText text={errors.userName?.message} />}
+
 				<Input
 					autoComplete={'off'}
 					fullWidth
@@ -37,9 +51,14 @@ export const FormUI = ({ handleSubmit, register, errors, onSubmit, loading, erro
 					margin="dense"
 					color={'info'}
 					error={errors.userPhone !== undefined}
-					{...register('userPhone', { required: true })}
-					placeholder={errors.userPhone ? 'Phone number is required' : 'Phone'}
+					placeholder={errors.userPhone?.type === 'required' ? errors.userPhone.message : 'Phone'}
+					{...register('userPhone', {
+						required: { value: true, message: 'I need your phone number' },
+						pattern: { value: /^[0-9+-]+$/, message: "I think your phone number isn't correct..." },
+						minLength: { value: 8, message: 'Your phone number is too short' },
+					})}
 				/>
+				{errors.userPhone?.type !== 'required' && <ErrorText text={errors.userPhone?.message} />}
 
 				<FormGroupTitle text={'Delivery address'} styles={{ marginTop: '0.5rem' }} />
 				<Input
@@ -48,9 +67,14 @@ export const FormUI = ({ handleSubmit, register, errors, onSubmit, loading, erro
 					margin="dense"
 					color={'info'}
 					error={errors.userAddress !== undefined}
-					{...register('userAddress', { required: true })}
-					placeholder={errors.userAddress ? 'Address is required' : 'Street'}
+					placeholder={errors.userAddress?.type === 'required' ? errors.userAddress.message : 'Address'}
+					{...register('userAddress', {
+						required: { value: true, message: 'Please write your address' },
+						pattern: { value: /^[0-9+-]+$/, message: 'Are you sure you live there?' },
+						minLength: { value: 8, message: 'The address is too short' },
+					})}
 				/>
+				{errors.userAddress?.type !== 'required' && <ErrorText text={errors.userAddress?.message} />}
 
 				<Input
 					fullWidth

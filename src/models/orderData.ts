@@ -8,7 +8,6 @@ export interface CartOrderData {
 
 export interface SingleOrderData {
 	itemName: string;
-
 	placeNumber?: string;
 	placeLocation?: string;
 	placeCoordinates?: string;

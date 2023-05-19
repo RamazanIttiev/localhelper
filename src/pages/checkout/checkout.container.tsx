@@ -4,7 +4,7 @@ import { Container, Switch, useTheme } from '@mui/material';
 import { OrderInfo } from './components/orderInfo';
 import { SaveInfoField, SaveInfoWrapper } from './checkout.styled';
 import { ErrorType } from '../../models/error';
-import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
+import { clearResponseMessage, handleOrder, saveUserInfo } from '../../actions/global-actions';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
 import { FormGroupTitle } from './components/formGroupTitle';
@@ -16,13 +16,7 @@ import {
 } from '../../actions/webApp-actions';
 import { useForm } from 'react-hook-form';
 import { CartList } from '../cart/cart-list';
-
-export interface FormInput {
-	userName: string;
-	userPhone: string;
-	userHotel: string;
-	userAddress: string;
-}
+import { UserData } from '../../models/userModel';
 
 export const CheckoutContainer = () => {
 	const navigate = useNavigate();
@@ -33,23 +27,28 @@ export const CheckoutContainer = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<FormInput>();
+	} = useForm<UserData>();
 
+	const [saveInfo, setSaveInfo] = useState(true);
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
 		isError: null,
 	});
 
+	const handleSaveInfo = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setSaveInfo(event.target.checked);
+	};
+
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
 
 	const produceOrder = useCallback(
-		(formData?: FormInput) => {
+		(userData?: UserData) => {
 			return handleOrder(
 				state?.flowId,
 				{
 					...state,
-					...formData,
+					...userData,
 					order: cartOrder,
 					orderTotal: cartTotalAmount,
 				},
@@ -57,14 +56,15 @@ export const CheckoutContainer = () => {
 				handleError,
 			).then(response => {
 				if (response?.ok) {
-					clearCart();
+					userData !== undefined && saveInfo && saveUserInfo(userData).catch(error => error);
 					setTimeout(() => {
+						clearCart();
 						navigate('/');
 					}, 2000);
 				}
 			});
 		},
-		[navigate, clearCart, cartOrder, cartTotalAmount, state],
+		[state, cartOrder, cartTotalAmount, saveInfo, clearCart, navigate],
 	);
 
 	useEffect(() => {
@@ -96,7 +96,14 @@ export const CheckoutContainer = () => {
 			/>
 			<SaveInfoWrapper>
 				<SaveInfoField
-					control={<Switch sx={{ color: theme.palette.primary.main }} defaultChecked />}
+					control={
+						<Switch
+							checked={saveInfo}
+							onChange={handleSaveInfo}
+							sx={{ color: theme.palette.primary.main }}
+							inputProps={{ 'aria-label': 'controlled' }}
+						/>
+					}
 					labelPlacement={'start'}
 					label="Save info"
 				/>

@@ -2,6 +2,7 @@ import { ErrorType } from '../models/error';
 import { setHaptic } from './webApp-actions';
 import { sendWebAppDeepLink } from '../utils/requests';
 import { CartOrderData, SingleOrderData } from '../models/orderData';
+import { UserData } from '../models/userModel';
 
 export const handleOrder = async (
 	flowId: string,
@@ -49,4 +50,24 @@ export const fetchAirtableData = async (tableName: string) => {
 		},
 	});
 	return await categories.json();
+};
+
+export const saveUserInfo = async (userData: UserData) => {
+	const { userAddress, userName, userHotel, userPhone } = userData;
+
+	return await fetch('https://api.airtable.com/v0/appN5D5g87uz2gY2j/Users?view=UsersView', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_PRIVATE_KEY}` || '',
+		},
+		body: JSON.stringify({
+			fields: {
+				Name: userName,
+				Hotel: userHotel,
+				Phone: userPhone,
+				Address: userAddress,
+			},
+		}),
+	});
 };

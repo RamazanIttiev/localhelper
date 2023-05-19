@@ -24,8 +24,8 @@ export const mapCategoryData = (category: CategoryModel | undefined, products: P
 };
 
 export const mapCategories = (
-	categories: { fields: CategoryModel }[],
 	products: { fields: ProductModel }[],
+	categories: { fields: CategoryModel }[],
 	restaurants: { fields: RestaurantModel }[],
 ) => {
 	return categories.map(category => {

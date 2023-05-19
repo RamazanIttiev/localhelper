@@ -19,14 +19,10 @@ export const CartContainer = () => {
 	const navigateToCheckout = useCallback(() => {
 		navigate('/checkout', {
 			state: {
-				flowId: state?.flowId,
-				placeTitle: state?.placeTitle,
-				placeNumber: state?.placeNumber,
-				placeLocation: state?.placeLocation,
-				placeCoordinates: state?.placeCoordinates,
+				...state,
 			},
 		});
-	}, [navigate, state?.flowId, state?.placeTitle, state?.placeNumber, state?.placeLocation, state?.placeCoordinates]);
+	}, [navigate, state]);
 
 	useEffect(() => {
 		showMainButton();
@@ -57,10 +53,10 @@ export const CartContainer = () => {
 				addToCart={addToCart}
 				cartProducts={cartProducts}
 				removeFromCart={removeFromCart}
+				restaurantTitle={state?.placeTitle}
 				navigateToCheckout={navigateToCheckout}
 				isRestaurantWorking={state?.isRestaurantWorking}
 				restaurantWorkingTime={state?.restaurantWorkingTime}
-				restaurantTitle={state?.restaurant !== undefined ? state.restaurant : undefined}
 			/>
 		</Container>
 	);

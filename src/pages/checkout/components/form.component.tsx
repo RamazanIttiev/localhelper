@@ -6,7 +6,6 @@ import { FormInput } from '../checkout.container';
 import { LoaderButton } from '../../../reactkit/loaderButton';
 import { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 import { isUserAgentTelegram } from '../../../utils/deviceInfo';
-import { Typography } from '@mui/material';
 import { ErrorText } from '../../../components/errorText';
 
 interface FormUIProps {
@@ -19,7 +18,6 @@ interface FormUIProps {
 }
 
 export const FormUI = ({ handleSubmit, register, errors, onSubmit, loading, errorState }: FormUIProps) => {
-	console.log(errors);
 	return (
 		<>
 			<form onSubmit={handleSubmit(onSubmit)}>
@@ -70,7 +68,6 @@ export const FormUI = ({ handleSubmit, register, errors, onSubmit, loading, erro
 					placeholder={errors.userAddress?.type === 'required' ? errors.userAddress.message : 'Address'}
 					{...register('userAddress', {
 						required: { value: true, message: 'Please write your address' },
-						pattern: { value: /^[0-9+-]+$/, message: 'Are you sure you live there?' },
 						minLength: { value: 8, message: 'The address is too short' },
 					})}
 				/>

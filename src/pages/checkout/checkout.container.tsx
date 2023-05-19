@@ -48,13 +48,10 @@ export const CheckoutContainer = () => {
 			return handleOrder(
 				state?.flowId,
 				{
+					...state,
 					...formData,
 					order: cartOrder,
 					orderTotal: cartTotalAmount,
-					placeTitle: state?.placeTitle,
-					placeNumber: state?.placeNumber,
-					placeLocation: state?.placeLocation,
-					placeCoordinates: state?.placeCoordinates,
 				},
 				handleLoading,
 				handleError,
@@ -67,17 +64,7 @@ export const CheckoutContainer = () => {
 				}
 			});
 		},
-		[
-			navigate,
-			clearCart,
-			cartOrder,
-			cartTotalAmount,
-			state?.flowId,
-			state?.placeTitle,
-			state?.placeNumber,
-			state?.placeLocation,
-			state?.placeCoordinates,
-		],
+		[navigate, clearCart, cartOrder, cartTotalAmount, state],
 	);
 
 	useEffect(() => {
@@ -116,7 +103,10 @@ export const CheckoutContainer = () => {
 				<FormGroupTitle styles={{ marginTop: '0.5rem' }} text={'Save contact information for future orders'} />
 			</SaveInfoWrapper>
 
-			<FormGroupTitle styles={{ marginTop: '0.5rem', marginBottom: '0.5rem' }} text={'Check your order'} />
+			<FormGroupTitle
+				styles={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}
+				text={`Your order from ${state?.placeTitle}`}
+			/>
 			<CartList cartProducts={orderCheckout} />
 			<OrderInfo orderTotal={cartTotalAmount} />
 		</Container>

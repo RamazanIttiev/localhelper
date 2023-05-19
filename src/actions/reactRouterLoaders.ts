@@ -6,7 +6,7 @@ const fetchAppData = async () => {
 	const resolvedProducts = await fetchAirtableData('Products');
 	const resolvedCategories = await fetchAirtableData('Categories');
 	const resolvedRestaurants = await fetchAirtableData('Restaurants');
-	console.log(resolvedCategories);
+
 	return {
 		resolvedCategories: mapCategories(
 			resolvedProducts.records,

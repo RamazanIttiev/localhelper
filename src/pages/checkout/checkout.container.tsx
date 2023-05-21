@@ -76,10 +76,6 @@ export const CheckoutContainer = () => {
 		showMainButton();
 		setMainButtonText('Order');
 		handleMainButton(handleSubmit(produceOrder));
-
-		return () => {
-			removeMainButtonEvent(handleSubmit(produceOrder));
-		};
 	}, [handleSubmit, produceOrder]);
 
 	useEffect(() => {

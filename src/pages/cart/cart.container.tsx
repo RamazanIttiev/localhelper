@@ -38,6 +38,7 @@ export const CartContainer = () => {
 
 		return () => {
 			enableMainButton();
+			console.log('cart clean');
 			removeMainButtonEvent(navigateToCheckout);
 		};
 	}, [navigateToCheckout, navigate, state?.isRestaurantWorking, state?.restaurantWorkingTime]);

@@ -54,7 +54,7 @@ export const Products = () => {
 	);
 
 	useEffect(() => {
-		if (!isCartEmpty && isRestaurantRoute && isRestaurantWorking) {
+		if (!isCartEmpty && isRestaurantRoute) {
 			showMainButton();
 			setMainButtonText('Order');
 			handleMainButton(navigateToCart);

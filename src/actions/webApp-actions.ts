@@ -1,4 +1,4 @@
-import { Telegram } from '../app/App';
+import { Telegram, TelegramTheme } from '../app/App';
 import CryptoJS from 'crypto-js';
 
 const verifyInitData = (telegramInitData: string): boolean => {
@@ -40,7 +40,13 @@ export const handleMainButton = (callback: () => unknown) => {
 	setHaptic('light');
 	Telegram.onEvent('mainButtonClicked', callback);
 };
-export const enableMainButton = () => Telegram.MainButton.enable();
+export const enableMainButton = () => {
+	Telegram.MainButton.enable();
+	Telegram.MainButton.setParams({
+		color: TelegramTheme?.button_color,
+		text_color: TelegramTheme?.text_color,
+	});
+};
 export const removeMainButtonEvent = (callback: () => unknown) => {
 	setHaptic('light');
 	Telegram.offEvent('mainButtonClicked', callback);

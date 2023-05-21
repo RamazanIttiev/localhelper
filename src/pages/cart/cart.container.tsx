@@ -31,6 +31,7 @@ export const CartContainer = () => {
 			disableMainButton(`Working time - ${state?.restaurantWorkingTime}`);
 		} else {
 			enableMainButton();
+			setMainButtonText('Checkout');
 			handleMainButton(navigateToCheckout);
 		}
 
@@ -45,10 +46,6 @@ export const CartContainer = () => {
 			navigate(-1);
 		}
 	}, [isCartEmpty, navigate]);
-
-	useEffect(() => {
-		setMainButtonText('Checkout');
-	}, []);
 
 	return (
 		<Container maxWidth={'sm'} sx={{ pb: 5 }}>

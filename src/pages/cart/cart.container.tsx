@@ -30,8 +30,10 @@ export const CartContainer = () => {
 		showMainButton();
 		console.log('state?.isRestaurantWorking cart', state?.isRestaurantWorking);
 		if (!state?.isRestaurantWorking) {
+			removeMainButtonEvent(navigateToCheckout);
 			disableMainButton(`Working time - ${state?.restaurantWorkingTime}`);
 		} else {
+			console.log('isRestaurantWorking cart');
 			enableMainButton();
 			setMainButtonText('Checkout');
 			handleMainButton(navigateToCheckout);

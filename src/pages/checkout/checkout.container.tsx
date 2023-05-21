@@ -5,7 +5,7 @@ import { OrderInfo } from './components/orderInfo';
 import { SaveInfoField, SaveInfoWrapper } from './checkout.styled';
 import { ErrorType } from '../../models/error';
 import { clearResponseMessage, handleOrder, saveUserInfo } from '../../actions/global-actions';
-import { useLoaderData, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
 import { FormGroupTitle } from './components/formGroupTitle';
 import {

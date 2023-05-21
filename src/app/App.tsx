@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout } from './Layout';
 import { Products } from '../pages/products/products';
 import { Categories } from '../pages/categories/categories';
-import { fetchUserData, loadAppData } from '../actions/reactRouterLoaders';
+import { loadAppData, loadUserData } from '../actions/reactRouterLoaders';
 import { RestaurantsContainer } from '../pages/restaurants/restaurants.container';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { ProductDetailsContainer } from '../pages/productDetails/productDetails.container';
@@ -27,7 +27,7 @@ const router = createBrowserRouter(
 
 			<Route path="shopping-cart" element={<CartContainer />} />
 
-			<Route path="checkout" loader={fetchUserData} element={<CheckoutContainer />} />
+			<Route path="checkout" loader={loadUserData} element={<CheckoutContainer />} />
 		</Route>,
 	),
 );

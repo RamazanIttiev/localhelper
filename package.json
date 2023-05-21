@@ -28,9 +28,11 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
     "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
+    "crypto-js": "^4.1.1",
     "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react-app": "^6.0.0",

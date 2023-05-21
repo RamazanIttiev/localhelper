@@ -1,4 +1,5 @@
 import { Telegram } from '../app/App';
+import CryptoJS from 'crypto-js';
 
 const verifyInitData = (telegramInitData: string): boolean => {
 	const initData = new URLSearchParams(telegramInitData);
@@ -36,8 +37,9 @@ export const removeMainButtonEvent = (callback: () => unknown) => {
 	setHaptic('light');
 	Telegram.offEvent('mainButtonClicked', callback);
 };
-export const getTelegramUser = () => {
+export const fetchTelegramUser = () => {
 	if (verifyInitData(Telegram.initData)) {
 		return JSON.stringify(Telegram.initData);
 	}
+	return {};
 };

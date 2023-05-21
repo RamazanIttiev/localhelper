@@ -19,7 +19,6 @@ import { CartList } from '../cart/cart-list';
 import { UserData } from '../../models/userModel';
 
 export const CheckoutContainer = () => {
-	const userData = useLoaderData() as any;
 	const { state } = useLocation();
 	const theme = useTheme();
 	const { cartTotalAmount, cartOrder, clearCart, orderCheckout } = useCart();

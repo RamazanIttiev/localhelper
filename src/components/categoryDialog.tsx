@@ -11,7 +11,6 @@ import {
 	setMainButtonText,
 	showMainButton,
 } from '../actions/webApp-actions';
-import { Simulate } from 'react-dom/test-utils';
 
 interface CategoryDialogProps {
 	title: string;

@@ -41,9 +41,9 @@ export const CheckoutContainer = () => {
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
 
+	console.log(cartOrder);
 	const produceOrder = useCallback(
 		(userData?: UserData) => {
-			console.log('produceOrder checkout');
 			return handleOrder(
 				state?.flowId,
 				{

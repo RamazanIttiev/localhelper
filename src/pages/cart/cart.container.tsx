@@ -41,7 +41,7 @@ export const CartContainer = () => {
 			console.log('cart clean');
 			removeMainButtonEvent(navigateToCheckout);
 		};
-	}, [navigateToCheckout, navigate, state?.isRestaurantWorking, state?.restaurantWorkingTime]);
+	}, [navigateToCheckout, state?.isRestaurantWorking, state?.restaurantWorkingTime]);
 
 	useEffect(() => {
 		if (isCartEmpty) {

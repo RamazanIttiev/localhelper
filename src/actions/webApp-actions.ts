@@ -24,6 +24,14 @@ export const showMainButton = () => Telegram.MainButton.show();
 export const hideMainButton = () => Telegram.MainButton.hide();
 export const setMainButtonText = (text: string) => Telegram.MainButton.setText(text);
 export const setHaptic = (state: string) => Telegram.HapticFeedback.impactOccurred(state);
+export const disableMainButton = (text: string) => {
+	Telegram.MainButton.disable();
+	Telegram.MainButton.setParams({
+		text,
+		color: '#292929',
+		text_color: '#ccc',
+	});
+};
 export const handleBackButton = (callback: () => unknown) => {
 	setHaptic('light');
 	Telegram.onEvent('backButtonClicked', callback);
@@ -32,7 +40,6 @@ export const handleMainButton = (callback: () => unknown) => {
 	setHaptic('light');
 	Telegram.onEvent('mainButtonClicked', callback);
 };
-export const disableMainButton = () => Telegram.MainButton.disable();
 export const enableMainButton = () => Telegram.MainButton.enable();
 export const removeMainButtonEvent = (callback: () => unknown) => {
 	setHaptic('light');

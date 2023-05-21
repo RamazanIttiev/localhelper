@@ -27,12 +27,18 @@ export const CartContainer = () => {
 
 	useEffect(() => {
 		showMainButton();
-		handleMainButton(navigateToCheckout);
+		if (!state?.isRestaurantWorking) {
+			disableMainButton(`Working time - ${state?.restaurantWorkingTime}`);
+		} else {
+			enableMainButton();
+			handleMainButton(navigateToCheckout);
+		}
 
 		return () => {
+			enableMainButton();
 			removeMainButtonEvent(navigateToCheckout);
 		};
-	}, [navigateToCheckout, navigate]);
+	}, [navigateToCheckout, navigate, state?.isRestaurantWorking, state?.restaurantWorkingTime]);
 
 	useEffect(() => {
 		if (isCartEmpty) {
@@ -42,16 +48,7 @@ export const CartContainer = () => {
 
 	useEffect(() => {
 		setMainButtonText('Checkout');
-
-		if (!state?.isRestaurantWorking) {
-			setMainButtonText(`Working time - ${state?.isRestaurantWorking}`);
-			disableMainButton();
-		} else enableMainButton();
-
-		return () => {
-			enableMainButton();
-		};
-	}, [state?.isRestaurantWorking]);
+	}, []);
 
 	return (
 		<Container maxWidth={'sm'} sx={{ pb: 5 }}>

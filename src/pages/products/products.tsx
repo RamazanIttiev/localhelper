@@ -61,9 +61,10 @@ export const Products = () => {
 		} else hideMainButton();
 
 		return () => {
+			console.log('products clean');
 			removeMainButtonEvent(navigateToCart);
 		};
-	}, [isRestaurantWorking, isRestaurantRoute, isCartEmpty, navigateToCart]);
+	}, [isRestaurantRoute, isCartEmpty, navigateToCart]);
 
 	const renderHeader = {
 		restaurantWorkingTime,

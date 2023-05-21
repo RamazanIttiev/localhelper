@@ -34,7 +34,7 @@ export const CheckoutContainer = () => {
 	const [errorState, setErrorState] = useState<ErrorType>({
 		isError: null,
 	});
-	console.log(userData);
+
 	const handleSaveInfo = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSaveInfo(event.target.checked);
 	};
@@ -69,16 +69,14 @@ export const CheckoutContainer = () => {
 
 	useEffect(() => {
 		showMainButton();
+		setMainButtonText('Order');
 		handleMainButton(handleSubmit(produceOrder));
 
 		return () => {
+			console.log('checkout clean');
 			removeMainButtonEvent(handleSubmit(produceOrder));
 		};
 	}, [handleSubmit, produceOrder]);
-
-	useEffect(() => {
-		setMainButtonText('Order');
-	}, []);
 
 	useEffect(() => {
 		clearResponseMessage(errorState, handleError);

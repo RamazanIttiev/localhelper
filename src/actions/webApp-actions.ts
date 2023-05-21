@@ -48,12 +48,10 @@ export const enableMainButton = () => {
 	});
 };
 export const removeMainButtonEvent = (callback: () => unknown) => {
-	console.log(callback);
 	setHaptic('light');
 	Telegram.offEvent('mainButtonClicked', callback);
 };
 export const fetchTelegramUser = () => {
-	console.log(Telegram.initData);
 	if (verifyInitData(Telegram.initData)) {
 		return JSON.stringify(Telegram.initData);
 	}

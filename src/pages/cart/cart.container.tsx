@@ -28,12 +28,12 @@ export const CartContainer = () => {
 
 	useEffect(() => {
 		showMainButton();
-		console.log('state?.isRestaurantWorking cart', state?.isRestaurantWorking);
 		if (!state?.isRestaurantWorking) {
+			console.log('disabled cart');
 			removeMainButtonEvent(navigateToCheckout);
 			disableMainButton(`Working time - ${state?.restaurantWorkingTime}`);
 		} else {
-			console.log('isRestaurantWorking cart');
+			console.log('enabled cart');
 			enableMainButton();
 			setMainButtonText('Checkout');
 			handleMainButton(navigateToCheckout);

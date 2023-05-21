@@ -48,6 +48,7 @@ export const enableMainButton = () => {
 	});
 };
 export const removeMainButtonEvent = (callback: () => unknown) => {
+	console.log(callback);
 	setHaptic('light');
 	Telegram.offEvent('mainButtonClicked', callback);
 };

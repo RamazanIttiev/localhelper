@@ -59,7 +59,6 @@ export const CheckoutContainer = () => {
 				if (response?.ok) {
 					userData !== undefined && saveInfo && saveUserInfo(userData).catch(error => error);
 					setTimeout(() => {
-						console.log('clearCart checkout');
 						clearCart();
 					}, 2000);
 				}

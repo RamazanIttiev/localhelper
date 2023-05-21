@@ -3,6 +3,7 @@ import { CartUI } from './cart.component';
 import { useCart } from '../../hooks/useCart';
 import {
 	disableMainButton,
+	enableMainButton,
 	handleMainButton,
 	removeMainButtonEvent,
 	setMainButtonText,
@@ -26,26 +27,26 @@ export const CartContainer = () => {
 
 	useEffect(() => {
 		showMainButton();
-		handleMainButton(navigateToCheckout);
-
 		if (!state?.isRestaurantWorking) {
-			disableMainButton();
+			removeMainButtonEvent(navigateToCheckout);
+			disableMainButton(`Working time - ${state?.restaurantWorkingTime}`);
+		} else {
+			enableMainButton();
+			setMainButtonText('Checkout');
+			handleMainButton(navigateToCheckout);
 		}
 
 		return () => {
+			enableMainButton();
 			removeMainButtonEvent(navigateToCheckout);
 		};
-	}, [navigateToCheckout, navigate, state?.isRestaurantWorking]);
+	}, [navigateToCheckout, navigate, state?.isRestaurantWorking, state?.restaurantWorkingTime]);
 
 	useEffect(() => {
 		if (isCartEmpty) {
 			navigate(-1);
 		}
 	}, [isCartEmpty, navigate]);
-
-	useEffect(() => {
-		setMainButtonText('Checkout');
-	}, []);
 
 	return (
 		<Container maxWidth={'sm'} sx={{ pb: 5 }}>

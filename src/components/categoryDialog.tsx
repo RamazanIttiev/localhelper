@@ -44,12 +44,14 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId }: 
 			setMainButtonText('Buy');
 			handleMainButton(handleProductOrder);
 		}
+	}, [isOpened, handleProductOrder]);
 
+	useEffect(() => {
 		return () => {
 			hideMainButton();
 			removeMainButtonEvent(handleProductOrder);
 		};
-	}, [isOpened, flowId, title, handleProductOrder]);
+	}, [handleProductOrder]);
 
 	return (
 		<Drawer anchor={'bottom'} onClose={handleClose} open={isOpened}>

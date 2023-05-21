@@ -18,6 +18,7 @@ export const CartContainer = () => {
 	const { addToCart, removeFromCart, cartProducts, isCartEmpty } = useCart();
 
 	const navigateToCheckout = useCallback(() => {
+		console.log('navigateToCheckout cart', navigateToCheckout);
 		navigate('/checkout', {
 			state: {
 				...state,
@@ -27,6 +28,7 @@ export const CartContainer = () => {
 
 	useEffect(() => {
 		showMainButton();
+		console.log('state?.isRestaurantWorking cart', state?.isRestaurantWorking);
 		if (!state?.isRestaurantWorking) {
 			disableMainButton(`Working time - ${state?.restaurantWorkingTime}`);
 		} else {

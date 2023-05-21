@@ -52,6 +52,7 @@ export const removeMainButtonEvent = (callback: () => unknown) => {
 	Telegram.offEvent('mainButtonClicked', callback);
 };
 export const fetchTelegramUser = () => {
+	console.log(Telegram.initData);
 	if (verifyInitData(Telegram.initData)) {
 		return JSON.stringify(Telegram.initData);
 	}

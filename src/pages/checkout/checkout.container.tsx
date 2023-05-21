@@ -5,7 +5,7 @@ import { OrderInfo } from './components/orderInfo';
 import { SaveInfoField, SaveInfoWrapper } from './checkout.styled';
 import { ErrorType } from '../../models/error';
 import { clearResponseMessage, handleOrder, saveUserInfo } from '../../actions/global-actions';
-import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+import { useLoaderData, useLocation } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
 import { FormGroupTitle } from './components/formGroupTitle';
 import {
@@ -20,7 +20,6 @@ import { UserData } from '../../models/userModel';
 
 export const CheckoutContainer = () => {
 	const userData = useLoaderData() as any;
-	const navigate = useNavigate();
 	const { state } = useLocation();
 	const theme = useTheme();
 	const { cartTotalAmount, cartOrder, clearCart, orderCheckout } = useCart();
@@ -45,6 +44,7 @@ export const CheckoutContainer = () => {
 
 	const produceOrder = useCallback(
 		(userData?: UserData) => {
+			console.log('produceOrder checkout');
 			return handleOrder(
 				state?.flowId,
 				{
@@ -59,13 +59,13 @@ export const CheckoutContainer = () => {
 				if (response?.ok) {
 					userData !== undefined && saveInfo && saveUserInfo(userData).catch(error => error);
 					setTimeout(() => {
+						console.log('clearCart checkout');
 						clearCart();
-						navigate('/');
 					}, 2000);
 				}
 			});
 		},
-		[state, cartOrder, cartTotalAmount, saveInfo, clearCart, navigate],
+		[state, cartOrder, cartTotalAmount, saveInfo, clearCart],
 	);
 
 	useEffect(() => {

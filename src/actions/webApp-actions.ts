@@ -1,5 +1,19 @@
 import { Telegram } from '../app/App';
 
+const verifyInitData = (telegramInitData: string): boolean => {
+	const initData = new URLSearchParams(telegramInitData);
+	const hash = initData.get('hash');
+	const dataToCheck: string[] = [];
+
+	initData.sort();
+	initData.forEach((val, key) => key !== 'hash' && dataToCheck.push(`${key}=${val}`));
+
+	const secret = CryptoJS.HmacSHA256(process.env.REACT_APP_BOT_ID || '', 'WebAppData');
+	const _hash = CryptoJS.HmacSHA256(dataToCheck.join('\n'), secret).toString(CryptoJS.enc.Hex);
+
+	return _hash === hash;
+};
+
 export const webAppIsReady = () => Telegram.ready();
 export const expandWebApp = () => Telegram.expand();
 export const enableWebAppClosingConfirmation = () => Telegram.enableClosingConfirmation();
@@ -21,4 +35,9 @@ export const disableMainButton = () => Telegram.MainButton.disable();
 export const removeMainButtonEvent = (callback: () => unknown) => {
 	setHaptic('light');
 	Telegram.offEvent('mainButtonClicked', callback);
+};
+export const getTelegramUser = () => {
+	if (verifyInitData(Telegram.initData)) {
+		return JSON.stringify(Telegram.initData);
+	}
 };

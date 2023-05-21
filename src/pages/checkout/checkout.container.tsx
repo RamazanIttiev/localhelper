@@ -5,7 +5,7 @@ import { OrderInfo } from './components/orderInfo';
 import { SaveInfoField, SaveInfoWrapper } from './checkout.styled';
 import { ErrorType } from '../../models/error';
 import { clearResponseMessage, handleOrder, saveUserInfo } from '../../actions/global-actions';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
 import { FormGroupTitle } from './components/formGroupTitle';
 import {
@@ -19,6 +19,7 @@ import { CartList } from '../cart/cart-list';
 import { UserData } from '../../models/userModel';
 
 export const CheckoutContainer = () => {
+	const { userData } = useLoaderData() as any;
 	const navigate = useNavigate();
 	const { state } = useLocation();
 	const theme = useTheme();
@@ -34,7 +35,7 @@ export const CheckoutContainer = () => {
 	const [errorState, setErrorState] = useState<ErrorType>({
 		isError: null,
 	});
-
+	console.log(userData);
 	const handleSaveInfo = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSaveInfo(event.target.checked);
 	};

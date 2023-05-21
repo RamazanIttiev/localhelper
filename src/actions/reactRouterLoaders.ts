@@ -1,6 +1,7 @@
 import { defer } from 'react-router-dom';
 import { mapCategories } from '../utils/mappers';
 import { fetchAirtableData } from './global-actions';
+import { getTelegramUser } from './webApp-actions';
 
 const fetchAppData = async () => {
 	const resolvedProducts = await fetchAirtableData('Products');
@@ -20,4 +21,8 @@ const fetchAppData = async () => {
 export const loadAppData = async () => {
 	const appData = fetchAppData();
 	return defer({ appData });
+};
+
+export const fetchUserData = () => {
+	return getTelegramUser();
 };

@@ -10,11 +10,13 @@ import { setHaptic } from '../../actions/webApp-actions';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 import dishImage from '../../assets/food.webp';
+import { theme } from '../../theme';
 
 interface ProductProps {
 	loading: boolean;
 	errorState: ErrorType;
 	product: ProductModel;
+	isRestaurantWorking?: boolean;
 	productFromCart?: ProductModel;
 	amountButtonsVisible?: boolean;
 	handleProductOrder: () => Promise<Response | undefined>;
@@ -30,6 +32,7 @@ export const ProductComponent: FC<ProductProps> = ({
 	removeFromCart,
 	productFromCart,
 	handleProductOrder,
+	isRestaurantWorking,
 	amountButtonsVisible,
 }) => {
 	return (
@@ -117,27 +120,40 @@ export const ProductComponent: FC<ProductProps> = ({
 						</Typography>
 					</CardContent>
 				</Link>
-				<CardActions
-					sx={{
-						p: 0,
-					}}>
-					{amountButtonsVisible ? (
-						<AmountButtons
-							showText
-							product={product}
-							addToCart={addToCart}
-							removeFromCart={removeFromCart}
-							productFromCart={productFromCart}
-						/>
-					) : (
-						<LoaderButton
-							text={`${product.price} Rs`}
-							loading={loading}
-							errorState={errorState}
-							handleClick={handleProductOrder}
-						/>
-					)}
-				</CardActions>
+				{isRestaurantWorking === undefined || isRestaurantWorking ? (
+					<CardActions
+						sx={{
+							p: 0,
+						}}>
+						{amountButtonsVisible ? (
+							<AmountButtons
+								showText
+								product={product}
+								addToCart={addToCart}
+								removeFromCart={removeFromCart}
+								productFromCart={productFromCart}
+							/>
+						) : (
+							<LoaderButton
+								text={`${product.price} Rs`}
+								loading={loading}
+								errorState={errorState}
+								handleClick={handleProductOrder}
+							/>
+						)}
+					</CardActions>
+				) : (
+					<Typography
+						variant="body2"
+						sx={{
+							padding: '0.5rem',
+							width: 'fit-content',
+							borderRadius: '1rem',
+							background: theme.palette.background.paper,
+						}}>
+						We are closed
+					</Typography>
+				)}
 			</Card>
 		</>
 	);

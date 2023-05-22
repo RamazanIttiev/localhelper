@@ -2,8 +2,6 @@ import { useCallback, useEffect } from 'react';
 import { CartUI } from './cart.component';
 import { useCart } from '../../hooks/useCart';
 import {
-	disableMainButton,
-	enableMainButton,
 	handleMainButton,
 	removeMainButtonEvent,
 	setMainButtonText,
@@ -11,37 +9,39 @@ import {
 } from '../../actions/webApp-actions';
 import { Container } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useRestaurant } from '../../hooks/useRestaurant';
+
+interface CartState {
+	state: { flowId: string };
+}
 
 export const CartContainer = () => {
+	const { state }: CartState = useLocation();
 	const navigate = useNavigate();
-	const { state } = useLocation();
+	const { cartRestaurant } = useRestaurant();
 	const { addToCart, removeFromCart, cartProducts, isCartEmpty } = useCart();
 
 	const navigateToCheckout = useCallback(() => {
 		navigate('/checkout', {
 			state: {
 				...state,
+				placeTitle: cartRestaurant?.Title,
+				placeNumber: cartRestaurant?.Contact,
+				placeLocation: cartRestaurant?.Location,
+				placeCoordinates: cartRestaurant?.Coordinates,
 			},
 		});
-	}, [navigate, state]);
+	}, [navigate, state, cartRestaurant]);
 
 	useEffect(() => {
 		showMainButton();
-		if (!state?.isRestaurantWorking) {
-			removeMainButtonEvent(navigateToCheckout);
-			disableMainButton(`Working time - ${state?.restaurantWorkingTime}`);
-		} else {
-			enableMainButton();
-			setMainButtonText('Checkout');
-			handleMainButton(navigateToCheckout);
-		}
+		setMainButtonText('Checkout');
+		handleMainButton(navigateToCheckout);
 
 		return () => {
-			enableMainButton();
-			console.log('cart clean');
 			removeMainButtonEvent(navigateToCheckout);
 		};
-	}, [navigateToCheckout, state?.isRestaurantWorking, state?.restaurantWorkingTime]);
+	}, [navigateToCheckout]);
 
 	useEffect(() => {
 		if (isCartEmpty) {
@@ -55,10 +55,10 @@ export const CartContainer = () => {
 				addToCart={addToCart}
 				cartProducts={cartProducts}
 				removeFromCart={removeFromCart}
-				restaurantTitle={state?.placeTitle}
 				navigateToCheckout={navigateToCheckout}
-				isRestaurantWorking={state?.isRestaurantWorking}
-				restaurantWorkingTime={state?.restaurantWorkingTime}
+				restaurantTitle={cartRestaurant?.Title}
+				isRestaurantWorking={cartRestaurant?.IsWorking}
+				restaurantWorkingTime={cartRestaurant?.WorkingTime}
 			/>
 		</Container>
 	);

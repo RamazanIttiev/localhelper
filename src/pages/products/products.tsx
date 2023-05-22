@@ -4,7 +4,7 @@ import { Container, Grid } from '@mui/material';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { ProductContainer } from '../../components/product/product.container';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
 	handleMainButton,
 	hideMainButton,
@@ -13,44 +13,26 @@ import {
 	showMainButton,
 } from '../../actions/webApp-actions';
 import { Header } from './header';
-import { ProductModel, RestaurantModel } from '../../models/productModel';
+import { ProductModel } from '../../models/productModel';
 import { useCategory } from '../../hooks/useCategory';
 import { LoaderButton } from '../../reactkit/loaderButton';
-import { useRestaurant } from '../../utils/restaurant';
+import { useRestaurant } from '../../hooks/useRestaurant';
 
 export const Products = () => {
-	const { state } = useLocation();
 	const navigate = useNavigate();
 	const { isRestaurantRoute } = useReactRouter();
+	const { restaurant } = useRestaurant();
 	const { removeFromCart, addToCart, cartProducts, isCartEmpty } = useCart();
-	const { isRestaurantWorking, restaurantWorkingTime, restaurantWorkingStatus } = useRestaurant();
 	const { products, flowId, category } = useCategory();
-
-	const restaurant: RestaurantModel | undefined = state?.restaurant;
 
 	const navigateToCart = useCallback(
 		() =>
 			navigate('/shopping-cart', {
 				state: {
 					flowId,
-					isRestaurantWorking,
-					restaurantWorkingTime,
-					placeTitle: restaurant?.Title,
-					placeNumber: restaurant?.Contact,
-					placeLocation: restaurant?.Location,
-					placeCoordinates: restaurant?.Coordinates,
 				},
 			}),
-		[
-			navigate,
-			flowId,
-			isRestaurantWorking,
-			restaurantWorkingTime,
-			restaurant?.Title,
-			restaurant?.Contact,
-			restaurant?.Location,
-			restaurant?.Coordinates,
-		],
+		[navigate, flowId],
 	);
 
 	useEffect(() => {
@@ -61,15 +43,14 @@ export const Products = () => {
 		} else hideMainButton();
 
 		return () => {
-			console.log('products clean');
 			removeMainButtonEvent(navigateToCart);
 		};
 	}, [isRestaurantRoute, isCartEmpty, navigateToCart]);
 
 	const renderHeader = {
-		restaurantWorkingTime,
-		restaurantWorkingStatus,
 		restaurantLocation: restaurant?.Location,
+		restaurantWorkingTime: restaurant?.WorkingTime,
+		restaurantWorkingStatus: restaurant?.WorkingStatus,
 		title: category?.HeaderTitle || restaurant?.Title,
 		image: (category?.HeaderImage !== undefined && category?.HeaderImage[0]?.url) || restaurant?.Image[0]?.url,
 	};

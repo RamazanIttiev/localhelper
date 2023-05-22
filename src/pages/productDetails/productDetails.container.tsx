@@ -16,6 +16,7 @@ import {
 	setMainButtonText,
 	showMainButton,
 } from '../../actions/webApp-actions';
+import { useRestaurant } from '../../hooks/useRestaurant';
 
 export const ProductDetailsContainer = () => {
 	const { state } = useLocation();
@@ -23,6 +24,7 @@ export const ProductDetailsContainer = () => {
 
 	const { flowId } = useCategory();
 	const { getProductFromCart } = useProducts();
+	const { restaurant } = useRestaurant();
 	const { isRestaurantDetailsRoute } = useReactRouter();
 	const { cartProducts, addToCart, removeFromCart } = useCart();
 
@@ -80,6 +82,7 @@ export const ProductDetailsContainer = () => {
 				removeFromCart={removeFromCart}
 				productFromCart={productFromCart}
 				handleProductOrder={handleProductOrder}
+				isRestaurantWorking={restaurant?.IsWorking}
 				amountButtonsVisible={isRestaurantDetailsRoute}
 			/>
 		</Container>

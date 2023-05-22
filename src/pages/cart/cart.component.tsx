@@ -9,7 +9,7 @@ import { LoaderButton } from '../../reactkit/loaderButton';
 
 interface CartProps {
 	restaurantTitle?: string;
-	restaurantWorkingTime: string;
+	restaurantWorkingTime?: string;
 	isRestaurantWorking?: boolean;
 	navigateToCheckout: () => void;
 	cartProducts: ProductModel[] | [];

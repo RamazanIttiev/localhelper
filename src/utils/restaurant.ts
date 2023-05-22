@@ -1,7 +1,3 @@
-import { RestaurantModel } from '../models/productModel';
-import { useParams } from 'react-router-dom';
-import { useCategory } from '../hooks/useCategory';
-
 export const getServicesRoute = (title: string) => {
 	switch (title) {
 		case 'Food':
@@ -38,23 +34,4 @@ export const isWorkingHour = (open?: string, close?: string) => {
 	}
 
 	return sriLankaTime >= openDateTime && sriLankaTime <= closeDateTime;
-};
-
-export const useRestaurant = (currentRestaurant?: RestaurantModel) => {
-	const params = useParams();
-	const { category } = useCategory();
-
-	const restaurant: RestaurantModel | undefined =
-		category.Restaurants?.find(restaurant => restaurant.Title === params?.restaurantId) || currentRestaurant;
-
-	const isRestaurantWorking = isWorkingHour(restaurant?.OpenTime, restaurant?.CloseTime);
-
-	const restaurantWorkingStatus = isRestaurantWorking ? 'Opened' : 'Closed';
-	const restaurantWorkingTime = `${restaurant?.OpenTime} - ${restaurant?.CloseTime}`;
-
-	return {
-		isRestaurantWorking,
-		restaurantWorkingTime,
-		restaurantWorkingStatus,
-	};
 };

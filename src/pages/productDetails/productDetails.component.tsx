@@ -12,6 +12,7 @@ import { isUserAgentTelegram } from '../../utils/deviceInfo';
 interface ProductDetailsUIProps {
 	loading: boolean;
 	errorState: ErrorType;
+	isRestaurantWorking?: boolean;
 	productFromCart?: ProductModel;
 	amountButtonsVisible?: boolean;
 	selectedProduct?: ProductModel;
@@ -26,6 +27,7 @@ export const ProductDetailsUI = ({
 	productFromCart,
 	removeFromCart,
 	selectedProduct,
+	isRestaurantWorking,
 	handleProductOrder,
 	amountButtonsVisible = false,
 }: ProductDetailsUIProps) => {
@@ -74,32 +76,47 @@ export const ProductDetailsUI = ({
 				</Box>
 			</CardContent>
 
-			<CardActions sx={{ flexDirection: 'column', p: 0 }}>
-				{amountButtonsVisible ? (
-					<AmountButtons
-						styles={{
-							maxWidth: '13rem',
-							width: productFromCart ? '13rem' : '12rem',
-							background: theme.palette.background.paper,
-						}}
-						addToCart={addToCart}
-						product={selectedProduct}
-						removeFromCart={removeFromCart}
-						productFromCart={productFromCart}
-						amountText={productFromCart?.amount === undefined ? undefined : `${productFromCart?.amount} x`}
-					/>
-				) : (
-					!isUserAgentTelegram && (
-						<LoaderButton
-							isMainButton
-							loading={loading}
-							errorState={errorState}
-							handleClick={handleProductOrder}
-							text={`${selectedProduct?.price} Rs`}
+			{isRestaurantWorking === undefined || isRestaurantWorking ? (
+				<CardActions sx={{ flexDirection: 'column', p: 0 }}>
+					{amountButtonsVisible ? (
+						<AmountButtons
+							styles={{
+								maxWidth: '13rem',
+								width: productFromCart ? '13rem' : '12rem',
+								background: theme.palette.background.paper,
+							}}
+							addToCart={addToCart}
+							product={selectedProduct}
+							removeFromCart={removeFromCart}
+							productFromCart={productFromCart}
+							amountText={
+								productFromCart?.amount === undefined ? undefined : `${productFromCart?.amount} x`
+							}
 						/>
-					)
-				)}
-			</CardActions>
+					) : (
+						!isUserAgentTelegram && (
+							<LoaderButton
+								isMainButton
+								loading={loading}
+								errorState={errorState}
+								handleClick={handleProductOrder}
+								text={`${selectedProduct?.price} Rs`}
+							/>
+						)
+					)}
+				</CardActions>
+			) : (
+				<Typography
+					variant="body2"
+					sx={{
+						padding: '0.5rem',
+						width: 'fit-content',
+						borderRadius: '1rem',
+						background: theme.palette.background.paper,
+					}}>
+					We are closed
+				</Typography>
+			)}
 		</Card>
 	);
 };

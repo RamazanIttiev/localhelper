@@ -4,15 +4,12 @@ import { setHaptic } from '../../actions/webApp-actions';
 import { RestaurantModel } from '../../models/productModel';
 import { WorkingStatus } from '../../reactkit/workingStatus';
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import { useRestaurant } from '../../utils/restaurant';
 
 interface RestaurantsUIProps {
 	restaurant: RestaurantModel;
 }
 
 export const RestaurantsUI = ({ restaurant }: RestaurantsUIProps) => {
-	const { restaurantWorkingTime, restaurantWorkingStatus } = useRestaurant(restaurant);
-
 	return (
 		<Card
 			onClick={() => setHaptic('light')}
@@ -62,7 +59,7 @@ export const RestaurantsUI = ({ restaurant }: RestaurantsUIProps) => {
 							alignItems: 'center',
 							justifyContent: 'space-between',
 						}}>
-						<WorkingStatus workingStatus={restaurantWorkingStatus} workingTime={restaurantWorkingTime} />
+						<WorkingStatus workingStatus={restaurant.WorkingStatus} workingTime={restaurant.WorkingTime} />
 					</Box>
 				</CardContent>
 			</Link>

@@ -1,5 +1,5 @@
 import { defer } from 'react-router-dom';
-import { mapCategories } from '../utils/mappers';
+import { mapCategories, mapRestaurants } from '../utils/mappers';
 import { fetchAirtableData } from './global-actions';
 import { fetchTelegramUser } from './webApp-actions';
 
@@ -15,11 +15,12 @@ const fetchAppData = async () => {
 			resolvedRestaurants.records,
 		),
 		resolvedProducts: resolvedProducts.records,
+		resolvedRestaurants: mapRestaurants(resolvedProducts.records, resolvedRestaurants.records),
 	};
 };
 
 export const loadAppData = async () => {
-	const appData = fetchAppData();
+	const appData = await fetchAppData();
 	return defer({ appData });
 };
 

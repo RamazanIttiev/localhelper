@@ -22,14 +22,15 @@ export const CheckoutContainer = () => {
 	const { state } = useLocation();
 	const theme = useTheme();
 	const { cartTotalAmount, cartOrder, clearCart, orderCheckout } = useCart();
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<UserData>();
 
-	const [saveInfo, setSaveInfo] = useState(true);
 	const [loading, setLoading] = useState(false);
+	const [saveInfo, setSaveInfo] = useState(true);
 	const [errorState, setErrorState] = useState<ErrorType>({
 		isError: null,
 	});
@@ -41,7 +42,6 @@ export const CheckoutContainer = () => {
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
 
-	console.log(cartOrder);
 	const produceOrder = useCallback(
 		(userData?: UserData) => {
 			return handleOrder(
@@ -67,15 +67,13 @@ export const CheckoutContainer = () => {
 	);
 
 	useEffect(() => {
-		return () => {
-			removeMainButtonEvent(handleSubmit(produceOrder));
-		};
-	}, [handleSubmit, produceOrder]);
-
-	useEffect(() => {
 		showMainButton();
 		setMainButtonText('Order');
 		handleMainButton(handleSubmit(produceOrder));
+
+		return () => {
+			removeMainButtonEvent(handleSubmit(produceOrder));
+		};
 	}, [handleSubmit, produceOrder]);
 
 	useEffect(() => {

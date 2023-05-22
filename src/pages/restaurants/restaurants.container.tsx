@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Container } from '@mui/material';
 import { RestaurantsUI } from './restaurants.component';
+import { useRestaurant } from '../../hooks/useRestaurant';
 import { hideMainButton } from '../../actions/webApp-actions';
-import { useCategory } from '../../hooks/useCategory';
 
 export const RestaurantsContainer = () => {
-	const { category } = useCategory();
+	const { restaurants } = useRestaurant();
 
 	useEffect(() => {
 		hideMainButton();
@@ -13,8 +13,9 @@ export const RestaurantsContainer = () => {
 
 	return (
 		<Container sx={{ pt: 2 }} maxWidth={'sm'}>
-			{category.Restaurants !== undefined &&
-				category.Restaurants.map(restaurant => {
+			{[...restaurants]
+				.sort(a => (a.IsWorking ? -1 : 1))
+				.map(restaurant => {
 					return <RestaurantsUI key={restaurant.Title} restaurant={restaurant} />;
 				})}
 		</Container>

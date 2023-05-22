@@ -4,6 +4,7 @@ import { useProducts } from '../../hooks/useProducts';
 import { ErrorType } from '../../models/error';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 import { ProductModel } from '../../models/productModel';
+import { useRestaurant } from '../../hooks/useRestaurant';
 
 interface ProductContainerProps {
 	flowId: string;
@@ -23,6 +24,7 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 	amountButtonsVisible,
 }) => {
 	const { getProductFromCart } = useProducts();
+	const { restaurant } = useRestaurant();
 
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -61,6 +63,7 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 			productFromCart={productFromCart}
 			handleProductOrder={handleProductOrder}
 			amountButtonsVisible={amountButtonsVisible}
+			isRestaurantWorking={restaurant?.IsWorking}
 		/>
 	);
 };

@@ -5,7 +5,7 @@ import { OrderInfo } from './components/orderInfo';
 import { SaveInfoField, SaveInfoWrapper } from './checkout.styled';
 import { ErrorType } from '../../models/error';
 import { clearResponseMessage, handleOrder, saveUserInfo } from '../../actions/global-actions';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
 import { FormGroupTitle } from './components/formGroupTitle';
 import {
@@ -19,6 +19,7 @@ import { CartList } from '../cart/cart-list';
 import { UserData } from '../../models/userModel';
 
 export const CheckoutContainer = () => {
+	const navigate = useNavigate();
 	const { state } = useLocation();
 	const theme = useTheme();
 	const { cartTotalAmount, cartOrder, clearCart, orderCheckout } = useCart();
@@ -59,11 +60,12 @@ export const CheckoutContainer = () => {
 					userData !== undefined && saveInfo && saveUserInfo(userData).catch(error => error);
 					setTimeout(() => {
 						clearCart();
+						navigate(-1);
 					}, 2000);
 				}
 			});
 		},
-		[state, cartOrder, cartTotalAmount, saveInfo, clearCart],
+		[state, cartOrder, cartTotalAmount, saveInfo, clearCart, navigate],
 	);
 
 	useEffect(() => {

@@ -68,12 +68,26 @@ export const CheckoutContainer = () => {
 		[state, cartOrder, cartTotalAmount, saveInfo, clearCart, navigate],
 	);
 
+	const handleFormOrder = async () => {
+		try {
+			await handleSubmit(produceOrder)();
+		} catch (error) {
+			// Handle any errors that occur during form submission
+			console.error('Error submitting form:', error);
+		}
+	};
+
 	useEffect(() => {
 		showMainButton();
 		setMainButtonText('Order');
 
-		const handleOrder = () => {
-			handleSubmit(produceOrder);
+		const handleOrder = async () => {
+			try {
+				await handleSubmit(produceOrder)();
+			} catch (error) {
+				// Handle any errors that occur during form submission
+				console.error('Error submitting form:', error);
+			}
 		};
 
 		handleMainButton(handleOrder);
@@ -93,7 +107,7 @@ export const CheckoutContainer = () => {
 				errors={errors}
 				loading={loading}
 				register={register}
-				onSubmit={produceOrder}
+				onSubmit={handleFormOrder}
 				errorState={errorState}
 				handleSubmit={handleSubmit}
 			/>

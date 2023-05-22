@@ -12,15 +12,15 @@ interface FormUIProps {
 	loading: boolean;
 	errorState: ErrorType;
 	errors: FieldErrors<UserData>;
-	onSubmit: (data: UserData) => void;
+	onSubmit: () => void;
 	register: UseFormRegister<UserData>;
 	handleSubmit: UseFormHandleSubmit<UserData>;
 }
 
-export const FormUI = ({ handleSubmit, register, errors, onSubmit, loading, errorState }: FormUIProps) => {
+export const FormUI = ({ register, errors, onSubmit, loading, errorState }: FormUIProps) => {
 	return (
 		<>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form>
 				<FormGroupTitle text={'Contacts'} />
 				<Input
 					fullWidth
@@ -87,7 +87,7 @@ export const FormUI = ({ handleSubmit, register, errors, onSubmit, loading, erro
 						text={'Order'}
 						loading={loading}
 						errorState={errorState}
-						handleClick={handleSubmit(onSubmit)}
+						handleClick={onSubmit}
 					/>
 				)}
 			</form>

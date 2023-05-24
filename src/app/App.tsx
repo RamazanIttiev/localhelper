@@ -15,7 +15,7 @@ export const TelegramTheme = Telegram.themeParams !== undefined ? Telegram.theme
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
-		<Route path="/" element={<Layout />} loader={loadAppData} id={'Layout'}>
+		<Route path="/" element={<Layout />} loader={loadAppData}>
 			<Route index element={<Categories />} />
 			<Route path=":categoryId" element={<Products />} />
 

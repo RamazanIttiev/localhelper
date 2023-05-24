@@ -1,17 +1,15 @@
 import { useCart } from './useCart';
-import { useParams, useRouteLoaderData } from 'react-router-dom';
+import { useOutletContext, useParams } from 'react-router-dom';
 import { AppData, RestaurantModel } from '../models/productModel';
 
 export const useRestaurant = () => {
-	const { appData } = useRouteLoaderData('Layout') as { appData: AppData };
 	const { cartProducts } = useCart();
-	const params = useParams();
+	const { restaurantId } = useParams();
+	const { restaurants } = useOutletContext<AppData>();
 
-	const restaurant: RestaurantModel | undefined = appData.resolvedRestaurants.find(
-		restaurant => restaurant.Title === params?.restaurantId,
-	);
+	const restaurant: RestaurantModel | undefined = restaurants.find(restaurant => restaurant.Title === restaurantId);
 
-	const cartRestaurant: RestaurantModel | undefined = appData.resolvedRestaurants.find(restaurant => {
+	const cartRestaurant: RestaurantModel | undefined = restaurants.find(restaurant => {
 		if (cartProducts[0]?.Restaurants !== undefined) {
 			return restaurant.Id === cartProducts[0].Restaurants[0];
 		}
@@ -19,7 +17,7 @@ export const useRestaurant = () => {
 
 	return {
 		restaurant,
+		restaurants,
 		cartRestaurant,
-		restaurants: appData.resolvedRestaurants,
 	};
 };

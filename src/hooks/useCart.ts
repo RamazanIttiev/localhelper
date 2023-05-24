@@ -1,7 +1,7 @@
-import { useLocalStorage } from 'usehooks-ts';
-import { hideMainButton, setHaptic } from '../actions/webApp-actions';
 import { useProducts } from './useProducts';
+import { useLocalStorage } from 'usehooks-ts';
 import { FoodModel, ProductModel } from '../models/productModel';
+import { hideMainButton, setHaptic } from '../actions/webApp-actions';
 import { addNewProductToCart, decrementProduct, getCartOrderString, incrementProductInCart } from '../utils/cart';
 
 export const useCart = () => {

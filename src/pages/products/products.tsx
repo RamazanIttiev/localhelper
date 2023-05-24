@@ -1,10 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useCart } from '../../hooks/useCart';
-import { Container, Grid } from '@mui/material';
-import { useReactRouter } from '../../hooks/useReactRouter';
-import { ProductContainer } from '../../components/product/product.container';
-import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { useNavigate } from 'react-router-dom';
+import { Container, Grid } from '@mui/material';
 import {
 	handleMainButton,
 	hideMainButton,
@@ -13,17 +10,20 @@ import {
 	showMainButton,
 } from '../../actions/webApp-actions';
 import { Header } from './header';
-import { ProductModel } from '../../models/productModel';
 import { useCategory } from '../../hooks/useCategory';
-import { LoaderButton } from '../../reactkit/loaderButton';
+import { ProductModel } from '../../models/productModel';
 import { useRestaurant } from '../../hooks/useRestaurant';
+import { LoaderButton } from '../../reactkit/loaderButton';
+import { useReactRouter } from '../../hooks/useReactRouter';
+import { isUserAgentTelegram } from '../../utils/deviceInfo';
+import { ProductContainer } from '../../components/product/product.container';
 
 export const Products = () => {
 	const navigate = useNavigate();
 	const { isRestaurantRoute } = useReactRouter();
 	const { restaurant } = useRestaurant();
+	const { flowId, category } = useCategory();
 	const { removeFromCart, addToCart, cartProducts, isCartEmpty } = useCart();
-	const { products, flowId, category } = useCategory();
 
 	const navigateToCart = useCallback(
 		() =>
@@ -55,7 +55,7 @@ export const Products = () => {
 		image: (category?.HeaderImage !== undefined && category?.HeaderImage[0]?.url) || restaurant?.Image[0]?.url,
 	};
 
-	const renderProducts = products?.length !== 0 ? products : restaurant?.Products;
+	const renderProducts = category?.Products?.length !== 0 ? category?.Products : restaurant?.Products;
 
 	return (
 		<>

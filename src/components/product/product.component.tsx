@@ -49,7 +49,11 @@ export const ProductComponent: FC<ProductProps> = ({
 					background: 'transparent',
 					justifyContent: 'space-between',
 				}}>
-				<Link to={product.title.toLowerCase()} state={{ ...product }} style={{ position: 'relative' }}>
+				<Link
+					key={product.id}
+					to={product.title.toLowerCase()}
+					state={{ ...product }}
+					style={{ position: 'relative' }}>
 					{product.image ? (
 						<>
 							<CardMedia
@@ -61,6 +65,7 @@ export const ProductComponent: FC<ProductProps> = ({
 							{product.infoBadges &&
 								product.infoBadges.map(icon => (
 									<InfoBadge
+										key={icon}
 										icon={icon}
 										containerStyles={{
 											position: 'absolute',

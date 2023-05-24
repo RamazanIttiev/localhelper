@@ -37,11 +37,11 @@ interface TransportModel {
 export type ProductModel = DefaultProductModel & FoodModel & RentModel & TransportModel;
 
 export interface CategoryModel {
+	Id: string;
 	Flow: string;
 	FlowId: string;
-	Id: string;
-	HeaderImage: { url: string }[];
 	HeaderTitle: string;
+	HeaderImage: { url: string }[];
 	Products: ProductModel[] | undefined;
 	Restaurants: RestaurantModel[] | undefined;
 }
@@ -49,21 +49,21 @@ export interface CategoryModel {
 export interface RestaurantModel {
 	Id: string;
 	Title: string;
-	Image: { url: string }[];
-	Category: string[];
-	Products: ProductModel[] | undefined;
-	OpenTime: string;
-	CloseTime: string;
-	Location: string;
 	Contact: string;
-	Coordinates: string;
-	WorkingStatus: string;
-	WorkingTime: string;
+	OpenTime: string;
+	Location: string;
+	CloseTime: string;
+	Category: string[];
 	IsWorking: boolean;
+	Coordinates: string;
+	WorkingTime: string;
+	WorkingStatus: string;
+	Image: { url: string }[];
+	Products: ProductModel[] | undefined;
 }
 
 export interface AppData {
-	resolvedCategories: CategoryModel[];
-	resolvedProducts: ProductModel[];
-	resolvedRestaurants: RestaurantModel[];
+	products: ProductModel[];
+	restaurants: RestaurantModel[];
+	categories: Omit<CategoryModel, 'Restaurants'>[];
 }

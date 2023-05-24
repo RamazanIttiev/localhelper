@@ -4,7 +4,7 @@ import { Container, Switch, useTheme } from '@mui/material';
 import { OrderInfo } from './components/orderInfo';
 import { SaveInfoField, SaveInfoWrapper } from './checkout.styled';
 import { ErrorType } from '../../models/error';
-import { clearResponseMessage, handleOrder, saveUserInfo } from '../../actions/global-actions';
+import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
 import { FormGroupTitle } from './components/formGroupTitle';
@@ -17,6 +17,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { CartList } from '../cart/cart-list';
 import { UserData } from '../../models/userModel';
+import { saveUserInfo } from '../../api/api';
 
 export const CheckoutContainer = () => {
 	const navigate = useNavigate();
@@ -57,7 +58,7 @@ export const CheckoutContainer = () => {
 				handleError,
 			).then(response => {
 				if (response?.ok) {
-					userData !== undefined && saveInfo && saveUserInfo(userData).catch(error => error);
+					userData !== undefined && saveInfo && saveUserInfo(userData);
 					setTimeout(() => {
 						clearCart();
 						navigate(-1);

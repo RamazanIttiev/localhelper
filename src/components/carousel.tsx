@@ -28,18 +28,18 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 					objectFit: 'cover',
 				}}
 			/>
-			{selectedProduct.infoBadges &&
-				selectedProduct.infoBadges.map(icon => (
-					<InfoBadge
-						icon={icon}
-						containerStyles={{
-							position: 'absolute',
-							top: '0.5rem',
-							left: '1.5rem',
-						}}
-						iconStyles={{ margin: '0 2px' }}
-					/>
-				))}
+			{selectedProduct.infoBadges?.map(icon => (
+				<InfoBadge
+					key={icon}
+					icon={icon}
+					containerStyles={{
+						position: 'absolute',
+						top: '0.5rem',
+						left: '1.5rem',
+					}}
+					iconStyles={{ margin: '0 2px' }}
+				/>
+			))}
 		</>
 	) : (
 		<Carousel
@@ -66,18 +66,18 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 								objectFit: 'cover',
 							}}
 						/>
-						{selectedProduct.infoBadges &&
-							selectedProduct.infoBadges.map(icon => (
-								<InfoBadge
-									icon={icon}
-									containerStyles={{
-										position: 'absolute',
-										top: '0.5rem',
-										left: '0.5rem',
-									}}
-									iconStyles={{ margin: '0 2px' }}
-								/>
-							))}
+						{selectedProduct.infoBadges?.map(icon => (
+							<InfoBadge
+								key={icon}
+								icon={icon}
+								containerStyles={{
+									position: 'absolute',
+									top: '0.5rem',
+									left: '0.5rem',
+								}}
+								iconStyles={{ margin: '0 2px' }}
+							/>
+						))}
 					</React.Fragment>
 				);
 			})}

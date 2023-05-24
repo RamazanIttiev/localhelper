@@ -10,6 +10,7 @@ import {
 } from '../actions/webApp-actions';
 import { ErrorPage } from '../pages/404/404';
 import { useDocumentTitle } from 'usehooks-ts';
+import { AppData } from '../models/productModel';
 import { useReactRouter } from '../hooks/useReactRouter';
 import { Categories } from '../pages/categories/categories';
 import { Await, Outlet, useLoaderData, useNavigate } from 'react-router-dom';
@@ -43,7 +44,7 @@ export const Layout = () => {
 				<Await
 					resolve={appData}
 					errorElement={<ErrorPage />}
-					children={appData => {
+					children={(appData: AppData) => {
 						return <Outlet context={appData} />;
 					}}
 				/>

@@ -1,35 +1,25 @@
 import React from 'react';
-import { Box, Icon, IconButton, Typography } from '@mui/material';
+import { Box, Icon, Typography } from '@mui/material';
 import { theme } from '../../theme';
-import { useLocation } from 'react-router-dom';
-import { WorkingStatus } from '../../components/reactkit/workingStatus';
+import { WorkingStatus } from '../../reactkit/workingStatus';
 import { useReactRouter } from '../../hooks/useReactRouter';
 
 interface HeaderProps {
 	image?: string;
 	title?: string;
-	location?: string;
-	workingTime?: string;
-	workingStatus?: string;
+	restaurantLocation?: string;
+	restaurantWorkingTime?: string;
+	restaurantWorkingStatus?: string;
 }
 
-export const Header = ({ image, title, workingTime, workingStatus, location }: HeaderProps) => {
-	const pathname = useLocation();
+export const Header = ({
+	image,
+	title,
+	restaurantLocation,
+	restaurantWorkingTime,
+	restaurantWorkingStatus,
+}: HeaderProps) => {
 	const { isRestaurantRoute } = useReactRouter();
-
-	const shareData = {
-		title: title,
-		text: 'Welcome to Localhelper',
-		url: `https://test.localhelper.ru${pathname}`,
-	};
-
-	const shareContent = async () => {
-		try {
-			await navigator.share(shareData);
-		} catch (error) {
-			console.log(error);
-		}
-	};
 
 	return (
 		<>
@@ -75,9 +65,12 @@ export const Header = ({ image, title, workingTime, workingStatus, location }: H
 							alignItems: 'baseline',
 							justifyContent: 'space-between',
 						}}>
-						{workingStatus && workingTime && (
+						{restaurantWorkingStatus && restaurantWorkingTime && (
 							<Box sx={{ marginBottom: '1rem' }}>
-								<WorkingStatus workingStatus={workingStatus} workingTime={workingTime} />
+								<WorkingStatus
+									workingStatus={restaurantWorkingStatus}
+									workingTime={restaurantWorkingTime}
+								/>
 							</Box>
 						)}
 						{location && (
@@ -90,20 +83,11 @@ export const Header = ({ image, title, workingTime, workingStatus, location }: H
 									location_on
 								</Icon>
 								<Typography component="p" variant={'body1'}>
-									{location}
+									{restaurantLocation}
 								</Typography>
 							</Box>
 						)}
 					</Box>
-				)}
-				{navigator.share !== undefined && (
-					<IconButton
-						size={'large'}
-						color={'inherit'}
-						sx={{ position: 'absolute', top: '1rem', right: '1rem' }}
-						onClick={shareContent}>
-						<Icon>ios_share</Icon>
-					</IconButton>
 				)}
 			</Box>
 		</>

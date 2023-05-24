@@ -2,17 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { setHaptic } from '../../actions/webApp-actions';
 import { RestaurantModel } from '../../models/productModel';
-import { WorkingStatus } from '../../components/reactkit/workingStatus';
+import { WorkingStatus } from '../../reactkit/workingStatus';
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import { useRestaurant } from '../../utils/restaurant';
 
 interface RestaurantsUIProps {
 	restaurant: RestaurantModel;
 }
 
 export const RestaurantsUI = ({ restaurant }: RestaurantsUIProps) => {
-	const { workingStatus, workingTime } = useRestaurant(restaurant);
-
 	return (
 		<Card
 			onClick={() => setHaptic('light')}
@@ -26,7 +23,7 @@ export const RestaurantsUI = ({ restaurant }: RestaurantsUIProps) => {
 				background: 'transparent',
 				justifyContent: 'space-between',
 			}}>
-			<Link to={`${restaurant.Title}`} style={{ position: 'relative' }}>
+			<Link to={`${restaurant.Title}`} state={{ restaurant }} style={{ position: 'relative' }}>
 				<CardMedia
 					component="img"
 					image={restaurant.Image[0].url}
@@ -58,12 +55,11 @@ export const RestaurantsUI = ({ restaurant }: RestaurantsUIProps) => {
 					</Typography>
 					<Box
 						sx={{
-							width: '9rem',
 							display: 'flex',
 							alignItems: 'center',
 							justifyContent: 'space-between',
 						}}>
-						<WorkingStatus workingStatus={workingStatus} workingTime={workingTime} />
+						<WorkingStatus workingStatus={restaurant.WorkingStatus} workingTime={restaurant.WorkingTime} />
 					</Box>
 				</CardContent>
 			</Link>

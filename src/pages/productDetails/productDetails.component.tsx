@@ -2,21 +2,21 @@ import React from 'react';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography, useTheme } from '@mui/material';
 import { MuiCarousel } from '../../components/carousel';
 import { AmountButtons } from '../../components/amountButtons';
-import { LoaderButton } from '../../components/reactkit/loaderButton';
+import { LoaderButton } from '../../reactkit/loaderButton';
 import { ProductModel } from '../../models/productModel';
 import { ErrorType } from '../../models/error';
 
-import dishImage from '../../assets/food.jpg';
+import dishImage from '../../assets/food.webp';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 
 interface ProductDetailsUIProps {
 	loading: boolean;
 	errorState: ErrorType;
-	isRestaurantOpened?: boolean;
+	isRestaurantWorking?: boolean;
 	productFromCart?: ProductModel;
 	amountButtonsVisible?: boolean;
 	selectedProduct?: ProductModel;
-	handleProductOrder: () => Promise<void>;
+	handleProductOrder: () => Promise<Response | undefined>;
 	addToCart: (selectedProduct: ProductModel) => void;
 	removeFromCart: (selectedProduct: ProductModel) => void;
 }
@@ -27,8 +27,8 @@ export const ProductDetailsUI = ({
 	productFromCart,
 	removeFromCart,
 	selectedProduct,
+	isRestaurantWorking,
 	handleProductOrder,
-	isRestaurantOpened = true,
 	amountButtonsVisible = false,
 }: ProductDetailsUIProps) => {
 	const theme = useTheme();
@@ -76,7 +76,7 @@ export const ProductDetailsUI = ({
 				</Box>
 			</CardContent>
 
-			{isRestaurantOpened ? (
+			{isRestaurantWorking === undefined || isRestaurantWorking ? (
 				<CardActions sx={{ flexDirection: 'column', p: 0 }}>
 					{amountButtonsVisible ? (
 						<AmountButtons
@@ -96,10 +96,11 @@ export const ProductDetailsUI = ({
 					) : (
 						!isUserAgentTelegram && (
 							<LoaderButton
+								isMainButton
 								loading={loading}
 								errorState={errorState}
-								text={`${selectedProduct?.price} Rs`}
 								handleClick={handleProductOrder}
+								text={`${selectedProduct?.price} Rs`}
 							/>
 						)
 					)}

@@ -1,8 +1,8 @@
 import { useLocalStorage } from 'usehooks-ts';
 import { hideMainButton, setHaptic } from '../actions/webApp-actions';
 import { useProducts } from './useProducts';
-import { ProductModel } from '../models/productModel';
-import { addNewProductToCart, decrementProduct, incrementProductInCart } from '../utils/cart';
+import { FoodModel, ProductModel } from '../models/productModel';
+import { addNewProductToCart, decrementProduct, getCartOrderString, incrementProductInCart } from '../utils/cart';
 
 export const useCart = () => {
 	const { checkProductInCart, isSameRestaurant } = useProducts();
@@ -43,6 +43,13 @@ export const useCart = () => {
 			return prevState.reduce((accumulator: [] | ProductModel[], product: ProductModel): ProductModel[] => {
 				if (product.id === selectedProduct.id) {
 					if (product.amount! === 1) {
+						if (cartProducts.length === 1) {
+							const answer = confirm('Do you want to clear your cart?');
+							if (answer) {
+								clearCart();
+								hideMainButton();
+							} else return [product];
+						}
 						return accumulator;
 					}
 					return decrementProduct(accumulator, product);
@@ -51,21 +58,33 @@ export const useCart = () => {
 				}
 			}, [] as ProductModel[]);
 		});
-
-		if (cartProducts.length === 1) {
-			const answer = confirm('Do you want to clear your cart?');
-			if (answer) {
-				clearCart();
-				hideMainButton();
-			}
-		}
 	};
 
+	const cartTotalAmount = cartProducts.reduce((previous, current): number => {
+		if (current.amount !== undefined) {
+			return previous + current.amount * current.price;
+		}
+		return current.price;
+	}, 0);
+
+	const orderItems = cartProducts.map(({ title, amount, price }, id) => {
+		return `${id + 1}. ${title} ${amount} x ${price}`;
+	});
+
+	const orderCheckout: FoodModel[] = cartProducts.map(({ title, amount, price, image, place, id, description }) => {
+		return { image, title, price, amount, place, id, description };
+	});
+
+	const cartOrder = getCartOrderString(orderItems);
+
 	return {
-		cartProducts,
-		addToCart,
-		removeFromCart,
+		cartOrder,
 		clearCart,
+		addToCart,
 		isCartEmpty,
+		cartProducts,
+		orderCheckout,
+		removeFromCart,
+		cartTotalAmount,
 	};
 };

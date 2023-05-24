@@ -4,12 +4,12 @@ import { useProducts } from '../../hooks/useProducts';
 import { ErrorType } from '../../models/error';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 import { ProductModel } from '../../models/productModel';
+import { useRestaurant } from '../../hooks/useRestaurant';
 
 interface ProductContainerProps {
 	flowId: string;
 	product: ProductModel;
 	cartProducts: ProductModel[];
-	isRestaurantOpened?: boolean;
 	amountButtonsVisible?: boolean;
 	removeFromCart: (product: ProductModel) => void;
 	addToCart: (selectedProduct: ProductModel) => void;
@@ -21,10 +21,10 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 	addToCart,
 	cartProducts,
 	removeFromCart,
-	isRestaurantOpened,
 	amountButtonsVisible,
 }) => {
 	const { getProductFromCart } = useProducts();
+	const { restaurant } = useRestaurant();
 
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -45,8 +45,8 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 			flowId,
 			{
 				itemName: product.title,
-				coordinates: product.coordinates !== undefined ? product.coordinates : undefined,
-				contactPlace: product.Contact !== undefined ? product.Contact : undefined,
+				placeNumber: product?.Contact,
+				placeCoordinates: product?.coordinates,
 			},
 			handleLoading,
 			handleError,
@@ -61,9 +61,9 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 			errorState={errorState}
 			removeFromCart={removeFromCart}
 			productFromCart={productFromCart}
-			isRestaurantOpened={isRestaurantOpened}
 			handleProductOrder={handleProductOrder}
 			amountButtonsVisible={amountButtonsVisible}
+			isRestaurantWorking={restaurant?.IsWorking}
 		/>
 	);
 };

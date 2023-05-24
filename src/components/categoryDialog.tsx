@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ErrorType } from '../models/error';
-import { LoaderButton } from './reactkit/loaderButton';
+import { LoaderButton } from '../reactkit/loaderButton';
 import { isUserAgentTelegram } from '../utils/deviceInfo';
 import { Box, Drawer, Typography, useTheme } from '@mui/material';
 import { clearResponseMessage, handleOrder } from '../actions/global-actions';
@@ -44,12 +44,14 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId }: 
 			setMainButtonText('Buy');
 			handleMainButton(handleProductOrder);
 		}
+	}, [isOpened, handleProductOrder]);
 
+	useEffect(() => {
 		return () => {
 			hideMainButton();
 			removeMainButtonEvent(handleProductOrder);
 		};
-	}, [isOpened, flowId, title, handleProductOrder]);
+	}, [handleProductOrder]);
 
 	return (
 		<Drawer anchor={'bottom'} onClose={handleClose} open={isOpened}>

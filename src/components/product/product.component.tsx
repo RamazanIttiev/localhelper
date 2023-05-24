@@ -3,22 +3,23 @@ import { Link } from 'react-router-dom';
 import { ErrorType } from '../../models/error';
 import { ImageBackdrop } from './imageBackdrop';
 import { AmountButtons } from '../amountButtons';
-import { InfoBadge } from '../reactkit/infoBadge';
-import { LoaderButton } from '../reactkit/loaderButton';
+import { InfoBadge } from '../../reactkit/infoBadge';
+import { LoaderButton } from '../../reactkit/loaderButton';
 import { ProductModel } from '../../models/productModel';
 import { setHaptic } from '../../actions/webApp-actions';
-import { Box, Card, CardActions, CardContent, CardMedia, Typography, useTheme } from '@mui/material';
+import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
-import dishImage from '../../assets/food.jpg';
+import dishImage from '../../assets/food.webp';
+import { theme } from '../../theme';
 
 interface ProductProps {
 	loading: boolean;
 	errorState: ErrorType;
 	product: ProductModel;
+	isRestaurantWorking?: boolean;
 	productFromCart?: ProductModel;
-	isRestaurantOpened?: boolean;
 	amountButtonsVisible?: boolean;
-	handleProductOrder: () => Promise<void>;
+	handleProductOrder: () => Promise<Response | undefined>;
 	removeFromCart: (product: ProductModel) => void;
 	addToCart: (selectedProduct: ProductModel) => void;
 }
@@ -31,11 +32,9 @@ export const ProductComponent: FC<ProductProps> = ({
 	removeFromCart,
 	productFromCart,
 	handleProductOrder,
-	isRestaurantOpened,
+	isRestaurantWorking,
 	amountButtonsVisible,
 }) => {
-	const theme = useTheme();
-
 	return (
 		<>
 			<Card
@@ -121,7 +120,7 @@ export const ProductComponent: FC<ProductProps> = ({
 						</Typography>
 					</CardContent>
 				</Link>
-				{isRestaurantOpened ? (
+				{isRestaurantWorking === undefined || isRestaurantWorking ? (
 					<CardActions
 						sx={{
 							p: 0,

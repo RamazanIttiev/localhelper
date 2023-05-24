@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useCart } from '../../hooks/useCart';
-import { Button, Container, Grid, Typography } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { ProductContainer } from '../../components/product/product.container';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
@@ -14,31 +14,29 @@ import {
 } from '../../actions/webApp-actions';
 import { Header } from './header';
 import { ProductModel } from '../../models/productModel';
-import { useRestaurant } from '../../utils/restaurant';
 import { useCategory } from '../../hooks/useCategory';
+import { LoaderButton } from '../../reactkit/loaderButton';
+import { useRestaurant } from '../../hooks/useRestaurant';
 
 export const Products = () => {
 	const navigate = useNavigate();
 	const { isRestaurantRoute } = useReactRouter();
-	const { products, flowId, category } = useCategory();
+	const { restaurant } = useRestaurant();
 	const { removeFromCart, addToCart, cartProducts, isCartEmpty } = useCart();
-	const { title, isWorking, coordinates, workingStatus, workingTime, location, headerImage, restaurantProducts } =
-		useRestaurant();
+	const { products, flowId, category } = useCategory();
 
 	const navigateToCart = useCallback(
 		() =>
-			navigate('/restaurants/food/shopping-cart', {
+			navigate('/shopping-cart', {
 				state: {
 					flowId,
-					restaurant: title,
-					coordinates: coordinates,
 				},
 			}),
-		[flowId, navigate, coordinates, title],
+		[navigate, flowId],
 	);
 
 	useEffect(() => {
-		if (isRestaurantRoute && !isCartEmpty) {
+		if (!isCartEmpty && isRestaurantRoute) {
 			showMainButton();
 			setMainButtonText('Order');
 			handleMainButton(navigateToCart);
@@ -50,19 +48,19 @@ export const Products = () => {
 	}, [isRestaurantRoute, isCartEmpty, navigateToCart]);
 
 	const renderHeader = {
-		location,
-		workingTime,
-		workingStatus,
-		title: category?.HeaderTitle || title,
-		image: (category?.HeaderImage !== undefined && category?.HeaderImage[0]?.url) || headerImage,
+		restaurantLocation: restaurant?.Location,
+		restaurantWorkingTime: restaurant?.WorkingTime,
+		restaurantWorkingStatus: restaurant?.WorkingStatus,
+		title: category?.HeaderTitle || restaurant?.Title,
+		image: (category?.HeaderImage !== undefined && category?.HeaderImage[0]?.url) || restaurant?.Image[0]?.url,
 	};
 
-	const renderProducts = products?.length !== 0 ? products : restaurantProducts;
+	const renderProducts = products?.length !== 0 ? products : restaurant?.Products;
 
 	return (
 		<>
 			<Header {...renderHeader} />
-			<Container sx={{ pt: 2 }} maxWidth={'sm'}>
+			<Container sx={{ pt: 2, pb: !isUserAgentTelegram ? '3rem' : null }} maxWidth={'sm'}>
 				<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
 					{renderProducts?.map((product: ProductModel) => {
 						return (
@@ -72,7 +70,6 @@ export const Products = () => {
 									product={product}
 									addToCart={addToCart}
 									cartProducts={cartProducts}
-									isRestaurantOpened={isWorking}
 									removeFromCart={removeFromCart}
 									amountButtonsVisible={isRestaurantRoute}
 								/>
@@ -81,26 +78,7 @@ export const Products = () => {
 					})}
 				</Grid>
 				{!isCartEmpty && isRestaurantRoute && !isUserAgentTelegram && (
-					<Button
-						sx={{
-							height: '36px',
-							left: '50%',
-							bottom: '1rem',
-							width: '50%',
-							position: 'fixed',
-							transform: 'translate(-50%)',
-						}}
-						variant={'contained'}
-						onClick={navigateToCart}>
-						<Typography
-							variant={'button'}
-							sx={{
-								fontWeight: '600',
-								letterSpacing: '0.1rem',
-							}}>
-							Order
-						</Typography>
-					</Button>
+					<LoaderButton isMainButton text={'Order'} handleClick={navigateToCart} />
 				)}
 			</Container>
 		</>

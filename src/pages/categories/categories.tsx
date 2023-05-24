@@ -5,9 +5,9 @@ import { CategoryModel } from './models/categories';
 import { Category } from '../../components/category';
 import { useReactRouter } from '../../hooks/useReactRouter';
 
-import bonus from '../../assets/bonus.jpg';
-import exchange from '../../assets/exchange.jpg';
-import transfer from '../../assets/transfer.jpg';
+import bonus from '../../assets/bonus.webp';
+import exchange from '../../assets/exchange.webp';
+import transfer from '../../assets/transfer.webp';
 
 export const Categories = () => {
 	const { pathname } = useReactRouter();

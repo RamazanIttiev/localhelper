@@ -1,4 +1,5 @@
 import { CategoryModel, ProductModel, RestaurantModel } from '../models/productModel';
+import { isWorkingHour } from './restaurant';
 
 export const mapCategoryData = (category: CategoryModel | undefined, products: ProductModel[]) => {
 	return {
@@ -24,8 +25,8 @@ export const mapCategoryData = (category: CategoryModel | undefined, products: P
 };
 
 export const mapCategories = (
-	categories: { fields: CategoryModel }[],
 	products: { fields: ProductModel }[],
+	categories: { fields: CategoryModel }[],
 	restaurants: { fields: RestaurantModel }[],
 ) => {
 	return categories.map(category => {
@@ -60,6 +61,22 @@ export const mapCategories = (
 			),
 		};
 	});
+};
+
+export const mapRestaurants = (products: { fields: ProductModel }[], restaurants: { fields: RestaurantModel }[]) => {
+	return mapRecords(restaurants).map(restaurant => ({
+		...restaurant,
+		Products: mapRecords(
+			products.filter(product => {
+				return product.fields.Restaurants !== undefined
+					? product.fields.Restaurants[0] === restaurant.Id
+					: null;
+			}),
+		) as ProductModel[],
+		WorkingTime: `${restaurant?.OpenTime} - ${restaurant?.CloseTime}`,
+		IsWorking: isWorkingHour(restaurant?.OpenTime, restaurant?.CloseTime),
+		WorkingStatus: isWorkingHour(restaurant?.OpenTime, restaurant?.CloseTime) ? 'Opened' : 'Closed',
+	}));
 };
 
 export const mapRecords = (records: any[]) => {

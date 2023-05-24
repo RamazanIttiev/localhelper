@@ -1,33 +1,30 @@
 import React from 'react';
-import { CartList } from './cart-list';
-import { ErrorType } from '../../models/error';
-import { Box } from '@mui/material';
-import { ProductModel } from '../../models/productModel';
-import { LoaderButton } from '../../components/reactkit/loaderButton';
 import { theme } from '../../theme';
+import { Box } from '@mui/material';
+import { CartList } from './cart-list';
 import { CartHeader } from './cartHeader';
+import { ProductModel } from '../../models/productModel';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
+import { LoaderButton } from '../../reactkit/loaderButton';
 
 interface CartProps {
-	loading: boolean;
-	errorState: ErrorType;
-	cartTotalAmount: number;
 	restaurantTitle?: string;
-	handleOrder: () => void;
+	restaurantWorkingTime?: string;
+	isRestaurantWorking?: boolean;
+	navigateToCheckout: () => void;
 	cartProducts: ProductModel[] | [];
 	addToCart: (product: ProductModel) => void;
 	removeFromCart: (product: ProductModel) => void;
 }
 
 export const CartUI = ({
-	loading,
 	addToCart,
-	errorState,
-	handleOrder,
 	cartProducts,
 	removeFromCart,
-	cartTotalAmount,
 	restaurantTitle,
+	navigateToCheckout,
+	isRestaurantWorking,
+	restaurantWorkingTime,
 }: CartProps) => {
 	return (
 		<>
@@ -44,12 +41,10 @@ export const CartUI = ({
 				}}>
 				{!isUserAgentTelegram && (
 					<LoaderButton
-						fullWidth
-						loading={loading}
-						errorState={errorState}
-						handleClick={handleOrder}
-						styles={{ marginTop: 2 }}
-						text={`${cartTotalAmount.toString()} Rs`}
+						isMainButton
+						disabled={!isRestaurantWorking}
+						handleClick={navigateToCheckout}
+						text={isRestaurantWorking ? 'Checkout' : `Working time - ${restaurantWorkingTime}`}
 					/>
 				)}
 			</Box>

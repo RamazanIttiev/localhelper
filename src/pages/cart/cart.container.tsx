@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { CartUI } from './cart.component';
 import { useCart } from '../../hooks/useCart';
 import {
@@ -7,64 +7,41 @@ import {
 	setMainButtonText,
 	showMainButton,
 } from '../../actions/webApp-actions';
-import { ErrorType } from '../../models/error';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { getCartOrderString } from '../../utils/cart';
-import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 import { Container } from '@mui/material';
-import { useRestaurant } from '../../utils/restaurant';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useRestaurant } from '../../hooks/useRestaurant';
+
+interface CartState {
+	state: { flowId: string };
+}
 
 export const CartContainer = () => {
-	const { title } = useRestaurant();
+	const { state }: CartState = useLocation();
 	const navigate = useNavigate();
-	const { state } = useLocation();
+	const { cartRestaurant } = useRestaurant();
 	const { addToCart, removeFromCart, cartProducts, isCartEmpty } = useCart();
 
-	const [loading, setLoading] = useState(false);
-	const [errorState, setErrorState] = useState<ErrorType>({
-		isError: null,
-	});
-	console.log(title);
-	useEffect(() => {
-		clearResponseMessage(errorState, handleError);
-	}, [errorState]);
-	const handleLoading = (value: boolean) => setLoading(value);
-	const handleError = (value: ErrorType) => setErrorState(value);
-
-	const orderItems = cartProducts.map(({ title, amount, price }, id) => {
-		return `${id + 1}. ${title} ${amount} x ${price}`;
-	});
-
-	const cartTotalAmount = cartProducts.reduce((previous, current): number => {
-		if (current.amount !== undefined) {
-			return previous + current.amount * current.price;
-		}
-		return current.price;
-	}, 0);
-
-	const cartOrder = getCartOrderString(orderItems);
-
-	const handleCartOrder = useCallback(() => {
-		return handleOrder(
-			state?.flowId,
-			{
-				order: cartOrder,
-				orderTotal: cartTotalAmount,
-				coordinates: state?.coordinates !== undefined ? state.coordinates : undefined,
+	const navigateToCheckout = useCallback(() => {
+		navigate('/checkout', {
+			state: {
+				...state,
+				placeTitle: cartRestaurant?.Title,
+				placeNumber: cartRestaurant?.Contact,
+				placeLocation: cartRestaurant?.Location,
+				placeCoordinates: cartRestaurant?.Coordinates,
 			},
-			handleLoading,
-			handleError,
-		);
-	}, [cartOrder, cartTotalAmount, state?.coordinates, state?.flowId]);
+		});
+	}, [navigate, state, cartRestaurant]);
 
 	useEffect(() => {
 		showMainButton();
-		handleMainButton(handleCartOrder);
+		setMainButtonText('Checkout');
+		handleMainButton(navigateToCheckout);
 
 		return () => {
-			removeMainButtonEvent(handleCartOrder);
+			removeMainButtonEvent(navigateToCheckout);
 		};
-	}, [handleCartOrder, navigate]);
+	}, [navigateToCheckout]);
 
 	useEffect(() => {
 		if (isCartEmpty) {
@@ -72,21 +49,16 @@ export const CartContainer = () => {
 		}
 	}, [isCartEmpty, navigate]);
 
-	useEffect(() => {
-		setMainButtonText(`${cartTotalAmount.toString()} Rs`);
-	}, [cartTotalAmount]);
-
 	return (
-		<Container maxWidth={'sm'}>
+		<Container maxWidth={'sm'} sx={{ pb: 5 }}>
 			<CartUI
-				loading={loading}
 				addToCart={addToCart}
-				errorState={errorState}
 				cartProducts={cartProducts}
-				handleOrder={handleCartOrder}
 				removeFromCart={removeFromCart}
-				cartTotalAmount={cartTotalAmount}
-				restaurantTitle={state?.restaurant !== undefined ? state.restaurant : undefined}
+				navigateToCheckout={navigateToCheckout}
+				restaurantTitle={cartRestaurant?.Title}
+				isRestaurantWorking={cartRestaurant?.IsWorking}
+				restaurantWorkingTime={cartRestaurant?.WorkingTime}
 			/>
 		</Container>
 	);

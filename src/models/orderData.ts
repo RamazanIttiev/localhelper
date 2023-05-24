@@ -1,12 +1,14 @@
 export interface CartOrderData {
 	order: string;
 	orderTotal: number;
-	coordinates?: string;
+	placeTitle?: string;
+	placeLocation?: string;
+	placeCoordinates?: string;
 }
 
 export interface SingleOrderData {
 	itemName: string;
-
-	contactPlace?: string;
-	coordinates?: string;
+	placeNumber?: string;
+	placeLocation?: string;
+	placeCoordinates?: string;
 }

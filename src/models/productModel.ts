@@ -16,6 +16,7 @@ export interface FoodModel extends DefaultProductModel {
 	amount?: number;
 	location?: string;
 	vegetarian?: string;
+	Restaurants?: string[];
 }
 
 export interface RentModel extends DefaultProductModel {
@@ -56,9 +57,13 @@ export interface RestaurantModel {
 	Location: string;
 	Contact: string;
 	Coordinates: string;
+	WorkingStatus: string;
+	WorkingTime: string;
+	IsWorking: boolean;
 }
 
 export interface AppData {
 	resolvedCategories: CategoryModel[];
 	resolvedProducts: ProductModel[];
+	resolvedRestaurants: RestaurantModel[];
 }

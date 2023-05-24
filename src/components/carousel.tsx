@@ -4,7 +4,7 @@ import { ProductModel } from '../models/productModel';
 import Carousel from 'react-material-ui-carousel';
 import { isUserAgentTelegram } from '../utils/deviceInfo';
 import { isDesktop } from 'react-device-detect';
-import { InfoBadge } from './reactkit/infoBadge';
+import { InfoBadge } from '../reactkit/infoBadge';
 
 interface CarouselProps {
 	selectedProduct: ProductModel;

@@ -19,20 +19,6 @@ export const Layout = () => {
 	const { pathname } = useReactRouter();
 	const { appData } = useLoaderData() as any;
 
-	// till new locations are added
-
-	// const [geolocation, setGeolocation] = useState();
-
-	// const fetchData = useCallback(async () => {
-	// 	const data = await getGeolocation();
-	//
-	// 	setGeolocation(data);
-	// }, []);
-	//
-	// useEffect(() => {
-	// 	pathname === '/' && fetchData().catch(console.error);
-	// }, [pathname, fetchData]);
-
 	useDocumentTitle('LocalHelper');
 
 	useEffect(() => {

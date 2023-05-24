@@ -19,6 +19,7 @@
     "react": "^18.2.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
     "typescript": "^4.4.2",
@@ -27,10 +28,11 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
-    "@types/react-lottie": "^1.2.6",
+    "@types/crypto-js": "^4.1.1",
     "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
+    "crypto-js": "^4.1.1",
     "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react-app": "^6.0.0",
@@ -42,13 +44,13 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "2.1.1",
     "prop-types": "^15.8.1",
-    "react-lottie": "^1.2.3",
     "react-material-ui-carousel": "^3.4.2",
     "telegram-webapps-types": "^1.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "BUILD_PATH='./public_html' react-scripts build",
+    "build": "react-scripts build",
+    "build_deploy": "BUILD_PATH='./public_html' react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

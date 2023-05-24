@@ -1,15 +1,15 @@
 import React, { CSSProperties, FC } from 'react';
-import { ProductModel } from '../models/productModel';
+import { FoodModel } from '../models/productModel';
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
 
 interface AmountButtonsProps {
 	showText?: boolean;
-	product?: ProductModel;
+	product?: FoodModel;
 	styles?: CSSProperties;
 	amountText?: string | number;
-	productFromCart?: ProductModel;
-	addToCart: (product: ProductModel) => void;
-	removeFromCart: (product: ProductModel) => void;
+	productFromCart?: FoodModel;
+	addToCart: (product: FoodModel) => void;
+	removeFromCart: (product: FoodModel) => void;
 }
 
 export const AmountButtons: FC<AmountButtonsProps> = ({

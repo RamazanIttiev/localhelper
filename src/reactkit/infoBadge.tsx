@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Icon, useTheme } from '@mui/material';
-import { mapInfoBadges } from '../../utils/mappers';
+import { mapInfoBadges } from '../utils/mappers';
 
 interface InfoBadgeProps {
 	icon: string;

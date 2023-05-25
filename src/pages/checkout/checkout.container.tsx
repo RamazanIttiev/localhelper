@@ -16,8 +16,9 @@ import {
 } from '../../actions/webApp-actions';
 import { useForm } from 'react-hook-form';
 import { CartList } from '../cart/cart-list';
-import { UserData } from '../../models/userModel';
-import { saveUserInfo } from '../../api/api';
+import { UserData, UserDB } from '../../models/userModel';
+import { fetchUser, saveUserInfo } from '../../api/api';
+import { isUserAgentTelegram } from '../../utils/deviceInfo';
 
 export const CheckoutContainer = () => {
 	const navigate = useNavigate();
@@ -31,6 +32,7 @@ export const CheckoutContainer = () => {
 		formState: { errors },
 	} = useForm<UserData>();
 
+	const [user, setUser] = useState<UserDB | undefined>();
 	const [loading, setLoading] = useState(false);
 	const [saveInfo, setSaveInfo] = useState(true);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -40,6 +42,19 @@ export const CheckoutContainer = () => {
 	const handleSaveInfo = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSaveInfo(event.target.checked);
 	};
+
+	useEffect(() => {
+		const fetchUserData = async () => {
+			try {
+				const user = await fetchUser();
+				setUser(user);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+
+		fetchUserData().catch(error => error);
+	}, []);
 
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
@@ -58,7 +73,7 @@ export const CheckoutContainer = () => {
 				handleError,
 			).then(response => {
 				if (response?.ok) {
-					userData !== undefined && saveInfo && saveUserInfo(userData);
+					userData !== undefined && saveInfo && !user && saveUserInfo(userData);
 					setTimeout(() => {
 						clearCart();
 						navigate(-1);
@@ -66,7 +81,7 @@ export const CheckoutContainer = () => {
 				}
 			});
 		},
-		[state, cartOrder, cartTotalAmount, saveInfo, clearCart, navigate],
+		[state, cartOrder, cartTotalAmount, saveInfo, user, clearCart, navigate],
 	);
 
 	const handleFormOrder = async () => {
@@ -112,21 +127,26 @@ export const CheckoutContainer = () => {
 				errorState={errorState}
 				handleSubmit={handleSubmit}
 			/>
-			<SaveInfoWrapper>
-				<SaveInfoField
-					control={
-						<Switch
-							checked={saveInfo}
-							onChange={handleSaveInfo}
-							sx={{ color: theme.palette.primary.main }}
-							inputProps={{ 'aria-label': 'controlled' }}
-						/>
-					}
-					labelPlacement={'start'}
-					label="Save info"
-				/>
-				<FormGroupTitle styles={{ marginTop: '0.5rem' }} text={'Save contact information for future orders'} />
-			</SaveInfoWrapper>
+			{isUserAgentTelegram && (
+				<SaveInfoWrapper>
+					<SaveInfoField
+						control={
+							<Switch
+								checked={saveInfo}
+								onChange={handleSaveInfo}
+								sx={{ color: theme.palette.primary.main }}
+								inputProps={{ 'aria-label': 'controlled' }}
+							/>
+						}
+						labelPlacement={'start'}
+						label="Save info"
+					/>
+					<FormGroupTitle
+						styles={{ marginTop: '0.5rem' }}
+						text={'Save contact information for future orders'}
+					/>
+				</SaveInfoWrapper>
+			)}
 
 			<FormGroupTitle
 				styles={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}

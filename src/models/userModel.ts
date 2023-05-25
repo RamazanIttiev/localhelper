@@ -4,3 +4,11 @@ export interface UserData {
 	userHotel: string;
 	userAddress: string;
 }
+
+export interface UserDB {
+	Id: string;
+	Name: string;
+	Phone: string;
+	Hotel: string;
+	Address: string;
+}

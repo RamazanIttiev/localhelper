@@ -1,9 +1,20 @@
-import { UserData } from '../models/userModel';
+import { Telegram } from '../app/App';
+import { UserData, UserDB } from '../models/userModel';
 import { AppData, ProductModel } from '../models/productModel';
 import { mapCategories, mapRecords, mapRestaurants } from '../utils/mappers';
 
 type Tables = 'Products' | 'Categories' | 'Restaurants';
 type METHODS = 'GET' | 'POST' | 'DELETE';
+
+interface SendData {
+	range: number[];
+	scope: unknown;
+	variables: { order: string; itemName?: undefined } | { itemName: string; order?: undefined } | undefined;
+}
+
+const findUser = (users: UserDB[]) => {
+	return users.find(user => user.Id === Telegram.initDataUnsafe.user?.id.toString());
+};
 
 const getTableName = (table: Tables) => {
 	switch (table) {
@@ -36,6 +47,40 @@ const apiRequest = async (url: string, method: METHODS, headers: Record<string, 
 	}
 };
 
+const sendWebAppMessage = async (text: string) => {
+	const url = process.env.REACT_APP_PROD_SERVER_URL || '';
+	const headers = {};
+	const body = {
+		message: text,
+		queryId: Telegram.initDataUnsafe.query_id,
+	};
+
+	return await apiRequest(url, 'POST', headers, body);
+};
+
+export const sendWebAppDeepLink = async (
+	identifier: string,
+	order: { order: string; itemName?: undefined } | { itemName: string; order?: undefined } | undefined,
+) => {
+	const url = process.env.REACT_APP_SMARTSENDER_URL || '';
+	const headers = {
+		'Content-type': 'application/json',
+		'X-Requested-With': 'XMLHttpRequest',
+	};
+
+	const body: SendData = {
+		range: [],
+		scope: {},
+		variables: order,
+	};
+
+	return await apiRequest(url, 'POST', headers, body).then(store => {
+		// eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+		const encodedIdentifier = btoa(atob(identifier) + '|' + store.id).replace(/=/g, '');
+		return sendWebAppMessage('/start ' + encodedIdentifier);
+	});
+};
+
 export const fetchAirtableData = async (table: Tables) => {
 	const url = getTableName(table);
 
@@ -60,9 +105,21 @@ export const resolveAppData = async (): Promise<AppData> => {
 	};
 };
 
+export const fetchUser = async () => {
+	const url = process.env.REACT_APP_POST_USERS_URL || '';
+
+	const headers = {
+		Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_PRIVATE_KEY}` || '',
+	};
+
+	const resolvedUsers = await apiRequest(url, 'GET', headers);
+
+	return findUser(mapRecords(resolvedUsers.records));
+};
+
 export const saveUserInfo = async (userData: UserData) => {
 	const { userAddress, userName, userHotel, userPhone } = userData;
-	const url = process.env.REACT_APP_USERS_URL || '';
+	const url = process.env.REACT_APP_POST_USERS_URL || '';
 
 	const headers = {
 		'Content-Type': 'application/json',
@@ -75,6 +132,7 @@ export const saveUserInfo = async (userData: UserData) => {
 			Hotel: userHotel,
 			Phone: userPhone,
 			Address: userAddress,
+			Id: Telegram.initDataUnsafe.user?.id.toString(),
 		},
 	};
 

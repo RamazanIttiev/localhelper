@@ -1,6 +1,6 @@
 import { ErrorType } from '../models/error';
 import { setHaptic } from './webApp-actions';
-import { sendWebAppDeepLink } from '../utils/requests';
+import { sendWebAppDeepLink } from '../api/api';
 import { CartOrderData, SingleOrderData } from '../models/orderData';
 
 export const handleOrder = async (
@@ -12,7 +12,7 @@ export const handleOrder = async (
 	setHaptic('light');
 	handleLoading(true);
 	try {
-		const result = await sendWebAppDeepLink(flowId, 'lhelper', order);
+		const result = await sendWebAppDeepLink(flowId, order);
 		if (result.ok) {
 			handleLoading(false);
 			handleError({ isError: false });

@@ -24,7 +24,7 @@ export const CheckoutContainer = () => {
 	const navigate = useNavigate();
 	const { state } = useLocation();
 	const theme = useTheme();
-	const { cartTotalAmount, cartOrder, clearCart, orderCheckout } = useCart();
+	const { cartTotalAmount, cartOrder, clearCart } = useCart();
 
 	const {
 		register,
@@ -152,7 +152,7 @@ export const CheckoutContainer = () => {
 				styles={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}
 				text={`Your order from ${state?.placeTitle}`}
 			/>
-			<CartList cartProducts={orderCheckout} />
+			<CartList />
 			<OrderInfo orderTotal={cartTotalAmount} />
 		</Container>
 	);

@@ -1,18 +1,15 @@
 import React from 'react';
-import { Box, List, ListItem, Typography } from '@mui/material';
-import { AmountButtons } from '../../components/amountButtons';
+import { useCart } from '../../hooks/useCart';
 import { FoodModel } from '../../models/productModel';
+import { AmountButtons } from '../../components/amountButtons';
+import { Box, List, ListItem, Typography } from '@mui/material';
 
-interface CartListProps {
-	cartProducts: FoodModel[];
-	addToCart?: (product: FoodModel) => void;
-	removeFromCart?: (product: FoodModel) => void;
-}
+export const CartList = () => {
+	const { cartProducts } = useCart();
 
-export const CartList = ({ cartProducts, addToCart, removeFromCart }: CartListProps) => {
 	return (
 		<List>
-			{cartProducts.map(product => {
+			{cartProducts.map((product: FoodModel) => {
 				return (
 					<React.Fragment key={product.id}>
 						<ListItem disableGutters>
@@ -42,16 +39,12 @@ export const CartList = ({ cartProducts, addToCart, removeFromCart }: CartListPr
 									{product.price} Rs
 								</Typography>
 							</Box>
-							{addToCart && removeFromCart && (
-								<AmountButtons
-									showText={false}
-									product={product}
-									addToCart={addToCart}
-									productFromCart={product}
-									amountText={product?.amount}
-									removeFromCart={removeFromCart}
-								/>
-							)}
+							<AmountButtons
+								showText={false}
+								product={product}
+								productFromCart={product}
+								amountText={product?.amount}
+							/>
 						</ListItem>
 					</React.Fragment>
 				);

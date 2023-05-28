@@ -1,33 +1,23 @@
 import React from 'react';
-import { Box, Icon, useTheme } from '@mui/material';
-import { mapInfoBadges } from '../utils/mappers';
+import { Typography, useTheme } from '@mui/material';
 
 interface InfoBadgeProps {
-	icon: string;
-	containerStyles?: React.CSSProperties;
-	iconStyles?: React.CSSProperties;
+	text: string;
 }
-export const InfoBadge = ({ containerStyles, iconStyles, icon }: InfoBadgeProps) => {
+
+export const InfoBadge = ({ text }: InfoBadgeProps) => {
 	const theme = useTheme();
 
 	return (
-		<Box sx={containerStyles}>
-			<Icon
-				key={icon}
-				sx={{
-					display: 'flex',
-					width: '1.5rem',
-					height: '1.5rem',
-					fontSize: '1rem',
-					alignItems: 'center',
-					borderRadius: '0.5rem',
-					justifyContent: 'center',
-					background: theme.palette.background.default,
-					...iconStyles,
-				}}
-				color={'info'}>
-				{mapInfoBadges(icon)}
-			</Icon>
-		</Box>
+		<Typography
+			variant="body2"
+			sx={{
+				padding: '0.5rem',
+				width: 'fit-content',
+				borderRadius: '1rem',
+				background: theme.palette.background.paper,
+			}}>
+			{text}
+		</Typography>
 	);
 };

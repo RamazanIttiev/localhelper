@@ -17,9 +17,9 @@ interface CartState {
 
 export const CartContainer = () => {
 	const { state }: CartState = useLocation();
+	const { isCartEmpty } = useCart();
 	const navigate = useNavigate();
 	const { cartRestaurant } = useRestaurant();
-	const { addToCart, removeFromCart, cartProducts, isCartEmpty } = useCart();
 
 	const navigateToCheckout = useCallback(() => {
 		navigate('/checkout', {
@@ -52,9 +52,6 @@ export const CartContainer = () => {
 	return (
 		<Container maxWidth={'sm'} sx={{ pb: 5 }}>
 			<CartUI
-				addToCart={addToCart}
-				cartProducts={cartProducts}
-				removeFromCart={removeFromCart}
 				navigateToCheckout={navigateToCheckout}
 				restaurantTitle={cartRestaurant?.Title}
 				isRestaurantWorking={cartRestaurant?.IsWorking}

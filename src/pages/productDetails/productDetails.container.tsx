@@ -24,9 +24,9 @@ export const ProductDetailsContainer = () => {
 
 	const { flowId } = useCategory();
 	const { getProductFromCart } = useProducts();
-	const { restaurant } = useRestaurant();
+	const { cartProducts } = useCart();
 	const { isRestaurantDetailsRoute } = useReactRouter();
-	const { cartProducts, addToCart, removeFromCart } = useCart();
+	const { restaurant } = useRestaurant();
 
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -76,10 +76,8 @@ export const ProductDetailsContainer = () => {
 		<Container sx={{ pt: 2, pb: 2, px: 6 }} maxWidth={'sm'}>
 			<ProductDetailsUI
 				loading={loading}
-				addToCart={addToCart}
 				errorState={errorState}
 				selectedProduct={product}
-				removeFromCart={removeFromCart}
 				productFromCart={productFromCart}
 				handleProductOrder={handleProductOrder}
 				isRestaurantWorking={restaurant?.IsWorking}

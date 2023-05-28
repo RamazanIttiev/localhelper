@@ -9,21 +9,21 @@ import {
 	setMainButtonText,
 	showMainButton,
 } from '../../actions/webApp-actions';
-import { Header } from './header';
+import { ProductsHeader } from './productsHeader';
 import { useCategory } from '../../hooks/useCategory';
-import { ProductModel } from '../../models/productModel';
 import { useRestaurant } from '../../hooks/useRestaurant';
+import { ProductModel } from '../../models/productModel';
 import { LoaderButton } from '../../reactkit/loaderButton';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { ProductContainer } from '../../components/product/product.container';
 
 export const Products = () => {
+	const { isCartEmpty } = useCart();
 	const navigate = useNavigate();
 	const { isRestaurantRoute } = useReactRouter();
 	const { restaurant } = useRestaurant();
 	const { flowId, category } = useCategory();
-	const { removeFromCart, addToCart, cartProducts, isCartEmpty } = useCart();
 
 	const navigateToCart = useCallback(
 		() =>
@@ -47,19 +47,11 @@ export const Products = () => {
 		};
 	}, [isRestaurantRoute, isCartEmpty, navigateToCart]);
 
-	const renderHeader = {
-		restaurantLocation: restaurant?.Location,
-		restaurantWorkingTime: restaurant?.WorkingTime,
-		restaurantWorkingStatus: restaurant?.WorkingStatus,
-		title: category?.HeaderTitle || restaurant?.Title,
-		image: (category?.HeaderImage !== undefined && category?.HeaderImage[0]?.url) || restaurant?.Image[0]?.url,
-	};
-
 	const renderProducts = category?.Products?.length !== 0 ? category?.Products : restaurant?.Products;
 
 	return (
 		<>
-			<Header {...renderHeader} />
+			<ProductsHeader restaurant={restaurant} category={category} />
 			<Container sx={{ pt: 2, pb: !isUserAgentTelegram ? '3rem' : null }} maxWidth={'sm'}>
 				<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
 					{renderProducts?.map((product: ProductModel) => {
@@ -68,9 +60,6 @@ export const Products = () => {
 								<ProductContainer
 									flowId={flowId}
 									product={product}
-									addToCart={addToCart}
-									cartProducts={cartProducts}
-									removeFromCart={removeFromCart}
 									amountButtonsVisible={isRestaurantRoute}
 								/>
 							</Grid>

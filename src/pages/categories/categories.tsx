@@ -1,13 +1,17 @@
 import React from 'react';
-import { Container, Grid } from '@mui/material';
 import { categories } from './mock/categories';
-import { CategoryModel } from './models/categories';
+import { Container, Grid } from '@mui/material';
 import { Category } from '../../components/category';
 import { useReactRouter } from '../../hooks/useReactRouter';
 
 import bonus from '../../assets/bonus.webp';
 import exchange from '../../assets/exchange.webp';
 import transfer from '../../assets/transfer.webp';
+
+interface CategoryModel {
+	title: string;
+	image: string;
+}
 
 export const Categories = () => {
 	const { pathname } = useReactRouter();

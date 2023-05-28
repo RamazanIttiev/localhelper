@@ -1,13 +1,13 @@
-import { ProductModel } from '../models/productModel';
+import { FoodModel } from '../models/productModel';
 
 export const useProducts = () => {
-	const getProductFromCart = (cartProducts: ProductModel[], selectedProduct: ProductModel | undefined) =>
+	const getProductFromCart = (cartProducts: FoodModel[], selectedProduct: FoodModel | undefined) =>
 		cartProducts.find(product => product.id === selectedProduct?.id);
 
-	const checkProductInCart = (cartProducts: ProductModel[], selectedProduct: ProductModel | undefined) =>
+	const checkProductInCart = (cartProducts: FoodModel[], selectedProduct: FoodModel | undefined) =>
 		Boolean(getProductFromCart(cartProducts, selectedProduct));
 
-	const isSameRestaurant = (cartProducts: ProductModel[], selectedProduct: ProductModel | undefined) => {
+	const isSameRestaurant = (cartProducts: FoodModel[], selectedProduct: FoodModel | undefined) => {
 		if (cartProducts.length === 0) return true;
 
 		return cartProducts.some(product => {

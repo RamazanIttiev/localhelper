@@ -3,12 +3,14 @@ export interface DefaultProductModel {
 	title: string;
 	place: string;
 	price: number;
+	Contact?: string;
 	tableName?: string;
 	description: string;
-	image: { url: string; alt: string }[];
-	infoBadges?: string[];
 	Category?: string[];
+	coordinates?: string;
+	infoBadges?: string[];
 	Restaurants?: string[];
+	image: { url: string; alt: string }[];
 }
 
 export interface FoodModel extends DefaultProductModel {
@@ -16,7 +18,6 @@ export interface FoodModel extends DefaultProductModel {
 	amount?: number;
 	location?: string;
 	vegetarian?: string;
-	Restaurants?: string[];
 }
 
 export interface RentModel extends DefaultProductModel {
@@ -24,17 +25,10 @@ export interface RentModel extends DefaultProductModel {
 	ac?: boolean;
 	wifi?: boolean;
 	pool?: boolean;
-	coordinates?: string;
 	breakfast?: boolean;
-	Contact?: string;
 }
 
-interface TransportModel {
-	coordinates?: string;
-	Contact?: string;
-}
-
-export type ProductModel = DefaultProductModel & FoodModel & RentModel & TransportModel;
+export type ProductModel = FoodModel | RentModel;
 
 export interface CategoryModel {
 	Id: string;

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box, useTheme } from '@mui/material';
-import { ProductModel } from '../models/productModel';
-import Carousel from 'react-material-ui-carousel';
-import { isUserAgentTelegram } from '../utils/deviceInfo';
 import { isDesktop } from 'react-device-detect';
-import { InfoBadge } from '../reactkit/infoBadge';
+import Carousel from 'react-material-ui-carousel';
+import { IconBadge } from '../reactkit/iconBadge';
+import { ProductModel } from '../models/productModel';
+import { isUserAgentTelegram } from '../utils/deviceInfo';
 
 interface CarouselProps {
 	selectedProduct: ProductModel;
@@ -29,7 +29,7 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 				}}
 			/>
 			{selectedProduct.infoBadges?.map(icon => (
-				<InfoBadge
+				<IconBadge
 					key={icon}
 					icon={icon}
 					containerStyles={{
@@ -67,7 +67,7 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 							}}
 						/>
 						{selectedProduct.infoBadges?.map(icon => (
-							<InfoBadge
+							<IconBadge
 								key={icon}
 								icon={icon}
 								containerStyles={{

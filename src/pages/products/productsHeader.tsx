@@ -1,25 +1,22 @@
 import React from 'react';
-import { Box, Icon, Typography } from '@mui/material';
 import { theme } from '../../theme';
+import { Box, Icon, Typography } from '@mui/material';
 import { WorkingStatus } from '../../reactkit/workingStatus';
 import { useReactRouter } from '../../hooks/useReactRouter';
+import { CategoryModel, RestaurantModel } from '../../models/productModel';
 
 interface HeaderProps {
-	image?: string;
-	title?: string;
-	restaurantLocation?: string;
-	restaurantWorkingTime?: string;
-	restaurantWorkingStatus?: string;
+	category: Pick<CategoryModel, 'HeaderTitle' | 'HeaderImage'> | undefined;
+	restaurant: Pick<RestaurantModel, 'WorkingTime' | 'WorkingStatus' | 'Image' | 'Location' | 'Title'> | undefined;
 }
 
-export const Header = ({
-	image,
-	title,
-	restaurantLocation,
-	restaurantWorkingTime,
-	restaurantWorkingStatus,
-}: HeaderProps) => {
+export const ProductsHeader = ({ restaurant, category }: HeaderProps) => {
 	const { isRestaurantRoute } = useReactRouter();
+
+	const { image, title } = {
+		title: category?.HeaderTitle || restaurant?.Title,
+		image: (category?.HeaderImage !== undefined && category?.HeaderImage[0]?.url) || restaurant?.Image[0]?.url,
+	};
 
 	return (
 		<>
@@ -56,7 +53,7 @@ export const Header = ({
 				<Typography variant={'body1'} fontSize={'2rem'}>
 					{title}
 				</Typography>
-				{isRestaurantRoute && (
+				{isRestaurantRoute && restaurant && (
 					<Box
 						sx={{
 							width: '9rem',
@@ -65,28 +62,24 @@ export const Header = ({
 							alignItems: 'baseline',
 							justifyContent: 'space-between',
 						}}>
-						{restaurantWorkingStatus && restaurantWorkingTime && (
-							<Box sx={{ marginBottom: '1rem' }}>
-								<WorkingStatus
-									workingStatus={restaurantWorkingStatus}
-									workingTime={restaurantWorkingTime}
-								/>
-							</Box>
-						)}
-						{location && (
-							<Box sx={{ display: 'flex', alignItems: 'baseline' }}>
-								<Icon
-									fontSize={'small'}
-									sx={{
-										marginRight: '0.2rem',
-									}}>
-									location_on
-								</Icon>
-								<Typography component="p" variant={'body1'}>
-									{restaurantLocation}
-								</Typography>
-							</Box>
-						)}
+						<Box sx={{ marginBottom: '1rem' }}>
+							<WorkingStatus
+								workingStatus={restaurant?.WorkingStatus}
+								workingTime={restaurant?.WorkingTime}
+							/>
+						</Box>
+						<Box sx={{ display: 'flex', alignItems: 'baseline' }}>
+							<Icon
+								fontSize={'small'}
+								sx={{
+									marginRight: '0.2rem',
+								}}>
+								location_on
+							</Icon>
+							<Typography component="p" variant={'body1'}>
+								{restaurant?.Location}
+							</Typography>
+						</Box>
 					</Box>
 				)}
 			</Box>

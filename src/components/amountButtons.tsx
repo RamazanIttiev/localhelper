@@ -1,4 +1,5 @@
 import React, { CSSProperties, FC } from 'react';
+import { useCart } from '../hooks/useCart';
 import { FoodModel } from '../models/productModel';
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
 
@@ -6,22 +7,19 @@ interface AmountButtonsProps {
 	showText?: boolean;
 	product?: FoodModel;
 	styles?: CSSProperties;
-	amountText?: string | number;
 	productFromCart?: FoodModel;
-	addToCart: (product: FoodModel) => void;
-	removeFromCart: (product: FoodModel) => void;
+	amountText?: string | number;
 }
 
 export const AmountButtons: FC<AmountButtonsProps> = ({
 	styles,
 	product,
-	addToCart,
-	removeFromCart,
 	productFromCart,
 	amountText,
 	showText = true,
 }) => {
 	const theme = useTheme();
+	const { addToCart, removeFromCart } = useCart();
 
 	return (
 		<Box

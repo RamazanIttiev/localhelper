@@ -1,29 +1,21 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { ProductComponent } from './product.component';
-import { useProducts } from '../../hooks/useProducts';
+import { useCart } from '../../hooks/useCart';
 import { ErrorType } from '../../models/error';
-import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
+import { useProducts } from '../../hooks/useProducts';
+import { ProductComponent } from './product.component';
 import { ProductModel } from '../../models/productModel';
 import { useRestaurant } from '../../hooks/useRestaurant';
+import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 
 interface ProductContainerProps {
 	flowId: string;
 	product: ProductModel;
-	cartProducts: ProductModel[];
 	amountButtonsVisible?: boolean;
-	removeFromCart: (product: ProductModel) => void;
-	addToCart: (selectedProduct: ProductModel) => void;
 }
 
-export const ProductContainer: FC<ProductContainerProps> = ({
-	flowId,
-	product,
-	addToCart,
-	cartProducts,
-	removeFromCart,
-	amountButtonsVisible,
-}) => {
+export const ProductContainer: FC<ProductContainerProps> = ({ flowId, product, amountButtonsVisible }) => {
 	const { getProductFromCart } = useProducts();
+	const { cartProducts } = useCart();
 	const { restaurant } = useRestaurant();
 
 	const [loading, setLoading] = useState(false);
@@ -35,10 +27,10 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 		clearResponseMessage(errorState, handleError);
 	}, [errorState]);
 
-	const productFromCart = getProductFromCart(cartProducts, product);
-
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
+
+	const productFromCart = getProductFromCart(cartProducts, product);
 
 	const handleProductOrder = useCallback(() => {
 		return handleOrder(
@@ -51,15 +43,13 @@ export const ProductContainer: FC<ProductContainerProps> = ({
 			handleLoading,
 			handleError,
 		);
-	}, [flowId, product.title, product.coordinates, product.Contact]);
+	}, [flowId, product?.title, product?.coordinates, product?.Contact]);
 
 	return (
 		<ProductComponent
 			product={product}
 			loading={loading}
-			addToCart={addToCart}
 			errorState={errorState}
-			removeFromCart={removeFromCart}
 			productFromCart={productFromCart}
 			handleProductOrder={handleProductOrder}
 			amountButtonsVisible={amountButtonsVisible}

@@ -4,32 +4,28 @@ import { ErrorType } from '../../models/error';
 import { ImageBackdrop } from './imageBackdrop';
 import { AmountButtons } from '../amountButtons';
 import { InfoBadge } from '../../reactkit/infoBadge';
-import { LoaderButton } from '../../reactkit/loaderButton';
-import { ProductModel } from '../../models/productModel';
+import { IconBadge } from '../../reactkit/iconBadge';
 import { setHaptic } from '../../actions/webApp-actions';
+import { LoaderButton } from '../../reactkit/loaderButton';
+import { FoodModel, ProductModel } from '../../models/productModel';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 import dishImage from '../../assets/food.webp';
-import { theme } from '../../theme';
 
 interface ProductProps {
 	loading: boolean;
 	errorState: ErrorType;
 	product: ProductModel;
+	productFromCart?: FoodModel;
 	isRestaurantWorking?: boolean;
-	productFromCart?: ProductModel;
 	amountButtonsVisible?: boolean;
 	handleProductOrder: () => Promise<Response | undefined>;
-	removeFromCart: (product: ProductModel) => void;
-	addToCart: (selectedProduct: ProductModel) => void;
 }
 
 export const ProductComponent: FC<ProductProps> = ({
 	loading,
 	product,
-	addToCart,
 	errorState,
-	removeFromCart,
 	productFromCart,
 	handleProductOrder,
 	isRestaurantWorking,
@@ -62,19 +58,18 @@ export const ProductComponent: FC<ProductProps> = ({
 								alt={product.image[0].alt}
 								sx={{ height: '11rem', borderRadius: '1rem' }}
 							/>
-							{product.infoBadges &&
-								product.infoBadges.map(icon => (
-									<InfoBadge
-										key={icon}
-										icon={icon}
-										containerStyles={{
-											position: 'absolute',
-											top: '0.5rem',
-											left: '0.5rem',
-										}}
-										iconStyles={{ margin: '0 2px' }}
-									/>
-								))}
+							{product.infoBadges?.map(icon => (
+								<IconBadge
+									key={icon}
+									icon={icon}
+									containerStyles={{
+										position: 'absolute',
+										top: '0.5rem',
+										left: '0.5rem',
+									}}
+									iconStyles={{ margin: '0 2px' }}
+								/>
+							))}
 						</>
 					) : (
 						<Box
@@ -131,33 +126,18 @@ export const ProductComponent: FC<ProductProps> = ({
 							p: 0,
 						}}>
 						{amountButtonsVisible ? (
-							<AmountButtons
-								showText
-								product={product}
-								addToCart={addToCart}
-								removeFromCart={removeFromCart}
-								productFromCart={productFromCart}
-							/>
+							<AmountButtons showText product={product} productFromCart={productFromCart} />
 						) : (
 							<LoaderButton
-								text={`${product.price} Rs`}
 								loading={loading}
 								errorState={errorState}
+								text={`${product.price} Rs`}
 								handleClick={handleProductOrder}
 							/>
 						)}
 					</CardActions>
 				) : (
-					<Typography
-						variant="body2"
-						sx={{
-							padding: '0.5rem',
-							width: 'fit-content',
-							borderRadius: '1rem',
-							background: theme.palette.background.paper,
-						}}>
-						We are closed
-					</Typography>
+					<InfoBadge text={'We are closed'} />
 				)}
 			</Card>
 		</>

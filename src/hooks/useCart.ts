@@ -6,7 +6,7 @@ import { addNewProductToCart, decrementProduct, getCartOrderString, incrementPro
 
 export const useCart = () => {
 	const { checkProductInCart, isSameRestaurant } = useProducts();
-	const [cartProducts, setCartProducts] = useLocalStorage<ProductModel[]>('products', []);
+	const [cartProducts, setCartProducts] = useLocalStorage<FoodModel[]>('products', []);
 
 	const isCartEmpty = cartProducts.length === 0;
 
@@ -14,7 +14,7 @@ export const useCart = () => {
 		setCartProducts([]);
 	};
 
-	const addToCart = (selectedProduct: ProductModel) => {
+	const addToCart = (selectedProduct: FoodModel) => {
 		setHaptic('light');
 		const sameRestaurant = isSameRestaurant(cartProducts, selectedProduct);
 
@@ -37,10 +37,10 @@ export const useCart = () => {
 		}
 	};
 
-	const removeFromCart = (selectedProduct: ProductModel) => {
+	const removeFromCart = (selectedProduct: FoodModel) => {
 		setHaptic('light');
 		setCartProducts(prevState => {
-			return prevState.reduce((accumulator: [] | ProductModel[], product: ProductModel): ProductModel[] => {
+			return prevState.reduce((accumulator: [] | FoodModel[], product: FoodModel): FoodModel[] => {
 				if (product.id === selectedProduct.id) {
 					if (product.amount! === 1) {
 						if (cartProducts.length === 1) {

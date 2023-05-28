@@ -3,7 +3,7 @@ import { Box, Card, CardActions, CardContent, CardMedia, Typography, useTheme } 
 import { MuiCarousel } from '../../components/carousel';
 import { AmountButtons } from '../../components/amountButtons';
 import { LoaderButton } from '../../reactkit/loaderButton';
-import { ProductModel } from '../../models/productModel';
+import { FoodModel, ProductModel } from '../../models/productModel';
 import { ErrorType } from '../../models/error';
 
 import dishImage from '../../assets/food.webp';
@@ -13,19 +13,15 @@ interface ProductDetailsUIProps {
 	loading: boolean;
 	errorState: ErrorType;
 	isRestaurantWorking?: boolean;
-	productFromCart?: ProductModel;
+	productFromCart?: FoodModel;
 	amountButtonsVisible?: boolean;
 	selectedProduct?: ProductModel;
 	handleProductOrder: () => Promise<Response | undefined>;
-	addToCart: (selectedProduct: ProductModel) => void;
-	removeFromCart: (selectedProduct: ProductModel) => void;
 }
 export const ProductDetailsUI = ({
 	loading,
-	addToCart,
 	errorState,
 	productFromCart,
-	removeFromCart,
 	selectedProduct,
 	isRestaurantWorking,
 	handleProductOrder,
@@ -85,9 +81,7 @@ export const ProductDetailsUI = ({
 								width: productFromCart ? '13rem' : '12rem',
 								background: theme.palette.background.paper,
 							}}
-							addToCart={addToCart}
 							product={selectedProduct}
-							removeFromCart={removeFromCart}
 							productFromCart={productFromCart}
 							amountText={
 								productFromCart?.amount === undefined ? undefined : `${productFromCart?.amount} x`

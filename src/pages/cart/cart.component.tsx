@@ -3,24 +3,17 @@ import { theme } from '../../theme';
 import { Box } from '@mui/material';
 import { CartList } from './cart-list';
 import { CartHeader } from './cartHeader';
-import { ProductModel } from '../../models/productModel';
-import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { LoaderButton } from '../../reactkit/loaderButton';
+import { isUserAgentTelegram } from '../../utils/deviceInfo';
 
 interface CartProps {
 	restaurantTitle?: string;
-	restaurantWorkingTime?: string;
 	isRestaurantWorking?: boolean;
+	restaurantWorkingTime?: string;
 	navigateToCheckout: () => void;
-	cartProducts: ProductModel[] | [];
-	addToCart: (product: ProductModel) => void;
-	removeFromCart: (product: ProductModel) => void;
 }
 
 export const CartUI = ({
-	addToCart,
-	cartProducts,
-	removeFromCart,
 	restaurantTitle,
 	navigateToCheckout,
 	isRestaurantWorking,
@@ -29,7 +22,7 @@ export const CartUI = ({
 	return (
 		<>
 			<CartHeader restaurantTitle={restaurantTitle} />
-			<CartList addToCart={addToCart} removeFromCart={removeFromCart} cartProducts={cartProducts} />
+			<CartList />
 			<Box
 				sx={{
 					left: 0,

@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, RadioProps, styled } from '@mui/material';
+import { ProductExtra } from '../pages/productDetails/productDetails.container';
 
 const BpIcon = styled('span')(({ theme }) => ({
 	borderRadius: '50%',
@@ -48,18 +49,18 @@ function BpRadio(props: RadioProps) {
 
 interface RadioButtonsProps {
 	buttons: string[];
-	dishSize: string;
-	handleDishSize: (event: React.SyntheticEvent) => void;
+	productExtra?: ProductExtra;
+	handleExtra?: (event: React.SyntheticEvent) => void;
 }
 
-export const RadioButtons = ({ buttons, dishSize, handleDishSize }: RadioButtonsProps) => {
+export const RadioButtons = ({ buttons, productExtra, handleExtra }: RadioButtonsProps) => {
 	return (
 		<FormControl>
 			<FormLabel id="demo-customized-radios">Options</FormLabel>
 			<RadioGroup
-				value={dishSize}
-				onChange={handleDishSize}
-				defaultValue="female"
+				value={productExtra?.dishSize}
+				onChange={handleExtra}
+				defaultValue="small"
 				aria-labelledby="demo-customized-radios"
 				name="customized-radios">
 				{buttons.map(button => {

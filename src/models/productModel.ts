@@ -14,18 +14,22 @@ export interface DefaultProductModel {
 }
 
 export interface FoodModel extends DefaultProductModel {
-	spicy?: number;
-	amount?: number;
-	location?: string;
-	vegetarian?: string;
+	spicy: number;
+	amount: number;
+	location: string;
+	vegetarian: string;
+	DishSize: string[];
+	extra?: {
+		dishSize: string;
+	};
 }
 
 export interface RentModel extends DefaultProductModel {
-	tv?: boolean;
-	ac?: boolean;
-	wifi?: boolean;
-	pool?: boolean;
-	breakfast?: boolean;
+	tv: boolean;
+	ac: boolean;
+	wifi: boolean;
+	pool: boolean;
+	breakfast: boolean;
 }
 
 export type ProductModel = FoodModel | RentModel;

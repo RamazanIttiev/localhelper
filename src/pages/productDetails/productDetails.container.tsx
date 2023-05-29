@@ -2,10 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Container } from '@mui/material';
 import { useCart } from '../../hooks/useCart';
 import { ErrorType } from '../../models/error';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useCategory } from '../../hooks/useCategory';
-import { useProducts } from '../../hooks/useProducts';
-import { ProductModel } from '../../models/productModel';
+import { FoodModel, ProductModel } from '../../models/productModel';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { ProductDetailsUI } from './productDetails.component';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
@@ -17,21 +16,55 @@ import {
 	showMainButton,
 } from '../../actions/webApp-actions';
 import { useRestaurant } from '../../hooks/useRestaurant';
+import { isFood } from '../../utils/typeGuard';
+import { CART_ACTION } from '../../components/amountButtons';
+import { isUserAgentTelegram } from '../../utils/deviceInfo';
+import { LoaderButton } from '../../reactkit/loaderButton';
+
+type DishSizeType = 'small' | 'large';
+
+export interface ProductExtra {
+	dishSize: DishSizeType;
+}
 
 export const ProductDetailsContainer = () => {
 	const { state } = useLocation();
-	const product: ProductModel = state;
 
+	const navigate = useNavigate();
+	const { addToCart } = useCart();
 	const { flowId } = useCategory();
-	const { getProductFromCart } = useProducts();
-	const { cartProducts } = useCart();
 	const { isRestaurantDetailsRoute } = useReactRouter();
 	const { restaurant } = useRestaurant();
 
+	const [productAmount, setProductAmount] = useState(1);
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
 		isError: null,
 	});
+	const [productExtra, setProductExtra] = useState<ProductExtra | undefined>(
+		isFood(state) && state.DishSize ? { dishSize: 'small' } : undefined,
+	);
+	const product: ProductModel = { ...state, amount: productAmount, extra: productExtra };
+
+	const handleProductAmount = (action: CART_ACTION) => {
+		setProductAmount(() => {
+			if (action === 'add') {
+				return productAmount + 1;
+			} else return productAmount - 1;
+		});
+	};
+
+	const handleExtra = (event: React.SyntheticEvent) => {
+		const { value } = event.target as HTMLInputElement;
+		const dishSize = value as DishSizeType;
+
+		setProductExtra(prevState => {
+			return {
+				...prevState,
+				dishSize,
+			};
+		});
+	};
 
 	const handleProductOrder = useCallback(() => {
 		return handleOrder(
@@ -45,6 +78,11 @@ export const ProductDetailsContainer = () => {
 			handleError,
 		);
 	}, [flowId, product.Contact, product.coordinates, product.title]);
+
+	const addProductToCart = () => {
+		addToCart(product as FoodModel);
+		navigate(-1);
+	};
 
 	useEffect(() => {
 		if (!isRestaurantDetailsRoute) {
@@ -66,8 +104,6 @@ export const ProductDetailsContainer = () => {
 		clearResponseMessage(errorState, handleError);
 	}, [errorState]);
 
-	const productFromCart = getProductFromCart(cartProducts, product);
-
 	const handleLoading = (value: boolean) => setLoading(value);
 
 	const handleError = (value: ErrorType) => setErrorState(value);
@@ -77,12 +113,17 @@ export const ProductDetailsContainer = () => {
 			<ProductDetailsUI
 				loading={loading}
 				errorState={errorState}
+				handleExtra={handleExtra}
 				selectedProduct={product}
-				productFromCart={productFromCart}
+				productExtra={productExtra}
 				handleProductOrder={handleProductOrder}
+				handleProductAmount={handleProductAmount}
 				isRestaurantWorking={restaurant?.IsWorking}
 				amountButtonsVisible={isRestaurantDetailsRoute}
 			/>
+			{isRestaurantDetailsRoute && !isUserAgentTelegram && isFood(product) && product.DishSize && (
+				<LoaderButton isMainButton text={'Order'} handleClick={addProductToCart} />
+			)}
 		</Container>
 	);
 };

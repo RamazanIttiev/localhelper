@@ -2,9 +2,14 @@ import { FoodModel } from '../models/productModel';
 
 export const incrementProductInCart = (products: FoodModel[], selectedProduct: FoodModel) => {
 	return products.map(product => {
-		return product.id === selectedProduct.id && product.amount !== undefined
-			? { ...product, amount: product.amount + 1 }
-			: product;
+		if (product.id === selectedProduct.id) {
+			if (selectedProduct.extra !== undefined) {
+				return selectedProduct;
+			} else {
+				return product.amount !== undefined ? { ...product, amount: product.amount + 1 } : product;
+			}
+		}
+		return product;
 	});
 };
 
@@ -13,7 +18,9 @@ export const decrementProduct = (accumulator: FoodModel[], product: FoodModel) =
 };
 
 export const addNewProductToCart = (products: FoodModel[], selectedProduct: FoodModel) => {
-	return [...products, { ...selectedProduct, amount: 1 }];
+	if (selectedProduct.extra !== undefined) {
+		return [...products, { ...selectedProduct }];
+	} else return [...products, { ...selectedProduct, amount: 1 }];
 };
 
 export const getCartOrderString = (orderItems: string[]) =>

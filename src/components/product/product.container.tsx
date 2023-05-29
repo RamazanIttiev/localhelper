@@ -6,22 +6,34 @@ import { ProductComponent } from './product.component';
 import { ProductModel } from '../../models/productModel';
 import { useRestaurant } from '../../hooks/useRestaurant';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
+import { isFood } from '../../utils/typeGuard';
+import { CART_ACTION } from '../amountButtons';
 
 interface ProductContainerProps {
 	flowId: string;
-	product: ProductModel;
+	currentProduct: ProductModel;
 	amountButtonsVisible?: boolean;
 }
 
-export const ProductContainer: FC<ProductContainerProps> = ({ flowId, product, amountButtonsVisible }) => {
+export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentProduct, amountButtonsVisible }) => {
 	const { getProductFromCart } = useProducts();
-	const { cartProducts } = useCart();
 	const { restaurant } = useRestaurant();
+	const { cartProducts, addToCart, removeFromCart } = useCart();
 
+	const [product, setProduct] = useState<ProductModel>({ ...currentProduct });
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
 		isError: null,
 	});
+
+	const handleProductAmount = (action: CART_ACTION) => {
+		setProduct(prevProduct => {
+			if (isFood(prevProduct)) {
+				action === 'add' ? addToCart(prevProduct) : removeFromCart(prevProduct);
+			}
+			return prevProduct;
+		});
+	};
 
 	useEffect(() => {
 		clearResponseMessage(errorState, handleError);
@@ -30,7 +42,7 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, product, a
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
 
-	const productFromCart = getProductFromCart(cartProducts, product);
+	const productFromCart = isFood(product) ? getProductFromCart(cartProducts, product) : undefined;
 
 	const handleProductOrder = useCallback(() => {
 		return handleOrder(
@@ -52,6 +64,7 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, product, a
 			errorState={errorState}
 			productFromCart={productFromCart}
 			handleProductOrder={handleProductOrder}
+			handleProductAmount={handleProductAmount}
 			amountButtonsVisible={amountButtonsVisible}
 			isRestaurantWorking={restaurant?.IsWorking}
 		/>

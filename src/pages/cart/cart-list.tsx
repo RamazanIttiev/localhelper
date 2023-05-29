@@ -39,12 +39,14 @@ export const CartList = () => {
 									{product.price} Rs
 								</Typography>
 							</Box>
-							<AmountButtons
-								showText={false}
-								product={product}
-								productFromCart={product}
-								amountText={product?.amount}
-							/>
+							{product && (
+								<AmountButtons
+									showText={false}
+									product={product}
+									productFromCart={product}
+									amountText={product?.amount}
+								/>
+							)}
 						</ListItem>
 					</React.Fragment>
 				);

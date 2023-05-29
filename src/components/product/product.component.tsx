@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { ErrorType } from '../../models/error';
 import { ImageBackdrop } from './imageBackdrop';
-import { AmountButtons } from '../amountButtons';
+import { AmountButtons, CART_ACTION } from '../amountButtons';
 import { InfoBadge } from '../../reactkit/infoBadge';
 import { IconBadge } from '../../reactkit/iconBadge';
 import { setHaptic } from '../../actions/webApp-actions';
@@ -11,6 +11,7 @@ import { FoodModel, ProductModel } from '../../models/productModel';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 import dishImage from '../../assets/food.webp';
+import { isFood } from '../../utils/typeGuard';
 
 interface ProductProps {
 	loading: boolean;
@@ -19,6 +20,7 @@ interface ProductProps {
 	productFromCart?: FoodModel;
 	isRestaurantWorking?: boolean;
 	amountButtonsVisible?: boolean;
+	handleProductAmount?: (action: CART_ACTION) => void;
 	handleProductOrder: () => Promise<Response | undefined>;
 }
 
@@ -30,6 +32,7 @@ export const ProductComponent: FC<ProductProps> = ({
 	handleProductOrder,
 	isRestaurantWorking,
 	amountButtonsVisible,
+	handleProductAmount,
 }) => {
 	return (
 		<>
@@ -125,8 +128,13 @@ export const ProductComponent: FC<ProductProps> = ({
 						sx={{
 							p: 0,
 						}}>
-						{amountButtonsVisible ? (
-							<AmountButtons showText product={product} productFromCart={productFromCart} />
+						{amountButtonsVisible && product && isFood(product) ? (
+							<AmountButtons
+								handleProductAmount={handleProductAmount}
+								showText
+								product={product}
+								productFromCart={productFromCart}
+							/>
 						) : (
 							<LoaderButton
 								loading={loading}

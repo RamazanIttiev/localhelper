@@ -2,14 +2,19 @@ import React, { CSSProperties, FC } from 'react';
 import { useCart } from '../hooks/useCart';
 import { FoodModel } from '../models/productModel';
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useReactRouter } from '../hooks/useReactRouter';
 
 interface AmountButtonsProps {
+	product: FoodModel;
 	showText?: boolean;
-	product?: FoodModel;
 	styles?: CSSProperties;
 	productFromCart?: FoodModel;
 	amountText?: string | number;
+	handleProductAmount?: (action: CART_ACTION) => void;
 }
+
+export type CART_ACTION = 'add' | 'remove';
 
 export const AmountButtons: FC<AmountButtonsProps> = ({
 	styles,
@@ -17,9 +22,40 @@ export const AmountButtons: FC<AmountButtonsProps> = ({
 	productFromCart,
 	amountText,
 	showText = true,
+	handleProductAmount,
 }) => {
 	const theme = useTheme();
+	const navigate = useNavigate();
 	const { addToCart, removeFromCart } = useCart();
+	const { isRestaurantRoute, isRestaurantDetailsRoute } = useReactRouter();
+
+	const handleAddToCart = () => {
+		if (product?.DishSize && isRestaurantRoute) {
+			return navigate(product.title.toLowerCase(), { state: { ...product } });
+		}
+		if (product?.DishSize && isRestaurantDetailsRoute && handleProductAmount) {
+			return handleProductAmount('add');
+		} else {
+			return addToCart(product);
+		}
+	};
+
+	const handleRemoveFromCart = () => {
+		if (product?.DishSize && isRestaurantDetailsRoute && handleProductAmount) {
+			return handleProductAmount('remove');
+		} else {
+			return removeFromCart(product);
+		}
+	};
+
+	const isRemoveVisible = () => {
+		if (productFromCart && !product.DishSize) {
+			return true;
+		}
+		if (isRestaurantDetailsRoute && product.amount === 1) return false;
+		if (productFromCart) return true;
+		return !!(product.amount > 1 && product.DishSize);
+	};
 
 	return (
 		<Box
@@ -36,10 +72,10 @@ export const AmountButtons: FC<AmountButtonsProps> = ({
 				...styles,
 			}}>
 			<IconButton
-				sx={{ p: productFromCart ? 1 : 0, transition: 'all 0.2s' }}
+				sx={{ p: isRemoveVisible() ? 1 : 0, transition: 'all 0.2s' }}
 				size={'medium'}
-				onClick={productFromCart !== undefined ? () => removeFromCart(productFromCart) : undefined}>
-				<Icon fontSize={'small'} sx={{ color: '#fff', opacity: productFromCart ? 1 : 0 }}>
+				onClick={handleRemoveFromCart}>
+				<Icon fontSize={'small'} sx={{ color: '#fff', opacity: isRemoveVisible() ? 1 : 0 }}>
 					remove
 				</Icon>
 			</IconButton>
@@ -51,7 +87,7 @@ export const AmountButtons: FC<AmountButtonsProps> = ({
 					</Typography>
 				)}
 			</Box>
-			<IconButton size={'medium'} onClick={product !== undefined ? () => addToCart(product) : undefined}>
+			<IconButton size={'medium'} onClick={handleAddToCart}>
 				<Icon fontSize={'small'} sx={{ color: '#fff' }}>
 					add
 				</Icon>

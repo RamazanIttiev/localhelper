@@ -1,33 +1,53 @@
 import React from 'react';
-import { Box, Card, CardActions, CardContent, CardMedia, Typography, useTheme } from '@mui/material';
-import { MuiCarousel } from '../../components/carousel';
-import { AmountButtons } from '../../components/amountButtons';
-import { LoaderButton } from '../../reactkit/loaderButton';
-import { FoodModel, ProductModel } from '../../models/productModel';
+import { useCart } from '../../hooks/useCart';
+import { isFood } from '../../utils/typeGuard';
 import { ErrorType } from '../../models/error';
+import { useProducts } from '../../hooks/useProducts';
+import { MuiCarousel } from '../../components/carousel';
+import { ProductModel } from '../../models/productModel';
+import { ProductExtra } from './productDetails.container';
+import { RadioButtons } from '../../components/radioGroup';
+import { LoaderButton } from '../../reactkit/loaderButton';
+import { isUserAgentTelegram } from '../../utils/deviceInfo';
+import { AmountButtons, CART_ACTION } from '../../components/amountButtons';
+import { Box, Card, CardActions, CardContent, CardMedia, Typography, useTheme } from '@mui/material';
 
 import dishImage from '../../assets/food.webp';
-import { isUserAgentTelegram } from '../../utils/deviceInfo';
 
 interface ProductDetailsUIProps {
 	loading: boolean;
 	errorState: ErrorType;
+	productExtra?: ProductExtra;
 	isRestaurantWorking?: boolean;
-	productFromCart?: FoodModel;
 	amountButtonsVisible?: boolean;
 	selectedProduct?: ProductModel;
+	handleProductAmount?: (action: CART_ACTION) => void;
+	handleExtra?: (event: React.SyntheticEvent) => void;
 	handleProductOrder: () => Promise<Response | undefined>;
 }
 export const ProductDetailsUI = ({
 	loading,
 	errorState,
-	productFromCart,
+	handleExtra,
+	productExtra,
 	selectedProduct,
 	isRestaurantWorking,
 	handleProductOrder,
+	handleProductAmount,
 	amountButtonsVisible = false,
 }: ProductDetailsUIProps) => {
 	const theme = useTheme();
+	const { getProductFromCart } = useProducts();
+	const { cartProducts } = useCart();
+	const productFromCart = isFood(selectedProduct) ? getProductFromCart(cartProducts, selectedProduct) : undefined;
+
+	const productAmount = () => {
+		if (isFood(selectedProduct) && selectedProduct.DishSize) {
+			return selectedProduct?.amount !== 0 ? `${selectedProduct?.amount} x` : undefined;
+		} else {
+			return productFromCart ? `${productFromCart?.amount} x` : undefined;
+		}
+	};
 
 	return (
 		<Card sx={{ position: 'relative', background: 'transparent', boxShadow: 'none' }}>
@@ -70,11 +90,18 @@ export const ProductDetailsUI = ({
 						</Typography>
 					)}
 				</Box>
+				{isFood(selectedProduct) && selectedProduct.DishSize && (
+					<RadioButtons
+						handleExtra={handleExtra}
+						productExtra={productExtra}
+						buttons={selectedProduct.DishSize}
+					/>
+				)}
 			</CardContent>
 
 			{isRestaurantWorking === undefined || isRestaurantWorking ? (
 				<CardActions sx={{ flexDirection: 'column', p: 0 }}>
-					{amountButtonsVisible ? (
+					{amountButtonsVisible && selectedProduct && isFood(selectedProduct) ? (
 						<AmountButtons
 							styles={{
 								maxWidth: '13rem',
@@ -82,10 +109,9 @@ export const ProductDetailsUI = ({
 								background: theme.palette.background.paper,
 							}}
 							product={selectedProduct}
+							amountText={productAmount()}
 							productFromCart={productFromCart}
-							amountText={
-								productFromCart?.amount === undefined ? undefined : `${productFromCart?.amount} x`
-							}
+							handleProductAmount={handleProductAmount}
 						/>
 					) : (
 						!isUserAgentTelegram && (

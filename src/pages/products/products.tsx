@@ -59,7 +59,7 @@ export const Products = () => {
 							<Grid item xs={6} md={5} key={product.id}>
 								<ProductContainer
 									flowId={flowId}
-									product={product}
+									currentProduct={product}
 									amountButtonsVisible={isRestaurantRoute}
 								/>
 							</Grid>

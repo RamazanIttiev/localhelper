@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Container } from '@mui/material';
 import { useCart } from '../../hooks/useCart';
 import { ErrorType } from '../../models/error';
@@ -44,7 +44,10 @@ export const ProductDetailsContainer = () => {
 	const [productExtra, setProductExtra] = useState<ProductExtra | undefined>(
 		isFood(state) && state.DishSize ? { dishSize: 'small' } : undefined,
 	);
-	const product: ProductModel = { ...state, amount: productAmount, extra: productExtra };
+	const product: ProductModel = useMemo(
+		() => ({ ...state, amount: productAmount, extra: productExtra }),
+		[productAmount, productExtra, state],
+	);
 
 	const handleProductAmount = (action: CART_ACTION) => {
 		setProductAmount(() => {
@@ -79,10 +82,22 @@ export const ProductDetailsContainer = () => {
 		);
 	}, [flowId, product.Contact, product.coordinates, product.title]);
 
-	const addProductToCart = () => {
+	const addProductToCart = useCallback(() => {
 		addToCart(product as FoodModel);
 		navigate(-1);
-	};
+	}, [addToCart, navigate, product]);
+
+	useEffect(() => {
+		if (isRestaurantDetailsRoute && isFood(product) && product.DishSize) {
+			showMainButton();
+			handleMainButton(addProductToCart);
+		} else hideMainButton();
+
+		return () => {
+			hideMainButton();
+			removeMainButtonEvent(addProductToCart);
+		};
+	}, [addProductToCart, isRestaurantDetailsRoute, product]);
 
 	useEffect(() => {
 		if (!isRestaurantDetailsRoute) {

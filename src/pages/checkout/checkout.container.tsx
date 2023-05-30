@@ -7,7 +7,6 @@ import { ErrorType } from '../../models/error';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
-import { FormGroupTitle } from './components/formGroupTitle';
 import {
 	handleMainButton,
 	removeMainButtonEvent,
@@ -19,6 +18,7 @@ import { CartList } from '../cart/cart-list';
 import { UserData, UserDB } from '../../models/userModel';
 import { fetchUser, saveUserInfo } from '../../api/api';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
+import { HintTitle } from '../../components/hintTitle';
 
 export const CheckoutContainer = () => {
 	const navigate = useNavigate();
@@ -141,14 +141,11 @@ export const CheckoutContainer = () => {
 						labelPlacement={'start'}
 						label="Save info"
 					/>
-					<FormGroupTitle
-						styles={{ marginTop: '0.5rem' }}
-						text={'Save contact information for future orders'}
-					/>
+					<HintTitle styles={{ marginTop: '0.5rem' }} text={'Save contact information for future orders'} />
 				</SaveInfoWrapper>
 			)}
 
-			<FormGroupTitle
+			<HintTitle
 				styles={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}
 				text={`Your order from ${state?.placeTitle}`}
 			/>

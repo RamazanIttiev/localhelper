@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input } from '../checkout.styled';
-import { FormGroupTitle } from './formGroupTitle';
+import { HintTitle } from '../../../components/hintTitle';
 import { ErrorType } from '../../../models/error';
 import { LoaderButton } from '../../../reactkit/loaderButton';
 import { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
@@ -21,7 +21,7 @@ export const FormUI = ({ register, errors, onSubmit, loading, errorState }: Form
 	return (
 		<>
 			<form>
-				<FormGroupTitle text={'Contacts'} />
+				<HintTitle text={'Contacts'} />
 				<Input
 					fullWidth
 					type={'text'}
@@ -57,7 +57,7 @@ export const FormUI = ({ register, errors, onSubmit, loading, errorState }: Form
 				/>
 				{errors.userPhone?.type !== 'required' && <ErrorText text={errors.userPhone?.message} />}
 
-				<FormGroupTitle text={'Delivery address'} styles={{ marginTop: '0.5rem' }} />
+				<HintTitle text={'Delivery address'} styles={{ marginTop: '0.5rem' }} />
 				<Input
 					fullWidth
 					type={'text'}

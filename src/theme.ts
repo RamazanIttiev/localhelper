@@ -65,5 +65,18 @@ export const theme = createTheme({
 				},
 			},
 		},
+		MuiFormLabel: {
+			styleOverrides: {
+				// Name of the component ⚛️ / style sheet
+				root: {
+					// Name of the rule
+					color: '#fff',
+					'&.Mui-focused': {
+						// increase the specificity for the pseudo class
+						color: '#fff',
+					},
+				},
+			},
+		},
 	},
 });

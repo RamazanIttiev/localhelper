@@ -1,6 +1,6 @@
 import React from 'react';
-import { FormGroupTitle } from './formGroupTitle';
 import { Box, Typography, useTheme } from '@mui/material';
+import { HintTitle } from '../../../components/hintTitle';
 
 interface OrderInfoProps {
 	payment?: string;
@@ -13,7 +13,7 @@ export const OrderInfo = ({ orderTotal, delivery = 'Free', payment = 'Cash' }: O
 
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', mt: '2rem' }}>
-			<FormGroupTitle text={'Order info'} styles={{ marginBottom: '0.5rem' }} />
+			<HintTitle text={'Order info'} styles={{ marginBottom: '0.5rem' }} />
 			<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} mb={1}>
 				<Typography fontSize={'1rem'} component={'span'}>
 					Total

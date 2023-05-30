@@ -78,7 +78,7 @@ export const ProductDetailsUI = ({
 					</Typography>
 					{selectedProduct?.description && (
 						<Typography
-							variant={'subtitle2'}
+							variant={'body1'}
 							sx={{
 								mt: 2,
 								padding: '1rem',

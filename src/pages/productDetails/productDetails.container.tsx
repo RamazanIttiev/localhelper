@@ -91,6 +91,7 @@ export const ProductDetailsContainer = () => {
 		if (isRestaurantDetailsRoute && isFood(product) && product.DishSize) {
 			showMainButton();
 			handleMainButton(addProductToCart);
+			setMainButtonText('Add to cart');
 		} else hideMainButton();
 
 		return () => {
@@ -103,17 +104,14 @@ export const ProductDetailsContainer = () => {
 		if (!isRestaurantDetailsRoute) {
 			showMainButton();
 			handleMainButton(handleProductOrder);
+			setMainButtonText(`${state?.price} Rs`);
 		} else hideMainButton();
 
 		return () => {
 			hideMainButton();
 			removeMainButtonEvent(handleProductOrder);
 		};
-	}, [handleProductOrder, isRestaurantDetailsRoute]);
-
-	useEffect(() => {
-		setMainButtonText(`${state?.price} Rs`);
-	}, [state?.price]);
+	}, [handleProductOrder, isRestaurantDetailsRoute, state?.price]);
 
 	useEffect(() => {
 		clearResponseMessage(errorState, handleError);
@@ -137,7 +135,7 @@ export const ProductDetailsContainer = () => {
 				amountButtonsVisible={isRestaurantDetailsRoute}
 			/>
 			{isRestaurantDetailsRoute && !isUserAgentTelegram && isFood(product) && product.DishSize && (
-				<LoaderButton isMainButton text={'Order'} handleClick={addProductToCart} />
+				<LoaderButton isMainButton text={'Add to cart'} handleClick={addProductToCart} />
 			)}
 		</Container>
 	);

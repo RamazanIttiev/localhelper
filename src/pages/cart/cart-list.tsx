@@ -1,10 +1,12 @@
 import React from 'react';
 import { useCart } from '../../hooks/useCart';
+import { useLocation } from 'react-router-dom';
 import { FoodModel } from '../../models/productModel';
 import { AmountButtons } from '../../components/amountButtons';
 import { Box, List, ListItem, Typography } from '@mui/material';
 
 export const CartList = () => {
+	const { pathname } = useLocation();
 	const { cartProducts } = useCart();
 
 	return (
@@ -39,7 +41,7 @@ export const CartList = () => {
 									{product.price} Rs
 								</Typography>
 							</Box>
-							{product && (
+							{product && pathname !== '/checkout' && (
 								<AmountButtons
 									showText={false}
 									product={product}

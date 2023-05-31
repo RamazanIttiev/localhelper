@@ -1,12 +1,12 @@
 import React from 'react';
 import { HintTitle } from './hintTitle';
 import { FormControl, FormControlLabel, Radio, useTheme } from '@mui/material';
-import { ProductExtra } from '../pages/productDetails/productDetails.container';
 import { RadioButtonsGroup } from '../pages/productDetails/productDetails.styled';
+import { FoodExtraOptions } from '../models/productModel';
 
 interface RadioButtonsProps {
 	buttons: string[];
-	productExtra?: ProductExtra;
+	productExtra?: FoodExtraOptions;
 	handleExtra?: (event: React.SyntheticEvent) => void;
 }
 

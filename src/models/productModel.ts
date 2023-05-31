@@ -9,8 +9,13 @@ export interface DefaultProductModel {
 	Category?: string[];
 	coordinates?: string;
 	infoBadges?: string[];
-	Restaurants?: string[];
 	image: { url: string; alt: string }[];
+}
+
+export type DishSizeType = 'small' | 'large';
+
+export interface FoodExtraOptions {
+	dishSize: DishSizeType;
 }
 
 export interface FoodModel extends DefaultProductModel {
@@ -19,9 +24,8 @@ export interface FoodModel extends DefaultProductModel {
 	location: string;
 	vegetarian: string;
 	DishSize: string[];
-	extra?: {
-		dishSize: string;
-	};
+	Restaurant?: string[];
+	extraOptions?: FoodExtraOptions;
 }
 
 export interface RentModel extends DefaultProductModel {

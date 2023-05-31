@@ -12,9 +12,9 @@ export const useProducts = () => {
 
 		return cartProducts.some(product => {
 			return (
-				product.Restaurants !== undefined &&
-				selectedProduct?.Restaurants !== undefined &&
-				product.Restaurants[0] === selectedProduct?.Restaurants[0]
+				product.Restaurant !== undefined &&
+				selectedProduct?.Restaurant !== undefined &&
+				product.Restaurant[0] === selectedProduct?.Restaurant[0]
 			);
 		});
 	};

@@ -10,8 +10,8 @@ export const useRestaurant = () => {
 	const restaurant: RestaurantModel | undefined = restaurants.find(restaurant => restaurant.Title === restaurantId);
 
 	const cartRestaurant: RestaurantModel | undefined = restaurants.find(restaurant => {
-		if (cartProducts[0]?.Restaurants !== undefined) {
-			return restaurant.Id === cartProducts[0].Restaurants[0];
+		if (cartProducts[0]?.Restaurant !== undefined) {
+			return restaurant.Id === cartProducts[0].Restaurant[0];
 		}
 	});
 

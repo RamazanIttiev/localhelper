@@ -1,5 +1,6 @@
 import { CategoryModel, ProductModel, RestaurantModel } from '../models/productModel';
 import { isWorkingHour } from './restaurant';
+import { isFood } from './typeGuard';
 
 export const mapCategories = (
 	products: ProductModel[],
@@ -24,7 +25,7 @@ export const mapCategories = (
 export const mapRestaurants = (products: ProductModel[], restaurants: RestaurantModel[]): RestaurantModel[] => {
 	return restaurants.map(restaurant => ({
 		...restaurant,
-		Products: products.filter(product => product.Restaurants?.[0] === restaurant.Id),
+		Products: products.filter(product => isFood(product) && product.Restaurant?.[0] === restaurant.Id),
 		WorkingTime: `${restaurant?.OpenTime} - ${restaurant?.CloseTime}`,
 		IsWorking: isWorkingHour(restaurant?.OpenTime, restaurant?.CloseTime),
 		WorkingStatus: isWorkingHour(restaurant?.OpenTime, restaurant?.CloseTime) ? 'Opened' : 'Closed',

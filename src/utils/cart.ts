@@ -3,7 +3,7 @@ import { FoodModel } from '../models/productModel';
 export const incrementProductInCart = (products: FoodModel[], selectedProduct: FoodModel) => {
 	return products.map(product => {
 		if (product.id === selectedProduct.id) {
-			if (selectedProduct.extra !== undefined) {
+			if (selectedProduct.extraOptions !== undefined) {
 				return selectedProduct;
 			} else {
 				return product.amount !== undefined ? { ...product, amount: product.amount + 1 } : product;
@@ -18,7 +18,7 @@ export const decrementProduct = (accumulator: FoodModel[], product: FoodModel) =
 };
 
 export const addNewProductToCart = (products: FoodModel[], selectedProduct: FoodModel) => {
-	if (selectedProduct.extra !== undefined) {
+	if (selectedProduct.extraOptions !== undefined) {
 		return [...products, { ...selectedProduct }];
 	} else return [...products, { ...selectedProduct, amount: 1 }];
 };

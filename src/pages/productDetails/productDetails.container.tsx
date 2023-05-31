@@ -4,7 +4,7 @@ import { useCart } from '../../hooks/useCart';
 import { ErrorType } from '../../models/error';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCategory } from '../../hooks/useCategory';
-import { FoodModel, ProductModel } from '../../models/productModel';
+import { DishSizeType, FoodExtraOptions, FoodModel, ProductModel } from '../../models/productModel';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { ProductDetailsUI } from './productDetails.component';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
@@ -21,12 +21,6 @@ import { CART_ACTION } from '../../components/amountButtons';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { LoaderButton } from '../../reactkit/loaderButton';
 
-type DishSizeType = 'small' | 'large';
-
-export interface ProductExtra {
-	dishSize: DishSizeType;
-}
-
 export const ProductDetailsContainer = () => {
 	const { state } = useLocation();
 
@@ -41,7 +35,7 @@ export const ProductDetailsContainer = () => {
 	const [errorState, setErrorState] = useState<ErrorType>({
 		isError: null,
 	});
-	const [productExtra, setProductExtra] = useState<ProductExtra | undefined>(
+	const [productExtra, setProductExtra] = useState<FoodExtraOptions | undefined>(
 		isFood(state) && state.DishSize ? { dishSize: 'small' } : undefined,
 	);
 	const product: ProductModel = useMemo(

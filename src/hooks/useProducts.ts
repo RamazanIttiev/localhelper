@@ -1,22 +1,12 @@
 import { FoodModel } from '../models/productModel';
+import { CartItem } from '../models/cart.model';
 
 export const useProducts = () => {
-	const getProductFromCart = (cartProducts: FoodModel[], selectedProduct: FoodModel | undefined) =>
-		cartProducts.find(product => product.id === selectedProduct?.id);
+	const getProductFromCart = (cartItems: CartItem[], id: string | undefined) =>
+		cartItems.find(product => product.id === id);
 
-	const checkProductInCart = (cartProducts: FoodModel[], selectedProduct: FoodModel | undefined) =>
-		Boolean(getProductFromCart(cartProducts, selectedProduct));
+	const checkProductInCart = (cartItems: CartItem[], selectedProduct: FoodModel | undefined) =>
+		Boolean(getProductFromCart(cartItems, selectedProduct?.id));
 
-	const isSameRestaurant = (cartProducts: FoodModel[], selectedProduct: FoodModel | undefined) => {
-		if (cartProducts.length === 0) return true;
-
-		return cartProducts.some(product => {
-			return (
-				product.Restaurant !== undefined &&
-				selectedProduct?.Restaurant !== undefined &&
-				product.Restaurant[0] === selectedProduct?.Restaurant[0]
-			);
-		});
-	};
-	return { checkProductInCart, getProductFromCart, isSameRestaurant };
+	return { checkProductInCart, getProductFromCart };
 };

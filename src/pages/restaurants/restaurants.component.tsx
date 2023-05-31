@@ -23,10 +23,10 @@ export const RestaurantsUI = ({ restaurant }: RestaurantsUIProps) => {
 				background: 'transparent',
 				justifyContent: 'space-between',
 			}}>
-			<Link to={`${restaurant.Title}`} state={{ restaurant }} style={{ position: 'relative' }}>
+			<Link to={`${restaurant.title}`} state={{ restaurant }} style={{ position: 'relative' }}>
 				<CardMedia
 					component="img"
-					image={restaurant.Image[0].url}
+					image={restaurant.image[0].url}
 					sx={{ height: '11rem', borderRadius: '2rem' }}
 				/>
 
@@ -51,7 +51,7 @@ export const RestaurantsUI = ({ restaurant }: RestaurantsUIProps) => {
 						}}
 						component="h3"
 						variant={'subtitle1'}>
-						{restaurant.Title}
+						{restaurant.title}
 					</Typography>
 					<Box
 						sx={{
@@ -59,7 +59,7 @@ export const RestaurantsUI = ({ restaurant }: RestaurantsUIProps) => {
 							alignItems: 'center',
 							justifyContent: 'space-between',
 						}}>
-						<WorkingStatus workingStatus={restaurant.WorkingStatus} workingTime={restaurant.WorkingTime} />
+						<WorkingStatus workingStatus={restaurant.workingStatus} workingTime={restaurant.workingTime} />
 					</Box>
 				</CardContent>
 			</Link>

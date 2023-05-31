@@ -1,3 +1,5 @@
+import { CartItem } from '../models/cart.model';
+
 export const getServicesRoute = (title: string) => {
 	switch (title) {
 		case 'Food':
@@ -34,4 +36,12 @@ export const isWorkingHour = (open?: string, close?: string) => {
 	}
 
 	return sriLankaTime >= openDateTime && sriLankaTime <= closeDateTime;
+};
+
+export const isSameRestaurant = (cartItems: CartItem[], restaurant: string[]) => {
+	if (cartItems.length === 0) return true;
+
+	return cartItems.some(product => {
+		return product.restaurant[0] === restaurant[0];
+	});
 };

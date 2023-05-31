@@ -1,10 +1,10 @@
 import React from 'react';
-import { useCart } from '../../hooks/useCart';
 import { Box, Icon, IconButton, Typography } from '@mui/material';
 import { hideMainButton } from '../../actions/webApp-actions';
+import { useShoppingCart } from '../../context/cart.context';
 
 export const CartHeader = ({ restaurantTitle }: { restaurantTitle?: string }) => {
-	const { clearCart } = useCart();
+	const { clearCart } = useShoppingCart();
 
 	const handleClearCart = () => {
 		const answer = confirm('Do you want to clear your cart?');

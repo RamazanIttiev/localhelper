@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect } from 'react';
-import { useCart } from '../../hooks/useCart';
 import { useNavigate } from 'react-router-dom';
 import { Container, Grid } from '@mui/material';
 import {
@@ -17,9 +16,10 @@ import { LoaderButton } from '../../reactkit/loaderButton';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { ProductContainer } from '../../components/product/product.container';
+import { useShoppingCart } from '../../context/cart.context';
 
 export const Products = () => {
-	const { isCartEmpty } = useCart();
+	const { isCartEmpty } = useShoppingCart();
 	const navigate = useNavigate();
 	const { isRestaurantRoute } = useReactRouter();
 	const { restaurant } = useRestaurant();
@@ -47,7 +47,7 @@ export const Products = () => {
 		};
 	}, [isRestaurantRoute, isCartEmpty, navigateToCart]);
 
-	const renderProducts = category?.Products?.length !== 0 ? category?.Products : restaurant?.Products;
+	const renderProducts = category?.products?.length !== 0 ? category?.products : restaurant?.products;
 
 	return (
 		<>

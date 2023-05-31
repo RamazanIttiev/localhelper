@@ -13,7 +13,7 @@ interface SendData {
 }
 
 const findUser = (users: UserDB[]) => {
-	return users.find(user => user.Id === Telegram.initDataUnsafe.user?.id.toString());
+	return users.find(user => user.id === Telegram.initDataUnsafe.user?.id.toString());
 };
 
 const getTableName = (table: Tables) => {
@@ -128,11 +128,11 @@ export const saveUserInfo = async (userData: UserData) => {
 
 	const body = {
 		fields: {
-			Name: userName,
-			Hotel: userHotel,
-			Phone: userPhone,
-			Address: userAddress,
-			Id: Telegram.initDataUnsafe.user?.id.toString(),
+			name: userName,
+			hotel: userHotel,
+			phone: userPhone,
+			address: userAddress,
+			id: Telegram.initDataUnsafe.user?.id.toString(),
 		},
 	};
 

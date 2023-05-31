@@ -14,6 +14,7 @@ import { AppData } from '../models/productModel';
 import { useReactRouter } from '../hooks/useReactRouter';
 import { Categories } from '../pages/categories/categories';
 import { Await, Outlet, useLoaderData, useNavigate } from 'react-router-dom';
+import { ShoppingCartProvider } from '../context/cart.context';
 
 export const Layout = () => {
 	const navigate = useNavigate();
@@ -45,7 +46,11 @@ export const Layout = () => {
 					resolve={appData}
 					errorElement={<ErrorPage />}
 					children={(appData: AppData) => {
-						return <Outlet context={appData} />;
+						return (
+							<ShoppingCartProvider>
+								<Outlet context={appData} />
+							</ShoppingCartProvider>
+						);
 					}}
 				/>
 			</React.Suspense>

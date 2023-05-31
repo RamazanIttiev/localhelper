@@ -7,17 +7,18 @@ import { InfoBadge } from '../../reactkit/infoBadge';
 import { IconBadge } from '../../reactkit/iconBadge';
 import { setHaptic } from '../../actions/webApp-actions';
 import { LoaderButton } from '../../reactkit/loaderButton';
-import { FoodModel, ProductModel } from '../../models/productModel';
+import { ProductModel } from '../../models/productModel';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 import dishImage from '../../assets/food.webp';
 import { isFood } from '../../utils/typeGuard';
+import { CartItem } from '../../models/cart.model';
 
 interface ProductProps {
 	loading: boolean;
 	errorState: ErrorType;
 	product: ProductModel;
-	productFromCart?: FoodModel;
+	productFromCart?: CartItem;
 	isRestaurantWorking?: boolean;
 	amountButtonsVisible?: boolean;
 	handleProductAmount?: (action: CART_ACTION) => void;

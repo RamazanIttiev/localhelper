@@ -14,9 +14,9 @@ export const RestaurantsContainer = () => {
 	return (
 		<Container sx={{ pt: 2 }} maxWidth={'sm'}>
 			{[...restaurants]
-				.sort(a => (a.IsWorking ? -1 : 1))
+				.sort(a => (a.isWorking ? -1 : 1))
 				.map(restaurant => {
-					return <RestaurantsUI key={restaurant.Title} restaurant={restaurant} />;
+					return <RestaurantsUI key={restaurant.title} restaurant={restaurant} />;
 				})}
 		</Container>
 	);

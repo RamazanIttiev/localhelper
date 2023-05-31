@@ -5,9 +5,9 @@ export const useCategory = () => {
 	const { categoryId } = useParams();
 	const { categories } = useOutletContext<AppData>();
 
-	const category = categories.find(category => category.Flow.toLowerCase() === categoryId);
+	const category = categories.find(category => category.flow.toLowerCase() === categoryId);
 
-	const flowId = category?.FlowId !== undefined ? category.FlowId : '';
+	const flowId = category?.flowId !== undefined ? category.flowId : '';
 
 	return {
 		flowId,

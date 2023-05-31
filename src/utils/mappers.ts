@@ -4,19 +4,19 @@ import { isFood } from './typeGuard';
 
 export const mapCategories = (
 	products: ProductModel[],
-	categories: Omit<CategoryModel, 'Restaurants'>[],
-): Omit<CategoryModel, 'Restaurants'>[] => {
+	categories: Omit<CategoryModel, 'restaurant'>[],
+): Omit<CategoryModel, 'restaurant'>[] => {
 	return categories.map(category => {
 		return {
-			Id: category.Id,
-			Flow: category.Flow,
-			FlowId: category.FlowId,
-			HeaderTitle: category.HeaderTitle,
-			HeaderImage: category?.HeaderImage?.map(({ url }: { url: string }) => {
+			id: category.id,
+			flow: category.flow,
+			flowId: category.flowId,
+			headerTitle: category.headerTitle,
+			headerImage: category?.headerImage?.map(({ url }: { url: string }) => {
 				return { url };
 			}),
-			Products: products.filter(product => {
-				return product.Category?.includes(category?.Id);
+			products: products.filter(product => {
+				return product.category?.includes(category?.id);
 			}),
 		};
 	});
@@ -25,10 +25,10 @@ export const mapCategories = (
 export const mapRestaurants = (products: ProductModel[], restaurants: RestaurantModel[]): RestaurantModel[] => {
 	return restaurants.map(restaurant => ({
 		...restaurant,
-		Products: products.filter(product => isFood(product) && product.Restaurant?.[0] === restaurant.Id),
-		WorkingTime: `${restaurant?.OpenTime} - ${restaurant?.CloseTime}`,
-		IsWorking: isWorkingHour(restaurant?.OpenTime, restaurant?.CloseTime),
-		WorkingStatus: isWorkingHour(restaurant?.OpenTime, restaurant?.CloseTime) ? 'Opened' : 'Closed',
+		products: products.filter(product => isFood(product) && product.restaurant?.[0] === restaurant.id),
+		workingTime: `${restaurant?.openTime} - ${restaurant?.closeTime}`,
+		isWorking: isWorkingHour(restaurant?.openTime, restaurant?.closeTime),
+		workingStatus: isWorkingHour(restaurant?.openTime, restaurant?.closeTime) ? 'Opened' : 'Closed',
 	}));
 };
 

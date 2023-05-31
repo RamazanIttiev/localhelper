@@ -6,16 +6,16 @@ import { useReactRouter } from '../../hooks/useReactRouter';
 import { CategoryModel, RestaurantModel } from '../../models/productModel';
 
 interface HeaderProps {
-	category: Pick<CategoryModel, 'HeaderTitle' | 'HeaderImage'> | undefined;
-	restaurant: Pick<RestaurantModel, 'WorkingTime' | 'WorkingStatus' | 'Image' | 'Location' | 'Title'> | undefined;
+	category: Pick<CategoryModel, 'headerTitle' | 'headerImage'> | undefined;
+	restaurant: Pick<RestaurantModel, 'workingTime' | 'workingStatus' | 'image' | 'location' | 'title'> | undefined;
 }
 
 export const ProductsHeader = ({ restaurant, category }: HeaderProps) => {
 	const { isRestaurantRoute } = useReactRouter();
 
 	const { image, title } = {
-		title: category?.HeaderTitle || restaurant?.Title,
-		image: (category?.HeaderImage !== undefined && category?.HeaderImage[0]?.url) || restaurant?.Image[0]?.url,
+		title: category?.headerTitle || restaurant?.title,
+		image: (category?.headerImage !== undefined && category?.headerImage[0]?.url) || restaurant?.image[0]?.url,
 	};
 
 	return (
@@ -64,8 +64,8 @@ export const ProductsHeader = ({ restaurant, category }: HeaderProps) => {
 						}}>
 						<Box sx={{ marginBottom: '1rem' }}>
 							<WorkingStatus
-								workingStatus={restaurant?.WorkingStatus}
-								workingTime={restaurant?.WorkingTime}
+								workingStatus={restaurant?.workingStatus}
+								workingTime={restaurant?.workingTime}
 							/>
 						</Box>
 						<Box sx={{ display: 'flex', alignItems: 'baseline' }}>
@@ -77,7 +77,7 @@ export const ProductsHeader = ({ restaurant, category }: HeaderProps) => {
 								location_on
 							</Icon>
 							<Typography component="p" variant={'body1'}>
-								{restaurant?.Location}
+								{restaurant?.location}
 							</Typography>
 						</Box>
 					</Box>

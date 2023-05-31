@@ -1,6 +1,5 @@
 import { useCallback, useEffect } from 'react';
 import { CartUI } from './cart.component';
-import { useCart } from '../../hooks/useCart';
 import {
 	handleMainButton,
 	removeMainButtonEvent,
@@ -10,6 +9,7 @@ import {
 import { Container } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRestaurant } from '../../hooks/useRestaurant';
+import { useShoppingCart } from '../../context/cart.context';
 
 interface CartState {
 	state: { flowId: string };
@@ -17,7 +17,7 @@ interface CartState {
 
 export const CartContainer = () => {
 	const { state }: CartState = useLocation();
-	const { isCartEmpty } = useCart();
+	const { isCartEmpty } = useShoppingCart();
 	const navigate = useNavigate();
 	const { cartRestaurant } = useRestaurant();
 
@@ -25,10 +25,10 @@ export const CartContainer = () => {
 		navigate('/checkout', {
 			state: {
 				...state,
-				placeTitle: cartRestaurant?.Title,
-				placeNumber: cartRestaurant?.Contact,
-				placeLocation: cartRestaurant?.Location,
-				placeCoordinates: cartRestaurant?.Coordinates,
+				placeTitle: cartRestaurant?.title,
+				placeNumber: cartRestaurant?.contact,
+				placeLocation: cartRestaurant?.location,
+				placeCoordinates: cartRestaurant?.coordinates,
 			},
 		});
 	}, [navigate, state, cartRestaurant]);
@@ -53,9 +53,9 @@ export const CartContainer = () => {
 		<Container maxWidth={'sm'} sx={{ pb: 5 }}>
 			<CartUI
 				navigateToCheckout={navigateToCheckout}
-				restaurantTitle={cartRestaurant?.Title}
-				isRestaurantWorking={cartRestaurant?.IsWorking}
-				restaurantWorkingTime={cartRestaurant?.WorkingTime}
+				restaurantTitle={cartRestaurant?.title}
+				isRestaurantWorking={cartRestaurant?.isWorking}
+				restaurantWorkingTime={cartRestaurant?.workingTime}
 			/>
 		</Container>
 	);

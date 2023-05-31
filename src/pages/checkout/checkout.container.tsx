@@ -6,7 +6,6 @@ import { SaveInfoField, SaveInfoWrapper } from './checkout.styled';
 import { ErrorType } from '../../models/error';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useCart } from '../../hooks/useCart';
 import {
 	handleMainButton,
 	removeMainButtonEvent,
@@ -19,12 +18,13 @@ import { UserData, UserDB } from '../../models/userModel';
 import { fetchUser, saveUserInfo } from '../../api/api';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { HintTitle } from '../../components/hintTitle';
+import { useShoppingCart } from '../../context/cart.context';
 
 export const CheckoutContainer = () => {
 	const navigate = useNavigate();
 	const { state } = useLocation();
 	const theme = useTheme();
-	const { cartTotalAmount, cartOrder, clearCart } = useCart();
+	const { cartTotalAmount, cartOrder, clearCart } = useShoppingCart();
 
 	const {
 		register,

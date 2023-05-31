@@ -1,12 +1,11 @@
 export interface DefaultProductModel {
-	id: number;
+	id: string;
 	title: string;
 	place: string;
 	price: number;
-	Contact?: string;
-	tableName?: string;
+	contact?: string;
 	description: string;
-	Category?: string[];
+	category?: string[];
 	coordinates?: string;
 	infoBadges?: string[];
 	image: { url: string; alt: string }[];
@@ -19,53 +18,53 @@ export interface FoodExtraOptions {
 }
 
 export interface FoodModel extends DefaultProductModel {
-	spicy: number;
+	spicy?: number;
 	amount: number;
-	location: string;
-	vegetarian: string;
-	DishSize: string[];
-	Restaurant?: string[];
+	location?: string;
+	vegetarian?: string;
+	dishSize?: string[];
+	restaurant: string[];
 	extraOptions?: FoodExtraOptions;
 }
 
 export interface RentModel extends DefaultProductModel {
-	tv: boolean;
-	ac: boolean;
-	wifi: boolean;
-	pool: boolean;
-	breakfast: boolean;
+	tv?: boolean;
+	ac?: boolean;
+	wifi?: boolean;
+	pool?: boolean;
+	breakfast?: boolean;
 }
 
 export type ProductModel = FoodModel | RentModel;
 
 export interface CategoryModel {
-	Id: string;
-	Flow: string;
-	FlowId: string;
-	HeaderTitle: string;
-	HeaderImage: { url: string }[];
-	Products: ProductModel[] | undefined;
-	Restaurants: RestaurantModel[] | undefined;
+	id: string;
+	flow: string;
+	flowId: string;
+	headerTitle: string;
+	headerImage: { url: string }[];
+	products: ProductModel[] | undefined;
+	restaurant: RestaurantModel[] | undefined;
 }
 
 export interface RestaurantModel {
-	Id: string;
-	Title: string;
-	Contact: string;
-	OpenTime: string;
-	Location: string;
-	CloseTime: string;
-	Category: string[];
-	IsWorking: boolean;
-	Coordinates: string;
-	WorkingTime: string;
-	WorkingStatus: string;
-	Image: { url: string }[];
-	Products: ProductModel[] | undefined;
+	id: string;
+	title: string;
+	contact: string;
+	openTime: string;
+	location: string;
+	closeTime: string;
+	category: string[];
+	isWorking: boolean;
+	coordinates: string;
+	workingTime: string;
+	workingStatus: string;
+	image: { url: string }[];
+	products: ProductModel[] | undefined;
 }
 
 export interface AppData {
 	products: ProductModel[];
 	restaurants: RestaurantModel[];
-	categories: Omit<CategoryModel, 'Restaurants'>[];
+	categories: Omit<CategoryModel, 'restaurant'>[];
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useCart } from '../../hooks/useCart';
 import { isFood } from '../../utils/typeGuard';
 import { ErrorType } from '../../models/error';
 import { useProducts } from '../../hooks/useProducts';
@@ -10,6 +9,7 @@ import { LoaderButton } from '../../reactkit/loaderButton';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { AmountButtons, CART_ACTION } from '../../components/amountButtons';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography, useTheme } from '@mui/material';
+import { useShoppingCart } from '../../context/cart.context';
 
 import dishImage from '../../assets/food.webp';
 
@@ -37,11 +37,11 @@ export const ProductDetailsUI = ({
 }: ProductDetailsUIProps) => {
 	const theme = useTheme();
 	const { getProductFromCart } = useProducts();
-	const { cartProducts } = useCart();
-	const productFromCart = isFood(selectedProduct) ? getProductFromCart(cartProducts, selectedProduct) : undefined;
+	const { cartItems } = useShoppingCart();
+	const productFromCart = isFood(selectedProduct) ? getProductFromCart(cartItems, selectedProduct.id) : undefined;
 
 	const productAmount = () => {
-		if (isFood(selectedProduct) && selectedProduct.DishSize) {
+		if (isFood(selectedProduct) && selectedProduct.dishSize) {
 			return selectedProduct?.amount !== 0 ? `${selectedProduct?.amount} x` : undefined;
 		} else {
 			return productFromCart ? `${productFromCart?.amount} x` : undefined;
@@ -89,11 +89,11 @@ export const ProductDetailsUI = ({
 						</Typography>
 					)}
 				</Box>
-				{isFood(selectedProduct) && selectedProduct.DishSize && (
+				{isFood(selectedProduct) && selectedProduct.dishSize && (
 					<RadioButtons
 						handleExtra={handleExtra}
 						productExtra={productExtra}
-						buttons={selectedProduct.DishSize}
+						buttons={selectedProduct.dishSize}
 					/>
 				)}
 			</CardContent>

@@ -6,9 +6,9 @@ export interface UserData {
 }
 
 export interface UserDB {
-	Id: string;
-	Name: string;
-	Phone: string;
-	Hotel: string;
-	Address: string;
+	id: string;
+	name: string;
+	phone: string;
+	hotel: string;
+	address: string;
 }

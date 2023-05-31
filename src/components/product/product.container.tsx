@@ -1,5 +1,4 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { useCart } from '../../hooks/useCart';
 import { ErrorType } from '../../models/error';
 import { useProducts } from '../../hooks/useProducts';
 import { ProductComponent } from './product.component';
@@ -8,6 +7,7 @@ import { useRestaurant } from '../../hooks/useRestaurant';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 import { isFood } from '../../utils/typeGuard';
 import { CART_ACTION } from '../amountButtons';
+import { useShoppingCart } from '../../context/cart.context';
 
 interface ProductContainerProps {
 	flowId: string;
@@ -18,7 +18,7 @@ interface ProductContainerProps {
 export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentProduct, amountButtonsVisible }) => {
 	const { getProductFromCart } = useProducts();
 	const { restaurant } = useRestaurant();
-	const { cartProducts, addToCart, removeFromCart } = useCart();
+	const { cartItems, incrementCartAmount, decrementCartAmount } = useShoppingCart();
 
 	const [product, setProduct] = useState<ProductModel>({ ...currentProduct });
 	const [loading, setLoading] = useState(false);
@@ -29,7 +29,9 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentPro
 	const handleProductAmount = (action: CART_ACTION) => {
 		setProduct(prevProduct => {
 			if (isFood(prevProduct)) {
-				action === 'add' ? addToCart(prevProduct) : removeFromCart(prevProduct);
+				action === 'add'
+					? incrementCartAmount(prevProduct.id, prevProduct.restaurant)
+					: decrementCartAmount(prevProduct.id);
 			}
 			return prevProduct;
 		});
@@ -42,20 +44,20 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentPro
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
 
-	const productFromCart = isFood(product) ? getProductFromCart(cartProducts, product) : undefined;
+	const productFromCart = isFood(product) ? getProductFromCart(cartItems, product.id) : undefined;
 
 	const handleProductOrder = useCallback(() => {
 		return handleOrder(
 			flowId,
 			{
 				itemName: product.title,
-				placeNumber: product?.Contact,
+				placeNumber: product?.contact,
 				placeCoordinates: product?.coordinates,
 			},
 			handleLoading,
 			handleError,
 		);
-	}, [flowId, product?.title, product?.coordinates, product?.Contact]);
+	}, [flowId, product?.title, product?.coordinates, product?.contact]);
 
 	return (
 		<ProductComponent
@@ -66,7 +68,7 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentPro
 			handleProductOrder={handleProductOrder}
 			handleProductAmount={handleProductAmount}
 			amountButtonsVisible={amountButtonsVisible}
-			isRestaurantWorking={restaurant?.IsWorking}
+			isRestaurantWorking={restaurant?.isWorking}
 		/>
 	);
 };

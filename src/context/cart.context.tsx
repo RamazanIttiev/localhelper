@@ -16,6 +16,9 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 	const { products } = useRouteLoaderData('AppData') as AppData;
 	const [cartItems, setCartItems] = useLocalStorage<CartItem[]>('shopping-cart', []);
 
+	const getItemAmount = (id: string) => {
+		return cartItems.find(item => item.id === id)?.amount || 0;
+	};
 	const incrementCartAmount = (id: string, restaurant: string[]) => {
 		setHaptic('light');
 		const sameRestaurant = isSameRestaurant(cartItems, restaurant);
@@ -48,11 +51,14 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 	const decrementCartAmount = (id: string) => {
 		setHaptic('light');
 		setCartItems(currItems => {
-			if (currItems.find(item => item.id === id)?.amount === 1) {
-				const answer = confirm('Do you want to clear your cart?');
-				if (answer) {
-					clearCart();
-					hideMainButton();
+			const item = currItems.find(item => item.id === id);
+			if (item?.amount === 1) {
+				if (currItems.length === 1) {
+					const answer = confirm('Do you want to clear your cart?');
+					if (answer) {
+						clearCart();
+						hideMainButton();
+					} else return [item];
 				}
 				return currItems.filter(item => item.id !== id);
 			} else {
@@ -109,6 +115,7 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 				isCartEmpty,
 				cartOrder,
 				orderCheckout,
+				getItemAmount,
 			}}>
 			{children}
 		</ShoppingCartContext.Provider>

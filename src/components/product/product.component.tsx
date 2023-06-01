@@ -13,6 +13,7 @@ import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui
 import dishImage from '../../assets/food.webp';
 import { isFood } from '../../utils/typeGuard';
 import { CartItem } from '../../models/cart.model';
+import { useShoppingCart } from '../../context/cart.context';
 
 interface ProductProps {
 	loading: boolean;
@@ -35,6 +36,10 @@ export const ProductComponent: FC<ProductProps> = ({
 	amountButtonsVisible,
 	handleProductAmount,
 }) => {
+	const { getItemAmount } = useShoppingCart();
+
+	const productAmount = getItemAmount(product.id);
+
 	return (
 		<>
 			<Card
@@ -90,10 +95,10 @@ export const ProductComponent: FC<ProductProps> = ({
 							}}
 						/>
 					)}
-					{productFromCart && (
+					{productAmount !== 0 && (
 						<ImageBackdrop>
 							<Typography variant={'body1'} fontSize={'1.5rem'}>
-								{productFromCart.amount}
+								{productAmount}
 							</Typography>
 						</ImageBackdrop>
 					)}

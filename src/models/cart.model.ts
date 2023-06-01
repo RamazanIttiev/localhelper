@@ -13,6 +13,7 @@ export interface ShoppingCartContextProps {
 	cartTotalAmount: number;
 	isCartEmpty: boolean;
 	cartOrder: string;
+	getItemAmount: (id: string) => number;
 	orderCheckout: (Pick<FoodModel, 'title' | 'amount' | 'image' | 'price'> | undefined)[];
 }
 

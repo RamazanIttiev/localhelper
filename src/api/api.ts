@@ -1,6 +1,6 @@
 import { Telegram } from '../app/App';
-import { UserData, UserDB } from '../models/userModel';
-import { AppData, ProductModel } from '../models/productModel';
+import { UserData, UserDB } from '../models/user.model';
+import { AppData, ProductModel } from '../models/product.model';
 import { mapCategories, mapRecords, mapRestaurants } from '../utils/mappers';
 
 type Tables = 'Products' | 'Categories' | 'Restaurants';

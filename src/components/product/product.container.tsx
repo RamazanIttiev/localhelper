@@ -1,24 +1,20 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { ErrorType } from '../../models/error';
-import { useProducts } from '../../hooks/useProducts';
+import { ErrorType } from '../../models/error.model';
 import { ProductComponent } from './product.component';
-import { ProductModel } from '../../models/productModel';
-import { useRestaurant } from '../../hooks/useRestaurant';
+import { ProductModel } from '../../models/product.model';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 import { isFood } from '../../utils/typeGuard';
 import { CART_ACTION } from '../amountButtons';
 import { useShoppingCart } from '../../context/cart.context';
+import { useCategory } from '../../hooks/useCategory';
 
 interface ProductContainerProps {
-	flowId: string;
 	currentProduct: ProductModel;
-	amountButtonsVisible?: boolean;
 }
 
-export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentProduct, amountButtonsVisible }) => {
-	const { getProductFromCart } = useProducts();
-	const { restaurant } = useRestaurant();
-	const { cartItems, incrementCartAmount, decrementCartAmount } = useShoppingCart();
+export const ProductContainer: FC<ProductContainerProps> = ({ currentProduct }) => {
+	const { flowId } = useCategory();
+	const { incrementCartAmount, decrementCartAmount } = useShoppingCart();
 
 	const [product, setProduct] = useState<ProductModel>({ ...currentProduct });
 	const [loading, setLoading] = useState(false);
@@ -44,8 +40,6 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentPro
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
 
-	const productFromCart = isFood(product) ? getProductFromCart(cartItems, product.id) : undefined;
-
 	const handleProductOrder = useCallback(() => {
 		return handleOrder(
 			flowId,
@@ -64,11 +58,8 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentPro
 			product={product}
 			loading={loading}
 			errorState={errorState}
-			productFromCart={productFromCart}
 			handleProductOrder={handleProductOrder}
 			handleProductAmount={handleProductAmount}
-			amountButtonsVisible={amountButtonsVisible}
-			isRestaurantWorking={restaurant?.isWorking}
 		/>
 	);
 };

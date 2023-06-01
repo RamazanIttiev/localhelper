@@ -1,25 +1,22 @@
 import React from 'react';
 import { useLocation, useOutletContext } from 'react-router-dom';
-import { AppData, FoodModel } from '../../models/productModel';
+import { AppData, FoodModel } from '../../models/product.model';
 import { AmountButtons } from '../../components/amountButtons';
 import { Box, List, ListItem, Typography } from '@mui/material';
 import { useShoppingCart } from '../../context/cart.context';
 import { CartItem } from '../../models/cart.model';
-import { isFood } from '../../utils/typeGuard';
-import { useProducts } from '../../hooks/useProducts';
 
 export const CartList = () => {
 	const { products } = useOutletContext<AppData>();
 	const { pathname } = useLocation();
-	const { getProductFromCart } = useProducts();
 	const { cartItems } = useShoppingCart();
+
 	return (
 		<List>
 			{cartItems?.map(({ id }: CartItem) => {
 				const item = products.find(product => product.id === id) as FoodModel;
-				if (item == null) return null;
 
-				const productFromCart = isFood(item) ? getProductFromCart(cartItems, item.id) : undefined;
+				if (item == null) return null;
 
 				return (
 					<React.Fragment key={item.id}>
@@ -50,14 +47,7 @@ export const CartList = () => {
 									{item.price} Rs
 								</Typography>
 							</Box>
-							{item && pathname !== '/checkout' && (
-								<AmountButtons
-									showText={false}
-									product={item}
-									productFromCart={productFromCart}
-									amountText={productFromCart?.amount}
-								/>
-							)}
+							{item && pathname !== '/checkout' && <AmountButtons showText={false} product={item} />}
 						</ListItem>
 					</React.Fragment>
 				);

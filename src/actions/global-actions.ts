@@ -1,7 +1,7 @@
-import { ErrorType } from '../models/error';
+import { ErrorType } from '../models/error.model';
 import { setHaptic } from './webApp-actions';
 import { sendWebAppDeepLink } from '../api/api';
-import { CartOrderData, SingleOrderData } from '../models/orderData';
+import { CartOrderData, SingleOrderData } from '../models/orderData.model';
 
 export const handleOrder = async (
 	flowId: string,

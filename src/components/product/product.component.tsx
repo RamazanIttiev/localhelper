@@ -1,27 +1,25 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { ErrorType } from '../../models/error';
+import { ErrorType } from '../../models/error.model';
 import { ImageBackdrop } from './imageBackdrop';
 import { AmountButtons, CART_ACTION } from '../amountButtons';
 import { InfoBadge } from '../../reactkit/infoBadge';
 import { IconBadge } from '../../reactkit/iconBadge';
 import { setHaptic } from '../../actions/webApp-actions';
 import { LoaderButton } from '../../reactkit/loaderButton';
-import { ProductModel } from '../../models/productModel';
+import { ProductModel } from '../../models/product.model';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { isFood } from '../../utils/typeGuard';
+import { useShoppingCart } from '../../context/cart.context';
+import { useRestaurant } from '../../hooks/useRestaurant';
+import { useReactRouter } from '../../hooks/useReactRouter';
 
 import dishImage from '../../assets/food.webp';
-import { isFood } from '../../utils/typeGuard';
-import { CartItem } from '../../models/cart.model';
-import { useShoppingCart } from '../../context/cart.context';
 
 interface ProductProps {
 	loading: boolean;
-	errorState: ErrorType;
 	product: ProductModel;
-	productFromCart?: CartItem;
-	isRestaurantWorking?: boolean;
-	amountButtonsVisible?: boolean;
+	errorState: ErrorType;
 	handleProductAmount?: (action: CART_ACTION) => void;
 	handleProductOrder: () => Promise<Response | undefined>;
 }
@@ -30,13 +28,12 @@ export const ProductComponent: FC<ProductProps> = ({
 	loading,
 	product,
 	errorState,
-	productFromCart,
 	handleProductOrder,
-	isRestaurantWorking,
-	amountButtonsVisible,
 	handleProductAmount,
 }) => {
 	const { getItemAmount } = useShoppingCart();
+	const { isRestaurantRoute } = useReactRouter();
+	const { restaurant } = useRestaurant();
 
 	const productAmount = getItemAmount(product.id);
 
@@ -129,18 +126,13 @@ export const ProductComponent: FC<ProductProps> = ({
 						</Typography>
 					</CardContent>
 				</Link>
-				{isRestaurantWorking === undefined || isRestaurantWorking ? (
+				{restaurant?.isWorking === undefined || restaurant?.isWorking ? (
 					<CardActions
 						sx={{
 							p: 0,
 						}}>
-						{amountButtonsVisible && product && isFood(product) ? (
-							<AmountButtons
-								handleProductAmount={handleProductAmount}
-								showText
-								product={product}
-								productFromCart={productFromCart}
-							/>
+						{isRestaurantRoute && product && isFood(product) ? (
+							<AmountButtons handleProductAmount={handleProductAmount} showText product={product} />
 						) : (
 							<LoaderButton
 								loading={loading}

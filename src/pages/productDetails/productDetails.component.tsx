@@ -1,24 +1,24 @@
 import React from 'react';
 import { isFood } from '../../utils/typeGuard';
-import { ErrorType } from '../../models/error';
-import { useProducts } from '../../hooks/useProducts';
+import { ErrorType } from '../../models/error.model';
 import { MuiCarousel } from '../../components/carousel';
-import { FoodExtraOptions, ProductModel } from '../../models/productModel';
+import { FoodExtraOptions, ProductModel } from '../../models/product.model';
 import { RadioButtons } from '../../components/radioGroup';
 import { LoaderButton } from '../../reactkit/loaderButton';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { AmountButtons, CART_ACTION } from '../../components/amountButtons';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography, useTheme } from '@mui/material';
 import { useShoppingCart } from '../../context/cart.context';
+import { useReactRouter } from '../../hooks/useReactRouter';
+
+import { useRestaurant } from '../../hooks/useRestaurant';
 
 import dishImage from '../../assets/food.webp';
 
 interface ProductDetailsUIProps {
 	loading: boolean;
 	errorState: ErrorType;
-	isRestaurantWorking?: boolean;
-	amountButtonsVisible?: boolean;
-	selectedProduct?: ProductModel;
+	selectedProduct: ProductModel;
 	productExtra?: FoodExtraOptions;
 	handleProductAmount?: (action: CART_ACTION) => void;
 	handleExtra?: (event: React.SyntheticEvent) => void;
@@ -30,21 +30,22 @@ export const ProductDetailsUI = ({
 	handleExtra,
 	productExtra,
 	selectedProduct,
-	isRestaurantWorking,
 	handleProductOrder,
 	handleProductAmount,
-	amountButtonsVisible = false,
 }: ProductDetailsUIProps) => {
 	const theme = useTheme();
-	const { getProductFromCart } = useProducts();
-	const { cartItems } = useShoppingCart();
-	const productFromCart = isFood(selectedProduct) ? getProductFromCart(cartItems, selectedProduct.id) : undefined;
 
-	const productAmount = () => {
+	const { getItemAmount } = useShoppingCart();
+	const { isRestaurantRoute } = useReactRouter();
+	const { restaurant } = useRestaurant();
+
+	const productAmount = getItemAmount(selectedProduct.id);
+
+	const setProductAmount = () => {
 		if (isFood(selectedProduct) && selectedProduct.dishSize) {
-			return selectedProduct?.amount !== 0 ? `${selectedProduct?.amount} x` : undefined;
+			return selectedProduct.amount !== 0 ? `${selectedProduct.amount} x` : undefined;
 		} else {
-			return productFromCart ? `${productFromCart?.amount} x` : undefined;
+			return productAmount > 0 ? `${productAmount} x` : undefined;
 		}
 	};
 
@@ -98,18 +99,17 @@ export const ProductDetailsUI = ({
 				)}
 			</CardContent>
 
-			{isRestaurantWorking === undefined || isRestaurantWorking ? (
+			{restaurant?.isWorking === undefined || restaurant?.isWorking ? (
 				<CardActions sx={{ flexDirection: 'column', p: 0 }}>
-					{amountButtonsVisible && selectedProduct && isFood(selectedProduct) ? (
+					{isRestaurantRoute && selectedProduct && isFood(selectedProduct) ? (
 						<AmountButtons
 							styles={{
 								maxWidth: '13rem',
-								width: productFromCart ? '13rem' : '12rem',
+								width: productAmount > 0 ? '13rem' : '12rem',
 								background: theme.palette.background.paper,
 							}}
 							product={selectedProduct}
-							amountText={productAmount()}
-							productFromCart={productFromCart}
+							amountText={setProductAmount()}
 							handleProductAmount={handleProductAmount}
 						/>
 					) : (

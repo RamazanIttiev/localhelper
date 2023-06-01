@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Container } from '@mui/material';
-import { ErrorType } from '../../models/error';
+import { ErrorType } from '../../models/error.model';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCategory } from '../../hooks/useCategory';
-import { DishSizeType, FoodExtraOptions, ProductModel } from '../../models/productModel';
+import { DishSizeType, FoodExtraOptions, ProductModel } from '../../models/product.model';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { ProductDetailsUI } from './productDetails.component';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
@@ -28,7 +28,6 @@ export const ProductDetailsContainer = () => {
 	const { incrementCartAmount } = useShoppingCart();
 	const { flowId } = useCategory();
 	const { isRestaurantDetailsRoute } = useReactRouter();
-	const { restaurant } = useRestaurant();
 
 	const [productAmount, setProductAmount] = useState(1);
 	const [loading, setLoading] = useState(false);
@@ -125,8 +124,6 @@ export const ProductDetailsContainer = () => {
 				productExtra={productExtra}
 				handleProductOrder={handleProductOrder}
 				handleProductAmount={handleProductAmount}
-				isRestaurantWorking={restaurant?.isWorking}
-				amountButtonsVisible={isRestaurantDetailsRoute}
 			/>
 			{isRestaurantDetailsRoute && !isUserAgentTelegram && isFood(product) && product.dishSize && (
 				<LoaderButton isMainButton text={'Add to cart'} handleClick={addProductToCart} />

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { FoodModel } from './productModel';
+import { FoodModel } from './product.model';
 
 export interface ShoppingCartProviderProps {
 	children: ReactNode;

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Input } from '../checkout.styled';
 import { HintTitle } from '../../../components/hintTitle';
-import { ErrorType } from '../../../models/error';
+import { ErrorType } from '../../../models/error.model';
 import { LoaderButton } from '../../../reactkit/loaderButton';
 import { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 import { isUserAgentTelegram } from '../../../utils/deviceInfo';
 import { ErrorText } from '../../../components/errorText';
-import { UserData } from '../../../models/userModel';
+import { UserData } from '../../../models/user.model';
 
 interface FormUIProps {
 	loading: boolean;

@@ -1,4 +1,4 @@
-import { CategoryModel, ProductModel, RestaurantModel } from '../models/productModel';
+import { CategoryModel, ProductModel, RestaurantModel } from '../models/product.model';
 import { isWorkingHour } from './restaurant';
 import { isFood } from './typeGuard';
 

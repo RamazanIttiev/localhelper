@@ -1,6 +1,6 @@
 import React from 'react';
 import { LoadingButton } from '@mui/lab';
-import { ErrorType } from '../models/error';
+import { ErrorType } from '../models/error.model';
 import { ButtonProps, Icon, styled, Typography } from '@mui/material';
 
 interface LoaderButtonProps extends ButtonProps {

@@ -3,7 +3,7 @@ import { FormUI } from './components/form.component';
 import { Container, Switch, useTheme } from '@mui/material';
 import { OrderInfo } from './components/orderInfo';
 import { SaveInfoField, SaveInfoWrapper } from './checkout.styled';
-import { ErrorType } from '../../models/error';
+import { ErrorType } from '../../models/error.model';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
@@ -14,7 +14,7 @@ import {
 } from '../../actions/webApp-actions';
 import { useForm } from 'react-hook-form';
 import { CartList } from '../cart/cart-list';
-import { UserData, UserDB } from '../../models/userModel';
+import { UserData, UserDB } from '../../models/user.model';
 import { fetchUser, saveUserInfo } from '../../api/api';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { HintTitle } from '../../components/hintTitle';

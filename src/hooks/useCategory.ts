@@ -1,4 +1,4 @@
-import { AppData } from '../models/productModel';
+import { AppData } from '../models/product.model';
 import { useOutletContext, useParams } from 'react-router-dom';
 
 export const useCategory = () => {

@@ -1,16 +1,13 @@
 import React, { CSSProperties, FC } from 'react';
-import { FoodModel } from '../models/productModel';
+import { FoodModel } from '../models/product.model';
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { useReactRouter } from '../hooks/useReactRouter';
 import { useShoppingCart } from '../context/cart.context';
-import { CartItem } from '../models/cart.model';
 
 interface AmountButtonsProps {
 	product: FoodModel;
 	showText?: boolean;
 	styles?: CSSProperties;
-	productFromCart?: CartItem;
 	amountText?: string | number;
 	handleProductAmount?: (action: CART_ACTION) => void;
 }
@@ -20,22 +17,23 @@ export type CART_ACTION = 'add' | 'remove';
 export const AmountButtons: FC<AmountButtonsProps> = ({
 	styles,
 	product,
-	productFromCart,
 	amountText,
 	showText = true,
 	handleProductAmount,
 }) => {
 	const theme = useTheme();
+	const { getItemAmount } = useShoppingCart();
 	const { isRestaurantDetailsRoute } = useReactRouter();
-
 	const { incrementCartAmount, decrementCartAmount } = useShoppingCart();
 
+	const productAmount = getItemAmount(product.id);
+
 	const isRemoveVisible = () => {
-		if (productFromCart && !product.dishSize) {
+		if (productAmount > 0 && !product.dishSize) {
 			return true;
 		}
 		if (isRestaurantDetailsRoute && product.amount === 1) return false;
-		if (productFromCart) return true;
+		if (productAmount > 0) return true;
 		return !!(product.amount > 1 && product.dishSize);
 	};
 
@@ -49,7 +47,7 @@ export const AmountButtons: FC<AmountButtonsProps> = ({
 				display: 'flex',
 				alignItems: 'center',
 				justifyContent: 'space-between',
-				width: productFromCart ? '9rem' : '8rem',
+				width: productAmount > 0 ? '9rem' : '8rem',
 				background: theme.palette.background.paper,
 				...styles,
 			}}>

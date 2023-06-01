@@ -10,7 +10,7 @@ import {
 } from '../actions/webApp-actions';
 import { ErrorPage } from '../pages/404/404';
 import { useDocumentTitle } from 'usehooks-ts';
-import { AppData } from '../models/productModel';
+import { AppData } from '../models/product.model';
 import { useReactRouter } from '../hooks/useReactRouter';
 import { Categories } from '../pages/categories/categories';
 import { Await, Outlet, useLoaderData, useNavigate } from 'react-router-dom';

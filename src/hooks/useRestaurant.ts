@@ -1,5 +1,5 @@
 import { useOutletContext, useParams } from 'react-router-dom';
-import { AppData, RestaurantModel } from '../models/productModel';
+import { AppData, RestaurantModel } from '../models/product.model';
 import { useShoppingCart } from '../context/cart.context';
 
 export const useRestaurant = () => {

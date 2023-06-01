@@ -11,7 +11,7 @@ import {
 import { ProductsHeader } from './productsHeader';
 import { useCategory } from '../../hooks/useCategory';
 import { useRestaurant } from '../../hooks/useRestaurant';
-import { ProductModel } from '../../models/productModel';
+import { ProductModel } from '../../models/product.model';
 import { LoaderButton } from '../../reactkit/loaderButton';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
@@ -19,8 +19,8 @@ import { ProductContainer } from '../../components/product/product.container';
 import { useShoppingCart } from '../../context/cart.context';
 
 export const Products = () => {
-	const { isCartEmpty } = useShoppingCart();
 	const navigate = useNavigate();
+	const { isCartEmpty } = useShoppingCart();
 	const { isRestaurantRoute } = useReactRouter();
 	const { restaurant } = useRestaurant();
 	const { flowId, category } = useCategory();
@@ -57,11 +57,7 @@ export const Products = () => {
 					{renderProducts?.map((product: ProductModel) => {
 						return (
 							<Grid item xs={6} md={5} key={product.id}>
-								<ProductContainer
-									flowId={flowId}
-									currentProduct={product}
-									amountButtonsVisible={isRestaurantRoute}
-								/>
+								<ProductContainer currentProduct={product} />
 							</Grid>
 						);
 					})}

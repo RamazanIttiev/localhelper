@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ErrorType } from '../models/error';
+import { ErrorType } from '../models/error.model';
 import { LoaderButton } from '../reactkit/loaderButton';
 import { isUserAgentTelegram } from '../utils/deviceInfo';
 import { Box, Drawer, Typography, useTheme } from '@mui/material';

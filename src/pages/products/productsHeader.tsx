@@ -3,7 +3,7 @@ import { theme } from '../../theme';
 import { Box, Icon, Typography } from '@mui/material';
 import { WorkingStatus } from '../../reactkit/workingStatus';
 import { useReactRouter } from '../../hooks/useReactRouter';
-import { CategoryModel, RestaurantModel } from '../../models/productModel';
+import { CategoryModel, RestaurantModel } from '../../models/product.model';
 
 interface HeaderProps {
 	category: Pick<CategoryModel, 'headerTitle' | 'headerImage'> | undefined;

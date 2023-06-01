@@ -4,7 +4,7 @@ import { hideMainButton, setHaptic } from '../actions/webApp-actions';
 import { isSameRestaurant } from '../utils/restaurant';
 import { CartItem, ShoppingCartContextProps, ShoppingCartProviderProps } from '../models/cart.model';
 import { useRouteLoaderData } from 'react-router-dom';
-import { AppData, FoodModel } from '../models/productModel';
+import { AppData, FoodModel } from '../models/product.model';
 import { getCartOrderString } from '../utils/cart';
 
 const ShoppingCartContext = createContext({} as ShoppingCartContextProps);

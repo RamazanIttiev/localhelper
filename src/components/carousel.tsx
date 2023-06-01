@@ -3,7 +3,7 @@ import { Box, useTheme } from '@mui/material';
 import { isDesktop } from 'react-device-detect';
 import Carousel from 'react-material-ui-carousel';
 import { IconBadge } from '../reactkit/iconBadge';
-import { ProductModel } from '../models/productModel';
+import { ProductModel } from '../models/product.model';
 import { isUserAgentTelegram } from '../utils/deviceInfo';
 
 interface CarouselProps {

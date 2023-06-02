@@ -47,7 +47,7 @@ export const Products = () => {
 		};
 	}, [isRestaurantRoute, isCartEmpty, navigateToCart]);
 
-	const renderProducts = category?.products?.length !== 0 ? category?.products : restaurant?.products;
+	const renderProducts = restaurant?.products || category?.products;
 
 	return (
 		<>

@@ -1,22 +1,22 @@
 import React from 'react';
 import { useLocation, useOutletContext } from 'react-router-dom';
-import { AppData, FoodModel } from '../../models/product.model';
+import { AppData } from '../../models/product.model';
 import { AmountButtons } from '../../components/amountButtons';
 import { Box, List, ListItem, Typography } from '@mui/material';
 import { useShoppingCart } from '../../context/cart.context';
 import { CartItem } from '../../models/cart.model';
 
 export const CartList = () => {
-	const { products } = useOutletContext<AppData>();
 	const { pathname } = useLocation();
-	const { cartItems } = useShoppingCart();
+	const { products } = useOutletContext<AppData>();
+	const { cartItems, findProduct } = useShoppingCart();
 
 	return (
 		<List>
 			{cartItems?.map(({ id }: CartItem) => {
-				const item = products.find(product => product.id === id) as FoodModel;
+				const item = findProduct(products, id);
 
-				if (item == null) return null;
+				if (item === undefined) return null;
 
 				return (
 					<React.Fragment key={item.id}>

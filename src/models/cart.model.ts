@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { FoodModel } from './product.model';
+import { FoodModel, ProductModel } from './product.model';
 
 export interface ShoppingCartProviderProps {
 	children: ReactNode;
@@ -10,11 +10,14 @@ export interface ShoppingCartContextProps {
 	decrementCartAmount: (id: string) => void;
 	clearCart: () => void;
 	cartItems: CartItem[];
-	cartTotalAmount: number;
+	getCartTotalAmount: (products: ProductModel[]) => number;
 	isCartEmpty: boolean;
-	cartOrder: string;
+	getCartOrder: (products: ProductModel[]) => string;
 	getItemAmount: (id: string) => number;
-	orderCheckout: (Pick<FoodModel, 'title' | 'amount' | 'image' | 'price'> | undefined)[];
+	getOrderCheckout: (
+		products: ProductModel[],
+	) => (Pick<FoodModel, 'title' | 'amount' | 'image' | 'price'> | undefined)[];
+	findProduct: (products: ProductModel[], id: string) => FoodModel | undefined;
 }
 
 export interface CartItem {

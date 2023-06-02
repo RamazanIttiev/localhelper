@@ -3,8 +3,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import { hideMainButton, setHaptic } from '../actions/webApp-actions';
 import { isSameRestaurant } from '../utils/restaurant';
 import { CartItem, ShoppingCartContextProps, ShoppingCartProviderProps } from '../models/cart.model';
-import { useRouteLoaderData } from 'react-router-dom';
-import { AppData, FoodModel } from '../models/product.model';
+import { FoodModel, ProductModel } from '../models/product.model';
 import { getCartOrderString } from '../utils/cart';
 
 const ShoppingCartContext = createContext({} as ShoppingCartContextProps);
@@ -13,30 +12,45 @@ export const useShoppingCart = () => {
 	return useContext(ShoppingCartContext);
 };
 export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) => {
-	const { products } = useRouteLoaderData('AppData') as AppData;
 	const [cartItems, setCartItems] = useLocalStorage<CartItem[]>('shopping-cart', []);
 
+	const findProduct = (products: ProductModel[], id: string) =>
+		products?.find(product => {
+			return product.id === id;
+		}) as FoodModel | undefined;
+
+	const findCartItem = (id: string) => cartItems.find(cartItem => cartItem.id === id);
+
 	const getItemAmount = (id: string) => {
-		return cartItems.find(item => item.id === id)?.amount || 0;
+		return cartItems.find(cartItem => cartItem.id === id)?.amount || 0;
 	};
 	const incrementCartAmount = (id: string, restaurant: string[]) => {
 		setHaptic('light');
 		const sameRestaurant = isSameRestaurant(cartItems, restaurant);
 
 		const modifyCart = () =>
-			setCartItems(currItems => {
-				if (currItems.find(item => item.id === id) == null) {
-					return [...currItems, { id, amount: 1, restaurant }];
+			setCartItems(currentItems => {
+				const cartItem = findCartItem(id);
+
+				if (cartItem === undefined) {
+					return [...currentItems, { id, amount: 1, restaurant }];
 				} else {
-					return currItems.map(item => {
-						if (item.id === id) {
-							return { ...item, amount: item.amount + 1 };
+					return currentItems.map(cartItem => {
+						if (cartItem.id === id) {
+							return { ...cartItem, amount: cartItem.amount + 1 };
 						} else {
-							return item;
+							return cartItem;
 						}
 					});
 				}
 			});
+
+		// const product = findProduct(id);
+		//
+		// console.log(product);
+		// if (product?.dishSize && isRestaurantRoute) {
+		// 	return navigate(product.title.toLowerCase(), { state: { ...product } });
+		// }
 
 		if (!sameRestaurant) {
 			const answer = confirm('You should empty your cart for a new order');
@@ -50,23 +64,24 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 
 	const decrementCartAmount = (id: string) => {
 		setHaptic('light');
-		setCartItems(currItems => {
-			const item = currItems.find(item => item.id === id);
-			if (item?.amount === 1) {
-				if (currItems.length === 1) {
+		setCartItems(currentItems => {
+			const cartItem = findCartItem(id);
+
+			if (cartItem?.amount === 1) {
+				if (currentItems.length === 1) {
 					const answer = confirm('Do you want to clear your cart?');
 					if (answer) {
 						clearCart();
 						hideMainButton();
-					} else return [item];
+					} else return [cartItem];
 				}
-				return currItems.filter(item => item.id !== id);
+				return currentItems.filter(cartItem => cartItem.id !== id);
 			} else {
-				return currItems.map(item => {
-					if (item.id === id) {
-						return { ...item, amount: item.amount - 1 };
+				return currentItems.map(cartItem => {
+					if (cartItem.id === id) {
+						return { ...cartItem, amount: cartItem.amount - 1 };
 					} else {
-						return item;
+						return cartItem;
 					}
 				});
 			}
@@ -78,31 +93,35 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 		setCartItems([]);
 	};
 
-	const cartTotalAmount = cartItems.reduce((total, cartItem): number => {
-		const item = products?.find(product => product.id === cartItem.id) as FoodModel | undefined;
-		return total + (item?.price || 0) * cartItem.amount;
-	}, 0);
+	// find in child components
+	const getCartTotalAmount = (products: ProductModel[]) =>
+		cartItems.reduce((total, cartItem): number => {
+			const product = findProduct(products, cartItem.id);
+			console.log(product);
+			return total + (product?.price || 0) * cartItem.amount;
+		}, 0);
 
 	const isCartEmpty = cartItems.length === 0;
 
-	const cartOrder = getCartOrderString(
-		cartItems.map((cartItem, id) => {
-			const item = products?.find(product => product.id === cartItem.id) as FoodModel | undefined;
+	// find in child components
+	const getCartOrder = (products: ProductModel[]) =>
+		getCartOrderString(
+			cartItems.map((cartItem, index) => {
+				const product = findProduct(products, cartItem.id);
 
-			return `${id + 1}. ${item?.title} ${item?.amount} x ${item?.price}`;
-		}),
-	);
+				return `${index + 1}. ${product?.title} ${product?.amount} x ${product?.price}`;
+			}),
+		);
+	// find in child components
+	const getOrderCheckout = (products: ProductModel[]) =>
+		cartItems.map((cartItem): Pick<FoodModel, 'image' | 'title' | 'price' | 'amount'> | undefined => {
+			const product = findProduct(products, cartItem.id);
 
-	const orderCheckout: (Pick<FoodModel, 'title' | 'amount' | 'image' | 'price'> | undefined)[] = cartItems.map(
-		(cartItem): Pick<FoodModel, 'image' | 'title' | 'price' | 'amount'> | undefined => {
-			const item = products?.find(product => product.id === cartItem.id) as FoodModel | undefined;
-
-			if (item) {
-				const { image, title, price, amount } = item;
+			if (product) {
+				const { image, title, price, amount } = product;
 				return { image, title, price, amount };
 			}
-		},
-	);
+		});
 
 	return (
 		<ShoppingCartContext.Provider
@@ -111,11 +130,12 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 				decrementCartAmount,
 				clearCart,
 				cartItems,
-				cartTotalAmount,
+				getCartTotalAmount,
 				isCartEmpty,
-				cartOrder,
-				orderCheckout,
+				getCartOrder,
+				getOrderCheckout,
 				getItemAmount,
+				findProduct,
 			}}>
 			{children}
 		</ShoppingCartContext.Provider>

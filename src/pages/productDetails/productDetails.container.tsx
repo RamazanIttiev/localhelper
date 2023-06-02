@@ -14,7 +14,6 @@ import {
 	setMainButtonText,
 	showMainButton,
 } from '../../actions/webApp-actions';
-import { useRestaurant } from '../../hooks/useRestaurant';
 import { isFood } from '../../utils/typeGuard';
 import { CART_ACTION } from '../../components/amountButtons';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';

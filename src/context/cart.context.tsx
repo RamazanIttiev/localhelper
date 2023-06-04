@@ -3,7 +3,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import { hideMainButton, setHaptic } from '../actions/webApp-actions';
 import { isSameRestaurant } from '../utils/restaurant';
 import { CartItem, ShoppingCartContextProps, ShoppingCartProviderProps } from '../models/cart.model';
-import { FoodExtraOptions, FoodModel, ProductModel } from '../models/product.model';
+import { FoodModel, ProductModel } from '../models/product.model';
 import { getCartOrderString } from '../utils/cart';
 
 const ShoppingCartContext = createContext({} as ShoppingCartContextProps);
@@ -46,7 +46,7 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 		});
 	};
 
-	const incrementCartAmount = (id: string, restaurant: string[], extraOptions?: FoodExtraOptions) => {
+	const incrementCartAmount = (id: string, restaurant: string[]) => {
 		setHaptic('light');
 		const sameRestaurant = isSameRestaurant(cartItems, restaurant);
 

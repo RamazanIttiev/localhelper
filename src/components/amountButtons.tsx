@@ -1,9 +1,9 @@
 import React, { CSSProperties, FC } from 'react';
-import { AppData, FoodModel } from '../models/product.model';
+import { FoodModel } from '../models/product.model';
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
 import { useReactRouter } from '../hooks/useReactRouter';
 import { useShoppingCart } from '../context/cart.context';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface AmountButtonsProps {
 	product: FoodModel;
@@ -24,7 +24,6 @@ export const AmountButtons: FC<AmountButtonsProps> = ({
 }) => {
 	const navigate = useNavigate();
 	const theme = useTheme();
-	const { products } = useOutletContext<AppData>();
 	const { getItemAmount } = useShoppingCart();
 	const { isRestaurantRoute, isRestaurantDetailsRoute } = useReactRouter();
 	const { incrementCartAmount, decrementCartAmount } = useShoppingCart();

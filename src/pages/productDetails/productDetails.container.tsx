@@ -24,7 +24,7 @@ export const ProductDetailsContainer = () => {
 	const { state } = useLocation();
 
 	const navigate = useNavigate();
-	const { incrementCartAmount } = useShoppingCart();
+	const { addNewProduct } = useShoppingCart();
 	const { flowId } = useCategory();
 	const { isRestaurantDetailsRoute } = useReactRouter();
 
@@ -37,10 +37,9 @@ export const ProductDetailsContainer = () => {
 		isFood(state) && state.dishSize ? { dishSize: 'small' } : undefined,
 	);
 	const product: ProductModel = useMemo(
-		() => ({ ...state, amount: productAmount, extra: productExtra }),
+		() => ({ ...state, amount: productAmount, extraOptions: productExtra }),
 		[productAmount, productExtra, state],
 	);
-
 	const handleProductAmount = (action: CART_ACTION) => {
 		setProductAmount(() => {
 			if (action === 'add') {
@@ -75,9 +74,15 @@ export const ProductDetailsContainer = () => {
 	}, [flowId, product.contact, product.coordinates, product.title]);
 
 	const addProductToCart = useCallback(() => {
-		isFood(product) && incrementCartAmount(product.id, product.restaurant);
+		isFood(product) &&
+			addNewProduct({
+				id: product.id,
+				restaurant: product.restaurant,
+				amount: product.amount,
+				extraOptions: product.extraOptions,
+			});
 		navigate(-1);
-	}, [incrementCartAmount, navigate, product]);
+	}, [addNewProduct, navigate, product]);
 
 	useEffect(() => {
 		if (isRestaurantDetailsRoute && isFood(product) && product.dishSize) {

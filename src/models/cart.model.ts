@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
-import { FoodModel, ProductModel } from './product.model';
+import { FoodExtraOptions, FoodModel, ProductModel } from './product.model';
 
 export interface ShoppingCartProviderProps {
 	children: ReactNode;
 }
 
 export interface ShoppingCartContextProps {
-	incrementCartAmount: (id: string, restaurant: string[]) => void;
+	incrementCartAmount: (id: string, restaurant: string[], extraOptions?: FoodExtraOptions) => void;
 	decrementCartAmount: (id: string) => void;
 	clearCart: () => void;
 	cartItems: CartItem[];
@@ -18,10 +18,12 @@ export interface ShoppingCartContextProps {
 		products: ProductModel[],
 	) => (Pick<FoodModel, 'title' | 'amount' | 'image' | 'price'> | undefined)[];
 	findProduct: (products: ProductModel[], id: string) => FoodModel | undefined;
+	addNewProduct: (product: CartItem) => void;
 }
 
 export interface CartItem {
 	id: string;
 	amount: number;
 	restaurant: string[];
+	extraOptions?: FoodExtraOptions;
 }

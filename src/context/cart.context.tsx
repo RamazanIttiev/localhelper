@@ -3,7 +3,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import { hideMainButton, setHaptic } from '../actions/webApp-actions';
 import { isSameRestaurant } from '../utils/restaurant';
 import { CartItem, ShoppingCartContextProps, ShoppingCartProviderProps } from '../models/cart.model';
-import { FoodModel, ProductModel } from '../models/product.model';
+import { FoodExtraOptions, FoodModel, ProductModel } from '../models/product.model';
 import { getCartOrderString } from '../utils/cart';
 
 const ShoppingCartContext = createContext({} as ShoppingCartContextProps);
@@ -24,7 +24,29 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 	const getItemAmount = (id: string) => {
 		return cartItems.find(cartItem => cartItem.id === id)?.amount || 0;
 	};
-	const incrementCartAmount = (id: string, restaurant: string[]) => {
+
+	const addNewProduct = (product: CartItem) => {
+		const cartItem = findCartItem(product.id);
+		setCartItems(currentItems => {
+			if (cartItem === undefined) {
+				return [...currentItems, { ...product }];
+			} else
+				return currentItems.flatMap(() => {
+					if (
+						cartItem.id === product.id &&
+						JSON.stringify(cartItem.extraOptions) === JSON.stringify(product.extraOptions)
+					) {
+						console.log('same');
+						return { ...cartItem, amount: cartItem.amount + product.amount };
+					} else {
+						console.log('not same');
+						return { ...product };
+					}
+				});
+		});
+	};
+
+	const incrementCartAmount = (id: string, restaurant: string[], extraOptions?: FoodExtraOptions) => {
 		setHaptic('light');
 		const sameRestaurant = isSameRestaurant(cartItems, restaurant);
 
@@ -44,13 +66,6 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 					});
 				}
 			});
-
-		// const product = findProduct(id);
-		//
-		// console.log(product);
-		// if (product?.dishSize && isRestaurantRoute) {
-		// 	return navigate(product.title.toLowerCase(), { state: { ...product } });
-		// }
 
 		if (!sameRestaurant) {
 			const answer = confirm('You should empty your cart for a new order');
@@ -136,6 +151,7 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 				getOrderCheckout,
 				getItemAmount,
 				findProduct,
+				addNewProduct,
 			}}>
 			{children}
 		</ShoppingCartContext.Provider>

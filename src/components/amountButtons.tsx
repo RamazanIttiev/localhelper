@@ -1,8 +1,9 @@
 import React, { CSSProperties, FC } from 'react';
-import { FoodModel } from '../models/product.model';
+import { AppData, FoodModel } from '../models/product.model';
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
 import { useReactRouter } from '../hooks/useReactRouter';
 import { useShoppingCart } from '../context/cart.context';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 
 interface AmountButtonsProps {
 	product: FoodModel;
@@ -21,9 +22,11 @@ export const AmountButtons: FC<AmountButtonsProps> = ({
 	showText = true,
 	handleProductAmount,
 }) => {
+	const navigate = useNavigate();
 	const theme = useTheme();
+	const { products } = useOutletContext<AppData>();
 	const { getItemAmount } = useShoppingCart();
-	const { isRestaurantDetailsRoute } = useReactRouter();
+	const { isRestaurantRoute, isRestaurantDetailsRoute } = useReactRouter();
 	const { incrementCartAmount, decrementCartAmount } = useShoppingCart();
 
 	const productAmount = getItemAmount(product.id);
@@ -35,6 +38,24 @@ export const AmountButtons: FC<AmountButtonsProps> = ({
 		if (isRestaurantDetailsRoute && product.amount === 1) return false;
 		if (productAmount > 0) return true;
 		return !!(product.amount > 1 && product.dishSize);
+	};
+	const handleProductIncrement = () => {
+		if (product.dishSize && isRestaurantRoute) {
+			return navigate(product.title.toLowerCase(), { state: { ...product } });
+		}
+		if (product.dishSize && isRestaurantDetailsRoute && handleProductAmount) {
+			return handleProductAmount('add');
+		} else {
+			return incrementCartAmount(product.id, product.restaurant, product.extraOptions);
+		}
+	};
+
+	const handleProductDecrement = () => {
+		if (product.dishSize && isRestaurantDetailsRoute && handleProductAmount) {
+			return handleProductAmount('remove');
+		} else {
+			return decrementCartAmount(product.id);
+		}
 	};
 
 	return (
@@ -54,7 +75,7 @@ export const AmountButtons: FC<AmountButtonsProps> = ({
 			<IconButton
 				sx={{ p: isRemoveVisible() ? 1 : 0, transition: 'all 0.2s' }}
 				size={'medium'}
-				onClick={() => decrementCartAmount(product.id)}>
+				onClick={handleProductDecrement}>
 				<Icon fontSize={'small'} sx={{ color: '#fff', opacity: isRemoveVisible() ? 1 : 0 }}>
 					remove
 				</Icon>
@@ -67,7 +88,7 @@ export const AmountButtons: FC<AmountButtonsProps> = ({
 					</Typography>
 				)}
 			</Box>
-			<IconButton size={'medium'} onClick={() => incrementCartAmount(product.id, product.restaurant)}>
+			<IconButton size={'medium'} onClick={handleProductIncrement}>
 				<Icon fontSize={'small'} sx={{ color: '#fff' }}>
 					add
 				</Icon>

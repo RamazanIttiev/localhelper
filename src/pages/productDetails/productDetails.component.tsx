@@ -36,7 +36,7 @@ export const ProductDetailsUI = ({
 	const theme = useTheme();
 
 	const { getItemAmount } = useShoppingCart();
-	const { isRestaurantRoute } = useReactRouter();
+	const { isRestaurantRoute, isRestaurantDetailsRoute } = useReactRouter();
 	const { restaurant } = useRestaurant();
 
 	const productAmount = getItemAmount(selectedProduct.id);
@@ -101,7 +101,10 @@ export const ProductDetailsUI = ({
 
 			{restaurant?.isWorking === undefined || restaurant?.isWorking ? (
 				<CardActions sx={{ flexDirection: 'column', p: 0 }}>
-					{isRestaurantRoute && selectedProduct && isFood(selectedProduct) ? (
+					{(isRestaurantRoute || isRestaurantDetailsRoute) &&
+					selectedProduct &&
+					isFood(selectedProduct) &&
+					selectedProduct.dishSize ? (
 						<AmountButtons
 							styles={{
 								maxWidth: '13rem',

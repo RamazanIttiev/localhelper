@@ -1,5 +1,5 @@
 import { defer } from 'react-router-dom';
-import { resolveAppData } from '../api/api';
+import { resolveAppData } from '../api/airtable';
 import { fetchTelegramUser } from './webApp-actions';
 
 export const loadAppData = async () => {

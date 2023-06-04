@@ -15,11 +15,11 @@ import {
 import { useForm } from 'react-hook-form';
 import { CartList } from '../cart/cart-list';
 import { UserData, UserDB } from '../../models/user.model';
-import { fetchUser, saveUserInfo } from '../../api/api';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { HintTitle } from '../../components/hintTitle';
 import { useShoppingCart } from '../../context/cart.context';
 import { AppData } from '../../models/product.model';
+import { fetchUser, saveUserInfo } from '../../api/user';
 
 export const CheckoutContainer = () => {
 	const navigate = useNavigate();

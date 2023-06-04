@@ -12,7 +12,7 @@ export const handleOrder = async (
 	setHaptic('light');
 	handleLoading(true);
 	try {
-		const result = await sendWebAppDeepLink(flowId, order);
+		const { result } = await sendWebAppDeepLink(flowId, order);
 		if (result.ok) {
 			handleLoading(false);
 			handleError({ isError: false });

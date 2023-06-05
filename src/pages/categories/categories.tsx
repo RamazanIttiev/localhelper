@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { categories } from './mock/categories';
 import { Container, Grid } from '@mui/material';
 import { Category } from '../../components/category';
-import { getGeolocation } from '../../api/geolocation';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { COUNTRY_CODE, GeoLocationProps } from '../../models/geolocation.model';
 
 import bonus from '../../assets/bonus.webp';
 import exchange from '../../assets/exchange.webp';
 import transfer from '../../assets/transfer.webp';
+import { getGeolocation } from '../../api/geolocation';
 
 interface CategoryModel {
 	title: string;
@@ -17,7 +17,7 @@ interface CategoryModel {
 
 export const Categories = () => {
 	const { pathname } = useReactRouter();
-	const [geolocation, setGeolocation] = useState<GeoLocationProps | undefined>();
+	const [geolocation, setGeolocation] = useState<Partial<GeoLocationProps> | undefined>();
 
 	useEffect(() => {
 		const fetchGeolocation = async () => {
@@ -43,8 +43,8 @@ export const Categories = () => {
 					categories.map(({ title, image }: CategoryModel) => {
 						return <Category key={title} isLink title={title} image={image} />;
 					})}
-				<Category title={'Exchange'} image={exchange} flowId={'ZGw6MTI3Mjgx'} />
-				<Category title={'Bonus'} image={bonus} flowId={'ZGw6MTI3Mjc4'} />
+				<Category geolocation={geolocation} title={'Exchange'} image={exchange} flowId={'ZGw6MTI3Mjgx'} />
+				<Category geolocation={geolocation} title={'Bonus'} image={bonus} flowId={'ZGw6MTI3Mjc4'} />
 				{!isIndia && <Category title={'Transfer'} image={transfer} flowId={'ZGw6MTI1MDQ5'} />}
 			</Grid>
 		</Container>

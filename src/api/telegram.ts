@@ -4,7 +4,7 @@ import { apiRequest } from './api';
 interface SendData {
 	range: number[];
 	scope: unknown;
-	variables: { order: string; itemName?: undefined } | { itemName: string; order?: undefined } | undefined;
+	variables: unknown | undefined;
 }
 
 const sendWebAppMessage = async (text: string) => {
@@ -18,10 +18,7 @@ const sendWebAppMessage = async (text: string) => {
 	return await apiRequest(url, 'POST', headers, body);
 };
 
-export const sendWebAppDeepLink = async (
-	identifier: string,
-	order: { order: string; itemName?: undefined } | { itemName: string; order?: undefined } | undefined,
-) => {
+export const sendWebAppDeepLink = async (identifier: string, order: unknown | undefined) => {
 	const url = process.env.REACT_APP_SMARTSENDER_URL || '';
 	const headers = {
 		'Content-type': 'application/json',

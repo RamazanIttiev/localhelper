@@ -1,11 +1,10 @@
 import { ErrorType } from '../models/error.model';
 import { setHaptic } from './webApp-actions';
-import { CartOrderData, SingleOrderData } from '../models/orderData.model';
 import { sendWebAppDeepLink } from '../api/telegram';
 
 export const handleOrder = async (
 	flowId: string,
-	order: CartOrderData | SingleOrderData,
+	order: any,
 	handleLoading: (value: boolean) => void,
 	handleError: (value: ErrorType) => void,
 ) => {

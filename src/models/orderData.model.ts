@@ -12,3 +12,9 @@ export interface SingleOrderData {
 	placeLocation?: string;
 	placeCoordinates?: string;
 }
+
+export interface ExchangeOrderData {
+	userCountry: string;
+	userCity: string;
+	userCurrency: string;
+}

@@ -11,6 +11,7 @@ import {
 	setMainButtonText,
 	showMainButton,
 } from '../actions/webApp-actions';
+import { GeoLocationProps } from '../models/geolocation.model';
 
 interface CategoryDialogProps {
 	title: string;
@@ -18,9 +19,10 @@ interface CategoryDialogProps {
 	isOpened: boolean;
 	flowId: string;
 	handleClose: () => void;
+	geolocation?: Partial<GeoLocationProps> | undefined;
 }
 
-export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId }: CategoryDialogProps) => {
+export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, geolocation }: CategoryDialogProps) => {
 	const theme = useTheme();
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -35,8 +37,18 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId }: 
 	const handleError = (value: ErrorType) => setErrorState(value);
 
 	const handleProductOrder = useCallback(() => {
-		return handleOrder(flowId, { itemName: title }, handleLoading, handleError);
-	}, [flowId, title]);
+		return handleOrder(
+			flowId,
+			{
+				itemName: title,
+				userCountry: geolocation?.country_name,
+				userCity: geolocation?.city,
+				userCurrency: geolocation?.currency?.code,
+			},
+			handleLoading,
+			handleError,
+		);
+	}, [flowId, geolocation?.city, geolocation?.country_name, geolocation?.currency?.code, title]);
 
 	useEffect(() => {
 		if (isOpened) {
@@ -84,7 +96,7 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId }: 
 						text={'Buy'}
 						loading={loading}
 						errorState={errorState}
-						handleClick={() => handleOrder(flowId, { itemName: title }, handleLoading, handleError)}
+						handleClick={handleProductOrder}
 					/>
 				)}
 			</Box>

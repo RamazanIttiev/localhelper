@@ -8,7 +8,7 @@ const findUser = (users: UserDB[]) => {
 };
 
 export const fetchUser = async () => {
-	const url = process.env.REACT_APP_POST_USERS_URL || '';
+	const url = process.env.REACT_APP_USERS_URL || '';
 
 	const headers = {
 		Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_PRIVATE_KEY}` || '',
@@ -21,7 +21,7 @@ export const fetchUser = async () => {
 
 export const saveUserInfo = async (userData: UserData) => {
 	const { userAddress, userName, userHotel, userPhone } = userData;
-	const url = process.env.REACT_APP_POST_USERS_URL || '';
+	const url = process.env.REACT_APP_USERS_URL || '';
 
 	const headers = {
 		'Content-Type': 'application/json',

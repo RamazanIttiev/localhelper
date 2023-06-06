@@ -1,19 +1,19 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { ErrorType } from '../../models/error.model';
 import { ProductComponent } from './product.component';
-import { ProductModel } from '../../models/product.model';
+import { ProductModel, RestaurantModel } from '../../models/product.model';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 import { isFood } from '../../utils/typeGuard';
 import { CART_ACTION } from '../amountButtons';
 import { useShoppingCart } from '../../context/cart.context';
-import { useCategory } from '../../hooks/useCategory';
 
 interface ProductContainerProps {
+	flowId: string;
 	currentProduct: ProductModel;
+	restaurant: RestaurantModel | null;
 }
 
-export const ProductContainer: FC<ProductContainerProps> = ({ currentProduct }) => {
-	const { flowId } = useCategory();
+export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentProduct, restaurant }) => {
 	const { incrementCartAmount, decrementCartAmount } = useShoppingCart();
 
 	const [product, setProduct] = useState<ProductModel>({ ...currentProduct });
@@ -55,8 +55,10 @@ export const ProductContainer: FC<ProductContainerProps> = ({ currentProduct }) 
 
 	return (
 		<ProductComponent
+			flowId={flowId}
 			product={product}
 			loading={loading}
+			restaurant={restaurant}
 			errorState={errorState}
 			handleProductOrder={handleProductOrder}
 			handleProductAmount={handleProductAmount}

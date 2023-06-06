@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { CartUI } from './cart.component';
 import {
 	handleMainButton,
@@ -8,8 +8,8 @@ import {
 } from '../../actions/webApp-actions';
 import { Container } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useRestaurant } from '../../hooks/useRestaurant';
 import { useShoppingCart } from '../../context/cart.context';
+import { RestaurantModel } from '../../models/product.model';
 
 interface CartState {
 	state: { flowId: string };
@@ -19,7 +19,7 @@ export const CartContainer = () => {
 	const { state }: CartState = useLocation();
 	const { isCartEmpty } = useShoppingCart();
 	const navigate = useNavigate();
-	const { cartRestaurant } = useRestaurant();
+	const cartRestaurant = useMemo(() => ({}), []) as RestaurantModel;
 
 	const navigateToCheckout = useCallback(() => {
 		navigate('/checkout', {

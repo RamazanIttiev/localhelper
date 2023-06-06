@@ -1,40 +1,47 @@
-import { mapCategories, mapRecords, mapRestaurants } from '../utils/mappers';
-import { AppData, ProductModel } from '../models/product.model';
 import { apiRequest } from './api';
+import { mapRecords, mapRestaurant, mapRestaurants } from '../utils/mappers';
+import { AirtableData } from '../models/airtable.model';
+import { getAirtableUrl } from '../utils/airtable';
+import { CategoryModel, FoodModel, ProductModel, RestaurantModel } from '../models/product.model';
 
-type Tables = 'Products' | 'Categories' | 'Restaurants';
-
-const getTableName = (table: Tables) => {
-	switch (table) {
-		case 'Categories':
-			return process.env.REACT_APP_CATEGORIES_URL || '';
-		case 'Products':
-			return process.env.REACT_APP_PRODUCTS_URL || '';
-		case 'Restaurants':
-			return process.env.REACT_APP_RESTAURANTS_URL || '';
-	}
-};
-
-const fetchAirtableData = async (table: Tables) => {
-	const url = getTableName(table);
-
+export const fetchAirtableData = async (airtableData: AirtableData, url: string) => {
 	const headers = {
 		'Content-Type': 'application/json',
 		Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_PRIVATE_KEY}` || '',
 	};
 	const resolvedData = await apiRequest(url, 'GET', headers);
 
-	return mapRecords(resolvedData.records);
+	return resolvedData.records ? mapRecords(resolvedData.records) : resolvedData.fields;
 };
 
-export const resolveAppData = async (): Promise<AppData> => {
-	const resolvedProducts = await fetchAirtableData('Products');
-	const resolvedCategories = await fetchAirtableData('Categories');
-	const resolvedRestaurants = await fetchAirtableData('Restaurants');
+export const resolveCategory = async (category: string): Promise<Omit<CategoryModel, 'restaurant'>> => {
+	const url = getAirtableUrl('Category', category);
 
-	return {
-		products: resolvedProducts as ProductModel[],
-		categories: mapCategories(resolvedProducts, resolvedCategories),
-		restaurants: mapRestaurants(resolvedProducts, resolvedRestaurants),
-	};
+	return await fetchAirtableData('Category', url);
+};
+
+export const resolveProducts = async (category: string): Promise<ProductModel[]> => {
+	const url = getAirtableUrl('Products', category);
+
+	return await fetchAirtableData('Products', url);
+};
+
+export const resolveRestaurantProducts = async (restaurant: string): Promise<FoodModel[]> => {
+	const url = getAirtableUrl('RestaurantProducts', '', restaurant);
+
+	return await fetchAirtableData('RestaurantProducts', url);
+};
+
+export const resolveRestaurant = async (restaurant: string): Promise<RestaurantModel> => {
+	const url = getAirtableUrl('Restaurant', '', restaurant);
+
+	return mapRestaurant(await fetchAirtableData('Restaurant', url));
+};
+
+export const resolveRestaurants = async (): Promise<RestaurantModel[]> => {
+	const url = getAirtableUrl('Restaurants');
+
+	const restaurants = await fetchAirtableData('Restaurants', url);
+
+	return mapRestaurants(restaurants);
 };

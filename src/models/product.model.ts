@@ -66,5 +66,5 @@ export interface RestaurantModel {
 export interface AppData {
 	products: ProductModel[];
 	restaurants: RestaurantModel[];
-	categories: Omit<CategoryModel, 'restaurant'>[];
+	currentData: Omit<CategoryModel, 'restaurant'> | RestaurantModel;
 }

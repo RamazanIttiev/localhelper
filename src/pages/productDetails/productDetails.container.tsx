@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Container } from '@mui/material';
 import { ErrorType } from '../../models/error.model';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useCategory } from '../../hooks/useCategory';
 import { DishSizeType, FoodExtraOptions, ProductModel } from '../../models/product.model';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { ProductDetailsUI } from './productDetails.component';
@@ -25,7 +24,6 @@ export const ProductDetailsContainer = () => {
 
 	const navigate = useNavigate();
 	const { addNewProduct } = useShoppingCart();
-	const { flowId } = useCategory();
 	const { isRestaurantDetailsRoute } = useReactRouter();
 
 	const [productAmount, setProductAmount] = useState(1);
@@ -40,6 +38,10 @@ export const ProductDetailsContainer = () => {
 		() => ({ ...state, amount: productAmount, extraOptions: productExtra }),
 		[productAmount, productExtra, state],
 	);
+
+	const flowId = state.flowId;
+	const restaurant = state.restaurant;
+
 	const handleProductAmount = (action: CART_ACTION) => {
 		setProductAmount(() => {
 			if (action === 'add') {
@@ -122,6 +124,7 @@ export const ProductDetailsContainer = () => {
 		<Container sx={{ pt: 2, pb: 2, px: 6 }} maxWidth={'sm'}>
 			<ProductDetailsUI
 				loading={loading}
+				restaurant={restaurant}
 				errorState={errorState}
 				handleExtra={handleExtra}
 				selectedProduct={product}

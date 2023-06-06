@@ -7,33 +7,35 @@ import { InfoBadge } from '../../reactkit/infoBadge';
 import { IconBadge } from '../../reactkit/iconBadge';
 import { setHaptic } from '../../actions/webApp-actions';
 import { LoaderButton } from '../../reactkit/loaderButton';
-import { ProductModel } from '../../models/product.model';
+import { ProductModel, RestaurantModel } from '../../models/product.model';
 import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import { isFood } from '../../utils/typeGuard';
 import { useShoppingCart } from '../../context/cart.context';
-import { useRestaurant } from '../../hooks/useRestaurant';
 import { useReactRouter } from '../../hooks/useReactRouter';
 
 import dishImage from '../../assets/food.webp';
 
 interface ProductProps {
+	flowId: string;
 	loading: boolean;
 	product: ProductModel;
 	errorState: ErrorType;
+	restaurant: RestaurantModel | null;
 	handleProductAmount?: (action: CART_ACTION) => void;
 	handleProductOrder: () => Promise<Response | undefined>;
 }
 
 export const ProductComponent: FC<ProductProps> = ({
+	flowId,
 	loading,
 	product,
+	restaurant,
 	errorState,
 	handleProductOrder,
 	handleProductAmount,
 }) => {
 	const { getItemAmount } = useShoppingCart();
 	const { isRestaurantRoute } = useReactRouter();
-	const { restaurant } = useRestaurant();
 
 	const productAmount = getItemAmount(product.id);
 
@@ -54,7 +56,7 @@ export const ProductComponent: FC<ProductProps> = ({
 				<Link
 					key={product.id}
 					to={product.title.toLowerCase()}
-					state={{ ...product }}
+					state={{ ...product, restaurant, flowId }}
 					style={{ position: 'relative' }}>
 					{product.image ? (
 						<>

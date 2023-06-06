@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { Container, Grid } from '@mui/material';
 import {
 	handleMainButton,
@@ -9,21 +9,24 @@ import {
 	showMainButton,
 } from '../../actions/webApp-actions';
 import { ProductsHeader } from './productsHeader';
-import { useCategory } from '../../hooks/useCategory';
-import { useRestaurant } from '../../hooks/useRestaurant';
-import { ProductModel } from '../../models/product.model';
+import { AppData, ProductModel } from '../../models/product.model';
 import { LoaderButton } from '../../reactkit/loaderButton';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { ProductContainer } from '../../components/product/product.container';
 import { useShoppingCart } from '../../context/cart.context';
+import { isCategoryData, isRestaurantData } from '../../utils/typeGuard';
 
 export const Products = () => {
 	const navigate = useNavigate();
 	const { isCartEmpty } = useShoppingCart();
 	const { isRestaurantRoute } = useReactRouter();
-	const { restaurant } = useRestaurant();
-	const { flowId, category } = useCategory();
+	const { currentData, products } = useLoaderData() as AppData;
+
+	const restaurant = isRestaurantData(currentData) ? currentData : null;
+	const category = isCategoryData(currentData) ? currentData : null;
+
+	const flowId = category?.flowId || '';
 
 	const navigateToCart = useCallback(
 		() =>
@@ -47,17 +50,15 @@ export const Products = () => {
 		};
 	}, [isRestaurantRoute, isCartEmpty, navigateToCart]);
 
-	const renderProducts = restaurant?.products || category?.products;
-
 	return (
 		<>
-			<ProductsHeader restaurant={restaurant} category={category} />
+			<ProductsHeader category={category} restaurant={restaurant} />
 			<Container sx={{ pt: 2, pb: !isUserAgentTelegram ? '3rem' : null }} maxWidth={'sm'}>
 				<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
-					{renderProducts?.map((product: ProductModel) => {
+					{products?.map((product: ProductModel) => {
 						return (
 							<Grid item xs={6} md={5} key={product.id}>
-								<ProductContainer currentProduct={product} />
+								<ProductContainer restaurant={restaurant} currentProduct={product} flowId={flowId} />
 							</Grid>
 						);
 					})}

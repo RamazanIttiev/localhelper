@@ -6,16 +6,16 @@ import { useReactRouter } from '../../hooks/useReactRouter';
 import { CategoryModel, RestaurantModel } from '../../models/product.model';
 
 interface HeaderProps {
-	category: Pick<CategoryModel, 'headerTitle' | 'headerImage'> | undefined;
-	restaurant: Pick<RestaurantModel, 'workingTime' | 'workingStatus' | 'image' | 'location' | 'title'> | undefined;
+	category: Pick<CategoryModel, 'headerTitle' | 'headerImage'> | null;
+	restaurant: Pick<RestaurantModel, 'workingTime' | 'workingStatus' | 'image' | 'location' | 'title'> | null;
 }
 
-export const ProductsHeader = ({ restaurant, category }: HeaderProps) => {
+export const ProductsHeader = ({ category, restaurant }: HeaderProps) => {
 	const { isRestaurantRoute } = useReactRouter();
 
 	const { image, title } = {
 		title: category?.headerTitle || restaurant?.title,
-		image: (category?.headerImage !== undefined && category?.headerImage[0]?.url) || restaurant?.image[0]?.url,
+		image: category?.headerImage?.[0].url || restaurant?.image?.[0].url,
 	};
 
 	return (

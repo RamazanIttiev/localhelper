@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { Container } from '@mui/material';
 import { RestaurantsUI } from './restaurants.component';
-import { useRestaurant } from '../../hooks/useRestaurant';
 import { hideMainButton } from '../../actions/webApp-actions';
+import { useLoaderData } from 'react-router-dom';
+import { AppData } from '../../models/product.model';
 
 export const RestaurantsContainer = () => {
-	const { restaurants } = useRestaurant();
+	const { restaurants } = useLoaderData() as AppData;
 
 	useEffect(() => {
 		hideMainButton();

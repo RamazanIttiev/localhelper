@@ -2,7 +2,7 @@ import React from 'react';
 import { isFood } from '../../utils/typeGuard';
 import { ErrorType } from '../../models/error.model';
 import { MuiCarousel } from '../../components/carousel';
-import { FoodExtraOptions, ProductModel } from '../../models/product.model';
+import { FoodExtraOptions, ProductModel, RestaurantModel } from '../../models/product.model';
 import { RadioButtons } from '../../components/radioGroup';
 import { LoaderButton } from '../../reactkit/loaderButton';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
@@ -11,13 +11,12 @@ import { Box, Card, CardActions, CardContent, CardMedia, Typography, useTheme } 
 import { useShoppingCart } from '../../context/cart.context';
 import { useReactRouter } from '../../hooks/useReactRouter';
 
-import { useRestaurant } from '../../hooks/useRestaurant';
-
 import dishImage from '../../assets/food.webp';
 
 interface ProductDetailsUIProps {
 	loading: boolean;
 	errorState: ErrorType;
+	restaurant: RestaurantModel;
 	selectedProduct: ProductModel;
 	productExtra?: FoodExtraOptions;
 	handleProductAmount?: (action: CART_ACTION) => void;
@@ -27,6 +26,7 @@ interface ProductDetailsUIProps {
 export const ProductDetailsUI = ({
 	loading,
 	errorState,
+	restaurant,
 	handleExtra,
 	productExtra,
 	selectedProduct,
@@ -37,7 +37,6 @@ export const ProductDetailsUI = ({
 
 	const { getItemAmount } = useShoppingCart();
 	const { isRestaurantRoute, isRestaurantDetailsRoute } = useReactRouter();
-	const { restaurant } = useRestaurant();
 
 	const productAmount = getItemAmount(selectedProduct.id);
 
@@ -48,6 +47,7 @@ export const ProductDetailsUI = ({
 			return productAmount > 0 ? `${productAmount} x` : undefined;
 		}
 	};
+	console.log(selectedProduct);
 
 	return (
 		<Card sx={{ position: 'relative', background: 'transparent', boxShadow: 'none' }}>
@@ -101,10 +101,7 @@ export const ProductDetailsUI = ({
 
 			{restaurant?.isWorking === undefined || restaurant?.isWorking ? (
 				<CardActions sx={{ flexDirection: 'column', p: 0 }}>
-					{(isRestaurantRoute || isRestaurantDetailsRoute) &&
-					selectedProduct &&
-					isFood(selectedProduct) &&
-					selectedProduct.dishSize ? (
+					{(isRestaurantRoute || isRestaurantDetailsRoute) && selectedProduct && isFood(selectedProduct) ? (
 						<AmountButtons
 							styles={{
 								maxWidth: '13rem',

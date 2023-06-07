@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { Container } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import { RestaurantsUI } from './restaurants.component';
 import { hideMainButton } from '../../actions/webApp-actions';
-import { useLoaderData } from 'react-router-dom';
-import { AppData } from '../../models/product.model';
+import { restaurantsQuery } from '../../api/airtable/restaurant';
+import { useParams } from 'react-router-dom';
 
 export const RestaurantsContainer = () => {
-	const { restaurants } = useLoaderData() as AppData;
+	const { restaurantId } = useParams();
+	const { data: restaurants } = useQuery(restaurantsQuery(restaurantId));
 
 	useEffect(() => {
 		hideMainButton();
@@ -14,11 +16,12 @@ export const RestaurantsContainer = () => {
 
 	return (
 		<Container sx={{ pt: 2 }} maxWidth={'sm'}>
-			{[...restaurants]
-				.sort(a => (a.isWorking ? -1 : 1))
-				.map(restaurant => {
-					return <RestaurantsUI key={restaurant.title} restaurant={restaurant} />;
-				})}
+			{!!restaurants &&
+				[...restaurants]
+					.sort(a => (a.isWorking ? -1 : 1))
+					.map(restaurant => {
+						return <RestaurantsUI key={restaurant.title} restaurant={restaurant} />;
+					})}
 		</Container>
 	);
 };

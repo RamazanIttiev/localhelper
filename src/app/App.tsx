@@ -3,19 +3,17 @@ import { Layout } from './Layout';
 import { Products } from '../pages/products/products';
 import { Categories } from '../pages/categories/categories';
 import { RestaurantsContainer } from '../pages/restaurants/restaurants.container';
-import { createBrowserRouter, createRoutesFromElements, defer, Route, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, json, Route, RouterProvider } from 'react-router-dom';
 import { ProductDetailsContainer } from '../pages/productDetails/productDetails.container';
-import { CartContainer } from '../pages/cart/cart.container';
 import { CheckoutContainer } from '../pages/checkout/checkout.container';
-import {
-	resolveCategory,
-	resolveProducts,
-	resolveRestaurant,
-	resolveRestaurantProducts,
-	resolveRestaurants,
-} from '../api/airtable';
 import { fetchTelegramUser } from '../actions/webApp-actions';
+import { CartContainer } from '../pages/cart/cart.container';
+import { categoryLoader } from '../api/airtable/category';
+import { QueryClient } from '@tanstack/react-query';
+import { productsLoader } from '../api/airtable/products';
+import { restaurantLoader, restaurantProductsLoader, restaurantsLoader } from '../api/airtable/restaurant';
 
+const queryClient = new QueryClient();
 export const Telegram = window.Telegram.WebApp;
 export const TelegramUser = window.Telegram.initDataUnsafe?.user;
 export const TelegramTheme = Telegram.themeParams !== undefined ? Telegram.themeParams : null;
@@ -27,35 +25,29 @@ const router = createBrowserRouter(
 			<Route
 				path=":categoryId"
 				element={<Products />}
-				loader={async ({ params }) => {
-					const category = params.categoryId;
-
-					if (category !== undefined) {
-						return defer({
-							currentData: await resolveCategory(category),
-							products: await resolveProducts(category),
-						});
-					}
+				loader={async () => {
+					const [category, products] = await Promise.all([
+						categoryLoader(queryClient),
+						productsLoader(queryClient),
+					]);
+					return json({ category, products });
 				}}
 			/>
 
 			<Route
 				path=":categoryId/restaurants"
 				element={<RestaurantsContainer />}
-				loader={async () => defer({ restaurants: await resolveRestaurants() })}
+				loader={() => restaurantsLoader(queryClient)}
 			/>
 			<Route
 				path=":categoryId/restaurants/:restaurantId"
 				element={<Products />}
-				loader={async ({ params }) => {
-					const restaurant = params.restaurantId;
-
-					if (restaurant !== undefined) {
-						return defer({
-							currentData: await resolveRestaurant(restaurant),
-							products: await resolveRestaurantProducts(restaurant),
-						});
-					}
+				loader={async () => {
+					const [restaurants, restaurantsProducts] = await Promise.all([
+						restaurantLoader(queryClient),
+						restaurantProductsLoader(queryClient),
+					]);
+					return json({ restaurants, restaurantsProducts });
 				}}
 			/>
 

@@ -1,3 +1,6 @@
+import { AirtableData } from '../models/airtable.model';
+import { mapRecords } from '../utils/mappers';
+
 type METHODS = 'GET' | 'POST' | 'DELETE';
 
 export const apiRequest = async (url: string, method: METHODS, headers: Record<string, string>, body?: any) => {
@@ -18,4 +21,14 @@ export const apiRequest = async (url: string, method: METHODS, headers: Record<s
 			throw new Error(`API request failed: ${error.message}`);
 		}
 	}
+};
+
+export const fetchAirtableData = async (airtableData: AirtableData, url: string) => {
+	const headers = {
+		'Content-Type': 'application/json',
+		Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_PRIVATE_KEY}` || '',
+	};
+	const resolvedData = await apiRequest(url, 'GET', headers);
+
+	return resolvedData.records ? mapRecords(resolvedData.records) : resolvedData.fields;
 };

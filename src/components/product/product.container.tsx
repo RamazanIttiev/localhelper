@@ -10,7 +10,7 @@ import { useShoppingCart } from '../../context/cart.context';
 interface ProductContainerProps {
 	flowId: string;
 	currentProduct: ProductModel;
-	restaurant: RestaurantModel | null;
+	restaurant: RestaurantModel | undefined;
 }
 
 export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentProduct, restaurant }) => {

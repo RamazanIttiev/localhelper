@@ -20,7 +20,7 @@ interface ProductProps {
 	loading: boolean;
 	product: ProductModel;
 	errorState: ErrorType;
-	restaurant: RestaurantModel | null;
+	restaurant: RestaurantModel | undefined;
 	handleProductAmount?: (action: CART_ACTION) => void;
 	handleProductOrder: () => Promise<Response | undefined>;
 }

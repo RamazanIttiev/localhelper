@@ -5,12 +5,15 @@ import { Box, CircularProgress, CssBaseline, ThemeProvider } from '@mui/material
 
 import './index.css';
 import { theme } from './theme';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 declare global {
 	interface Window {
 		Telegram: any;
 	}
 }
+
+const queryClient = new QueryClient();
 
 const App = lazy(() => import('./app/App'));
 
@@ -19,21 +22,23 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
 	<React.StrictMode>
 		<ThemeProvider theme={theme}>
-			<CssBaseline />
-			<Suspense
-				fallback={
-					<Box
-						sx={{
-							top: '50%',
-							right: ' 50%',
-							position: 'absolute',
-							transform: 'translate(50%, -50%)',
-						}}>
-						<CircularProgress color={'primary'} />
-					</Box>
-				}>
-				<App />
-			</Suspense>
+			<QueryClientProvider client={queryClient}>
+				<CssBaseline />
+				<Suspense
+					fallback={
+						<Box
+							sx={{
+								top: '50%',
+								right: ' 50%',
+								position: 'absolute',
+								transform: 'translate(50%, -50%)',
+							}}>
+							<CircularProgress color={'primary'} />
+						</Box>
+					}>
+					<App />
+				</Suspense>
+			</QueryClientProvider>
 		</ThemeProvider>
 	</React.StrictMode>,
 );

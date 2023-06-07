@@ -6,8 +6,8 @@ import { useReactRouter } from '../../hooks/useReactRouter';
 import { CategoryModel, RestaurantModel } from '../../models/product.model';
 
 interface HeaderProps {
-	category: Pick<CategoryModel, 'headerTitle' | 'headerImage'> | null;
-	restaurant: Pick<RestaurantModel, 'workingTime' | 'workingStatus' | 'image' | 'location' | 'title'> | null;
+	category: Pick<CategoryModel, 'headerTitle' | 'headerImage'> | undefined;
+	restaurant: Pick<RestaurantModel, 'workingTime' | 'workingStatus' | 'image' | 'location' | 'title'> | undefined;
 }
 
 export const ProductsHeader = ({ category, restaurant }: HeaderProps) => {

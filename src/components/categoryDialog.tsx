@@ -35,7 +35,7 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, ge
 
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
-
+	console.log(geolocation?.latitude);
 	const handleProductOrder = useCallback(() => {
 		return handleOrder(
 			flowId,
@@ -44,11 +44,23 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, ge
 				userCountry: geolocation?.country_name,
 				userCity: geolocation?.city,
 				userCurrency: geolocation?.currency?.code,
+				userCoordinates: {
+					latitude: geolocation?.latitude,
+					longitude: geolocation?.longitude,
+				},
 			},
 			handleLoading,
 			handleError,
 		);
-	}, [flowId, geolocation?.city, geolocation?.country_name, geolocation?.currency?.code, title]);
+	}, [
+		flowId,
+		geolocation?.city,
+		geolocation?.latitude,
+		geolocation?.longitude,
+		geolocation?.country_name,
+		geolocation?.currency?.code,
+		title,
+	]);
 
 	useEffect(() => {
 		if (isOpened) {

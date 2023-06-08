@@ -9,4 +9,6 @@ export interface GeoLocationProps {
 	currency: {
 		code: string;
 	};
+	latitude: string;
+	longitude: string;
 }

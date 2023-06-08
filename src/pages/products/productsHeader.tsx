@@ -4,6 +4,7 @@ import { Box, Icon, Typography } from '@mui/material';
 import { WorkingStatus } from '../../reactkit/workingStatus';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { CategoryModel, RestaurantModel } from '../../models/product.model';
+import { ImageLazy } from '../../components/imageLazy';
 
 interface HeaderProps {
 	category: Pick<CategoryModel, 'headerTitle' | 'headerImage'> | undefined;
@@ -13,19 +14,19 @@ interface HeaderProps {
 export const ProductsHeader = ({ category, restaurant }: HeaderProps) => {
 	const { isRestaurantRoute } = useReactRouter();
 
-	const { image, title } = {
+	const { image, title, smallImage } = {
 		title: category?.headerTitle || restaurant?.title,
-		image: category?.headerImage?.[0].url || restaurant?.image?.[0].url,
+		image: category?.headerImage[0].url || restaurant?.image[0].url,
+		smallImage: category?.headerImage[0].thumbnails.small.url || restaurant?.image[0].thumbnails.small.url,
 	};
 
 	return (
 		<>
 			{image && (
-				<Box
-					component="img"
-					src={image}
-					alt={title}
-					sx={{
+				<ImageLazy
+					imageUrl={image}
+					smallImageUrl={smallImage}
+					containerStyles={{
 						display: 'block',
 						backgroundSize: 'cover',
 						backgroundRepeat: 'no-repeat',

@@ -8,12 +8,12 @@ import { IconBadge } from '../../reactkit/iconBadge';
 import { setHaptic } from '../../actions/webApp-actions';
 import { LoaderButton } from '../../reactkit/loaderButton';
 import { ProductModel, RestaurantModel } from '../../models/product.model';
-import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { Card, CardActions, CardContent, Typography } from '@mui/material';
 import { isFood } from '../../utils/typeGuard';
 import { useShoppingCart } from '../../context/cart.context';
 import { useReactRouter } from '../../hooks/useReactRouter';
 
-import dishImage from '../../assets/food.webp';
+import { ImageLazy } from '../imageLazy';
 
 interface ProductProps {
 	flowId: string;
@@ -58,13 +58,12 @@ export const ProductComponent: FC<ProductProps> = ({
 					to={product.title.toLowerCase()}
 					state={{ ...product, restaurant, flowId }}
 					style={{ position: 'relative' }}>
-					{product.image ? (
+					{product.image && (
 						<>
-							<CardMedia
-								component="img"
-								image={product.image[0].url}
-								alt={product.image[0].alt}
-								sx={{ height: '11rem', borderRadius: '1rem' }}
+							<ImageLazy
+								smallImageUrl={product.image[0].thumbnails.small.url}
+								imageUrl={product.image[0].url}
+								containerStyles={{ height: '11rem', borderRadius: '1rem' }}
 							/>
 							{product.infoBadges?.map(icon => (
 								<IconBadge
@@ -79,20 +78,6 @@ export const ProductComponent: FC<ProductProps> = ({
 								/>
 							))}
 						</>
-					) : (
-						<Box
-							component={'img'}
-							src={dishImage}
-							alt={product.title}
-							width={'100%'}
-							sx={{
-								borderRadius: '1rem',
-								height: '11rem',
-								width: '100%',
-								margin: '0 auto',
-								display: 'block',
-							}}
-						/>
 					)}
 					{productAmount !== 0 && (
 						<ImageBackdrop>

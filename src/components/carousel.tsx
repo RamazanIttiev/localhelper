@@ -18,7 +18,7 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 			<Box
 				component={'img'}
 				src={selectedProduct.image[0].url}
-				alt={selectedProduct.image[0].alt}
+				alt={selectedProduct.title}
 				width={'100%'}
 				sx={{
 					borderRadius: 3,
@@ -50,13 +50,13 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 			navButtonsAlwaysVisible={!isUserAgentTelegram && isDesktop}
 			indicatorIconButtonProps={{ style: { margin: '0 0.3rem' } }}
 			activeIndicatorIconButtonProps={{ style: { color: theme.palette.background.paper } }}>
-			{selectedProduct.image.map(({ url, alt }) => {
+			{selectedProduct.image.map(({ url }) => {
 				return (
-					<React.Fragment key={alt}>
+					<React.Fragment key={selectedProduct.title}>
 						<Box
 							component={'img'}
 							src={url}
-							alt={alt}
+							alt={selectedProduct.title}
 							width={'100%'}
 							sx={{
 								borderRadius: 3,

@@ -5,7 +5,7 @@ import { LoaderFunctionArgs } from 'react-router-dom';
 
 export const productsQuery = (category: string | undefined) => {
 	const url = getAirtableUrl('Products', category);
-	console.log(category !== 'food');
+
 	return {
 		// second element is for correct switching between routes
 		// query function depends on a variable categoryId, must be included in query key

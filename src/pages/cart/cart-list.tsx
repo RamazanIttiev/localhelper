@@ -25,7 +25,7 @@ export const CartList = () => {
 								<Box
 									component={'img'}
 									src={item.image[0].url}
-									alt={item.image[0].alt}
+									alt={item.title}
 									sx={{
 										mr: 2,
 										width: '5rem',

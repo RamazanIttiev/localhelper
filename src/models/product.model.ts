@@ -8,7 +8,7 @@ export interface DefaultProductModel {
 	category?: string[];
 	coordinates?: string;
 	infoBadges?: string[];
-	image: { url: string; alt: string }[];
+	image: { url: string; thumbnails: { small: { url: string } } }[];
 }
 
 export type DishSizeType = 'small' | 'large';
@@ -42,7 +42,7 @@ export interface CategoryModel {
 	flow: string;
 	flowId: string;
 	headerTitle: string;
-	headerImage: { url: string }[];
+	headerImage: { url: string; thumbnails: { small: { url: string } } }[];
 	products: ProductModel[] | undefined;
 	restaurant: RestaurantModel[] | undefined;
 }
@@ -59,7 +59,7 @@ export interface RestaurantModel {
 	coordinates: string;
 	workingTime: string;
 	workingStatus: string;
-	image: { url: string }[];
+	image: { url: string; thumbnails: { small: { url: string } } }[];
 	products: ProductModel[] | undefined;
 }
 

@@ -23,7 +23,7 @@ export const Categories = () => {
 		const fetchGeolocation = async () => {
 			try {
 				const geo = await getGeolocation();
-				setGeolocation(geo);
+				setGeolocation(geo.results[0].components);
 			} catch (error) {
 				console.log(error);
 			}

@@ -35,7 +35,7 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, ge
 
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
-	console.log(geolocation?.latitude);
+
 	const handleProductOrder = useCallback(() => {
 		return handleOrder(
 			flowId,

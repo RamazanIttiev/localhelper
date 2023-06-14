@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { isGeo } from '../../utils/typeGuard';
 import { categories } from './mock/categories';
 import { Container, Grid } from '@mui/material';
 import { Category } from '../../components/category';
+import { getGeolocation } from '../../api/geolocation';
 import { useReactRouter } from '../../hooks/useReactRouter';
-import { COUNTRY_CODE, GeoLocationProps } from '../../models/geolocation.model';
+import { COUNTRY_CODE, GeoProps } from '../../models/geolocation.model';
 
 import bonus from '../../assets/bonus.webp';
 import exchange from '../../assets/exchange.webp';
 import transfer from '../../assets/transfer.webp';
-import { getGeolocation } from '../../api/geolocation';
 
 interface CategoryModel {
 	title: string;
@@ -17,24 +18,28 @@ interface CategoryModel {
 
 export const Categories = () => {
 	const { pathname } = useReactRouter();
-	const [geolocation, setGeolocation] = useState<Partial<GeoLocationProps> | undefined>();
+	const [geolocation, setGeolocation] = useState<GeoProps | string | undefined>();
 
 	useEffect(() => {
 		const fetchGeolocation = async () => {
 			try {
 				const geo = await getGeolocation();
-				setGeolocation(geo.results[0].components);
-			} catch (error) {
-				console.log(error);
+				if (typeof geo !== 'string') {
+					const { country, city, country_code } = geo.results[0].components;
+					const geometry = geo.results[0].geometry;
+					setGeolocation({ country, city, country_code, geometry });
+				} else {
+					setGeolocation(geo);
+				}
+			} catch (error: any) {
+				setGeolocation(error);
 			}
 		};
 
 		fetchGeolocation().catch(error => error);
 	}, []);
 
-	const isIndia = geolocation?.country_code2 === COUNTRY_CODE.India;
-
-	if (!geolocation) return null;
+	const isIndia = isGeo(geolocation) && geolocation?.country_code === COUNTRY_CODE.India;
 
 	return (
 		<Container maxWidth={'md'} sx={{ pb: 1 }}>
@@ -45,7 +50,9 @@ export const Categories = () => {
 					})}
 				<Category geolocation={geolocation} title={'Exchange'} image={exchange} flowId={'ZGw6MTI3Mjgx'} />
 				<Category geolocation={geolocation} title={'Bonus'} image={bonus} flowId={'ZGw6MTI3Mjc4'} />
-				{!isIndia && <Category title={'Transfer'} image={transfer} flowId={'ZGw6MTI1MDQ5'} />}
+				{!isIndia && (
+					<Category geolocation={geolocation} title={'Transfer'} image={transfer} flowId={'ZGw6MTI1MDQ5'} />
+				)}
 			</Grid>
 		</Container>
 	);

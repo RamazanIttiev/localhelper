@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { CategoryDialog } from './categoryDialog';
 import { setHaptic } from '../actions/webApp-actions';
 import { getServicesRoute } from '../utils/restaurant';
-import { GeoLocationProps } from '../models/geolocation.model';
+import { GeoProps } from '../models/geolocation.model';
 import { Box, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 
 interface CategoryProps {
@@ -11,7 +11,7 @@ interface CategoryProps {
 	image: string;
 	isLink?: boolean;
 	flowId?: string;
-	geolocation?: Partial<GeoLocationProps> | undefined;
+	geolocation?: GeoProps | string | undefined;
 }
 
 export const Category: FC<CategoryProps> = ({ title, image, isLink = false, flowId = '', geolocation }) => {

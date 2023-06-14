@@ -1,14 +1,28 @@
 export enum COUNTRY_CODE {
-	India = 'IN',
+	India = 'in',
+	Russia = 'ru',
 }
 
-export interface GeoLocationProps {
+export interface OpenCageGeoProps {
+	results: {
+		components: {
+			country: string;
+			city: string;
+			country_code: string;
+		};
+		geometry: {
+			lat: string;
+			lng: string;
+		};
+	}[];
+}
+
+export interface GeoProps {
+	country: string;
 	city: string;
-	country_name: string;
-	country_code2: COUNTRY_CODE;
-	currency: {
-		code: string;
+	country_code: string;
+	geometry: {
+		lat: string;
+		lng: string;
 	};
-	latitude: string;
-	longitude: string;
 }

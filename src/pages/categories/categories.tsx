@@ -48,7 +48,13 @@ export const Categories = () => {
 					categories.map(({ title, image }: CategoryModel) => {
 						return <Category key={title} isLink title={title} image={image} />;
 					})}
-				<Category geolocation={geolocation} title={'Exchange'} image={exchange} flowId={'ZGw6MTI3Mjgx'} />
+				<Category
+					geolocation={geolocation}
+					isLink
+					title={'Exchange'}
+					image={exchange}
+					flowId={'ZGw6MTI3Mjgx'}
+				/>
 				<Category geolocation={geolocation} title={'Bonus'} image={bonus} flowId={'ZGw6MTI3Mjc4'} />
 				{!isIndia && (
 					<Category geolocation={geolocation} title={'Transfer'} image={transfer} flowId={'ZGw6MTI1MDQ5'} />

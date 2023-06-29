@@ -60,6 +60,9 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, ge
 			showMainButton();
 			setMainButtonText('Buy');
 			handleMainButton(handleProductOrder);
+		} else {
+			hideMainButton();
+			removeMainButtonEvent(handleProductOrder);
 		}
 	}, [isOpened, handleProductOrder]);
 

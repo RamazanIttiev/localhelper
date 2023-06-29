@@ -8,7 +8,7 @@ interface SendData {
 }
 
 const sendWebAppMessage = async (text: string) => {
-	const url = process.env.REACT_APP_PROD_SERVER_URL || '';
+	const url = (location.hostname === 'localhost' ? process.env.REACT_APP_TEST_SERVER_URL : '/') || '';
 	const headers = {};
 	const body = {
 		message: text,

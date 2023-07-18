@@ -11,7 +11,6 @@ import {
 	setMainButtonText,
 	showMainButton,
 } from '../actions/webApp-actions';
-import { GeoProps } from '../models/geolocation.model';
 
 interface CategoryDialogProps {
 	title: string;
@@ -19,10 +18,9 @@ interface CategoryDialogProps {
 	isOpened: boolean;
 	flowId: string;
 	handleClose: () => void;
-	geolocation?: GeoProps | string | undefined;
 }
 
-export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, geolocation }: CategoryDialogProps) => {
+export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId }: CategoryDialogProps) => {
 	const theme = useTheme();
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -37,29 +35,24 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, ge
 	const handleError = (value: ErrorType) => setErrorState(value);
 
 	const handleProductOrder = useCallback(() => {
-		if (typeof geolocation !== 'string') {
-			return handleOrder(
-				flowId,
-				{
-					itemName: title,
-					userCountry: geolocation?.country,
-					userCity: geolocation?.city,
-					userCoordinates: {
-						latitude: geolocation?.geometry.lat,
-						longitude: geolocation?.geometry.lng,
-					},
-				},
-				handleLoading,
-				handleError,
-			);
-		}
-	}, [geolocation, flowId, title]);
+		return handleOrder(
+			flowId,
+			{
+				itemName: title,
+			},
+			handleLoading,
+			handleError,
+		);
+	}, [flowId, title]);
 
 	useEffect(() => {
 		if (isOpened) {
 			showMainButton();
 			setMainButtonText('Buy');
 			handleMainButton(handleProductOrder);
+		} else {
+			hideMainButton();
+			removeMainButtonEvent(handleProductOrder);
 		}
 	}, [isOpened, handleProductOrder]);
 
@@ -72,55 +65,39 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, ge
 
 	return (
 		<Drawer anchor={'bottom'} onClose={handleClose} open={isOpened}>
-			{typeof geolocation !== 'string' ? (
+			<Box
+				sx={{
+					p: '3rem 3rem',
+					display: 'flex',
+					alignItems: 'center',
+					flexDirection: 'column',
+					background: theme.palette.background.default,
+				}}>
 				<Box
+					component={'img'}
+					src={image}
+					alt={title}
+					fontSize="small"
 					sx={{
-						p: '3rem 3rem',
-						display: 'flex',
-						alignItems: 'center',
-						flexDirection: 'column',
-						background: theme.palette.background.default,
-					}}>
-					<Box
-						component={'img'}
-						src={image}
-						alt={title}
-						fontSize="small"
-						sx={{
-							width: '7rem',
-							height: '7rem',
-							display: 'block',
-							mb: '1rem',
-							borderRadius: '50%',
-						}}
+						width: '7rem',
+						height: '7rem',
+						display: 'block',
+						mb: '1rem',
+						borderRadius: '50%',
+					}}
+				/>
+				<Typography sx={{ textAlign: 'center', fontWeight: '600', mb: '1rem' }} component={'p'} variant="body1">
+					{title}
+				</Typography>
+				{!isUserAgentTelegram && (
+					<LoaderButton
+						text={'Buy'}
+						loading={loading}
+						errorState={errorState}
+						handleClick={handleProductOrder}
 					/>
-					<Typography
-						sx={{ textAlign: 'center', fontWeight: '600', mb: '1rem' }}
-						component={'p'}
-						variant="body1">
-						{title}
-					</Typography>
-					{!isUserAgentTelegram && (
-						<LoaderButton
-							text={'Buy'}
-							loading={loading}
-							errorState={errorState}
-							handleClick={handleProductOrder}
-						/>
-					)}
-				</Box>
-			) : (
-				<Box
-					sx={{
-						p: '3rem 3rem',
-						display: 'flex',
-						alignItems: 'center',
-						flexDirection: 'column',
-						background: theme.palette.background.default,
-					}}>
-					<Typography>{geolocation}</Typography>
-				</Box>
-			)}
+				)}
+			</Box>
 		</Drawer>
 	);
 };

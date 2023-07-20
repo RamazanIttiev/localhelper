@@ -12,6 +12,7 @@ import { categoryLoader } from '../api/airtable/category';
 import { QueryClient } from '@tanstack/react-query';
 import { productsLoader } from '../api/airtable/products';
 import { restaurantLoader, restaurantProductsLoader, restaurantsLoader } from '../api/airtable/restaurant';
+import { TransportCheckoutContainer } from '../pages/transportCheckout/transportCheckout.container';
 
 const queryClient = new QueryClient();
 export const Telegram = window.Telegram.WebApp;
@@ -57,6 +58,12 @@ const router = createBrowserRouter(
 			<Route path="shopping-cart" element={<CartContainer />} />
 
 			<Route path="checkout" loader={() => fetchTelegramUser()} element={<CheckoutContainer />} />
+
+			<Route
+				path="transport-checkout"
+				loader={() => fetchTelegramUser()}
+				element={<TransportCheckoutContainer />}
+			/>
 		</Route>,
 	),
 );

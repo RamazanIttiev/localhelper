@@ -12,6 +12,8 @@ import { useDocumentTitle } from 'usehooks-ts';
 import { useReactRouter } from '../hooks/useReactRouter';
 import { ShoppingCartProvider } from '../context/cart.context';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 export const Layout = () => {
 	const navigate = useNavigate();
@@ -38,7 +40,9 @@ export const Layout = () => {
 			/>
 
 			<ShoppingCartProvider>
-				<Outlet />
+				<LocalizationProvider dateAdapter={AdapterDayjs}>
+					<Outlet />
+				</LocalizationProvider>
 			</ShoppingCartProvider>
 		</>
 	);

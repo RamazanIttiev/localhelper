@@ -6,6 +6,7 @@ import { clearResponseMessage, handleOrder } from '../../actions/global-actions'
 import { isFood } from '../../utils/typeGuard';
 import { CART_ACTION } from '../amountButtons';
 import { useShoppingCart } from '../../context/cart.context';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface ProductContainerProps {
 	flowId: string;
@@ -14,6 +15,9 @@ interface ProductContainerProps {
 }
 
 export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentProduct, restaurant }) => {
+	const navigate = useNavigate();
+	const { pathname } = useLocation();
+	const { state } = useLocation();
 	const { incrementCartAmount, decrementCartAmount } = useShoppingCart();
 
 	const [product, setProduct] = useState<ProductModel>({ ...currentProduct });
@@ -53,6 +57,14 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentPro
 		);
 	}, [flowId, product?.title, product?.coordinates, product?.contact]);
 
+	const navigateToCheckout = useCallback(() => {
+		navigate(`${pathname}-checkout`, {
+			state: {
+				product,
+			},
+		});
+	}, [navigate, pathname, product]);
+
 	return (
 		<ProductComponent
 			flowId={flowId}
@@ -60,6 +72,7 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentPro
 			loading={loading}
 			restaurant={restaurant}
 			errorState={errorState}
+			navigateToCheckout={navigateToCheckout}
 			handleProductOrder={handleProductOrder}
 			handleProductAmount={handleProductAmount}
 		/>

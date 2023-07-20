@@ -19,6 +19,7 @@ interface ProductDetailsUIProps {
 	restaurant: RestaurantModel;
 	selectedProduct: ProductModel;
 	productExtra?: FoodExtraOptions;
+	navigateToCheckout: () => void;
 	handleProductAmount?: (action: CART_ACTION) => void;
 	handleExtra?: (event: React.SyntheticEvent) => void;
 	handleProductOrder: () => Promise<Response | undefined>;

@@ -21,6 +21,7 @@ import { useShoppingCart } from '../../context/cart.context';
 
 export const ProductDetailsContainer = () => {
 	const { state } = useLocation();
+	const { pathname } = useLocation();
 
 	const navigate = useNavigate();
 	const { addNewProduct } = useShoppingCart();
@@ -74,6 +75,14 @@ export const ProductDetailsContainer = () => {
 			handleError,
 		);
 	}, [flowId, product.contact, product.coordinates, product.title]);
+
+	const navigateToCheckout = useCallback(() => {
+		navigate(`${pathname}-checkout`, {
+			state: {
+				product,
+			},
+		});
+	}, [navigate, pathname, product]);
 
 	const addProductToCart = useCallback(() => {
 		isFood(product) &&
@@ -129,6 +138,7 @@ export const ProductDetailsContainer = () => {
 				handleExtra={handleExtra}
 				selectedProduct={product}
 				productExtra={productExtra}
+				navigateToCheckout={navigateToCheckout}
 				handleProductOrder={handleProductOrder}
 				handleProductAmount={handleProductAmount}
 			/>

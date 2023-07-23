@@ -18,9 +18,10 @@ interface CategoryDialogProps {
 	isOpened: boolean;
 	flowId: string;
 	handleClose: () => void;
+	userCountry?: string;
 }
 
-export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId }: CategoryDialogProps) => {
+export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, userCountry }: CategoryDialogProps) => {
 	const theme = useTheme();
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -39,11 +40,12 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId }: 
 			flowId,
 			{
 				itemName: title,
+				userCountry,
 			},
 			handleLoading,
 			handleError,
 		);
-	}, [flowId, title]);
+	}, [flowId, title, userCountry]);
 
 	useEffect(() => {
 		if (isOpened) {

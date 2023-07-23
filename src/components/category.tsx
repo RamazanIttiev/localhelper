@@ -10,9 +10,10 @@ interface CategoryProps {
 	image: string;
 	isLink?: boolean;
 	flowId?: string;
+	userCountry?: string;
 }
 
-export const Category: FC<CategoryProps> = ({ title, image, isLink = false, flowId = '' }) => {
+export const Category: FC<CategoryProps> = ({ title, image, isLink = false, flowId = '', userCountry }) => {
 	const [isOpened, setIsOpened] = useState(false);
 
 	const handleOpen = () => {
@@ -60,7 +61,14 @@ export const Category: FC<CategoryProps> = ({ title, image, isLink = false, flow
 					</Box>
 				</Card>
 			</Grid>
-			<CategoryDialog handleClose={handleClose} flowId={flowId} isOpened={isOpened} title={title} image={image} />
+			<CategoryDialog
+				handleClose={handleClose}
+				flowId={flowId}
+				isOpened={isOpened}
+				title={title}
+				image={image}
+				userCountry={userCountry}
+			/>
 		</>
 	);
 };

@@ -50,7 +50,7 @@ export const TransportCheckoutContainer = () => {
 					itemPrice: product.price,
 					itemTitle: product.title,
 					rentStart: data.startDate?.toDateString(),
-					endDate: data.endDate?.toDateString(),
+					endRent: data.endDate?.toDateString(),
 					rentPeriod,
 				},
 				handleLoading,

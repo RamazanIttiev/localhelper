@@ -16,9 +16,9 @@ import { TransportCheckoutContainer } from '../pages/transportCheckout/transport
 import { ExchangeContainer } from '../pages/exchange/exchange.container';
 
 const queryClient = new QueryClient();
-export const Telegram = window.Telegram.WebApp;
-export const TelegramUser = window.Telegram.initDataUnsafe?.user;
-export const TelegramTheme = Telegram.themeParams !== undefined ? Telegram.themeParams : null;
+export const Telegram = window.Telegram.WebApp || undefined;
+export const TelegramUser = window.Telegram.initDataUnsafe?.user || undefined;
+export const TelegramTheme = window.Telegram.themeParams || undefined;
 
 const router = createBrowserRouter(
 	createRoutesFromElements(

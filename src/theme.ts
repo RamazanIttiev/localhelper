@@ -44,23 +44,39 @@ export const theme = createTheme({
 		},
 	},
 	components: {
+		MuiOutlinedInput: {
+			styleOverrides: {
+				root: {
+					color: '#fff',
+
+					'&:hover fieldset': {
+						borderColor: TelegramTheme?.hint_color || '#ccc',
+					},
+					'&.Mui-focused fieldset': {
+						borderColor: TelegramTheme?.hint_color || '#ccc',
+						borderWidth: '1px',
+					},
+				},
+
+				notchedOutline: {
+					borderColor: '#303030',
+					borderRadius: '8px',
+				},
+				input: {
+					'&:-webkit-autofill': {
+						'-webkit-box-shadow': `0 0 0 100px ${TelegramTheme?.button_color || '#303030'} inset`,
+						'-webkit-text-fill-color': '#fff',
+						'-webkit-background-clip': 'text',
+					},
+				},
+			},
+		},
 		MuiDrawer: {
 			styleOverrides: {
 				root: {
 					'& .MuiPaper-root': {
 						borderTopRightRadius: '1rem',
 						borderTopLeftRadius: '1rem',
-					},
-				},
-			},
-		},
-		MuiOutlinedInput: {
-			styleOverrides: {
-				input: {
-					'&:-webkit-autofill': {
-						'-webkit-box-shadow': `0 0 0 100px ${TelegramTheme?.button_color || '#303030'} inset`,
-						'-webkit-text-fill-color': '#fff',
-						'-webkit-background-clip': 'text',
 					},
 				},
 			},

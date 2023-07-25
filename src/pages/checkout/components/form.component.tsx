@@ -1,5 +1,4 @@
 import React from 'react';
-import { Input } from '../checkout.styled';
 import { HintTitle } from '../../../components/hintTitle';
 import { ErrorType } from '../../../models/error.model';
 import { LoaderButton } from '../../../reactkit/loaderButton';
@@ -7,6 +6,7 @@ import { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-fo
 import { isUserAgentTelegram } from '../../../utils/deviceInfo';
 import { ErrorText } from '../../../components/errorText';
 import { UserData } from '../../../models/user.model';
+import { Input } from '../../../components/input';
 
 interface FormUIProps {
 	loading: boolean;

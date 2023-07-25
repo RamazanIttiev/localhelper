@@ -20,6 +20,7 @@ interface ProductProps {
 	loading: boolean;
 	product: ProductModel;
 	errorState: ErrorType;
+	navigateToCheckout: () => void;
 	restaurant: RestaurantModel | undefined;
 	handleProductAmount?: (action: CART_ACTION) => void;
 	handleProductOrder: () => Promise<Response | undefined>;
@@ -32,6 +33,7 @@ export const ProductComponent: FC<ProductProps> = ({
 	restaurant,
 	errorState,
 	handleProductOrder,
+	navigateToCheckout,
 	handleProductAmount,
 }) => {
 	const { getItemAmount } = useShoppingCart();
@@ -125,7 +127,7 @@ export const ProductComponent: FC<ProductProps> = ({
 								loading={loading}
 								errorState={errorState}
 								text={`${product.price} Rs`}
-								handleClick={handleProductOrder}
+								handleClick={navigateToCheckout}
 							/>
 						)}
 					</CardActions>

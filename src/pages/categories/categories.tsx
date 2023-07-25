@@ -22,7 +22,7 @@ export const Categories = () => {
 				{categories.map(({ title, image }: CategoryModel) => {
 					return <Category key={title} isLink title={title} image={image} />;
 				})}
-				<Category title={'Exchange'} image={exchange} flowId={'ZGw6MTI3Mjgx'} />
+				<Category title={'Exchange'} image={exchange} isLink flowId={'ZGw6MTI3Mjgx'} />
 				<Category title={'Bonus'} image={bonus} flowId={'ZGw6MTI3Mjc4'} />
 				<Category title={'Transfer'} image={transfer} flowId={'ZGw6MTI1MDQ5'} />
 			</Grid>

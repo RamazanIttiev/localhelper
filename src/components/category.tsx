@@ -36,7 +36,7 @@ export const Category: FC<CategoryProps> = ({ title, image, isLink = false, flow
 						cursor: 'pointer',
 						background: 'inherit',
 					}}>
-					<Box component={isLink ? Link : Box} to={route}>
+					<Box component={isLink ? Link : Box} to={route} state={flowId}>
 						<CardMedia>
 							<Box
 								component={'img'}

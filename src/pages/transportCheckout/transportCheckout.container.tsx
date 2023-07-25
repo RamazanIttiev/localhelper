@@ -1,36 +1,31 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { TransportCheckoutComponent } from './transportCheckout.component';
-import { DefaultValues, useForm } from 'react-hook-form';
-import { ErrorType } from '../../models/error.model';
+import { Container } from '@mui/material';
+import { useForm, useWatch } from 'react-hook-form';
+
 import {
 	handleMainButton,
 	removeMainButtonEvent,
 	setMainButtonText,
 	showMainButton,
 } from '../../actions/webApp-actions';
-import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
+import { getDateDiff } from '../../utils/date';
 import { useLocation } from 'react-router-dom';
-import { Container } from '@mui/material';
-import { TransportCheckoutModel } from './transportCheckout.model';
+import { ErrorType } from '../../models/error.model';
 import { DefaultProductModel } from '../../models/product.model';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-
-const defaultValues: DefaultValues<TransportCheckoutModel> = {
-	startDate: new AdapterDayjs().date(new Date()),
-	endDate: null,
-};
+import { TransportCheckoutModel } from './transportCheckout.model';
+import { TransportCheckoutComponent } from './transportCheckout.component';
+import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 
 export const TransportCheckoutContainer = () => {
 	const { state } = useLocation();
 	const product: DefaultProductModel = state.product || {};
-	// TODO add validation if user selects future start date
 
 	const {
 		register,
 		handleSubmit,
 		control,
 		formState: { errors },
-	} = useForm<TransportCheckoutModel>({ defaultValues });
+	} = useForm<TransportCheckoutModel>({ defaultValues: { startDate: null, endDate: null } });
 
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
@@ -40,20 +35,29 @@ export const TransportCheckoutContainer = () => {
 	const handleLoading = (value: boolean) => setLoading(value);
 	const handleError = (value: ErrorType) => setErrorState(value);
 
+	const startDate = useWatch({ control, name: 'startDate' });
+	const endDate = useWatch({ control, name: 'endDate' });
+
+	const rentPeriod = getDateDiff(startDate, endDate);
+
 	const onSubmit = useCallback(
-		(data: any) => {
-			console.log(data);
+		(data: TransportCheckoutModel) => {
 			return handleOrder(
 				state?.flowId,
 				{
-					...state,
-					...data,
+					placeContact: product.contact,
+					placeName: product.place,
+					itemPrice: product.price,
+					itemTitle: product.title,
+					rentStart: data.startDate?.toDateString(),
+					endDate: data.endDate?.toDateString(),
+					rentPeriod,
 				},
 				handleLoading,
 				handleError,
 			);
 		},
-		[state],
+		[product.contact, product.place, product.price, product.title, rentPeriod, state?.flowId],
 	);
 
 	const handleForm = async () => {
@@ -98,6 +102,7 @@ export const TransportCheckoutContainer = () => {
 				control={control}
 				register={register}
 				onSubmit={handleForm}
+				rentPeriod={rentPeriod}
 				errorState={errorState}
 			/>
 		</Container>

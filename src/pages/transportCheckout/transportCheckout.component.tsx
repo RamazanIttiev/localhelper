@@ -1,21 +1,24 @@
 import React from 'react';
-import { ErrorType } from '../../models/error.model';
-import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
-import { isUserAgentTelegram } from '../../utils/deviceInfo';
-import { LoaderButton } from '../../reactkit/loaderButton';
-import { TransportCheckoutModel } from './transportCheckout.model';
-import { DefaultProductModel } from '../../models/product.model';
-import { TransportCheckoutForm } from './transportCheckoutForm';
 import { Box, Typography } from '@mui/material';
-import { HintTitle } from '../../components/hintTitle';
+import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
+
 import { theme } from '../../theme';
+import { formatDaysText } from '../../utils/date';
+import { ErrorType } from '../../models/error.model';
+import { HintTitle } from '../../components/hintTitle';
+import { LoaderButton } from '../../reactkit/loaderButton';
+import { isUserAgentTelegram } from '../../utils/deviceInfo';
+import { TransportCheckoutForm } from './transportCheckoutForm';
+import { DefaultProductModel } from '../../models/product.model';
+import { TransportCheckoutModel } from './transportCheckout.model';
 
 interface Props {
 	loading: boolean;
-	errorState: ErrorType;
+	rentPeriod: number;
 	onSubmit: () => void;
+	errorState: ErrorType;
 	product: DefaultProductModel;
-	control: Control<TransportCheckoutModel, any>;
+	control: Control<TransportCheckoutModel>;
 	errors: FieldErrors<TransportCheckoutModel>;
 	register: UseFormRegister<TransportCheckoutModel>;
 }
@@ -28,15 +31,8 @@ export const TransportCheckoutComponent = ({
 	errorState,
 	control,
 	product,
+	rentPeriod,
 }: Props) => {
-	const formatDaysText = (numDays: number) => {
-		if (numDays === 1) {
-			return `day`;
-		} else {
-			return `days`;
-		}
-	};
-
 	return (
 		<>
 			<TransportCheckoutForm control={control} errors={errors} register={register} />
@@ -74,34 +70,36 @@ export const TransportCheckoutComponent = ({
 					</Box>
 				</Box>
 
-				<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} mb={1}>
-					<Typography fontSize={'1rem'} component={'span'} display={'flex'}>
-						Total price for
-						<Typography
-							fontSize={'1rem'}
-							component={'span'}
-							sx={{
-								width: '1.5rem',
-								height: '1.5rem',
-								borderRadius: '50%',
-								backgroundColor: theme.palette.primary.main,
-								display: 'flex',
-								justifyContent: 'center',
-								alignItems: 'center',
-								m: '0 0.5rem',
-							}}>
-							1
+				{rentPeriod > 0 && (
+					<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} mb={1}>
+						<Typography fontSize={'1rem'} component={'span'} display={'flex'}>
+							Total price for
+							<Typography
+								fontSize={'1rem'}
+								component={'span'}
+								sx={{
+									width: '1.5rem',
+									height: '1.5rem',
+									borderRadius: '50%',
+									backgroundColor: theme.palette.primary.main,
+									display: 'flex',
+									justifyContent: 'center',
+									alignItems: 'center',
+									m: '0 0.5rem',
+								}}>
+								{rentPeriod}
+							</Typography>
+							{formatDaysText(rentPeriod)}
 						</Typography>
-						{formatDaysText(1)}
-					</Typography>
-					<Typography
-						component={'span'}
-						variant={'body1'}
-						fontWeight={'bold'}
-						sx={{ color: theme.palette.info.main }}>
-						1000 Rs
-					</Typography>
-				</Box>
+						<Typography
+							component={'span'}
+							variant={'body1'}
+							fontWeight={'bold'}
+							sx={{ color: theme.palette.info.main }}>
+							{product.price * rentPeriod} Rs
+						</Typography>
+					</Box>
+				)}
 			</Box>
 			{!isUserAgentTelegram && (
 				<LoaderButton

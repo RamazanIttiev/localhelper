@@ -1,26 +1,23 @@
 import React from 'react';
-import { HintTitle } from '../../components/hintTitle';
-import { Input } from '../checkout/checkout.styled';
-import { ErrorText } from '../../components/errorText';
-import { Box, styled } from '@mui/material';
-import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
-import { TransportCheckoutModel } from './transportCheckout.model';
-import { DatePicker } from '@mui/x-date-pickers';
+import { Box } from '@mui/material';
+import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 
-const InputGroupBox = styled(Box)`
-	margin-bottom: 1rem;
-`;
+import { Input } from '../../components/input';
+import { ErrorText } from '../../components/errorText';
+import { HintTitle } from '../../components/hintTitle';
+import { DateRange } from '../../components/dateRange';
+import { TransportCheckoutModel } from './transportCheckout.model';
 
 interface Props {
 	errors: FieldErrors<TransportCheckoutModel>;
-	control: Control<TransportCheckoutModel, any>;
+	control: Control<TransportCheckoutModel>;
 	register: UseFormRegister<TransportCheckoutModel>;
 }
 
 export const TransportCheckoutForm = ({ register, errors, control }: Props) => {
 	return (
 		<form>
-			<InputGroupBox>
+			<Box mb={'1rem'}>
 				<HintTitle text={'Name'} />
 				<Input
 					fullWidth
@@ -41,77 +38,16 @@ export const TransportCheckoutForm = ({ register, errors, control }: Props) => {
 					})}
 				/>
 				<ErrorText text={errors.userName?.message} />
-			</InputGroupBox>
-			<Box display={'flex'}>
-				<Box>
-					<HintTitle text={'From'} styles={{ marginBottom: '0.5rem' }} />
-					<Controller
-						control={control}
-						{...register('startDate', {
-							required: {
-								value: true,
-								message: 'When do you need the bike?',
-							},
-						})}
-						render={({ field: { ...field }, fieldState }) => (
-							<DatePicker
-								{...field}
-								disablePast
-								format={'DD.MM.YYYY'}
-								slotProps={{
-									textField: {
-										sx: {
-											background: '#303030',
-											fontSize: '14px !important',
-											color: '#fff',
-											borderRadius: '8px',
-											boxShadow: 'none',
-											mr: '8px',
-											height: 'fit-content',
-										},
-									},
-								}}
-							/>
-						)}
-					/>
-				</Box>
-
-				<Box>
-					<HintTitle text={'To'} styles={{ marginBottom: '0.5rem' }} />
-					<Controller
-						control={control}
-						{...register('endDate', {
-							required: {
-								value: true,
-								message: 'When will you return the bike?',
-							},
-						})}
-						render={({ field: { ...field }, fieldState }) => (
-							<DatePicker
-								{...field}
-								disablePast
-								format={'DD.MM.YYYY'}
-								slotProps={{
-									textField: {
-										error: !!errors.endDate,
-										sx: {
-											background: '#303030',
-											fontSize: '14px !important',
-											color: '#fff',
-											borderRadius: '8px',
-											boxShadow: 'none',
-											mr: '8px',
-											mb: '4px',
-											height: 'fit-content',
-										},
-									},
-								}}
-							/>
-						)}
-					/>
-					<ErrorText text={errors.endDate?.message} />
-				</Box>
 			</Box>
+			<DateRange
+				control={control}
+				register={register}
+				errors={errors}
+				endPlaceholderText={'Rental end date'}
+				startPlaceholderText={'Rental start date'}
+				endValidationText={'Select rental end date'}
+				startValidationText={'When do you need the bike?'}
+			/>
 		</form>
 	);
 };

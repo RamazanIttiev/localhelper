@@ -51,7 +51,7 @@ export const DateRange = ({
 							minDate={new Date()}
 							dateFormat={'dd.MM.yyyy'}
 							showDisabledMonthNavigation
-							customInput={<Input fullWidth />}
+							customInput={<Input fullWidth inputProps={{ readOnly: true }} />}
 							placeholderText={startPlaceholderText}
 						/>
 					)}
@@ -75,7 +75,7 @@ export const DateRange = ({
 							minDate={startDate}
 							dateFormat={'dd.MM.yyyy'}
 							showDisabledMonthNavigation
-							customInput={<Input fullWidth />}
+							customInput={<Input fullWidth inputProps={{ readOnly: true }} />}
 							placeholderText={endPlaceholderText}
 						/>
 					)}

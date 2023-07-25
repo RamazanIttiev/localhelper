@@ -17,7 +17,6 @@ interface ProductContainerProps {
 export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentProduct, restaurant }) => {
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
-	const { state } = useLocation();
 	const { incrementCartAmount, decrementCartAmount } = useShoppingCart();
 
 	const [product, setProduct] = useState<ProductModel>({ ...currentProduct });

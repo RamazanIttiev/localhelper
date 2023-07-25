@@ -32,7 +32,6 @@ export const ProductComponent: FC<ProductProps> = ({
 	product,
 	restaurant,
 	errorState,
-	handleProductOrder,
 	navigateToCheckout,
 	handleProductAmount,
 }) => {

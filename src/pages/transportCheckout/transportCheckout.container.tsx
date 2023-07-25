@@ -29,8 +29,7 @@ export const TransportCheckoutContainer = () => {
 	} = useForm<TransportCheckoutModel>({
 		defaultValues: { userName: TelegramUser?.first_name || '', startDate: null, endDate: null },
 	});
-	console.log(TelegramUser);
-	console.log('window', window.Telegram.WebApp.initDataUnsafe.user);
+
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
 		isError: null,

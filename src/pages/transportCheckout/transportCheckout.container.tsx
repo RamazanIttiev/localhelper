@@ -8,6 +8,7 @@ import {
 	setMainButtonText,
 	showMainButton,
 } from '../../actions/webApp-actions';
+import { TelegramUser } from '../../app/App';
 import { getDateDiff } from '../../utils/date';
 import { useLocation } from 'react-router-dom';
 import { ErrorType } from '../../models/error.model';
@@ -25,7 +26,9 @@ export const TransportCheckoutContainer = () => {
 		handleSubmit,
 		control,
 		formState: { errors },
-	} = useForm<TransportCheckoutModel>({ defaultValues: { startDate: null, endDate: null } });
+	} = useForm<TransportCheckoutModel>({
+		defaultValues: { userName: TelegramUser?.first_name || '', startDate: null, endDate: null },
+	});
 
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({

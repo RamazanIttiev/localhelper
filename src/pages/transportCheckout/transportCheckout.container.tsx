@@ -80,7 +80,6 @@ export const TransportCheckoutContainer = () => {
 			try {
 				await handleSubmit(onSubmit)();
 			} catch (error) {
-				// Handle any errors that occur during form submission
 				console.error('Error submitting form:', error);
 			}
 		};

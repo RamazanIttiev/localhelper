@@ -55,7 +55,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build_deploy": "BUILD_PATH='./public_html' react-scripts build",
+    "build_deploy": "BUILD_PATH='./public_html' react-scripts build && rm -rf public_html/sendMessage.php public_html/.htaccess",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

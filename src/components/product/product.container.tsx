@@ -60,9 +60,10 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentPro
 		navigate(`${pathname}-checkout`, {
 			state: {
 				product,
+				flowId,
 			},
 		});
-	}, [navigate, pathname, product]);
+	}, [navigate, pathname, product, flowId]);
 
 	return (
 		<ProductComponent

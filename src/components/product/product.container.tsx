@@ -1,12 +1,12 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import { ErrorType } from '../../models/error.model';
+import React, { FC, useCallback, useReducer, useState } from 'react';
 import { ProductComponent } from './product.component';
 import { ProductModel, RestaurantModel } from '../../models/product.model';
-import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 import { isFood } from '../../utils/typeGuard';
 import { CART_ACTION } from '../amountButtons';
 import { useShoppingCart } from '../../context/cart.context';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { initialState, reducer } from '../../utils/reducers';
+import { useMainButton } from '../../hooks/useMainButton';
 
 interface ProductContainerProps {
 	flowId: string;
@@ -19,11 +19,9 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentPro
 	const { pathname } = useLocation();
 	const { incrementCartAmount, decrementCartAmount } = useShoppingCart();
 
+	const [{ loading, errorState }, dispatch] = useReducer(reducer, initialState);
+
 	const [product, setProduct] = useState<ProductModel>({ ...currentProduct });
-	const [loading, setLoading] = useState(false);
-	const [errorState, setErrorState] = useState<ErrorType>({
-		isError: null,
-	});
 
 	const handleProductAmount = (action: CART_ACTION) => {
 		setProduct(prevProduct => {
@@ -36,26 +34,6 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentPro
 		});
 	};
 
-	useEffect(() => {
-		clearResponseMessage(errorState, handleError);
-	}, [errorState]);
-
-	const handleLoading = (value: boolean) => setLoading(value);
-	const handleError = (value: ErrorType) => setErrorState(value);
-
-	const handleProductOrder = useCallback(() => {
-		return handleOrder(
-			flowId,
-			{
-				itemName: product.title,
-				placeNumber: product?.contact,
-				placeCoordinates: product?.coordinates,
-			},
-			handleLoading,
-			handleError,
-		);
-	}, [flowId, product?.title, product?.coordinates, product?.contact]);
-
 	const navigateToCheckout = useCallback(() => {
 		navigate(`${pathname}-checkout`, {
 			state: {
@@ -65,6 +43,8 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentPro
 		});
 	}, [navigate, pathname, product, flowId]);
 
+	useMainButton({ handleClick: navigateToCheckout, dispatch, errorState, buttonLabel: 'order' });
+
 	return (
 		<ProductComponent
 			flowId={flowId}
@@ -73,7 +53,6 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentPro
 			restaurant={restaurant}
 			errorState={errorState}
 			navigateToCheckout={navigateToCheckout}
-			handleProductOrder={handleProductOrder}
 			handleProductAmount={handleProductAmount}
 		/>
 	);

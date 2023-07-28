@@ -1,17 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useReducer } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Container } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-import { ErrorType } from '../../models/error.model';
 import { ExchangeComponent } from './exchange.component';
-import {
-	handleMainButton,
-	removeMainButtonEvent,
-	setMainButtonText,
-	showMainButton,
-} from '../../actions/webApp-actions';
-import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
+import { handleFormSubmit } from '../../actions/global-actions';
+import { initialState, reducer } from '../../utils/reducers';
+import { useMainButton } from '../../hooks/useMainButton';
 
 export interface ExchangeFormState {
 	userName: string;
@@ -20,14 +15,15 @@ export interface ExchangeFormState {
 	exchangeCurrency: string;
 }
 
-export const ExchangeContainer = () => {
-	const { state } = useLocation();
-	const [loading, setLoading] = useState(false);
-	const [errorState, setErrorState] = useState<ErrorType>({
-		isError: null,
-	});
+interface RouteState {
+	state: { flowId: string };
+}
 
-	const flowId: string = state;
+export const ExchangeContainer = () => {
+	const { state } = useLocation() as RouteState;
+	const flowId = state.flowId || '';
+
+	const [{ loading, errorState }, dispatch] = useReducer(reducer, initialState);
 
 	const {
 		register,
@@ -37,45 +33,24 @@ export const ExchangeContainer = () => {
 		defaultValues: { userName: '', userPhone: '', exchangeAmount: 0, exchangeCurrency: 'USDT' },
 	});
 
-	const handleLoading = (value: boolean) => setLoading(value);
-	const handleError = (value: ErrorType) => setErrorState(value);
-
-	const handleExchange = useCallback(
+	const onSubmit = useCallback(
 		(data?: ExchangeFormState) => {
-			return handleOrder(
-				flowId,
-				{
-					...data,
-				},
-				handleLoading,
-				handleError,
-			);
+			return handleFormSubmit(dispatch, flowId, {
+				...data,
+			});
 		},
-		[flowId],
+		[dispatch, flowId],
 	);
 
-	const onSubmit = useCallback(async () => {
+	const handleForm = useCallback(async () => {
 		try {
-			await handleSubmit(handleExchange)();
+			await handleSubmit(onSubmit)();
 		} catch (error) {
 			console.error('Error submitting form:', error);
 		}
-	}, [handleExchange, handleSubmit]);
+	}, [onSubmit, handleSubmit]);
 
-	useEffect(() => {
-		showMainButton();
-		setMainButtonText('Exchange');
-
-		handleMainButton(onSubmit);
-
-		return () => {
-			removeMainButtonEvent(onSubmit);
-		};
-	}, [onSubmit]);
-
-	useEffect(() => {
-		clearResponseMessage(errorState, handleError);
-	}, [errorState]);
+	useMainButton({ handleClick: handleForm, dispatch, errorState, buttonLabel: 'Exchange' });
 
 	return (
 		<Container maxWidth={'sm'} sx={{ pt: '1rem', pb: '4rem', position: 'relative' }}>
@@ -83,7 +58,7 @@ export const ExchangeContainer = () => {
 				errors={errors}
 				loading={loading}
 				register={register}
-				onSubmit={onSubmit}
+				handleForm={handleForm}
 				errorState={errorState}
 			/>
 		</Container>

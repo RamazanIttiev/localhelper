@@ -1,17 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { FormUI } from './components/form.component';
 import { Container, Switch, useTheme } from '@mui/material';
 import { OrderInfo } from './components/orderInfo';
 import { SaveInfoField, SaveInfoWrapper } from './checkout.styled';
-import { ErrorType } from '../../models/error.model';
-import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
+import { handleFormSubmit } from '../../actions/global-actions';
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
-import {
-	handleMainButton,
-	removeMainButtonEvent,
-	setMainButtonText,
-	showMainButton,
-} from '../../actions/webApp-actions';
 import { useForm } from 'react-hook-form';
 import { CartList } from '../cart/cart-list';
 import { UserData, UserDB } from '../../models/user.model';
@@ -20,13 +13,23 @@ import { HintTitle } from '../../components/hintTitle';
 import { useShoppingCart } from '../../context/cart.context';
 import { AppData } from '../../models/product.model';
 import { fetchUser, saveUserInfo } from '../../api/user';
+import { initialState, reducer } from '../../utils/reducers';
+import { useMainButton } from '../../hooks/useMainButton';
+
+interface RouteState {
+	state: { flowId: string; placeTitle: string; placeNumber: string; placeLocation: string; placeCoordinates: string };
+}
 
 export const CheckoutContainer = () => {
 	const navigate = useNavigate();
-	const { state } = useLocation();
+	const { state } = useLocation() as RouteState;
+	const flowId = state.flowId || '';
+
 	const theme = useTheme();
 	const { products } = useOutletContext<AppData>();
 	const { getCartTotalAmount, getCartOrder, clearCart } = useShoppingCart();
+
+	const [{ loading, errorState }, dispatch] = useReducer(reducer, initialState);
 
 	const cartOrder = getCartOrder(products);
 	const cartTotalAmount = getCartTotalAmount(products);
@@ -38,11 +41,7 @@ export const CheckoutContainer = () => {
 	} = useForm<UserData>();
 
 	const [user, setUser] = useState<UserDB | undefined>();
-	const [loading, setLoading] = useState(false);
 	const [saveInfo, setSaveInfo] = useState(true);
-	const [errorState, setErrorState] = useState<ErrorType>({
-		isError: null,
-	});
 
 	const handleSaveInfo = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSaveInfo(event.target.checked);
@@ -61,22 +60,14 @@ export const CheckoutContainer = () => {
 		fetchUserData().catch(error => error);
 	}, []);
 
-	const handleLoading = (value: boolean) => setLoading(value);
-	const handleError = (value: ErrorType) => setErrorState(value);
-
-	const produceOrder = useCallback(
+	const onSubmit = useCallback(
 		(userData?: UserData) => {
-			return handleOrder(
-				state?.flowId,
-				{
-					...state,
-					...userData,
-					order: cartOrder,
-					orderTotal: cartTotalAmount,
-				},
-				handleLoading,
-				handleError,
-			).then(response => {
+			return handleFormSubmit(dispatch, flowId, {
+				...state,
+				...userData,
+				order: cartOrder,
+				orderTotal: cartTotalAmount,
+			}).then(response => {
 				if (response?.ok) {
 					userData !== undefined && saveInfo && !user && saveUserInfo(userData);
 					setTimeout(() => {
@@ -86,41 +77,18 @@ export const CheckoutContainer = () => {
 				}
 			});
 		},
-		[state, cartOrder, cartTotalAmount, saveInfo, user, clearCart, navigate],
+		[flowId, state, cartOrder, cartTotalAmount, saveInfo, user, clearCart, navigate],
 	);
 
-	const handleFormOrder = async () => {
+	const handleForm = async () => {
 		try {
-			await handleSubmit(produceOrder)();
+			await handleSubmit(onSubmit)();
 		} catch (error) {
-			// Handle any errors that occur during form submission
 			console.error('Error submitting form:', error);
 		}
 	};
 
-	useEffect(() => {
-		showMainButton();
-		setMainButtonText('Order');
-
-		const handleOrder = async () => {
-			try {
-				await handleSubmit(produceOrder)();
-			} catch (error) {
-				// Handle any errors that occur during form submission
-				console.error('Error submitting form:', error);
-			}
-		};
-
-		handleMainButton(handleOrder);
-
-		return () => {
-			removeMainButtonEvent(handleOrder);
-		};
-	}, [handleSubmit, produceOrder]);
-
-	useEffect(() => {
-		clearResponseMessage(errorState, handleError);
-	}, [errorState]);
+	useMainButton({ handleClick: handleForm, dispatch, errorState, buttonLabel: 'order' });
 
 	return (
 		<Container maxWidth={'sm'} sx={{ pt: '1rem', pb: '4rem', position: 'relative' }}>
@@ -128,9 +96,8 @@ export const CheckoutContainer = () => {
 				errors={errors}
 				loading={loading}
 				register={register}
-				onSubmit={handleFormOrder}
+				handleForm={handleForm}
 				errorState={errorState}
-				handleSubmit={handleSubmit}
 			/>
 			{isUserAgentTelegram && (
 				<SaveInfoWrapper>

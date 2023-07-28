@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
 import { Container } from '@mui/material';
 import { ErrorType } from '../../models/error.model';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DishSizeType, FoodExtraOptions, ProductModel } from '../../models/product.model';
 import { useReactRouter } from '../../hooks/useReactRouter';
 import { ProductDetailsUI } from './productDetails.component';
-import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
+import { clearResponseMessage } from '../../actions/global-actions';
 import {
 	handleMainButton,
 	hideMainButton,
@@ -18,9 +18,13 @@ import { CART_ACTION } from '../../components/amountButtons';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { LoaderButton } from '../../reactkit/loaderButton';
 import { useShoppingCart } from '../../context/cart.context';
+import { Actions, initialState, reducer } from '../../utils/reducers';
 
 export const ProductDetailsContainer = () => {
 	const { state } = useLocation();
+	const price = state?.price;
+	const restaurant = state?.restaurant;
+
 	const { pathname } = useLocation();
 
 	const navigate = useNavigate();
@@ -28,10 +32,6 @@ export const ProductDetailsContainer = () => {
 	const { isRestaurantDetailsRoute } = useReactRouter();
 
 	const [productAmount, setProductAmount] = useState(1);
-	const [loading, setLoading] = useState(false);
-	const [errorState, setErrorState] = useState<ErrorType>({
-		isError: null,
-	});
 	const [productExtra, setProductExtra] = useState<FoodExtraOptions | undefined>(
 		isFood(state) && state.dishSize ? { dishSize: 'small' } : undefined,
 	);
@@ -40,8 +40,7 @@ export const ProductDetailsContainer = () => {
 		[productAmount, productExtra, state],
 	);
 
-	const flowId = state.flowId;
-	const restaurant = state.restaurant;
+	const [{ loading, errorState }, dispatch] = useReducer(reducer, initialState);
 
 	const handleProductAmount = (action: CART_ACTION) => {
 		setProductAmount(() => {
@@ -62,19 +61,6 @@ export const ProductDetailsContainer = () => {
 			};
 		});
 	};
-
-	const handleProductOrder = useCallback(() => {
-		return handleOrder(
-			flowId,
-			{
-				itemName: product.title,
-				placeNumber: product?.contact,
-				placeCoordinates: product?.coordinates,
-			},
-			handleLoading,
-			handleError,
-		);
-	}, [flowId, product.contact, product.coordinates, product.title]);
 
 	const navigateToCheckout = useCallback(() => {
 		navigate(`${pathname}-checkout`, {
@@ -111,23 +97,22 @@ export const ProductDetailsContainer = () => {
 	useEffect(() => {
 		if (!isRestaurantDetailsRoute) {
 			showMainButton();
-			handleMainButton(handleProductOrder);
-			setMainButtonText(`${state?.price} Rs`);
+			setMainButtonText(`${price} Rs`);
 		} else hideMainButton();
 
 		return () => {
 			hideMainButton();
-			removeMainButtonEvent(handleProductOrder);
 		};
-	}, [handleProductOrder, isRestaurantDetailsRoute, state?.price]);
+	}, [isRestaurantDetailsRoute, price]);
 
 	useEffect(() => {
-		clearResponseMessage(errorState, handleError);
+		if (errorState.isError !== null) {
+			clearResponseMessage(
+				errorState,
+				(value: ErrorType) => dispatch && dispatch({ type: Actions.SET_ERROR, payload: value }),
+			);
+		}
 	}, [errorState]);
-
-	const handleLoading = (value: boolean) => setLoading(value);
-
-	const handleError = (value: ErrorType) => setErrorState(value);
 
 	return (
 		<Container sx={{ pt: 2, pb: 2, px: 6 }} maxWidth={'sm'}>
@@ -139,7 +124,6 @@ export const ProductDetailsContainer = () => {
 				selectedProduct={product}
 				productExtra={productExtra}
 				navigateToCheckout={navigateToCheckout}
-				handleProductOrder={handleProductOrder}
 				handleProductAmount={handleProductAmount}
 			/>
 			{isRestaurantDetailsRoute && !isUserAgentTelegram && isFood(product) && product.dishSize && (

@@ -22,7 +22,6 @@ interface ProductDetailsUIProps {
 	navigateToCheckout: () => void;
 	handleProductAmount?: (action: CART_ACTION) => void;
 	handleExtra?: (event: React.SyntheticEvent) => void;
-	handleProductOrder: () => Promise<Response | undefined>;
 }
 export const ProductDetailsUI = ({
 	loading,
@@ -31,7 +30,6 @@ export const ProductDetailsUI = ({
 	handleExtra,
 	productExtra,
 	selectedProduct,
-	handleProductOrder,
 	handleProductAmount,
 }: ProductDetailsUIProps) => {
 	const theme = useTheme();
@@ -119,7 +117,8 @@ export const ProductDetailsUI = ({
 								isMainButton
 								loading={loading}
 								errorState={errorState}
-								handleClick={handleProductOrder}
+								// eslint-disable-next-line @typescript-eslint/no-empty-function
+								handleClick={() => {}}
 								text={`${selectedProduct?.price} Rs`}
 							/>
 						)

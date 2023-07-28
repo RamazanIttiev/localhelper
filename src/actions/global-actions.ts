@@ -1,6 +1,22 @@
 import { ErrorType } from '../models/error.model';
 import { setHaptic } from './webApp-actions';
 import { sendWebAppDeepLink } from '../api/telegram';
+import { Dispatch } from 'react';
+import { Actions } from '../utils/reducers';
+
+export const handleFormSubmit = async (dispatch: Dispatch<any>, flowId: string, order: any): Promise<any> => {
+	try {
+		dispatch({ type: Actions.START_LOADING });
+
+		const result = await sendWebAppDeepLink(flowId, order);
+
+		dispatch({ type: Actions.STOP_LOADING });
+		dispatch({ type: Actions.SET_ERROR, payload: { isError: !result.ok } });
+	} catch (error) {
+		dispatch({ type: Actions.STOP_LOADING });
+		dispatch({ type: Actions.SET_ERROR, payload: { isError: true } });
+	}
+};
 
 export const handleOrder = async (
 	flowId: string,

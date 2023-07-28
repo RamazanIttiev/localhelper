@@ -23,7 +23,6 @@ interface ProductProps {
 	navigateToCheckout: () => void;
 	restaurant: RestaurantModel | undefined;
 	handleProductAmount?: (action: CART_ACTION) => void;
-	handleProductOrder: () => Promise<Response | undefined>;
 }
 
 export const ProductComponent: FC<ProductProps> = ({

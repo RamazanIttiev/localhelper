@@ -23,14 +23,13 @@ const selectItems = [
 
 interface ExchangeComponentProps {
 	loading: boolean;
-	onSubmit: () => void;
+	handleForm: () => void;
 	errorState: ErrorType;
 	errors: FieldErrors<ExchangeFormState>;
 	register: UseFormRegister<ExchangeFormState>;
 }
 
-export const ExchangeComponent = ({ errors, loading, register, onSubmit, errorState }: ExchangeComponentProps) => {
-	console.log(errors);
+export const ExchangeComponent = ({ errors, loading, register, handleForm, errorState }: ExchangeComponentProps) => {
 	return (
 		<form>
 			<HintTitle text={'Contacts'} />
@@ -109,7 +108,7 @@ export const ExchangeComponent = ({ errors, loading, register, onSubmit, errorSt
 					text={'Exchange'}
 					loading={loading}
 					errorState={errorState}
-					handleClick={onSubmit}
+					handleClick={handleForm}
 				/>
 			)}
 		</form>

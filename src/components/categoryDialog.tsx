@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { ErrorType } from '../models/error.model';
+import React, { useCallback, useEffect, useReducer } from 'react';
 import { LoaderButton } from '../reactkit/loaderButton';
 import { isUserAgentTelegram } from '../utils/deviceInfo';
 import { Box, Drawer, Typography, useTheme } from '@mui/material';
-import { clearResponseMessage, handleOrder } from '../actions/global-actions';
+import { handleFormSubmit } from '../actions/global-actions';
 import {
 	handleMainButton,
 	hideMainButton,
@@ -11,6 +10,7 @@ import {
 	setMainButtonText,
 	showMainButton,
 } from '../actions/webApp-actions';
+import { initialState, reducer } from '../utils/reducers';
 
 interface CategoryDialogProps {
 	title: string;
@@ -22,46 +22,32 @@ interface CategoryDialogProps {
 
 export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId }: CategoryDialogProps) => {
 	const theme = useTheme();
-	const [loading, setLoading] = useState(false);
-	const [errorState, setErrorState] = useState<ErrorType>({
-		isError: null,
-	});
 
-	useEffect(() => {
-		clearResponseMessage(errorState, handleError);
-	}, [errorState]);
+	const [{ loading, errorState }, dispatch] = useReducer(reducer, initialState);
 
-	const handleLoading = (value: boolean) => setLoading(value);
-	const handleError = (value: ErrorType) => setErrorState(value);
-
-	const handleProductOrder = useCallback(() => {
-		return handleOrder(
-			flowId,
-			{
-				itemName: title,
-			},
-			handleLoading,
-			handleError,
-		);
+	const onSubmit = useCallback(() => {
+		return handleFormSubmit(dispatch, flowId, {
+			itemName: title,
+		});
 	}, [flowId, title]);
 
 	useEffect(() => {
 		if (isOpened) {
 			showMainButton();
 			setMainButtonText('Buy');
-			handleMainButton(handleProductOrder);
+			handleMainButton(onSubmit);
 		} else {
 			hideMainButton();
-			removeMainButtonEvent(handleProductOrder);
+			removeMainButtonEvent(onSubmit);
 		}
-	}, [isOpened, handleProductOrder]);
+	}, [isOpened, onSubmit]);
 
 	useEffect(() => {
 		return () => {
 			hideMainButton();
-			removeMainButtonEvent(handleProductOrder);
+			removeMainButtonEvent(onSubmit);
 		};
-	}, [handleProductOrder]);
+	}, [onSubmit]);
 
 	return (
 		<Drawer anchor={'bottom'} onClose={handleClose} open={isOpened}>
@@ -92,9 +78,10 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId }: 
 				{!isUserAgentTelegram && (
 					<LoaderButton
 						text={'Buy'}
+						isMainButton
 						loading={loading}
 						errorState={errorState}
-						handleClick={handleProductOrder}
+						handleClick={onSubmit}
 					/>
 				)}
 			</Box>

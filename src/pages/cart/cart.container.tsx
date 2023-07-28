@@ -1,22 +1,19 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { CartUI } from './cart.component';
-import {
-	handleMainButton,
-	removeMainButtonEvent,
-	setMainButtonText,
-	showMainButton,
-} from '../../actions/webApp-actions';
 import { Container } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useShoppingCart } from '../../context/cart.context';
 import { RestaurantModel } from '../../models/product.model';
+import { useMainButton } from '../../hooks/useMainButton';
 
-interface CartState {
+interface RouteState {
 	state: { flowId: string };
 }
 
 export const CartContainer = () => {
-	const { state }: CartState = useLocation();
+	const { state } = useLocation() as RouteState;
+	const flowId = state.flowId || '';
+
 	const { isCartEmpty } = useShoppingCart();
 	const navigate = useNavigate();
 	const cartRestaurant = useMemo(() => ({}), []) as RestaurantModel;
@@ -24,24 +21,16 @@ export const CartContainer = () => {
 	const navigateToCheckout = useCallback(() => {
 		navigate('/checkout', {
 			state: {
-				...state,
+				flowId,
 				placeTitle: cartRestaurant?.title,
 				placeNumber: cartRestaurant?.contact,
 				placeLocation: cartRestaurant?.location,
 				placeCoordinates: cartRestaurant?.coordinates,
 			},
 		});
-	}, [navigate, state, cartRestaurant]);
+	}, [navigate, flowId, cartRestaurant]);
 
-	useEffect(() => {
-		showMainButton();
-		setMainButtonText('Checkout');
-		handleMainButton(navigateToCheckout);
-
-		return () => {
-			removeMainButtonEvent(navigateToCheckout);
-		};
-	}, [navigateToCheckout]);
+	useMainButton({ handleClick: navigateToCheckout, buttonLabel: 'order' });
 
 	useEffect(() => {
 		if (isCartEmpty) {

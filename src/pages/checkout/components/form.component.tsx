@@ -2,7 +2,7 @@ import React from 'react';
 import { HintTitle } from '../../../components/hintTitle';
 import { ErrorType } from '../../../models/error.model';
 import { LoaderButton } from '../../../reactkit/loaderButton';
-import { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { isUserAgentTelegram } from '../../../utils/deviceInfo';
 import { ErrorText } from '../../../components/errorText';
 import { UserData } from '../../../models/user.model';
@@ -12,12 +12,11 @@ interface FormUIProps {
 	loading: boolean;
 	errorState: ErrorType;
 	errors: FieldErrors<UserData>;
-	onSubmit: () => void;
+	handleForm: () => void;
 	register: UseFormRegister<UserData>;
-	handleSubmit: UseFormHandleSubmit<UserData>;
 }
 
-export const FormUI = ({ register, errors, onSubmit, loading, errorState }: FormUIProps) => {
+export const FormUI = ({ register, errors, handleForm, loading, errorState }: FormUIProps) => {
 	return (
 		<>
 			<form>
@@ -87,7 +86,7 @@ export const FormUI = ({ register, errors, onSubmit, loading, errorState }: Form
 						text={'Order'}
 						loading={loading}
 						errorState={errorState}
-						handleClick={onSubmit}
+						handleClick={handleForm}
 					/>
 				)}
 			</form>

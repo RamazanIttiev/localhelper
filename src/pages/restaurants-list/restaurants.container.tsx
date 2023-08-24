@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { Container } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-import { RestaurantsUI } from './restaurants.component';
+import { RestaurantCard } from '../../components/restaurantCard';
 import { hideMainButton } from '../../actions/webApp-actions';
 import { restaurantsQuery } from '../../api/airtable/restaurant';
 import { useParams } from 'react-router-dom';
 
-export const RestaurantsContainer = () => {
+export const RestaurantsListContainer = () => {
 	const { restaurantId } = useParams();
 	const { data: restaurants } = useQuery(restaurantsQuery(restaurantId));
 
@@ -20,7 +20,7 @@ export const RestaurantsContainer = () => {
 				[...restaurants]
 					.sort(a => (a.isWorking ? -1 : 1))
 					.map(restaurant => {
-						return <RestaurantsUI key={restaurant.title} restaurant={restaurant} />;
+						return <RestaurantCard key={restaurant.title} restaurant={restaurant} />;
 					})}
 		</Container>
 	);

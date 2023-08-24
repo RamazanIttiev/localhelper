@@ -1,20 +1,23 @@
 import React from 'react';
-import { useLoaderData, useLocation } from 'react-router-dom';
-import { AppData } from '../../models/product.model';
+import { useLocation, useParams } from 'react-router-dom';
 import { AmountButtons } from '../../components/amountButtons';
 import { Box, List, ListItem, Typography } from '@mui/material';
 import { useShoppingCart } from '../../context/cart.context';
-import { CartItem } from '../../models/cart.model';
+import { useQuery } from '@tanstack/react-query';
+import { restaurantProductsQuery } from '../../api/airtable/restaurant';
+import { RestaurantProductModel } from '../restaurant/components/restaurant-product/restaurant-product.model';
 
 export const CartList = () => {
 	const { pathname } = useLocation();
-	const { products } = useLoaderData() as AppData;
+	const { restaurantId } = useParams();
+
+	const { data: products } = useQuery<RestaurantProductModel[]>(restaurantProductsQuery(restaurantId));
 	const { cartItems, findProduct } = useShoppingCart();
 
 	return (
 		<List>
-			{cartItems?.map(({ id }: CartItem) => {
-				const item = findProduct(products, id);
+			{cartItems?.map(product => {
+				const item = findProduct(products!, product.id);
 
 				if (item === undefined) return null;
 
@@ -24,7 +27,7 @@ export const CartList = () => {
 							{item.image !== undefined && (
 								<Box
 									component={'img'}
-									src={item.image[0].url}
+									src={item.image}
 									alt={item.title}
 									sx={{
 										mr: 2,
@@ -47,7 +50,9 @@ export const CartList = () => {
 									{item.price} Rs
 								</Typography>
 							</Box>
-							{item && pathname !== '/checkout' && <AmountButtons showText={false} product={item} />}
+							{item && pathname !== '/checkout' && (
+								<AmountButtons showText={false} product={item} restaurantTitle={''} />
+							)}
 						</ListItem>
 					</React.Fragment>
 				);

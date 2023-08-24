@@ -1,42 +1,35 @@
 import React from 'react';
 import { theme } from '../../theme';
-import { Box, Icon, Typography } from '@mui/material';
-import { WorkingStatus } from '../../reactkit/workingStatus';
-import { useReactRouter } from '../../hooks/useReactRouter';
-import { CategoryModel, RestaurantModel } from '../../models/product.model';
+import { Box, Typography } from '@mui/material';
+import { CategoryModel } from '../../models/product.model';
 import { ImageLazy } from '../../components/imageLazy';
 
 interface HeaderProps {
 	category: Pick<CategoryModel, 'headerTitle' | 'headerImage'> | undefined;
-	restaurant: Pick<RestaurantModel, 'workingTime' | 'workingStatus' | 'image' | 'location' | 'title'> | undefined;
 }
 
-export const ProductsHeader = ({ category, restaurant }: HeaderProps) => {
-	const { isRestaurantRoute } = useReactRouter();
-
+export const ProductsHeader = ({ category }: HeaderProps) => {
 	const { image, title, smallImage } = {
-		title: category?.headerTitle || restaurant?.title,
-		image: category?.headerImage[0].url || restaurant?.image[0].url,
-		smallImage: category?.headerImage[0].thumbnails.small.url || restaurant?.image[0].thumbnails.small.url,
+		title: category?.headerTitle || '',
+		image: category?.headerImage[0].url || '',
+		smallImage: category?.headerImage[0].thumbnails.small.url || '',
 	};
 
 	return (
 		<>
-			{image && (
-				<ImageLazy
-					imageUrl={image}
-					smallImageUrl={smallImage}
-					containerStyles={{
-						display: 'block',
-						backgroundSize: 'cover',
-						backgroundRepeat: 'no-repeat',
-						backgroundPosition: 'center',
-						width: '100%',
-						objectFit: 'cover',
-						height: '18rem',
-					}}
-				/>
-			)}
+			<ImageLazy
+				imageUrl={image}
+				smallImageUrl={smallImage}
+				containerStyles={{
+					display: 'block',
+					backgroundSize: 'cover',
+					backgroundRepeat: 'no-repeat',
+					backgroundPosition: 'center',
+					width: '100%',
+					objectFit: 'cover',
+					height: '18rem',
+				}}
+			/>
 			<Box
 				sx={{
 					top: 0,
@@ -54,35 +47,6 @@ export const ProductsHeader = ({ category, restaurant }: HeaderProps) => {
 				<Typography variant={'body1'} fontSize={'2rem'}>
 					{title}
 				</Typography>
-				{isRestaurantRoute && restaurant && (
-					<Box
-						sx={{
-							width: '9rem',
-							display: 'flex',
-							flexDirection: 'column',
-							alignItems: 'baseline',
-							justifyContent: 'space-between',
-						}}>
-						<Box sx={{ marginBottom: '1rem' }}>
-							<WorkingStatus
-								workingStatus={restaurant?.workingStatus}
-								workingTime={restaurant?.workingTime}
-							/>
-						</Box>
-						<Box sx={{ display: 'flex', alignItems: 'baseline' }}>
-							<Icon
-								fontSize={'small'}
-								sx={{
-									marginRight: '0.2rem',
-								}}>
-								location_on
-							</Icon>
-							<Typography component="p" variant={'body1'}>
-								{restaurant?.location}
-							</Typography>
-						</Box>
-					</Box>
-				)}
 			</Box>
 		</>
 	);

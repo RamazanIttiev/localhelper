@@ -1,3 +1,5 @@
+import { RestaurantProductModel } from '../pages/restaurant/components/restaurant-product/restaurant-product.model';
+
 export interface DefaultProductModel {
 	id: string;
 	title: string;
@@ -35,7 +37,7 @@ export interface RentModel extends DefaultProductModel {
 	breakfast?: boolean;
 }
 
-export type ProductModel = FoodModel | RentModel;
+export type ProductModel = FoodModel | RentModel | RestaurantProductModel;
 
 export interface CategoryModel {
 	id: string;
@@ -60,7 +62,7 @@ export interface RestaurantModel {
 	workingTime: string;
 	workingStatus: string;
 	image: { url: string; thumbnails: { small: { url: string } } }[];
-	products: ProductModel[] | undefined;
+	products: RestaurantProductModel[] | undefined;
 }
 
 export interface AppData {

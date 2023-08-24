@@ -1,59 +1,26 @@
 import React from 'react';
-import { isFood } from '../../utils/typeGuard';
 import { ErrorType } from '../../models/error.model';
 import { MuiCarousel } from '../../components/carousel';
-import { FoodExtraOptions, ProductModel, RestaurantModel } from '../../models/product.model';
-import { RadioButtons } from '../../components/radioGroup';
+import { ProductModel } from '../../models/product.model';
 import { LoaderButton } from '../../reactkit/loaderButton';
-import { isUserAgentTelegram } from '../../utils/deviceInfo';
-import { AmountButtons, CART_ACTION } from '../../components/amountButtons';
-import { Box, Card, CardActions, CardContent, CardMedia, Typography, useTheme } from '@mui/material';
-import { useShoppingCart } from '../../context/cart.context';
-import { useReactRouter } from '../../hooks/useReactRouter';
+import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 import dishImage from '../../assets/food.webp';
+import { isUserAgentTelegram } from '../../utils/deviceInfo';
 
-interface ProductDetailsUIProps {
+interface Props {
 	loading: boolean;
 	errorState: ErrorType;
-	restaurant: RestaurantModel;
 	selectedProduct: ProductModel;
-	productExtra?: FoodExtraOptions;
-	handleProductAmount?: (action: CART_ACTION) => void;
-	handleExtra?: (event: React.SyntheticEvent) => void;
 	handleProductOrder: () => Promise<Response | undefined>;
 }
-export const ProductDetailsUI = ({
-	loading,
-	errorState,
-	restaurant,
-	handleExtra,
-	productExtra,
-	selectedProduct,
-	handleProductOrder,
-	handleProductAmount,
-}: ProductDetailsUIProps) => {
-	const theme = useTheme();
 
-	const { getItemAmount } = useShoppingCart();
-	const { isRestaurantRoute, isRestaurantDetailsRoute } = useReactRouter();
-
-	const productAmount = getItemAmount(selectedProduct.id);
-
-	const setProductAmount = () => {
-		if (isFood(selectedProduct) && selectedProduct.dishSize) {
-			return selectedProduct.amount !== 0 ? `${selectedProduct.amount} x` : undefined;
-		} else {
-			return productAmount > 0 ? `${productAmount} x` : undefined;
-		}
-	};
-	console.log(selectedProduct);
-
+export const ProductDetailsUI = ({ loading, errorState, selectedProduct, handleProductOrder }: Props) => {
 	return (
 		<Card sx={{ position: 'relative', background: 'transparent', boxShadow: 'none' }}>
 			<CardMedia>
 				{selectedProduct?.image !== undefined ? (
-					<MuiCarousel key={selectedProduct.title} selectedProduct={selectedProduct} />
+					<MuiCarousel key={selectedProduct.title} product={selectedProduct} />
 				) : (
 					<Box
 						component={'img'}
@@ -90,51 +57,18 @@ export const ProductDetailsUI = ({
 						</Typography>
 					)}
 				</Box>
-				{isFood(selectedProduct) && selectedProduct.dishSize && (
-					<RadioButtons
-						handleExtra={handleExtra}
-						productExtra={productExtra}
-						buttons={selectedProduct.dishSize}
-					/>
-				)}
 			</CardContent>
 
-			{restaurant?.isWorking === undefined || restaurant?.isWorking ? (
+			{!isUserAgentTelegram && (
 				<CardActions sx={{ flexDirection: 'column', p: 0 }}>
-					{(isRestaurantRoute || isRestaurantDetailsRoute) && selectedProduct && isFood(selectedProduct) ? (
-						<AmountButtons
-							styles={{
-								maxWidth: '13rem',
-								width: productAmount > 0 ? '13rem' : '12rem',
-								background: theme.palette.background.paper,
-							}}
-							product={selectedProduct}
-							amountText={setProductAmount()}
-							handleProductAmount={handleProductAmount}
-						/>
-					) : (
-						!isUserAgentTelegram && (
-							<LoaderButton
-								isMainButton
-								loading={loading}
-								errorState={errorState}
-								handleClick={handleProductOrder}
-								text={`${selectedProduct?.price} Rs`}
-							/>
-						)
-					)}
+					<LoaderButton
+						isMainButton
+						loading={loading}
+						errorState={errorState}
+						handleClick={handleProductOrder}
+						text={`${selectedProduct?.price} Rs`}
+					/>
 				</CardActions>
-			) : (
-				<Typography
-					variant="body2"
-					sx={{
-						padding: '0.5rem',
-						width: 'fit-content',
-						borderRadius: '1rem',
-						background: theme.palette.background.paper,
-					}}>
-					We are closed
-				</Typography>
 			)}
 		</Card>
 	);

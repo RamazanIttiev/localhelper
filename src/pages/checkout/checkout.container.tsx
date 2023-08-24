@@ -5,7 +5,7 @@ import { OrderInfo } from './components/orderInfo';
 import { SaveInfoField, SaveInfoWrapper } from './checkout.styled';
 import { ErrorType } from '../../models/error.model';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
-import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
 	handleMainButton,
 	removeMainButtonEvent,
@@ -18,18 +18,24 @@ import { UserData, UserDB } from '../../models/user.model';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { HintTitle } from '../../components/hintTitle';
 import { useShoppingCart } from '../../context/cart.context';
-import { AppData } from '../../models/product.model';
 import { fetchUser, saveUserInfo } from '../../api/user';
+import { useQuery } from '@tanstack/react-query';
+import { restaurantProductsQuery } from '../../api/airtable/restaurant';
+import { RestaurantProductModel } from '../restaurant/components/restaurant-product/restaurant-product.model';
 
 export const CheckoutContainer = () => {
 	const navigate = useNavigate();
 	const { state } = useLocation();
 	const theme = useTheme();
-	const { products } = useOutletContext<AppData>();
+
+	const { restaurantId } = useParams();
+
+	const { data: products } = useQuery<RestaurantProductModel[]>(restaurantProductsQuery(restaurantId));
+
 	const { getCartTotalAmount, getCartOrder, clearCart } = useShoppingCart();
 
-	const cartOrder = getCartOrder(products);
-	const cartTotalAmount = getCartTotalAmount(products);
+	const cartOrder = products ? getCartOrder(products) : '';
+	const cartTotalAmount = products ? getCartTotalAmount(products) : 1;
 
 	const {
 		register,

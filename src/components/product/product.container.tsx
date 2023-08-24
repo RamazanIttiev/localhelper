@@ -1,37 +1,19 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { ErrorType } from '../../models/error.model';
 import { ProductComponent } from './product.component';
-import { ProductModel, RestaurantModel } from '../../models/product.model';
+import { ProductModel } from '../../models/product.model';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
-import { isFood } from '../../utils/typeGuard';
-import { CART_ACTION } from '../amountButtons';
-import { useShoppingCart } from '../../context/cart.context';
 
 interface ProductContainerProps {
 	flowId: string;
-	currentProduct: ProductModel;
-	restaurant: RestaurantModel | undefined;
+	product: ProductModel;
 }
 
-export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentProduct, restaurant }) => {
-	const { incrementCartAmount, decrementCartAmount } = useShoppingCart();
-
-	const [product, setProduct] = useState<ProductModel>({ ...currentProduct });
+export const ProductContainer: FC<ProductContainerProps> = ({ flowId, product }) => {
 	const [loading, setLoading] = useState(false);
 	const [errorState, setErrorState] = useState<ErrorType>({
 		isError: null,
 	});
-
-	const handleProductAmount = (action: CART_ACTION) => {
-		setProduct(prevProduct => {
-			if (isFood(prevProduct)) {
-				action === 'add'
-					? incrementCartAmount(prevProduct.id, prevProduct.restaurant)
-					: decrementCartAmount(prevProduct.id);
-			}
-			return prevProduct;
-		});
-	};
 
 	useEffect(() => {
 		clearResponseMessage(errorState, handleError);
@@ -45,23 +27,21 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, currentPro
 			flowId,
 			{
 				itemName: product.title,
-				placeNumber: product?.contact,
-				placeCoordinates: product?.coordinates,
+				// placeNumber: product?.contact,
+				// placeCoordinates: product?.coordinates,
 			},
 			handleLoading,
 			handleError,
 		);
-	}, [flowId, product?.title, product?.coordinates, product?.contact]);
+	}, [flowId, product?.title]);
 
 	return (
 		<ProductComponent
 			flowId={flowId}
 			product={product}
 			loading={loading}
-			restaurant={restaurant}
 			errorState={errorState}
 			handleProductOrder={handleProductOrder}
-			handleProductAmount={handleProductAmount}
 		/>
 	);
 };

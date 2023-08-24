@@ -7,18 +7,18 @@ import { ProductModel } from '../models/product.model';
 import { isUserAgentTelegram } from '../utils/deviceInfo';
 
 interface CarouselProps {
-	selectedProduct: ProductModel;
+	product: ProductModel;
 }
 
-export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
+export const MuiCarousel = ({ product }: CarouselProps) => {
 	const theme = useTheme();
 
-	return selectedProduct.image.length === 1 ? (
+	return typeof product.image === 'string' ? (
 		<>
 			<Box
 				component={'img'}
-				src={selectedProduct.image[0].url}
-				alt={selectedProduct.title}
+				src={product.image}
+				alt={product.title}
 				width={'100%'}
 				sx={{
 					borderRadius: 3,
@@ -28,7 +28,7 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 					objectFit: 'cover',
 				}}
 			/>
-			{selectedProduct.infoBadges?.map(icon => (
+			{product.infoBadges?.map(icon => (
 				<IconBadge
 					key={icon}
 					icon={icon}
@@ -50,13 +50,13 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 			navButtonsAlwaysVisible={!isUserAgentTelegram && isDesktop}
 			indicatorIconButtonProps={{ style: { margin: '0 0.3rem' } }}
 			activeIndicatorIconButtonProps={{ style: { color: theme.palette.background.paper } }}>
-			{selectedProduct.image.map(({ url }) => {
+			{product.image.map(({ url }) => {
 				return (
-					<React.Fragment key={selectedProduct.title}>
+					<React.Fragment key={product.title}>
 						<Box
 							component={'img'}
 							src={url}
-							alt={selectedProduct.title}
+							alt={product.title}
 							width={'100%'}
 							sx={{
 								borderRadius: 3,
@@ -66,7 +66,7 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 								objectFit: 'cover',
 							}}
 						/>
-						{selectedProduct.infoBadges?.map(icon => (
+						{product.infoBadges?.map(icon => (
 							<IconBadge
 								key={icon}
 								icon={icon}

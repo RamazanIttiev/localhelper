@@ -1,17 +1,11 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { ErrorType } from '../../models/error.model';
-import { ImageBackdrop } from './imageBackdrop';
-import { AmountButtons, CART_ACTION } from '../amountButtons';
-import { InfoBadge } from '../../reactkit/infoBadge';
 import { IconBadge } from '../../reactkit/iconBadge';
 import { setHaptic } from '../../actions/webApp-actions';
 import { LoaderButton } from '../../reactkit/loaderButton';
-import { ProductModel, RestaurantModel } from '../../models/product.model';
-import { Card, CardActions, CardContent, Typography } from '@mui/material';
-import { isFood } from '../../utils/typeGuard';
-import { useShoppingCart } from '../../context/cart.context';
-import { useReactRouter } from '../../hooks/useReactRouter';
+import { ProductModel } from '../../models/product.model';
+import { Card, CardContent, Typography } from '@mui/material';
 
 import { ImageLazy } from '../imageLazy';
 
@@ -20,25 +14,10 @@ interface ProductProps {
 	loading: boolean;
 	product: ProductModel;
 	errorState: ErrorType;
-	restaurant: RestaurantModel | undefined;
-	handleProductAmount?: (action: CART_ACTION) => void;
 	handleProductOrder: () => Promise<Response | undefined>;
 }
 
-export const ProductComponent: FC<ProductProps> = ({
-	flowId,
-	loading,
-	product,
-	restaurant,
-	errorState,
-	handleProductOrder,
-	handleProductAmount,
-}) => {
-	const { getItemAmount } = useShoppingCart();
-	const { isRestaurantRoute } = useReactRouter();
-
-	const productAmount = getItemAmount(product.id);
-
+export const ProductComponent: FC<ProductProps> = ({ flowId, loading, product, errorState, handleProductOrder }) => {
 	return (
 		<>
 			<Card
@@ -56,9 +35,9 @@ export const ProductComponent: FC<ProductProps> = ({
 				<Link
 					key={product.id}
 					to={product.title.toLowerCase()}
-					state={{ ...product, restaurant, flowId }}
+					state={{ product, flowId }}
 					style={{ position: 'relative' }}>
-					{product.image && (
+					{typeof product.image !== 'string' && (
 						<>
 							<ImageLazy
 								smallImageUrl={product.image[0].thumbnails.small.url}
@@ -78,13 +57,6 @@ export const ProductComponent: FC<ProductProps> = ({
 								/>
 							))}
 						</>
-					)}
-					{productAmount !== 0 && (
-						<ImageBackdrop>
-							<Typography variant={'body1'} fontSize={'1.5rem'}>
-								{productAmount}
-							</Typography>
-						</ImageBackdrop>
 					)}
 					<CardContent
 						sx={{
@@ -113,25 +85,12 @@ export const ProductComponent: FC<ProductProps> = ({
 						</Typography>
 					</CardContent>
 				</Link>
-				{restaurant?.isWorking === undefined || restaurant?.isWorking ? (
-					<CardActions
-						sx={{
-							p: 0,
-						}}>
-						{isRestaurantRoute && product && isFood(product) ? (
-							<AmountButtons handleProductAmount={handleProductAmount} showText product={product} />
-						) : (
-							<LoaderButton
-								loading={loading}
-								errorState={errorState}
-								text={`${product.price} Rs`}
-								handleClick={handleProductOrder}
-							/>
-						)}
-					</CardActions>
-				) : (
-					<InfoBadge text={'We are closed'} />
-				)}
+				<LoaderButton
+					loading={loading}
+					errorState={errorState}
+					text={`${product.price} Rs`}
+					handleClick={handleProductOrder}
+				/>
 			</Card>
 		</>
 	);

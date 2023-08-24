@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { setHaptic } from '../../actions/webApp-actions';
-import { RestaurantModel } from '../../models/product.model';
-import { WorkingStatus } from '../../reactkit/workingStatus';
+import { setHaptic } from '../actions/webApp-actions';
+import { RestaurantModel } from '../models/product.model';
+import { WorkingStatus } from '../reactkit/workingStatus';
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 
-interface RestaurantsUIProps {
+interface Props {
 	restaurant: RestaurantModel;
 }
 
-export const RestaurantsUI = ({ restaurant }: RestaurantsUIProps) => {
+export const RestaurantCard = ({ restaurant }: Props) => {
 	return (
 		<Card
 			onClick={() => setHaptic('light')}

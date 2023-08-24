@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout } from './Layout';
 import { Products } from '../pages/products/products';
 import { Categories } from '../pages/categories/categories';
-import { RestaurantsContainer } from '../pages/restaurants/restaurants.container';
+import { RestaurantsListContainer } from '../pages/restaurants-list/restaurants.container';
 import { createBrowserRouter, createRoutesFromElements, json, Route, RouterProvider } from 'react-router-dom';
 import { ProductDetailsContainer } from '../pages/productDetails/productDetails.container';
 import { CheckoutContainer } from '../pages/checkout/checkout.container';
@@ -12,6 +12,8 @@ import { categoryLoader } from '../api/airtable/category';
 import { QueryClient } from '@tanstack/react-query';
 import { productsLoader } from '../api/airtable/products';
 import { restaurantLoader, restaurantProductsLoader, restaurantsLoader } from '../api/airtable/restaurant';
+import { RestaurantContainer } from '../pages/restaurant/restaurant.container';
+import { RestaurantDetailsContainer } from '../pages/restaurant/restaurant-details/restaurant-details.container';
 
 const queryClient = new QueryClient();
 export const Telegram = window.Telegram.WebApp;
@@ -36,12 +38,12 @@ const router = createBrowserRouter(
 
 			<Route
 				path=":categoryId/restaurants"
-				element={<RestaurantsContainer />}
+				element={<RestaurantsListContainer />}
 				loader={() => restaurantsLoader(queryClient)}
 			/>
 			<Route
 				path=":categoryId/restaurants/:restaurantId"
-				element={<Products />}
+				element={<RestaurantContainer />}
 				loader={async () => {
 					const [restaurants, restaurantsProducts] = await Promise.all([
 						restaurantLoader(queryClient),
@@ -52,7 +54,7 @@ const router = createBrowserRouter(
 			/>
 
 			<Route path=":categoryId/:productId" element={<ProductDetailsContainer />} />
-			<Route path=":categoryId/restaurants/:restaurantId/:productId" element={<ProductDetailsContainer />} />
+			<Route path=":categoryId/restaurants/:restaurantId/:productId" element={<RestaurantDetailsContainer />} />
 
 			<Route path="shopping-cart" element={<CartContainer />} />
 

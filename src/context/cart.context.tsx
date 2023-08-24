@@ -1,10 +1,9 @@
 import { createContext, useContext } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 import { hideMainButton, setHaptic } from '../actions/webApp-actions';
-import { isSameRestaurant } from '../utils/restaurant';
 import { CartItem, ShoppingCartContextProps, ShoppingCartProviderProps } from '../models/cart.model';
-import { FoodModel, ProductModel } from '../models/product.model';
 import { getCartOrderString } from '../utils/cart';
+import { RestaurantProductModel } from '../pages/restaurant/components/restaurant-product/restaurant-product.model';
 
 const ShoppingCartContext = createContext({} as ShoppingCartContextProps);
 
@@ -14,10 +13,10 @@ export const useShoppingCart = () => {
 export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) => {
 	const [cartItems, setCartItems] = useLocalStorage<CartItem[]>('shopping-cart', []);
 
-	const findProduct = (products: ProductModel[], id: string) =>
+	const findProduct = (products: RestaurantProductModel[], id: string) =>
 		products?.find(product => {
 			return product.id === id;
-		}) as FoodModel | undefined;
+		});
 
 	const findCartItem = (id: string) => cartItems.find(cartItem => cartItem.id === id);
 
@@ -25,37 +24,15 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 		return cartItems.find(cartItem => cartItem.id === id)?.amount || 0;
 	};
 
-	const addNewProduct = (product: CartItem) => {
-		const cartItem = findCartItem(product.id);
-		setCartItems(currentItems => {
-			if (cartItem === undefined) {
-				return [...currentItems, { ...product }];
-			} else
-				return currentItems.flatMap(() => {
-					if (
-						cartItem.id === product.id &&
-						JSON.stringify(cartItem.extraOptions) === JSON.stringify(product.extraOptions)
-					) {
-						console.log('same');
-						return { ...cartItem, amount: cartItem.amount + product.amount };
-					} else {
-						console.log('not same');
-						return { ...product };
-					}
-				});
-		});
-	};
-
-	const incrementCartAmount = (id: string, restaurant: string[]) => {
+	const incrementCartAmount = (id: string, restaurantTitle: string) => {
 		setHaptic('light');
-		const sameRestaurant = isSameRestaurant(cartItems, restaurant);
 
 		const modifyCart = () =>
 			setCartItems(currentItems => {
 				const cartItem = findCartItem(id);
 
 				if (cartItem === undefined) {
-					return [...currentItems, { id, amount: 1, restaurant }];
+					return [...currentItems, { id, amount: 1, restaurantTitle }];
 				} else {
 					return currentItems.map(cartItem => {
 						if (cartItem.id === id) {
@@ -67,14 +44,15 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 				}
 			});
 
-		if (!sameRestaurant) {
-			const answer = confirm('You should empty your cart for a new order');
-			answer && clearCart();
-
-			setTimeout(() => modifyCart(), 0);
-		} else {
-			modifyCart();
-		}
+		modifyCart();
+		// if (!sameRestaurant) {
+		// 	const answer = confirm('You should empty your cart for a new order');
+		// 	answer && clearCart();
+		//
+		// 	setTimeout(() => modifyCart(), 0);
+		// } else {
+		// 	modifyCart();
+		// }
 	};
 
 	const decrementCartAmount = (id: string) => {
@@ -109,7 +87,7 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 	};
 
 	// find in child components
-	const getCartTotalAmount = (products: ProductModel[]) =>
+	const getCartTotalAmount = (products: RestaurantProductModel[]) =>
 		cartItems.reduce((total, cartItem): number => {
 			const product = findProduct(products, cartItem.id);
 			console.log(product);
@@ -119,7 +97,7 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 	const isCartEmpty = cartItems.length === 0;
 
 	// find in child components
-	const getCartOrder = (products: ProductModel[]) =>
+	const getCartOrder = (products: RestaurantProductModel[]) =>
 		getCartOrderString(
 			cartItems.map((cartItem, index) => {
 				const product = findProduct(products, cartItem.id);
@@ -128,8 +106,8 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 			}),
 		);
 	// find in child components
-	const getOrderCheckout = (products: ProductModel[]) =>
-		cartItems.map((cartItem): Pick<FoodModel, 'image' | 'title' | 'price' | 'amount'> | undefined => {
+	const getOrderCheckout = (products: RestaurantProductModel[]) =>
+		cartItems.map((cartItem): Pick<RestaurantProductModel, 'image' | 'title' | 'price' | 'amount'> | undefined => {
 			const product = findProduct(products, cartItem.id);
 
 			if (product) {
@@ -151,7 +129,6 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 				getOrderCheckout,
 				getItemAmount,
 				findProduct,
-				addNewProduct,
 			}}>
 			{children}
 		</ShoppingCartContext.Provider>

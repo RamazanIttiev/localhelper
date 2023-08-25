@@ -7,15 +7,16 @@ import { ImageBackdrop } from '../../../../components/product/imageBackdrop';
 import { AmountButtons } from '../../../../components/amountButtons';
 import { InfoBadge } from '../../../../reactkit/infoBadge';
 import { RestaurantProductModel } from './restaurant-product.model';
+import { RestaurantModel } from '../../../../models/product.model';
 
 interface Props {
 	readonly flowId: string;
-	readonly restaurantTitle: string;
-	readonly isRestaurantWorking: boolean;
+	readonly restaurant: RestaurantModel;
 	readonly restaurantProduct: RestaurantProductModel;
 }
 
-export const RestaurantProductCard = ({ flowId, restaurantProduct, isRestaurantWorking, restaurantTitle }: Props) => {
+export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }: Props) => {
+	const { isWorking } = restaurant;
 	const { id, title, image, amount, infoBadges } = restaurantProduct;
 
 	return (
@@ -35,11 +36,11 @@ export const RestaurantProductCard = ({ flowId, restaurantProduct, isRestaurantW
 				<Link
 					key={id}
 					to={title}
-					state={{ restaurantProduct, isRestaurantWorking, flowId, restaurantTitle }}
+					state={{ restaurantProduct, restaurant, flowId }}
 					style={{ position: 'relative' }}>
 					{image && (
 						<>
-							<CardMedia image={image} sx={{ height: '11rem', borderRadius: '1rem' }} />
+							<CardMedia image={image[0].url} sx={{ height: '11rem', borderRadius: '1rem' }} />
 							{infoBadges?.map(icon => (
 								<IconBadge
 									key={icon}
@@ -88,12 +89,12 @@ export const RestaurantProductCard = ({ flowId, restaurantProduct, isRestaurantW
 						</Typography>
 					</CardContent>
 				</Link>
-				{isRestaurantWorking ? (
+				{isWorking ? (
 					<CardActions
 						sx={{
 							p: 0,
 						}}>
-						<AmountButtons showText product={restaurantProduct} restaurantTitle={restaurantTitle} />
+						<AmountButtons product={restaurantProduct} restaurant={restaurant} />
 					</CardActions>
 				) : (
 					<InfoBadge text={'We are closed'} />

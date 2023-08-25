@@ -13,7 +13,7 @@ import {
 	showMainButton,
 } from '../../actions/webApp-actions';
 import { useForm } from 'react-hook-form';
-import { CartList } from '../cart/cart-list';
+import { CartList } from '../cart/components/cart-list';
 import { UserData, UserDB } from '../../models/user.model';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { HintTitle } from '../../components/hintTitle';

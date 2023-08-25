@@ -8,12 +8,13 @@ import { LoaderButton } from '../../reactkit/loaderButton';
 
 interface Props {
 	readonly flowId: string;
+	readonly isCartEmpty: boolean;
 	readonly products: FoodModel[] | undefined;
 	readonly restaurant: RestaurantModel | undefined;
 	readonly navigateToCart: () => void;
 }
 
-export const Restaurant = ({ restaurant, products, flowId, navigateToCart }: Props) => {
+export const Restaurant = ({ restaurant, products, flowId, navigateToCart, isCartEmpty }: Props) => {
 	return (
 		<>
 			{restaurant && <RestaurantHeader restaurant={restaurant} />}
@@ -33,7 +34,9 @@ export const Restaurant = ({ restaurant, products, flowId, navigateToCart }: Pro
 							);
 						})}
 				</Grid>
-				{!isUserAgentTelegram && <LoaderButton isMainButton text={'Order'} handleClick={navigateToCart} />}
+				{!isCartEmpty && !isUserAgentTelegram && (
+					<LoaderButton isMainButton text={'Order'} handleClick={navigateToCart} />
+				)}
 			</Container>
 		</>
 	);

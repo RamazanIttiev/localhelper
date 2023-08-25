@@ -30,9 +30,11 @@ export const RestaurantContainer = () => {
 			navigate('/shopping-cart', {
 				state: {
 					flowId,
+					products,
+					restaurant,
 				},
 			}),
-		[navigate, flowId],
+		[navigate, flowId, products, restaurant],
 	);
 
 	useEffect(() => {
@@ -47,5 +49,5 @@ export const RestaurantContainer = () => {
 		};
 	}, [isCartEmpty, navigateToCart]);
 
-	return createElement(Restaurant, { restaurant, products, flowId, navigateToCart });
+	return createElement(Restaurant, { restaurant, products, flowId, navigateToCart, isCartEmpty });
 };

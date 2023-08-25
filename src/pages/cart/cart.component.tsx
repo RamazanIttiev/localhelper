@@ -1,28 +1,26 @@
 import React from 'react';
 import { theme } from '../../theme';
-import { Box } from '@mui/material';
-import { CartList } from './cart-list';
-import { CartHeader } from './cartHeader';
+import { Box, Container } from '@mui/material';
+import { CartList } from './components/cart-list';
+import { CartHeader } from './components/cart-header';
 import { LoaderButton } from '../../reactkit/loaderButton';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
+import { RestaurantProductModel } from '../restaurant/components/restaurant-product/restaurant-product.model';
+import { RestaurantModel } from '../../models/product.model';
 
-interface CartProps {
-	restaurantTitle?: string;
-	isRestaurantWorking?: boolean;
-	restaurantWorkingTime?: string;
+interface Props {
+	restaurant: RestaurantModel;
 	navigateToCheckout: () => void;
+	cartList: RestaurantProductModel[];
 }
 
-export const CartUI = ({
-	restaurantTitle,
-	navigateToCheckout,
-	isRestaurantWorking,
-	restaurantWorkingTime,
-}: CartProps) => {
+export const Cart = ({ cartList, restaurant, navigateToCheckout }: Props) => {
+	const { title, isWorking, workingTime } = restaurant;
+
 	return (
-		<>
-			<CartHeader restaurantTitle={restaurantTitle} />
-			<CartList />
+		<Container maxWidth={'sm'} sx={{ pb: 5 }}>
+			<CartHeader restaurantTitle={title} />
+			<CartList cartList={cartList} restaurant={restaurant} />
 			<Box
 				sx={{
 					left: 0,
@@ -35,12 +33,12 @@ export const CartUI = ({
 				{!isUserAgentTelegram && (
 					<LoaderButton
 						isMainButton
-						disabled={!isRestaurantWorking}
+						disabled={!isWorking}
 						handleClick={navigateToCheckout}
-						text={isRestaurantWorking ? 'Checkout' : `Working time - ${restaurantWorkingTime}`}
+						text={isWorking ? 'Checkout' : `Working time - ${workingTime}`}
 					/>
 				)}
 			</Box>
-		</>
+		</Container>
 	);
 };

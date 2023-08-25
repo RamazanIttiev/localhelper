@@ -6,22 +6,21 @@ export interface ShoppingCartProviderProps {
 }
 
 export interface ShoppingCartContextProps {
-	incrementCartAmount: (id: string, restaurant: string) => void;
-	decrementCartAmount: (id: string) => void;
-	clearCart: () => void;
-	cartItems: CartItem[];
-	getCartTotalAmount: (products: RestaurantProductModel[]) => number;
 	isCartEmpty: boolean;
-	getCartOrder: (products: RestaurantProductModel[]) => string;
+	cartItems: CartItem[];
+	clearCart: () => void;
 	getItemAmount: (id: string) => number;
+	decrementCartAmount: (id: string) => void;
+	incrementCartAmount: (id: string, restaurantId: string) => void;
+	getCartOrder: (products: RestaurantProductModel[]) => string;
+	getCartTotalAmount: (products: RestaurantProductModel[]) => number;
 	getOrderCheckout: (
 		products: RestaurantProductModel[],
 	) => (Pick<RestaurantProductModel, 'title' | 'amount' | 'image' | 'price'> | undefined)[];
-	findProduct: (products: RestaurantProductModel[], id: string) => RestaurantProductModel | undefined;
 }
 
 export interface CartItem {
 	id: string;
 	amount: number;
-	restaurantTitle: string;
+	restaurantId: string;
 }

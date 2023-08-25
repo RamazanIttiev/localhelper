@@ -9,24 +9,30 @@ import {
 } from '../../../actions/webApp-actions';
 import { handleOrder } from '../../../actions/global-actions';
 import { useLocation } from 'react-router-dom';
-import { RestaurantDetailsModel } from './restaurant-details.model';
+import { RestaurantModel } from '../../../models/product.model';
+import { RestaurantProductModel } from '../components/restaurant-product/restaurant-product.model';
+
+interface RouteState {
+	readonly flowId: string;
+	readonly restaurant: RestaurantModel;
+	readonly restaurantProduct: RestaurantProductModel;
+}
 
 export const RestaurantDetailsContainer = () => {
 	const { state } = useLocation();
-	const routeState: RestaurantDetailsModel = state;
+	const routeState: RouteState = state;
 
 	const flowId = useMemo(() => routeState.flowId, [routeState.flowId]);
-	const restaurantTitle = useMemo(() => routeState.restaurantTitle, [routeState.restaurantTitle]);
+	const restaurant = useMemo(() => routeState.restaurant, [routeState.restaurant]);
 	const restaurantProduct = useMemo(() => routeState.restaurantProduct, [routeState.restaurantProduct]);
-	const isRestaurantWorking = useMemo(() => routeState.isRestaurantWorking, [routeState.isRestaurantWorking]);
 
 	const handleProductOrder = useCallback(() => {
 		return handleOrder(
 			flowId,
 			{
 				itemName: restaurantProduct.title,
-				// placeNumber: product?.contact,
-				// placeCoordinates: product?.coordinates,
+				placeNumber: restaurant.contact,
+				placeCoordinates: restaurant.coordinates,
 			},
 			() => {
 				console.log();
@@ -35,22 +41,21 @@ export const RestaurantDetailsContainer = () => {
 				console.log();
 			},
 		);
-	}, [flowId, restaurantProduct.title]);
+	}, [flowId, restaurant.contact, restaurant.coordinates, restaurantProduct.title]);
 
 	useEffect(() => {
 		showMainButton();
 		handleMainButton(handleProductOrder);
-		setMainButtonText(`${state?.price} Rs`);
+		setMainButtonText(`${restaurantProduct.price} Rs`);
 
 		return () => {
 			hideMainButton();
 			removeMainButtonEvent(handleProductOrder);
 		};
-	}, [handleProductOrder, state?.price]);
+	}, [handleProductOrder, restaurantProduct.price]);
 
 	return createElement(RestaurantDetails, {
+		restaurant,
 		restaurantProduct,
-		restaurantTitle,
-		isRestaurantWorking,
 	});
 };

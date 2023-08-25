@@ -6,15 +6,17 @@ import { AmountButtons } from '../../../components/amountButtons';
 import { theme } from '../../../theme';
 import { RestaurantProductModel } from '../components/restaurant-product/restaurant-product.model';
 import { useShoppingCart } from '../../../context/cart.context';
+import { RestaurantModel } from '../../../models/product.model';
 
 interface Props {
-	restaurantTitle: string;
-	isRestaurantWorking: boolean;
-	restaurantProduct: RestaurantProductModel;
+	readonly restaurant: RestaurantModel;
+	readonly restaurantProduct: RestaurantProductModel;
 }
 
-export const RestaurantDetails = ({ restaurantProduct, isRestaurantWorking, restaurantTitle }: Props) => {
+export const RestaurantDetails = ({ restaurantProduct, restaurant }: Props) => {
 	const { getItemAmount } = useShoppingCart();
+
+	const { isWorking } = restaurant;
 
 	const isRemoveVisible = getItemAmount(restaurantProduct.id) > 0;
 
@@ -65,7 +67,7 @@ export const RestaurantDetails = ({ restaurantProduct, isRestaurantWorking, rest
 					</Box>
 				</CardContent>
 
-				{isRestaurantWorking ? (
+				{isWorking ? (
 					<CardActions sx={{ flexDirection: 'column', p: 0 }}>
 						<AmountButtons
 							styles={{
@@ -73,8 +75,8 @@ export const RestaurantDetails = ({ restaurantProduct, isRestaurantWorking, rest
 								width: isRemoveVisible ? '13rem' : '12rem',
 								background: theme.palette.background.paper,
 							}}
+							restaurant={restaurant}
 							product={restaurantProduct}
-							restaurantTitle={restaurantTitle}
 						/>
 					</CardActions>
 				) : (

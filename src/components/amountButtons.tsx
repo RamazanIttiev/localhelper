@@ -1,29 +1,23 @@
-import React, { CSSProperties, FC } from 'react';
+import React, { CSSProperties } from 'react';
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
 import { useShoppingCart } from '../context/cart.context';
 import { RestaurantProductModel } from '../pages/restaurant/components/restaurant-product/restaurant-product.model';
+import { RestaurantModel } from '../models/product.model';
 
-interface AmountButtonsProps {
-	product: RestaurantProductModel;
-	showText?: boolean;
+interface Props {
+	showPrice?: boolean;
+	showAmount?: boolean;
 	styles?: CSSProperties;
-	amountText?: string | number;
-	restaurantTitle: string;
+	restaurant: RestaurantModel;
+	product: RestaurantProductModel;
 }
 
-export type CART_ACTION = 'add' | 'remove';
-
-export const AmountButtons: FC<AmountButtonsProps> = ({
-	styles,
-	product,
-	amountText,
-	showText = true,
-	restaurantTitle,
-}) => {
+export const AmountButtons = ({ styles, product, showAmount = false, showPrice = true, restaurant }: Props) => {
 	const theme = useTheme();
 	const { incrementCartAmount, decrementCartAmount, getItemAmount } = useShoppingCart();
 
-	const isRemoveVisible = getItemAmount(product.id) > 0;
+	const productAmount = getItemAmount(product.id);
+	const isRemoveVisible = productAmount > 0;
 
 	return (
 		<Box
@@ -48,14 +42,14 @@ export const AmountButtons: FC<AmountButtonsProps> = ({
 				</Icon>
 			</IconButton>
 			<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-				{amountText !== undefined ? <Typography variant={'caption'}>{amountText}</Typography> : null}
-				{showText && (
+				{showAmount && <Typography variant={'caption'}>{productAmount}</Typography>}
+				{showPrice && (
 					<Typography fontSize={'0.8rem'} sx={{ fontWeight: 600, letterSpacing: '0.1rem' }}>
 						&nbsp;{product?.price} Rs
 					</Typography>
 				)}
 			</Box>
-			<IconButton size={'medium'} onClick={() => incrementCartAmount(product.id, restaurantTitle)}>
+			<IconButton size={'medium'} onClick={() => incrementCartAmount(product.id, restaurant.id)}>
 				<Icon fontSize={'small'} sx={{ color: '#fff' }}>
 					add
 				</Icon>

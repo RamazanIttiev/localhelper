@@ -19,20 +19,14 @@ export const RestaurantProductContainer = ({ flowId, product, restaurant }: Prop
 		id: product.id,
 		amount: productAmount,
 		price: product.price,
-		image: product.image[0].url,
+		image: product.image,
 		infoBadges: product.infoBadges,
 		title: product.title.toLowerCase(),
 	};
 
-	const { isRestaurantWorking, restaurantTitle } = {
-		isRestaurantWorking: restaurant.isWorking,
-		restaurantTitle: restaurant.title,
-	};
-
 	return createElement(RestaurantProductCard, {
 		flowId,
+		restaurant,
 		restaurantProduct,
-		isRestaurantWorking,
-		restaurantTitle,
 	});
 };

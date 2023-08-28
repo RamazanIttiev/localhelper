@@ -91,7 +91,7 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 	const getCartTotalAmount = (products: RestaurantProductModel[]) =>
 		cartItems.reduce((total, cartItem): number => {
 			const product = findProduct(products, cartItem.id);
-			console.log(product);
+
 			return total + (product?.price || 0) * cartItem.amount;
 		}, 0);
 

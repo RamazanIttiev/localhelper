@@ -10,8 +10,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useShoppingCart } from '../../context/cart.context';
 import { RestaurantModel } from '../../models/product.model';
 import { RestaurantProductModel } from '../restaurant/components/restaurant-product/restaurant-product.model';
+import { getMappedCartList } from '../../utils/cart';
 
-export interface RouteState {
+interface RouteState {
 	state: {
 		flowId: string;
 		products: RestaurantProductModel[];
@@ -23,30 +24,20 @@ export const CartContainer = () => {
 	const { state }: RouteState = useLocation();
 	const navigate = useNavigate();
 
-	const flowId = state.flowId;
 	const products = state.products;
 	const restaurant = state.restaurant;
 
 	const { isCartEmpty, cartItems } = useShoppingCart();
 
-	const cartList = products?.filter(product => {
-		return cartItems.some(cartItem => {
-			return cartItem.id === product.id;
-		});
-	});
+	const cartList = getMappedCartList(products, cartItems);
 
 	const navigateToCheckout = useCallback(() => {
 		navigate('/checkout', {
 			state: {
 				...state,
-				flowId,
-				placeTitle: restaurant?.title,
-				placeNumber: restaurant?.contact,
-				placeLocation: restaurant?.location,
-				placeCoordinates: restaurant?.coordinates,
 			},
 		});
-	}, [navigate, state, restaurant, flowId]);
+	}, [navigate, state]);
 
 	useEffect(() => {
 		showMainButton();

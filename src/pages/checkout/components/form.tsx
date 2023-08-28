@@ -1,23 +1,19 @@
 import React from 'react';
-import { Input } from '../checkout.styled';
 import { HintTitle } from '../../../components/hintTitle';
-import { ErrorType } from '../../../models/error.model';
 import { LoaderButton } from '../../../reactkit/loaderButton';
-import { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { isUserAgentTelegram } from '../../../utils/deviceInfo';
 import { ErrorText } from '../../../components/errorText';
 import { UserData } from '../../../models/user.model';
+import { Input } from '../../../reactkit/input';
 
 interface FormUIProps {
-	loading: boolean;
-	errorState: ErrorType;
-	errors: FieldErrors<UserData>;
 	onSubmit: () => void;
+	errors: FieldErrors<UserData>;
 	register: UseFormRegister<UserData>;
-	handleSubmit: UseFormHandleSubmit<UserData>;
 }
 
-export const FormUI = ({ register, errors, onSubmit, loading, errorState }: FormUIProps) => {
+export const FormUI = ({ register, errors, onSubmit }: FormUIProps) => {
 	return (
 		<>
 			<form>
@@ -81,15 +77,7 @@ export const FormUI = ({ register, errors, onSubmit, loading, errorState }: Form
 					{...register('userHotel', { required: false })}
 				/>
 
-				{!isUserAgentTelegram && (
-					<LoaderButton
-						isMainButton
-						text={'Order'}
-						loading={loading}
-						errorState={errorState}
-						handleClick={onSubmit}
-					/>
-				)}
+				{!isUserAgentTelegram && <LoaderButton isMainButton text={'Order'} handleClick={onSubmit} />}
 			</form>
 		</>
 	);

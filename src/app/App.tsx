@@ -4,7 +4,7 @@ import { Products } from '../pages/products/products';
 import { Categories } from '../pages/categories/categories';
 import { RestaurantsListContainer } from '../pages/restaurants-list/restaurants.container';
 import { createBrowserRouter, createRoutesFromElements, json, Route, RouterProvider } from 'react-router-dom';
-import { ProductDetailsContainer } from '../pages/productDetails/productDetails.container';
+import { ProductDetailsContainer } from '../pages/productDetails/product-details.container';
 import { CheckoutContainer } from '../pages/checkout/checkout.container';
 import { fetchTelegramUser } from '../actions/webApp-actions';
 import { CartContainer } from '../pages/cart/cart.container';

@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { Container, Grid } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { ProductsHeader } from './productsHeader';
-import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { ProductContainer } from '../../components/product/product.container';
 import { CategoryModel, ProductModel } from '../../models/product.model';
 
@@ -21,7 +20,7 @@ export const Products = () => {
 	return (
 		<>
 			<ProductsHeader category={category} />
-			<Container sx={{ pt: 2, pb: !isUserAgentTelegram ? '3rem' : null }} maxWidth={'sm'}>
+			<Container sx={{ pt: 2 }} maxWidth={'sm'}>
 				<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
 					{products?.map((product: ProductModel) => {
 						return (

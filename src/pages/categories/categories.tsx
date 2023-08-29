@@ -39,7 +39,13 @@ export const Categories = () => {
 
 	return (
 		<Container maxWidth={'md'} sx={{ pb: 1 }}>
-			<Grid container justifyContent={'center'} spacing={4} sx={{ pt: pathname === '/' ? 3 : 0 }}>
+			<Grid
+				container
+				columns={10}
+				max-width={'sm'}
+				justifyContent={'center'}
+				spacing={4}
+				sx={{ pt: pathname === '/' ? 3 : 0 }}>
 				{!isIndia &&
 					categories.map(({ title, image }: CategoryModel) => {
 						return <Category key={title} isLink title={title} image={image} />;

@@ -1,6 +1,6 @@
 import { createElement, useCallback, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { ProductDetails } from './productDetails.component';
+import { ProductDetails } from './product-details.component';
 import { handleOrder } from '../../actions/global-actions';
 import {
 	handleMainButton,

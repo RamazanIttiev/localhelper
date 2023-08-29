@@ -8,6 +8,7 @@ import { ProductModel } from '../../models/product.model';
 import { Card, CardContent, Typography } from '@mui/material';
 
 import { ImageLazy } from '../imageLazy';
+import { isUserAgentTelegram } from '../../utils/deviceInfo';
 
 interface ProductProps {
 	flowId: string;
@@ -27,7 +28,6 @@ export const ProductComponent: FC<ProductProps> = ({ flowId, loading, product, e
 					display: 'flex',
 					height: 'auto',
 					boxShadow: 'none',
-					minHeight: '16rem',
 					flexDirection: 'column',
 					background: 'transparent',
 					justifyContent: 'space-between',
@@ -37,27 +37,25 @@ export const ProductComponent: FC<ProductProps> = ({ flowId, loading, product, e
 					to={product.title.toLowerCase()}
 					state={{ product, flowId }}
 					style={{ position: 'relative' }}>
-					{typeof product.image !== 'string' && (
-						<>
-							<ImageLazy
-								smallImageUrl={product.image[0].thumbnails.small.url}
-								imageUrl={product.image[0].url}
-								containerStyles={{ height: '11rem', borderRadius: '1rem' }}
+					<>
+						<ImageLazy
+							smallImageUrl={product.image[0].thumbnails.small.url}
+							imageUrl={product.image[0].url}
+							containerStyles={{ height: '11rem', borderRadius: '1rem' }}
+						/>
+						{product.infoBadges?.map(icon => (
+							<IconBadge
+								key={icon}
+								icon={icon}
+								containerStyles={{
+									position: 'absolute',
+									top: '0.5rem',
+									left: '0.5rem',
+								}}
+								iconStyles={{ margin: '0 2px' }}
 							/>
-							{product.infoBadges?.map(icon => (
-								<IconBadge
-									key={icon}
-									icon={icon}
-									containerStyles={{
-										position: 'absolute',
-										top: '0.5rem',
-										left: '0.5rem',
-									}}
-									iconStyles={{ margin: '0 2px' }}
-								/>
-							))}
-						</>
-					)}
+						))}
+					</>
 					<CardContent
 						sx={{
 							'&:last-child': { pb: 0 },
@@ -85,12 +83,14 @@ export const ProductComponent: FC<ProductProps> = ({ flowId, loading, product, e
 						</Typography>
 					</CardContent>
 				</Link>
-				<LoaderButton
-					loading={loading}
-					errorState={errorState}
-					text={`${product.price} Rs`}
-					handleClick={handleProductOrder}
-				/>
+				{isUserAgentTelegram && (
+					<LoaderButton
+						loading={loading}
+						errorState={errorState}
+						text={`${product.price} Rs`}
+						handleClick={handleProductOrder}
+					/>
+				)}
 			</Card>
 		</>
 	);

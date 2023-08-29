@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Container } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-import { RestaurantCard } from '../../components/restaurantCard';
+import { RestaurantCard } from './restaurant-card';
 import { hideMainButton } from '../../actions/webApp-actions';
 import { restaurantsQuery } from '../../api/airtable/restaurant';
 import { useParams } from 'react-router-dom';

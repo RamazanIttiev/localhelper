@@ -1,75 +1,75 @@
 import React from 'react';
-import { ErrorType } from '../../models/error.model';
 import { MuiCarousel } from '../../components/carousel';
 import { ProductModel } from '../../models/product.model';
-import { LoaderButton } from '../../reactkit/loaderButton';
-import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { Box, Card, CardContent, CardMedia, Container, Typography } from '@mui/material';
 
-import dishImage from '../../assets/food.webp';
-import { isUserAgentTelegram } from '../../utils/deviceInfo';
+import { IconBadge } from '../../reactkit/iconBadge';
 
 interface Props {
-	loading: boolean;
-	errorState: ErrorType;
-	selectedProduct: ProductModel;
-	handleProductOrder: () => Promise<Response | undefined>;
+	product: ProductModel;
 }
 
-export const ProductDetailsUI = ({ loading, errorState, selectedProduct, handleProductOrder }: Props) => {
+export const ProductDetails = ({ product }: Props) => {
+	const { image, title, description, infoBadges } = product;
+
 	return (
-		<Card sx={{ position: 'relative', background: 'transparent', boxShadow: 'none' }}>
-			<CardMedia>
-				{selectedProduct?.image !== undefined ? (
-					<MuiCarousel key={selectedProduct.title} product={selectedProduct} />
-				) : (
-					<Box
-						component={'img'}
-						src={dishImage}
-						alt={selectedProduct?.title}
-						width={'100%'}
-						sx={{
-							borderRadius: 3,
-							height: '20rem',
-							margin: '0 auto',
-							display: 'block',
-							objectFit: 'cover',
-						}}
-					/>
-				)}
-			</CardMedia>
-
-			<CardContent sx={{ m: '2rem 0', p: 0 }}>
-				<Box sx={{ width: '100%' }}>
-					<Typography id="transition-modal-title" variant="h6" component="h2" fontWeight={700}>
-						{selectedProduct?.title}
-					</Typography>
-					{selectedProduct?.description && (
-						<Typography
-							variant={'body1'}
-							sx={{
-								mt: 2,
-								padding: '1rem',
-								borderRadius: '1rem',
-								color: '#fff',
-								background: '#303030',
-							}}>
-							{selectedProduct?.description}
-						</Typography>
+		<Container sx={{ pt: 2, pb: 2, px: 6 }} maxWidth={'sm'}>
+			<Card sx={{ position: 'relative', background: 'transparent', boxShadow: 'none' }}>
+				<CardMedia>
+					{image.length === 1 ? (
+						<>
+							<Box
+								component={'img'}
+								src={image[0].url}
+								alt={product.title}
+								width={'100%'}
+								sx={{
+									borderRadius: 3,
+									height: '20rem',
+									margin: '0 auto',
+									display: 'block',
+									objectFit: 'cover',
+								}}
+							/>
+							{infoBadges?.map(icon => (
+								<IconBadge
+									key={icon}
+									icon={icon}
+									containerStyles={{
+										position: 'absolute',
+										top: '0.5rem',
+										left: '1.5rem',
+									}}
+									iconStyles={{ margin: '0 2px' }}
+								/>
+							))}
+						</>
+					) : (
+						<MuiCarousel key={title} images={image} title={title} infoBadges={infoBadges} />
 					)}
-				</Box>
-			</CardContent>
+				</CardMedia>
 
-			{!isUserAgentTelegram && (
-				<CardActions sx={{ flexDirection: 'column', p: 0 }}>
-					<LoaderButton
-						isMainButton
-						loading={loading}
-						errorState={errorState}
-						handleClick={handleProductOrder}
-						text={`${selectedProduct?.price} Rs`}
-					/>
-				</CardActions>
-			)}
-		</Card>
+				<CardContent sx={{ m: '2rem 0', p: 0 }}>
+					<Box sx={{ width: '100%' }}>
+						<Typography id="transition-modal-title" variant="h6" component="h2" fontWeight={700}>
+							{title}
+						</Typography>
+						{description && (
+							<Typography
+								variant={'body1'}
+								sx={{
+									mt: 2,
+									padding: '1rem',
+									borderRadius: '1rem',
+									color: '#fff',
+									background: '#303030',
+								}}>
+								{description}
+							</Typography>
+						)}
+					</Box>
+				</CardContent>
+			</Card>
+		</Container>
 	);
 };

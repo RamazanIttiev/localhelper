@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 import { UserData, UserDB } from '../../models/user.model';
 import { useShoppingCart } from '../../context/cart.context';
 import { fetchUser, saveUserInfo } from '../../api/user';
-import { RestaurantProductModel } from '../restaurant/components/restaurant-product/restaurant-product.model';
+import { RestaurantProductModel } from '../restaurant/restaurant-product/restaurant-product.model';
 import { Checkout } from './checkout.component';
 import { RestaurantModel } from '../../models/product.model';
 import { getMappedCartList } from '../../utils/cart';

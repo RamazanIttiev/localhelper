@@ -1,13 +1,14 @@
 import React from 'react';
 import { Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
-import { setHaptic } from '../../../../actions/webApp-actions';
+import { setHaptic } from '../../../actions/webApp-actions';
 import { Link } from 'react-router-dom';
-import { IconBadge } from '../../../../reactkit/iconBadge';
-import { ImageBackdrop } from '../../../../components/product/imageBackdrop';
-import { AmountButtons } from '../../../../components/amountButtons';
-import { InfoBadge } from '../../../../reactkit/infoBadge';
+import { IconBadge } from '../../../reactkit/iconBadge';
+import { ImageBackdrop } from '../../../components/product/imageBackdrop';
+import { AmountButtons } from '../../../components/amountButtons';
+import { InfoBadge } from '../../../reactkit/infoBadge';
 import { RestaurantProductModel } from './restaurant-product.model';
-import { RestaurantModel } from '../../../../models/product.model';
+import { RestaurantModel } from '../../../models/product.model';
+import { isUserAgentTelegram } from '../../../utils/deviceInfo';
 
 interface Props {
 	readonly flowId: string;
@@ -28,7 +29,6 @@ export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }:
 					display: 'flex',
 					height: 'auto',
 					boxShadow: 'none',
-					minHeight: '16rem',
 					flexDirection: 'column',
 					background: 'transparent',
 					justifyContent: 'space-between',
@@ -72,7 +72,6 @@ export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }:
 							flexDirection: 'column',
 							justifyContent: 'center',
 							mt: '1rem',
-							mb: '0.5rem',
 						}}>
 						<Typography
 							sx={{
@@ -89,16 +88,20 @@ export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }:
 						</Typography>
 					</CardContent>
 				</Link>
-				{isWorking ? (
-					<CardActions
-						sx={{
-							p: 0,
-						}}>
-						<AmountButtons product={restaurantProduct} restaurant={restaurant} />
-					</CardActions>
-				) : (
-					<InfoBadge text={'We are closed'} />
-				)}
+
+				{isUserAgentTelegram ? (
+					isWorking ? (
+						<CardActions
+							sx={{
+								p: 0,
+								mt: '1rem',
+							}}>
+							<AmountButtons product={restaurantProduct} restaurant={restaurant} />
+						</CardActions>
+					) : (
+						<InfoBadge text={'We are closed'} />
+					)
+				) : null}
 			</Card>
 		</>
 	);

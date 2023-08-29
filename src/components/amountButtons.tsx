@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
 import { useShoppingCart } from '../context/cart.context';
-import { RestaurantProductModel } from '../pages/restaurant/components/restaurant-product/restaurant-product.model';
+import { RestaurantProductModel } from '../pages/restaurant/restaurant-product/restaurant-product.model';
 import { RestaurantModel } from '../models/product.model';
 
 interface Props {

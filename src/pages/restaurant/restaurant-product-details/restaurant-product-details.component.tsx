@@ -4,16 +4,18 @@ import { MuiCarousel } from '../../../components/carousel';
 import dishImage from '../../../assets/food.webp';
 import { AmountButtons } from '../../../components/amountButtons';
 import { theme } from '../../../theme';
-import { RestaurantProductModel } from '../components/restaurant-product/restaurant-product.model';
+import { RestaurantProductModel } from '../restaurant-product/restaurant-product.model';
 import { useShoppingCart } from '../../../context/cart.context';
 import { RestaurantModel } from '../../../models/product.model';
+import { InfoBadge } from '../../../reactkit/infoBadge';
+import { isUserAgentTelegram } from '../../../utils/deviceInfo';
 
 interface Props {
 	readonly restaurant: RestaurantModel;
 	readonly restaurantProduct: RestaurantProductModel;
 }
 
-export const RestaurantDetails = ({ restaurantProduct, restaurant }: Props) => {
+export const RestaurantProductDetails = ({ restaurantProduct, restaurant }: Props) => {
 	const { getItemAmount } = useShoppingCart();
 
 	const { isWorking } = restaurant;
@@ -67,30 +69,23 @@ export const RestaurantDetails = ({ restaurantProduct, restaurant }: Props) => {
 					</Box>
 				</CardContent>
 
-				{isWorking ? (
-					<CardActions sx={{ flexDirection: 'column', p: 0 }}>
-						<AmountButtons
-							styles={{
-								maxWidth: '13rem',
-								width: isRemoveVisible ? '13rem' : '12rem',
-								background: theme.palette.background.paper,
-							}}
-							restaurant={restaurant}
-							product={restaurantProduct}
-						/>
-					</CardActions>
-				) : (
-					<Typography
-						variant="body2"
-						sx={{
-							padding: '0.5rem',
-							width: 'fit-content',
-							borderRadius: '1rem',
-							background: theme.palette.background.paper,
-						}}>
-						We are closed
-					</Typography>
-				)}
+				{isUserAgentTelegram ? (
+					isWorking ? (
+						<CardActions sx={{ flexDirection: 'column', p: 0 }}>
+							<AmountButtons
+								styles={{
+									maxWidth: '13rem',
+									width: isRemoveVisible ? '13rem' : '12rem',
+									background: theme.palette.background.paper,
+								}}
+								restaurant={restaurant}
+								product={restaurantProduct}
+							/>
+						</CardActions>
+					) : (
+						<InfoBadge text={'We are closed'} />
+					)
+				) : null}
 			</Card>
 		</Container>
 	);

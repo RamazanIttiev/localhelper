@@ -40,7 +40,7 @@ export const RestaurantContainer = () => {
 	useEffect(() => {
 		if (!isCartEmpty) {
 			showMainButton();
-			setMainButtonText('Order');
+			setMainButtonText('To Cart');
 			handleMainButton(navigateToCart);
 		} else hideMainButton();
 
@@ -49,5 +49,5 @@ export const RestaurantContainer = () => {
 		};
 	}, [isCartEmpty, navigateToCart]);
 
-	return createElement(Restaurant, { restaurant, products, flowId, navigateToCart, isCartEmpty });
+	return createElement(Restaurant, { restaurant, products, flowId });
 };

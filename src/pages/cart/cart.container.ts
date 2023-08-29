@@ -9,7 +9,7 @@ import {
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useShoppingCart } from '../../context/cart.context';
 import { RestaurantModel } from '../../models/product.model';
-import { RestaurantProductModel } from '../restaurant/components/restaurant-product/restaurant-product.model';
+import { RestaurantProductModel } from '../restaurant/restaurant-product/restaurant-product.model';
 import { getMappedCartList } from '../../utils/cart';
 
 interface RouteState {

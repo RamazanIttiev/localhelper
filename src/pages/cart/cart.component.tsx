@@ -5,7 +5,7 @@ import { CartList } from './components/cart-list';
 import { CartHeader } from './components/cart-header';
 import { LoaderButton } from '../../reactkit/loaderButton';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
-import { RestaurantProductModel } from '../restaurant/components/restaurant-product/restaurant-product.model';
+import { RestaurantProductModel } from '../restaurant/restaurant-product/restaurant-product.model';
 import { RestaurantModel } from '../../models/product.model';
 
 interface Props {

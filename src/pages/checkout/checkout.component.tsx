@@ -9,7 +9,7 @@ import { OrderInfo } from './components/orderInfo';
 import { theme } from '../../theme';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { UserData } from '../../models/user.model';
-import { RestaurantProductModel } from '../restaurant/components/restaurant-product/restaurant-product.model';
+import { RestaurantProductModel } from '../restaurant/restaurant-product/restaurant-product.model';
 import { RestaurantModel } from '../../models/product.model';
 
 interface Props {
@@ -34,7 +34,7 @@ export const Checkout = ({
 	cartTotalAmount,
 }: Props) => {
 	return (
-		<Container maxWidth={'sm'} sx={{ pt: '1rem', pb: '4rem', position: 'relative' }}>
+		<Container maxWidth={'sm'} sx={{ pt: '1rem', position: 'relative' }}>
 			<FormUI errors={errors} register={register} onSubmit={onSubmit} />
 			{isUserAgentTelegram && (
 				<SaveInfoWrapper>

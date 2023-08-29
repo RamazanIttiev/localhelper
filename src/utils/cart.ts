@@ -1,4 +1,4 @@
-import { RestaurantProductModel } from '../pages/restaurant/components/restaurant-product/restaurant-product.model';
+import { RestaurantProductModel } from '../pages/restaurant/restaurant-product/restaurant-product.model';
 import { CartItem } from '../models/cart.model';
 
 export const getCartOrderString = (orderItems: string[]) =>

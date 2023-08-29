@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { AmountButtons } from '../../../components/amountButtons';
 import { Box, List, ListItem, Typography } from '@mui/material';
-import { RestaurantProductModel } from '../../restaurant/components/restaurant-product/restaurant-product.model';
+import { RestaurantProductModel } from '../../restaurant/restaurant-product/restaurant-product.model';
 import { RestaurantModel } from '../../../models/product.model';
 
 interface Props {

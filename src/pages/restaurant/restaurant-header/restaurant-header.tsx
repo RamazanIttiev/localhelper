@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box, Icon, Typography } from '@mui/material';
-import { ImageLazy } from '../../../../components/imageLazy';
-import { theme } from '../../../../theme';
-import { RestaurantModel } from '../../../../models/product.model';
-import { WorkingStatus } from '../../../../reactkit/workingStatus';
+import { ImageLazy } from '../../../components/imageLazy';
+import { theme } from '../../../theme';
+import { RestaurantModel } from '../../../models/product.model';
+import { WorkingStatus } from '../../../reactkit/workingStatus';
 
 interface Props {
 	restaurant: Pick<RestaurantModel, 'workingTime' | 'workingStatus' | 'image' | 'location' | 'title'>;

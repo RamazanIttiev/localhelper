@@ -19,18 +19,17 @@ export const RestaurantProductDetails = ({ restaurantProduct, restaurant }: Prop
 	const { getItemAmount } = useShoppingCart();
 
 	const { isWorking } = restaurant;
+	// TODO add amount backdrop
+	const { title, image, amount, infoBadges, description } = restaurantProduct;
 
 	const isRemoveVisible = getItemAmount(restaurantProduct.id) > 0;
-
-	// TODO add amount backdrop and display infoBadges
-	const { title, image, amount, infoBadges, description } = restaurantProduct;
 
 	return (
 		<Container sx={{ pt: 2, pb: 2, px: 6 }} maxWidth={'sm'}>
 			<Card sx={{ position: 'relative', background: 'transparent', boxShadow: 'none' }}>
 				<CardMedia>
 					{image !== undefined ? (
-						<MuiCarousel key={title} product={restaurantProduct} />
+						<MuiCarousel key={title} images={image} title={title} infoBadges={infoBadges} />
 					) : (
 						<Box
 							component={'img'}

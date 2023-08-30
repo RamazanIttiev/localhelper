@@ -1,6 +1,6 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import { createElement, FC, useCallback, useEffect, useState } from 'react';
 import { ErrorType } from '../../models/error.model';
-import { ProductComponent } from './product.component';
+import { Product } from './product.component';
 import { ProductModel } from '../../models/product.model';
 import { clearResponseMessage, handleOrder } from '../../actions/global-actions';
 
@@ -27,21 +27,19 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, product })
 			flowId,
 			{
 				itemName: product.title,
-				// placeNumber: product?.contact,
-				// placeCoordinates: product?.coordinates,
+				placeNumber: product?.contact,
+				placeCoordinates: product?.coordinates,
 			},
 			handleLoading,
 			handleError,
 		);
-	}, [flowId, product?.title]);
+	}, [flowId, product?.contact, product?.coordinates, product.title]);
 
-	return (
-		<ProductComponent
-			flowId={flowId}
-			product={product}
-			loading={loading}
-			errorState={errorState}
-			handleProductOrder={handleProductOrder}
-		/>
-	);
+	return createElement(Product, {
+		flowId,
+		product,
+		loading,
+		errorState,
+		handleProductOrder,
+	});
 };

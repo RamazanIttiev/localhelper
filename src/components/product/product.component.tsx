@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ErrorType } from '../../models/error.model';
 import { IconBadge } from '../../reactkit/iconBadge';
@@ -10,7 +10,7 @@ import { Card, CardContent, Typography } from '@mui/material';
 import { ImageLazy } from '../imageLazy';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 
-interface ProductProps {
+interface Props {
 	flowId: string;
 	loading: boolean;
 	product: ProductModel;
@@ -18,7 +18,7 @@ interface ProductProps {
 	handleProductOrder: () => Promise<Response | undefined>;
 }
 
-export const ProductComponent: FC<ProductProps> = ({ flowId, loading, product, errorState, handleProductOrder }) => {
+export const Product = ({ flowId, loading, product, errorState, handleProductOrder }: Props) => {
 	return (
 		<>
 			<Card

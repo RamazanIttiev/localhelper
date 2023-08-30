@@ -37,7 +37,7 @@ export interface RentModel extends DefaultProductModel {
 	breakfast?: boolean;
 }
 
-export type ProductModel = FoodModel | RentModel | RestaurantProductModel;
+export type ProductModel = FoodModel | RentModel;
 
 export interface CategoryModel {
 	id: string;

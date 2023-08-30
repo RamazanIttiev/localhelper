@@ -3,7 +3,7 @@ import { Card, CardActions, CardContent, CardMedia, Typography } from '@mui/mate
 import { setHaptic } from '../../../actions/webApp-actions';
 import { Link } from 'react-router-dom';
 import { IconBadge } from '../../../reactkit/iconBadge';
-import { ImageBackdrop } from '../../../components/product/imageBackdrop';
+import { ImageBackdrop } from '../../../components/imageBackdrop';
 import { AmountButtons } from '../../../components/amountButtons';
 import { InfoBadge } from '../../../reactkit/infoBadge';
 import { RestaurantProductModel } from './restaurant-product.model';
@@ -18,7 +18,7 @@ interface Props {
 
 export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }: Props) => {
 	const { isWorking } = restaurant;
-	const { id, title, image, amount, infoBadges } = restaurantProduct;
+	const { id, title, image, amount, infoBadges, price } = restaurantProduct;
 
 	return (
 		<>
@@ -101,7 +101,9 @@ export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }:
 					) : (
 						<InfoBadge text={'We are closed'} />
 					)
-				) : null}
+				) : (
+					<InfoBadge text={`${price.toString()} Rs`} />
+				)}
 			</Card>
 		</>
 	);

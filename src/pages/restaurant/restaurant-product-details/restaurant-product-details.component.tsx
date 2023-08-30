@@ -20,7 +20,7 @@ export const RestaurantProductDetails = ({ restaurantProduct, restaurant }: Prop
 
 	const { isWorking } = restaurant;
 	// TODO add amount backdrop
-	const { title, image, amount, infoBadges, description } = restaurantProduct;
+	const { title, image, amount, infoBadges, description, price } = restaurantProduct;
 
 	const isRemoveVisible = getItemAmount(restaurantProduct.id) > 0;
 
@@ -47,25 +47,23 @@ export const RestaurantProductDetails = ({ restaurantProduct, restaurant }: Prop
 					)}
 				</CardMedia>
 
-				<CardContent sx={{ m: '2rem 0', p: 0 }}>
-					<Box sx={{ width: '100%' }}>
-						<Typography id="transition-modal-title" variant="h6" component="h2" fontWeight={700}>
-							{title}
+				<CardContent sx={{ m: '1rem 0', p: 0 }}>
+					<Typography id="transition-modal-title" variant="h6" component="h2" fontWeight={700}>
+						{title}
+					</Typography>
+					{description && (
+						<Typography
+							variant={'body1'}
+							sx={{
+								mt: 2,
+								padding: '1rem',
+								borderRadius: '1rem',
+								color: '#fff',
+								background: '#303030',
+							}}>
+							{description}
 						</Typography>
-						{description && (
-							<Typography
-								variant={'body1'}
-								sx={{
-									mt: 2,
-									padding: '1rem',
-									borderRadius: '1rem',
-									color: '#fff',
-									background: '#303030',
-								}}>
-								{description}
-							</Typography>
-						)}
-					</Box>
+					)}
 				</CardContent>
 
 				{isUserAgentTelegram ? (
@@ -84,7 +82,9 @@ export const RestaurantProductDetails = ({ restaurantProduct, restaurant }: Prop
 					) : (
 						<InfoBadge text={'We are closed'} />
 					)
-				) : null}
+				) : (
+					<InfoBadge text={`${price.toString()} Rs`} />
+				)}
 			</Card>
 		</Container>
 	);

@@ -10,12 +10,11 @@ import { theme } from '../../theme';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { UserData } from '../../models/user.model';
 import { RestaurantProductModel } from '../restaurant/restaurant-product/restaurant-product.model';
-import { RestaurantModel } from '../../models/product.model';
 
 interface Props {
 	saveInfo?: boolean;
 	cartTotalAmount: number;
-	restaurant: RestaurantModel;
+	restaurantTitle: string;
 	errors: FieldErrors<UserData>;
 	onSubmit: () => Promise<void>;
 	cartList: RestaurantProductModel[];
@@ -29,8 +28,8 @@ export const Checkout = ({
 	onSubmit,
 	saveInfo,
 	cartList,
-	restaurant,
 	handleSaveInfo,
+	restaurantTitle,
 	cartTotalAmount,
 }: Props) => {
 	return (
@@ -56,9 +55,9 @@ export const Checkout = ({
 
 			<HintTitle
 				styles={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}
-				text={`Your order from ${restaurant.title}`}
+				text={`Your order from ${restaurantTitle}`}
 			/>
-			<CartList cartList={cartList} restaurant={restaurant} />
+			<CartList cartList={cartList} restaurantTitle={restaurantTitle} />
 			<OrderInfo orderTotal={cartTotalAmount} />
 		</Container>
 	);

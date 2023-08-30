@@ -59,7 +59,14 @@ const router = createBrowserRouter(
 				element={<RestaurantProductDetailsContainer />}
 			/>
 
-			<Route path="shopping-cart" element={<CartContainer />} />
+			<Route
+				path="shopping-cart"
+				element={<CartContainer />}
+				loader={async () => {
+					const [restaurantsProducts] = await Promise.all([restaurantProductsLoader(queryClient)]);
+					return json({ restaurantsProducts });
+				}}
+			/>
 
 			<Route path="checkout" loader={() => fetchTelegramUser()} element={<CheckoutContainer />} />
 		</Route>,

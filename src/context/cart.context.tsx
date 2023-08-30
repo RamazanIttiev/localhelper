@@ -27,7 +27,11 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 		return cartItems.find(cartItem => cartItem.id === id)?.amount || 0;
 	};
 
-	const incrementCartAmount = (id: string, restaurantId: string) => {
+	const getCartRestaurant = () => {
+		return cartItems.map(({ restaurantTitle }) => restaurantTitle)[0];
+	};
+
+	const incrementCartAmount = (id: string, restaurantTitle: string) => {
 		setHaptic('light');
 
 		const modifyCart = () =>
@@ -35,7 +39,7 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 				const cartItem = findCartItem(id);
 
 				if (cartItem === undefined) {
-					return [...currentItems, { id, amount: 1, restaurantId }];
+					return [...currentItems, { id, amount: 1, restaurantTitle }];
 				} else {
 					return currentItems.map(cartItem => {
 						if (cartItem.id === id) {
@@ -47,7 +51,7 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 				}
 			});
 
-		if (!isSameRestaurant(cartItems, restaurantId)) {
+		if (!isSameRestaurant(cartItems, restaurantTitle)) {
 			const answer = confirm('You should empty your cart for a new order');
 			answer && clearCart();
 
@@ -126,6 +130,7 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 				getCartOrder,
 				getOrderCheckout,
 				getItemAmount,
+				getCartRestaurant,
 			}}>
 			{children}
 		</ShoppingCartContext.Provider>

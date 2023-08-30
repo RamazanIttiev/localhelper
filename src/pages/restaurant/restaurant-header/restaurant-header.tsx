@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Icon, Typography } from '@mui/material';
-import { ImageLazy } from '../../../components/imageLazy';
 import { theme } from '../../../theme';
 import { RestaurantModel } from '../../../models/product.model';
 import { WorkingStatus } from '../../../reactkit/workingStatus';
@@ -11,28 +10,23 @@ interface Props {
 
 export const RestaurantHeader = ({ restaurant }: Props) => {
 	const { title, workingStatus, workingTime, location } = restaurant;
-	const { smallImage, image } = {
-		image: restaurant.image[0].url,
-		smallImage: restaurant.image[0].thumbnails.small.url,
-	};
 
 	return (
 		<>
-			{image && (
-				<ImageLazy
-					imageUrl={image}
-					smallImageUrl={smallImage}
-					containerStyles={{
-						display: 'block',
-						backgroundSize: 'cover',
-						backgroundRepeat: 'no-repeat',
-						backgroundPosition: 'center',
-						width: '100%',
-						objectFit: 'cover',
-						height: '18rem',
-					}}
-				/>
-			)}
+			<Box
+				component={'img'}
+				src={restaurant.image[0].url}
+				alt={title}
+				sx={{
+					display: 'block',
+					backgroundSize: 'cover',
+					backgroundRepeat: 'no-repeat',
+					backgroundPosition: 'center',
+					width: '100%',
+					objectFit: 'cover',
+					height: '18rem',
+				}}
+			/>
 			<Box
 				sx={{
 					top: 0,

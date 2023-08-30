@@ -2,7 +2,7 @@ export interface RestaurantProductModel {
 	id: string;
 	title: string;
 	price: number;
-	image: { url: string; thumbnails: { small: { url: string } } }[];
+	image: { url: string }[];
 	amount: number;
 	description?: string;
 	infoBadges?: string[];

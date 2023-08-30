@@ -9,13 +9,12 @@ import {
 	webAppIsReady,
 } from '../actions/webApp-actions';
 import { useDocumentTitle } from 'usehooks-ts';
-import { useReactRouter } from '../hooks/useReactRouter';
 import { ShoppingCartProvider } from '../context/cart.context';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 export const Layout = () => {
 	const navigate = useNavigate();
-	const { pathname } = useReactRouter();
+	const { pathname } = useLocation();
 
 	useDocumentTitle('LocalHelper');
 

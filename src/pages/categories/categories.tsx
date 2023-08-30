@@ -3,12 +3,12 @@ import { categories } from './mock/categories';
 import { Container, Grid } from '@mui/material';
 import { Category } from '../../components/category';
 import { getGeolocation } from '../../api/geolocation';
-import { useReactRouter } from '../../hooks/useReactRouter';
 import { COUNTRY_CODE, GeoLocationProps } from '../../models/geolocation.model';
 
 import bonus from '../../assets/bonus.webp';
 import exchange from '../../assets/exchange.webp';
 import transfer from '../../assets/transfer.webp';
+import { useLocation } from 'react-router-dom';
 
 interface CategoryModel {
 	title: string;
@@ -16,7 +16,7 @@ interface CategoryModel {
 }
 
 export const Categories = () => {
-	const { pathname } = useReactRouter();
+	const { pathname } = useLocation();
 	const [geolocation, setGeolocation] = useState<GeoLocationProps | undefined>();
 
 	useEffect(() => {

@@ -8,7 +8,7 @@ import { isUserAgentTelegram } from '../utils/deviceInfo';
 interface Props {
 	title: string;
 	infoBadges: string[] | undefined;
-	images: { url: string; thumbnails: { small: { url: string } } }[];
+	images: { url: string }[];
 }
 
 export const MuiCarousel = ({ title, infoBadges, images }: Props) => {

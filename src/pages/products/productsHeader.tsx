@@ -2,25 +2,24 @@ import React from 'react';
 import { theme } from '../../theme';
 import { Box, Typography } from '@mui/material';
 import { CategoryModel } from '../../models/product.model';
-import { ImageLazy } from '../../components/imageLazy';
 
 interface HeaderProps {
 	category: Pick<CategoryModel, 'headerTitle' | 'headerImage'> | undefined;
 }
 
 export const ProductsHeader = ({ category }: HeaderProps) => {
-	const { image, title, smallImage } = {
+	const { image, title } = {
 		title: category?.headerTitle || '',
 		image: category?.headerImage[0].url || '',
-		smallImage: category?.headerImage[0].thumbnails.small.url || '',
 	};
 
 	return (
 		<>
-			<ImageLazy
-				imageUrl={image}
-				smallImageUrl={smallImage}
-				containerStyles={{
+			<Box
+				component={'img'}
+				src={image}
+				alt={title}
+				sx={{
 					display: 'block',
 					backgroundSize: 'cover',
 					backgroundRepeat: 'no-repeat',

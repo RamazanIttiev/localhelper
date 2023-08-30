@@ -1,4 +1,5 @@
 import { AirtableData, CategoryId, RestaurantId } from '../models/airtable.model';
+import { isUserAgentTelegram } from './deviceInfo';
 
 const getCategoryId = (categoryId: string | undefined) => {
 	if (categoryId) {
@@ -55,7 +56,11 @@ export const getAirtableUrl = (airtableData: AirtableData, category?: string, re
 				''
 			);
 		case 'Restaurants':
-			return `${process.env.REACT_APP_AIRTABLE_URL}/Restaurants` || '';
+			return (
+				`${process.env.REACT_APP_AIRTABLE_URL}/Restaurants${
+					isUserAgentTelegram ? '?filterByFormula=isVisible' : ''
+				}` || ''
+			);
 		case 'Restaurant':
 			return `${process.env.REACT_APP_AIRTABLE_URL}/Restaurants/${restaurantId}` || '';
 		case 'RestaurantProducts':

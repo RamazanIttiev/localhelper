@@ -30,11 +30,10 @@ export const RestaurantContainer = () => {
 			navigate('/shopping-cart', {
 				state: {
 					flowId,
-					products,
 					restaurant,
 				},
 			}),
-		[navigate, flowId, products, restaurant],
+		[navigate, flowId, restaurant],
 	);
 
 	useEffect(() => {

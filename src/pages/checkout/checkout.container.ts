@@ -14,13 +14,12 @@ import { fetchUser, saveUserInfo } from '../../api/user';
 import { RestaurantProductModel } from '../restaurant/restaurant-product/restaurant-product.model';
 import { Checkout } from './checkout.component';
 import { RestaurantModel } from '../../models/product.model';
-import { getMappedCartList } from '../../utils/cart';
 
 interface RouteState {
 	state: {
 		flowId: string;
-		products: RestaurantProductModel[];
 		restaurant: RestaurantModel;
+		cartList: RestaurantProductModel[];
 	};
 }
 
@@ -30,14 +29,12 @@ export const CheckoutContainer = () => {
 
 	const flowId = state.flowId;
 	const restaurant = state.restaurant;
-	const products = state.products;
+	const cartList = state.cartList;
 
-	const { getCartTotalAmount, getCartOrder, clearCart, cartItems } = useShoppingCart();
+	const { getCartTotalAmount, getCartOrder, clearCart } = useShoppingCart();
 
-	const cartList = getMappedCartList(products, cartItems);
-
-	const cartOrder = products ? getCartOrder(products) : '';
-	const cartTotalAmount = products ? getCartTotalAmount(products) : 1;
+	const cartOrder = getCartOrder(cartList);
+	const cartTotalAmount = getCartTotalAmount(cartList);
 
 	const {
 		register,
@@ -135,6 +132,6 @@ export const CheckoutContainer = () => {
 		onSubmit,
 		saveInfo,
 		handleSaveInfo,
-		restaurant: state.restaurant,
+		restaurantTitle: restaurant.title,
 	});
 };

@@ -3,14 +3,13 @@ import { useLocation } from 'react-router-dom';
 import { AmountButtons } from '../../../components/amountButtons';
 import { Box, List, ListItem, Typography } from '@mui/material';
 import { RestaurantProductModel } from '../../restaurant/restaurant-product/restaurant-product.model';
-import { RestaurantModel } from '../../../models/product.model';
 
 interface Props {
-	restaurant: RestaurantModel;
+	restaurantTitle: string;
 	cartList: RestaurantProductModel[];
 }
 
-export const CartList = ({ cartList, restaurant }: Props) => {
+export const CartList = ({ cartList, restaurantTitle }: Props) => {
 	const { pathname } = useLocation();
 
 	return (
@@ -44,7 +43,12 @@ export const CartList = ({ cartList, restaurant }: Props) => {
 								</Typography>
 							</Box>
 							{pathname !== '/checkout' && (
-								<AmountButtons showPrice={false} showAmount product={item} restaurant={restaurant} />
+								<AmountButtons
+									showPrice={false}
+									showAmount
+									product={item}
+									restaurantTitle={restaurantTitle}
+								/>
 							)}
 						</ListItem>
 					</React.Fragment>

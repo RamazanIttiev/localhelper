@@ -17,10 +17,11 @@ export interface ShoppingCartContextProps {
 	getOrderCheckout: (
 		products: RestaurantProductModel[],
 	) => (Pick<RestaurantProductModel, 'title' | 'amount' | 'image' | 'price'> | undefined)[];
+	getCartRestaurant: () => string;
 }
 
 export interface CartItem {
 	id: string;
 	amount: number;
-	restaurantId: string;
+	restaurantTitle: string;
 }

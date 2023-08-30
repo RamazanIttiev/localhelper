@@ -96,7 +96,7 @@ export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }:
 								p: 0,
 								mt: '1rem',
 							}}>
-							<AmountButtons product={restaurantProduct} restaurant={restaurant} />
+							<AmountButtons product={restaurantProduct} restaurantTitle={restaurant.title} />
 						</CardActions>
 					) : (
 						<InfoBadge text={'We are closed'} />

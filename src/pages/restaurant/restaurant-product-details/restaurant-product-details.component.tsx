@@ -77,7 +77,7 @@ export const RestaurantProductDetails = ({ restaurantProduct, restaurant }: Prop
 									width: isRemoveVisible ? '13rem' : '12rem',
 									background: theme.palette.background.paper,
 								}}
-								restaurant={restaurant}
+								restaurantTitle={restaurant.title}
 								product={restaurantProduct}
 							/>
 						</CardActions>

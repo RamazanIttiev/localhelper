@@ -2,17 +2,16 @@ import React, { CSSProperties } from 'react';
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
 import { useShoppingCart } from '../context/cart.context';
 import { RestaurantProductModel } from '../pages/restaurant/restaurant-product/restaurant-product.model';
-import { RestaurantModel } from '../models/product.model';
 
 interface Props {
 	showPrice?: boolean;
 	showAmount?: boolean;
 	styles?: CSSProperties;
-	restaurant: RestaurantModel;
+	restaurantTitle: string;
 	product: RestaurantProductModel;
 }
 
-export const AmountButtons = ({ styles, product, showAmount = false, showPrice = true, restaurant }: Props) => {
+export const AmountButtons = ({ styles, product, showAmount = false, showPrice = true, restaurantTitle }: Props) => {
 	const theme = useTheme();
 	const { incrementCartAmount, decrementCartAmount, getItemAmount } = useShoppingCart();
 
@@ -49,7 +48,7 @@ export const AmountButtons = ({ styles, product, showAmount = false, showPrice =
 					</Typography>
 				)}
 			</Box>
-			<IconButton size={'medium'} onClick={() => incrementCartAmount(product.id, restaurant.id)}>
+			<IconButton size={'medium'} onClick={() => incrementCartAmount(product.id, restaurantTitle)}>
 				<Icon fontSize={'small'} sx={{ color: '#fff' }}>
 					add
 				</Icon>

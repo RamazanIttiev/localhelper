@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { IconBadge } from 'reactkit/iconBadge';
+import { IconBadges } from 'reactkit/iconBadges';
 import { LoaderButton } from 'reactkit/loaderButton';
 
 import { Box, Card, CardContent, Typography } from '@mui/material';
@@ -52,18 +52,7 @@ export const Product = ({ flowId, loading, product, errorState, handleProductOrd
 								objectFit: 'cover',
 							}}
 						/>
-						{product.infoBadges?.map(icon => (
-							<IconBadge
-								key={icon}
-								icon={icon}
-								containerStyles={{
-									position: 'absolute',
-									top: '0.5rem',
-									left: '0.5rem',
-								}}
-								iconStyles={{ margin: '0 2px' }}
-							/>
-						))}
+						<IconBadges iconBadges={product.iconBadges} />
 					</>
 					<CardContent
 						sx={{

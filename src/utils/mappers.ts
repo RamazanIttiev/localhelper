@@ -26,29 +26,3 @@ export const mapRestaurant = (restaurant: RestaurantModel): RestaurantModel => {
 export const mapRecords = (records: any[]) => {
 	return records.map(item => item.fields);
 };
-
-export const mapInfoBadges = (badge: string) => {
-	switch (badge) {
-		case 'ac': {
-			return 'ac_unit';
-		}
-		case 'wifi': {
-			return 'wifi';
-		}
-		case 'pool': {
-			return 'pool';
-		}
-		case 'breakfast': {
-			return 'restaurant';
-		}
-		case 'vegetarian': {
-			return 'grass';
-		}
-		case 'spicy': {
-			return 'local_fire_department';
-		}
-		case 'tv': {
-			return 'tv';
-		}
-	}
-};

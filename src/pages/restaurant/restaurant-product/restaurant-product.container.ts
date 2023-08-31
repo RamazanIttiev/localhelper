@@ -23,7 +23,7 @@ export const RestaurantProductContainer = ({ flowId, product, restaurant }: Prop
 		amount: productAmount,
 		price: product.price,
 		image: product.image,
-		infoBadges: product.infoBadges,
+		iconBadges: product.iconBadges,
 		title: product.title.toLowerCase(),
 	};
 

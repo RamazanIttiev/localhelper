@@ -1,7 +1,7 @@
 import React from 'react';
 import { isDesktop } from 'react-device-detect';
 import Carousel from 'react-material-ui-carousel';
-import { IconBadge } from 'reactkit/iconBadge';
+import { IconBadges } from 'reactkit/iconBadges';
 
 import { Box, useTheme } from '@mui/material';
 
@@ -9,11 +9,11 @@ import { isUserAgentTelegram } from 'utils/deviceInfo';
 
 interface Props {
 	title: string;
-	infoBadges: string[] | undefined;
+	iconBadges: { url: string }[] | undefined;
 	images: { url: string }[];
 }
 
-export const MuiCarousel = ({ title, infoBadges, images }: Props) => {
+export const MuiCarousel = ({ title, iconBadges, images }: Props) => {
 	const theme = useTheme();
 
 	return (
@@ -41,18 +41,7 @@ export const MuiCarousel = ({ title, infoBadges, images }: Props) => {
 								objectFit: 'cover',
 							}}
 						/>
-						{infoBadges?.map(icon => (
-							<IconBadge
-								key={icon}
-								icon={icon}
-								containerStyles={{
-									position: 'absolute',
-									top: '0.5rem',
-									left: '0.5rem',
-								}}
-								iconStyles={{ margin: '0 2px' }}
-							/>
-						))}
+						<IconBadges iconBadges={iconBadges} />
 					</React.Fragment>
 				);
 			})}

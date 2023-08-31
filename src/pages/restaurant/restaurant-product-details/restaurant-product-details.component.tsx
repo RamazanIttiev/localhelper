@@ -28,7 +28,7 @@ export const RestaurantProductDetails = ({ restaurantProduct, restaurant }: Prop
 
 	const { isWorking } = restaurant;
 	// TODO add amount backdrop
-	const { title, image, amount, infoBadges, description, price } = restaurantProduct;
+	const { title, image, amount, iconBadges, description, price } = restaurantProduct;
 
 	const isRemoveVisible = getItemAmount(restaurantProduct.id) > 0;
 
@@ -37,7 +37,7 @@ export const RestaurantProductDetails = ({ restaurantProduct, restaurant }: Prop
 			<Card sx={{ position: 'relative', background: 'transparent', boxShadow: 'none' }}>
 				<CardMedia>
 					{image !== undefined ? (
-						<MuiCarousel key={title} images={image} title={title} infoBadges={infoBadges} />
+						<MuiCarousel key={title} images={image} title={title} iconBadges={iconBadges} />
 					) : (
 						<Box
 							component={'img'}

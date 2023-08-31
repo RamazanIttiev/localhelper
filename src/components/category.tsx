@@ -46,7 +46,7 @@ export const Category: FC<CategoryProps> = ({ title, image, isLink = false, flow
 							<Box
 								component={'img'}
 								src={image}
-								alt={title}
+								alt={`${title} category`}
 								fontSize="small"
 								sx={{
 									width: '7rem',

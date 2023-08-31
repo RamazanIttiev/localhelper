@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconBadge } from 'reactkit/iconBadge';
+import { IconBadges } from 'reactkit/iconBadges';
 
 import { Box, Card, CardContent, CardMedia, Container, Typography } from '@mui/material';
 
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const ProductDetails = ({ product }: Props) => {
-	const { image, title, description, infoBadges } = product;
+	const { image, title, description, iconBadges } = product;
 
 	return (
 		<Container sx={{ pt: 2, pb: 2, px: 6 }} maxWidth={'sm'}>
@@ -33,21 +33,10 @@ export const ProductDetails = ({ product }: Props) => {
 									objectFit: 'cover',
 								}}
 							/>
-							{infoBadges?.map(icon => (
-								<IconBadge
-									key={icon}
-									icon={icon}
-									containerStyles={{
-										position: 'absolute',
-										top: '0.5rem',
-										left: '1.5rem',
-									}}
-									iconStyles={{ margin: '0 2px' }}
-								/>
-							))}
+							<IconBadges iconBadges={iconBadges} />
 						</>
 					) : (
-						<MuiCarousel key={title} images={image} title={title} infoBadges={infoBadges} />
+						<MuiCarousel key={title} images={image} title={title} iconBadges={iconBadges} />
 					)}
 				</CardMedia>
 

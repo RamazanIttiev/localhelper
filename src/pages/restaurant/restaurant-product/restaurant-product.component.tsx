@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { IconBadge } from 'reactkit/iconBadge';
+import { IconBadges } from 'reactkit/iconBadges';
 import { InfoBadge } from 'reactkit/infoBadge';
 
 import { Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
@@ -24,7 +24,7 @@ interface Props {
 
 export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }: Props) => {
 	const { isWorking } = restaurant;
-	const { id, title, image, amount, infoBadges, price } = restaurantProduct;
+	const { id, title, image, amount, iconBadges, price } = restaurantProduct;
 
 	return (
 		<>
@@ -47,18 +47,7 @@ export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }:
 					{image && (
 						<>
 							<CardMedia image={image[0].url} sx={{ height: '11rem', borderRadius: '1rem' }} />
-							{infoBadges?.map(icon => (
-								<IconBadge
-									key={icon}
-									icon={icon}
-									containerStyles={{
-										position: 'absolute',
-										top: '0.5rem',
-										left: '0.5rem',
-									}}
-									iconStyles={{ margin: '0 2px' }}
-								/>
-							))}
+							<IconBadges iconBadges={iconBadges} />
 						</>
 					)}
 					{amount !== 0 && (

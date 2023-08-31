@@ -5,5 +5,5 @@ export interface RestaurantProductModel {
 	image: { url: string }[];
 	amount: number;
 	description?: string;
-	infoBadges?: string[];
+	iconBadges?: { url: string }[];
 }

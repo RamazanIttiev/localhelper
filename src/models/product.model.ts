@@ -1,4 +1,4 @@
-import { RestaurantProductModel } from '../pages/restaurant/restaurant-product/restaurant-product.model';
+import { RestaurantProductModel } from 'pages/restaurant/restaurant-product/restaurant-product.model';
 
 export interface DefaultProductModel {
 	id: string;
@@ -9,7 +9,7 @@ export interface DefaultProductModel {
 	description: string;
 	category?: string[];
 	coordinates?: string;
-	infoBadges?: string[];
+	iconBadges?: { url: string }[];
 	image: { url: string }[];
 }
 

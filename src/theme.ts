@@ -1,5 +1,6 @@
 import { createTheme } from '@mui/material';
-import { TelegramTheme } from './app/App';
+
+import { TelegramTheme } from 'app/App';
 
 export const theme = createTheme({
 	palette: {

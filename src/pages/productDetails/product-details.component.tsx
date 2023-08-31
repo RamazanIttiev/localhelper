@@ -1,9 +1,11 @@
 import React from 'react';
-import { MuiCarousel } from '../../components/carousel';
-import { ProductModel } from '../../models/product.model';
+import { IconBadge } from 'reactkit/iconBadge';
+
 import { Box, Card, CardContent, CardMedia, Container, Typography } from '@mui/material';
 
-import { IconBadge } from '../../reactkit/iconBadge';
+import { MuiCarousel } from 'components/carousel';
+
+import { ProductModel } from 'models/product.model';
 
 interface Props {
 	product: ProductModel;

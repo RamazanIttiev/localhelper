@@ -1,9 +1,11 @@
 import React from 'react';
-import { Box, useTheme } from '@mui/material';
 import { isDesktop } from 'react-device-detect';
 import Carousel from 'react-material-ui-carousel';
-import { IconBadge } from '../reactkit/iconBadge';
-import { isUserAgentTelegram } from '../utils/deviceInfo';
+import { IconBadge } from 'reactkit/iconBadge';
+
+import { Box, useTheme } from '@mui/material';
+
+import { isUserAgentTelegram } from 'utils/deviceInfo';
 
 interface Props {
 	title: string;

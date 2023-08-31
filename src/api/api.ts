@@ -1,5 +1,6 @@
-import { AirtableData } from '../models/airtable.model';
-import { mapRecords } from '../utils/mappers';
+import { mapRecords } from 'utils/mappers';
+
+import { AirtableData } from 'models/airtable.model';
 
 type METHODS = 'GET' | 'POST' | 'DELETE';
 

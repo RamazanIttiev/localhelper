@@ -1,7 +1,10 @@
 import React from 'react';
-import { theme } from '../../theme';
+
 import { Box, Typography } from '@mui/material';
-import { CategoryModel } from '../../models/product.model';
+
+import { theme } from 'theme';
+
+import { CategoryModel } from 'models/product.model';
 
 interface HeaderProps {
 	category: Pick<CategoryModel, 'headerTitle' | 'headerImage'> | undefined;

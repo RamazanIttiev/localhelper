@@ -1,15 +1,18 @@
 import { createElement, useCallback, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { ProductDetails } from './product-details.component';
-import { handleOrder } from '../../actions/global-actions';
+
+import { DefaultProductModel } from 'models/product.model';
+
+import { handleOrder } from 'actions/global-actions';
 import {
 	handleMainButton,
 	hideMainButton,
 	removeMainButtonEvent,
 	setMainButtonText,
 	showMainButton,
-} from '../../actions/webApp-actions';
-import { DefaultProductModel } from '../../models/product.model';
+} from 'actions/webApp-actions';
+
+import { ProductDetails } from './product-details.component';
 
 interface RouteState {
 	readonly flowId: string;

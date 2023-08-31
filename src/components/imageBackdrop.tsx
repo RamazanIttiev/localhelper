@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+
 import { Box, useTheme } from '@mui/material';
 
 export const ImageBackdrop = ({ children }: { children: ReactNode }) => {

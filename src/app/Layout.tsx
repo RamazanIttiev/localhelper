@@ -1,5 +1,9 @@
-import React, { useEffect } from 'react';
 import { Global } from '@emotion/react';
+import React, { useEffect } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+
+import { useDocumentTitle } from 'usehooks-ts';
+
 import {
 	enableWebAppClosingConfirmation,
 	expandWebApp,
@@ -7,10 +11,9 @@ import {
 	hideBackButton,
 	showBackButton,
 	webAppIsReady,
-} from '../actions/webApp-actions';
-import { useDocumentTitle } from 'usehooks-ts';
-import { ShoppingCartProvider } from '../context/cart.context';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+} from 'actions/webApp-actions';
+
+import { ShoppingCartProvider } from 'context/cart.context';
 
 export const Layout = () => {
 	const navigate = useNavigate();

@@ -1,5 +1,6 @@
-import { Skeleton } from '@mui/material';
 import React from 'react';
+
+import { Skeleton } from '@mui/material';
 
 export const HeaderSkeleton = () => (
 	<Skeleton

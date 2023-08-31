@@ -1,8 +1,11 @@
-import { fetchAirtableData } from '../api';
 import { QueryClient } from '@tanstack/react-query';
-import { getAirtableUrl } from '../../utils/airtable';
 import { LoaderFunctionArgs } from 'react-router-dom';
-import { mapRestaurant, mapRestaurants } from '../../utils/mappers';
+
+import { mapRestaurant, mapRestaurants } from 'utils/mappers';
+
+import { getAirtableUrl } from 'utils/airtable';
+
+import { fetchAirtableData } from 'api/api';
 
 export const restaurantsQuery = (category: string | undefined) => {
 	const url = getAirtableUrl('Restaurants');
@@ -51,15 +54,13 @@ export const restaurantQuery = (restaurant: string | undefined) => {
 	};
 };
 
-export const restaurantLoader =
-	(queryClient: QueryClient) =>
-	async ({ params }: LoaderFunctionArgs) => {
-		const restaurantId = params.restaurantId;
+export const restaurantLoader = (queryClient: QueryClient) => async ({ params }: LoaderFunctionArgs) => {
+	const restaurantId = params.restaurantId;
 
-		const query = restaurantQuery(restaurantId);
+	const query = restaurantQuery(restaurantId);
 
-		return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
-	};
+	return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
+};
 
 export const restaurantProductsQuery = (restaurant: string | undefined) => {
 	const url = getAirtableUrl('RestaurantProducts', '', restaurant);
@@ -82,12 +83,10 @@ export const restaurantProductsQuery = (restaurant: string | undefined) => {
 	};
 };
 
-export const restaurantProductsLoader =
-	(queryClient: QueryClient) =>
-	async ({ params }: LoaderFunctionArgs) => {
-		const restaurantId = params.restaurantId;
+export const restaurantProductsLoader = (queryClient: QueryClient) => async ({ params }: LoaderFunctionArgs) => {
+	const restaurantId = params.restaurantId;
 
-		const query = restaurantProductsQuery(restaurantId);
+	const query = restaurantProductsQuery(restaurantId);
 
-		return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
-	};
+	return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
+};

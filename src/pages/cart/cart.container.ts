@@ -1,18 +1,20 @@
 import { createElement, useCallback, useEffect, useState } from 'react';
-import { Cart } from './cart.component';
-import {
-	handleMainButton,
-	removeMainButtonEvent,
-	setMainButtonText,
-	showMainButton,
-} from '../../actions/webApp-actions';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useShoppingCart } from '../../context/cart.context';
-import { RestaurantProductModel } from '../restaurant/restaurant-product/restaurant-product.model';
-import { getMappedCartList } from '../../utils/cart';
-import { getAirtableUrl } from '../../utils/airtable';
-import { fetchAirtableData } from '../../api/api';
-import { RestaurantModel } from '../../models/product.model';
+
+import { RestaurantProductModel } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+
+import { RestaurantModel } from 'models/product.model';
+
+import { getAirtableUrl } from 'utils/airtable';
+import { getMappedCartList } from 'utils/cart';
+
+import { fetchAirtableData } from 'api/api';
+
+import { handleMainButton, removeMainButtonEvent, setMainButtonText, showMainButton } from 'actions/webApp-actions';
+
+import { useShoppingCart } from 'context/cart.context';
+
+import { Cart } from './cart.component';
 
 interface RouteState {
 	state: {

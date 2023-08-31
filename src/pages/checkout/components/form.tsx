@@ -1,11 +1,13 @@
 import React from 'react';
-import { HintTitle } from '../../../reactkit/hintTitle';
-import { LoaderButton } from '../../../reactkit/loaderButton';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { isUserAgentTelegram } from '../../../utils/deviceInfo';
-import { ErrorText } from '../../../reactkit/errorText';
-import { UserData } from '../../../models/user.model';
-import { Input } from '../../../reactkit/input';
+import { ErrorText } from 'reactkit/errorText';
+import { HintTitle } from 'reactkit/hintTitle';
+import { Input } from 'reactkit/input';
+import { LoaderButton } from 'reactkit/loaderButton';
+
+import { UserData } from 'models/user.model';
+
+import { isUserAgentTelegram } from 'utils/deviceInfo';
 
 interface FormUIProps {
 	onSubmit: () => void;

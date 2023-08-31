@@ -1,9 +1,13 @@
 import React from 'react';
-import { theme } from '../../theme';
+
 import { Box, Container } from '@mui/material';
-import { CartList } from './components/cart-list';
+
+import { theme } from 'theme';
+
+import { RestaurantProductModel } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+
 import { CartHeader } from './components/cart-header';
-import { RestaurantProductModel } from '../restaurant/restaurant-product/restaurant-product.model';
+import { CartList } from './components/cart-list';
 
 interface Props {
 	restaurantTitle: string;

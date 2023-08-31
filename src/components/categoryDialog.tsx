@@ -1,16 +1,20 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ErrorType } from '../models/error.model';
-import { LoaderButton } from '../reactkit/loaderButton';
-import { isUserAgentTelegram } from '../utils/deviceInfo';
+import { LoaderButton } from 'reactkit/loaderButton';
+
 import { Box, Drawer, Typography, useTheme } from '@mui/material';
-import { clearResponseMessage, handleOrder } from '../actions/global-actions';
+
+import { ErrorType } from 'models/error.model';
+
+import { isUserAgentTelegram } from 'utils/deviceInfo';
+
+import { clearResponseMessage, handleOrder } from 'actions/global-actions';
 import {
 	handleMainButton,
 	hideMainButton,
 	removeMainButtonEvent,
 	setMainButtonText,
 	showMainButton,
-} from '../actions/webApp-actions';
+} from 'actions/webApp-actions';
 
 interface CategoryDialogProps {
 	title: string;

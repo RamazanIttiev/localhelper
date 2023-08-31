@@ -1,10 +1,15 @@
 import { createContext, useContext } from 'react';
+
 import { useLocalStorage } from 'usehooks-ts';
-import { hideMainButton, setHaptic } from '../actions/webApp-actions';
-import { CartItem, ShoppingCartContextProps, ShoppingCartProviderProps } from '../models/cart.model';
-import { getCartOrderString } from '../utils/cart';
-import { RestaurantProductModel } from '../pages/restaurant/restaurant-product/restaurant-product.model';
-import { isSameRestaurant } from '../utils/restaurant';
+
+import { RestaurantProductModel } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+
+import { CartItem, ShoppingCartContextProps, ShoppingCartProviderProps } from 'models/cart.model';
+
+import { getCartOrderString } from 'utils/cart';
+import { isSameRestaurant } from 'utils/restaurant';
+
+import { hideMainButton, setHaptic } from 'actions/webApp-actions';
 
 const ShoppingCartContext = createContext({} as ShoppingCartContextProps);
 

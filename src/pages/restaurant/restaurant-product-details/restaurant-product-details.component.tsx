@@ -1,14 +1,22 @@
 import React from 'react';
+import { InfoBadge } from 'reactkit/infoBadge';
+
 import { Box, Card, CardActions, CardContent, CardMedia, Container, Typography } from '@mui/material';
-import { MuiCarousel } from '../../../components/carousel';
-import dishImage from '../../../assets/food.webp';
-import { AmountButtons } from '../../../components/amountButtons';
-import { theme } from '../../../theme';
+
+import { theme } from 'theme';
+
+import { AmountButtons } from 'components/amountButtons';
+import { MuiCarousel } from 'components/carousel';
+
+import { RestaurantModel } from 'models/product.model';
+
+import { isUserAgentTelegram } from 'utils/deviceInfo';
+
+import { useShoppingCart } from 'context/cart.context';
+
+import dishImage from 'assets/food.webp';
+
 import { RestaurantProductModel } from '../restaurant-product/restaurant-product.model';
-import { useShoppingCart } from '../../../context/cart.context';
-import { RestaurantModel } from '../../../models/product.model';
-import { InfoBadge } from '../../../reactkit/infoBadge';
-import { isUserAgentTelegram } from '../../../utils/deviceInfo';
 
 interface Props {
 	readonly restaurant: RestaurantModel;

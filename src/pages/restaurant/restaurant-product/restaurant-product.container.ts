@@ -1,8 +1,11 @@
 import { createElement } from 'react';
+
+import { FoodModel, RestaurantModel } from 'models/product.model';
+
+import { useShoppingCart } from 'context/cart.context';
+
 import { RestaurantProductCard } from './restaurant-product.component';
-import { FoodModel, RestaurantModel } from '../../../models/product.model';
 import { RestaurantProductModel } from './restaurant-product.model';
-import { useShoppingCart } from '../../../context/cart.context';
 
 interface Props {
 	readonly flowId: string;

@@ -1,6 +1,8 @@
-import { ErrorType } from '../models/error.model';
+import { ErrorType } from 'models/error.model';
+
+import { sendWebAppDeepLink } from 'api/telegram';
+
 import { setHaptic } from './webApp-actions';
-import { sendWebAppDeepLink } from '../api/telegram';
 
 export const handleOrder = async (
 	flowId: string,

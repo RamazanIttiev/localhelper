@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { categories } from './mock/categories';
-import { Container, Grid } from '@mui/material';
-import { Category } from '../../components/category';
-import { getGeolocation } from '../../api/geolocation';
-import { COUNTRY_CODE, GeoLocationProps } from '../../models/geolocation.model';
-
-import bonus from '../../assets/bonus.webp';
-import exchange from '../../assets/exchange.webp';
-import transfer from '../../assets/transfer.webp';
 import { useLocation } from 'react-router-dom';
+
+import { Container, Grid } from '@mui/material';
+
+import { Category } from 'components/category';
+
+import { COUNTRY_CODE, GeoLocationProps } from 'models/geolocation.model';
+
+import { getGeolocation } from 'api/geolocation';
+
+import bonus from 'assets/bonus.webp';
+import exchange from 'assets/exchange.webp';
+import transfer from 'assets/transfer.webp';
+
+import { categories } from './mock/categories';
 
 interface CategoryModel {
 	title: string;

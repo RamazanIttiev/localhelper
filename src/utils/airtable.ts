@@ -1,4 +1,5 @@
-import { AirtableData, CategoryId, RestaurantId } from '../models/airtable.model';
+import { AirtableData, CategoryId, RestaurantId } from 'models/airtable.model';
+
 import { isUserAgentTelegram } from './deviceInfo';
 
 const getCategoryId = (categoryId: string | undefined) => {

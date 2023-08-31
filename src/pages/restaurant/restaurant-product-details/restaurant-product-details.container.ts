@@ -1,16 +1,20 @@
 import { createElement, useCallback, useEffect, useMemo } from 'react';
-import { RestaurantProductDetails } from './restaurant-product-details.component';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import { RestaurantModel } from 'models/product.model';
+
 import {
 	handleMainButton,
 	hideMainButton,
 	removeMainButtonEvent,
 	setMainButtonText,
 	showMainButton,
-} from '../../../actions/webApp-actions';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { RestaurantModel } from '../../../models/product.model';
+} from 'actions/webApp-actions';
+
+import { useShoppingCart } from 'context/cart.context';
+
 import { RestaurantProductModel } from '../restaurant-product/restaurant-product.model';
-import { useShoppingCart } from '../../../context/cart.context';
+import { RestaurantProductDetails } from './restaurant-product-details.component';
 
 interface RouteState {
 	readonly flowId: string;

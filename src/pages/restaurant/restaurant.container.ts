@@ -1,18 +1,23 @@
-import { createElement, useCallback, useEffect } from 'react';
-import { Restaurant } from './restaurant.component';
 import { useQuery } from '@tanstack/react-query';
-import { CategoryModel, FoodModel, RestaurantModel } from '../../models/product.model';
-import { restaurantProductsQuery, restaurantQuery } from '../../api/airtable/restaurant';
+import { createElement, useCallback, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { categoryQuery } from '../../api/airtable/category';
+
+import { CategoryModel, FoodModel, RestaurantModel } from 'models/product.model';
+
+import { categoryQuery } from 'api/airtable/category';
+import { restaurantProductsQuery, restaurantQuery } from 'api/airtable/restaurant';
+
 import {
 	handleMainButton,
 	hideMainButton,
 	removeMainButtonEvent,
 	setMainButtonText,
 	showMainButton,
-} from '../../actions/webApp-actions';
-import { useShoppingCart } from '../../context/cart.context';
+} from 'actions/webApp-actions';
+
+import { useShoppingCart } from 'context/cart.context';
+
+import { Restaurant } from './restaurant.component';
 
 export const RestaurantContainer = () => {
 	const navigate = useNavigate();

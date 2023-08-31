@@ -1,5 +1,6 @@
-import { RestaurantProductModel } from '../pages/restaurant/restaurant-product/restaurant-product.model';
-import { CartItem } from '../models/cart.model';
+import { RestaurantProductModel } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+
+import { CartItem } from 'models/cart.model';
 
 export const getCartOrderString = (orderItems: string[]) =>
 	`${JSON.stringify(orderItems, null, 2)}`.replace(/\[|\]|"/g, '');

@@ -1,8 +1,11 @@
 import { createElement, FC, useCallback, useEffect, useState } from 'react';
-import { ErrorType } from '../../../models/error.model';
+
+import { ErrorType } from 'models/error.model';
+import { ProductModel } from 'models/product.model';
+
+import { clearResponseMessage, handleOrder } from 'actions/global-actions';
+
 import { Product } from './product.component';
-import { ProductModel } from '../../../models/product.model';
-import { clearResponseMessage, handleOrder } from '../../../actions/global-actions';
 
 interface ProductContainerProps {
 	flowId: string;

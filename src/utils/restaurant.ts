@@ -1,4 +1,4 @@
-import { CartItem } from '../models/cart.model';
+import { CartItem } from 'models/cart.model';
 
 export const getServicesRoute = (title: string) => {
 	switch (title) {

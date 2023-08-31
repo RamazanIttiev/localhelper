@@ -1,15 +1,19 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Grid } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
-import { ProductsHeader } from './productsHeader';
-import { ProductContainer } from './product/product.container';
-import { ProductSkeleton } from '../../components/productSkeleton';
-import { CategoryModel, ProductModel } from '../../models/product.model';
 
-import { categoryQuery } from '../../api/airtable/category';
-import { productsQuery } from '../../api/airtable/products';
-import { HeaderSkeleton } from '../../components/headerSkeleton';
+import { Container, Grid } from '@mui/material';
+
+import { HeaderSkeleton } from 'components/headerSkeleton';
+import { ProductSkeleton } from 'components/productSkeleton';
+
+import { CategoryModel, ProductModel } from 'models/product.model';
+
+import { categoryQuery } from 'api/airtable/category';
+import { productsQuery } from 'api/airtable/products';
+
+import { ProductContainer } from './product/product.container';
+import { ProductsHeader } from './productsHeader';
 
 export const ProductsList = () => {
 	const { categoryId } = useParams();

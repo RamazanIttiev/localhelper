@@ -1,19 +1,20 @@
 import React, { createElement, useCallback, useEffect, useState } from 'react';
-import { handleOrder } from '../../actions/global-actions';
-import { useLocation, useNavigate } from 'react-router-dom';
-import {
-	handleMainButton,
-	removeMainButtonEvent,
-	setMainButtonText,
-	showMainButton,
-} from '../../actions/webApp-actions';
 import { useForm } from 'react-hook-form';
-import { UserData, UserDB } from '../../models/user.model';
-import { useShoppingCart } from '../../context/cart.context';
-import { fetchUser, saveUserInfo } from '../../api/user';
-import { RestaurantProductModel } from '../restaurant/restaurant-product/restaurant-product.model';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import { RestaurantProductModel } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+
+import { RestaurantModel } from 'models/product.model';
+import { UserData, UserDB } from 'models/user.model';
+
+import { fetchUser, saveUserInfo } from 'api/user';
+
+import { handleOrder } from 'actions/global-actions';
+import { handleMainButton, removeMainButtonEvent, setMainButtonText, showMainButton } from 'actions/webApp-actions';
+
+import { useShoppingCart } from 'context/cart.context';
+
 import { Checkout } from './checkout.component';
-import { RestaurantModel } from '../../models/product.model';
 
 interface RouteState {
 	state: {

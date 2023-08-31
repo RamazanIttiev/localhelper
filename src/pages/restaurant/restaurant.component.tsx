@@ -1,10 +1,14 @@
 import React from 'react';
+
 import { Container, Grid } from '@mui/material';
-import { FoodModel, RestaurantModel } from '../../models/product.model';
+
+import { HeaderSkeleton } from 'components/headerSkeleton';
+import { ProductSkeleton } from 'components/productSkeleton';
+
+import { FoodModel, RestaurantModel } from 'models/product.model';
+
 import { RestaurantHeader } from './restaurant-header/restaurant-header';
 import { RestaurantProductContainer } from './restaurant-product/restaurant-product.container';
-import { HeaderSkeleton } from '../../components/headerSkeleton';
-import { ProductSkeleton } from '../../components/productSkeleton';
 
 interface Props {
 	readonly flowId: string;

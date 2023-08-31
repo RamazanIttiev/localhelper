@@ -1,19 +1,23 @@
-import React from 'react';
-import { Layout } from './Layout';
-import { ProductsList } from '../pages/products-list/products-list';
-import { Categories } from '../pages/categories/categories';
-import { RestaurantsListContainer } from '../pages/restaurants-list/restaurants.container';
-import { createBrowserRouter, createRoutesFromElements, json, Route, RouterProvider } from 'react-router-dom';
-import { ProductDetailsContainer } from '../pages/productDetails/product-details.container';
-import { CheckoutContainer } from '../pages/checkout/checkout.container';
-import { fetchTelegramUser } from '../actions/webApp-actions';
-import { CartContainer } from '../pages/cart/cart.container';
-import { categoryLoader } from '../api/airtable/category';
 import { QueryClient } from '@tanstack/react-query';
-import { productsLoader } from '../api/airtable/products';
-import { restaurantLoader, restaurantProductsLoader, restaurantsLoader } from '../api/airtable/restaurant';
-import { RestaurantContainer } from '../pages/restaurant/restaurant.container';
-import { RestaurantProductDetailsContainer } from '../pages/restaurant/restaurant-product-details/restaurant-product-details.container';
+import React from 'react';
+import { createBrowserRouter, createRoutesFromElements, json, Route, RouterProvider } from 'react-router-dom';
+
+import { Layout } from 'app/Layout';
+
+import { CartContainer } from 'pages/cart/cart.container';
+import { Categories } from 'pages/categories/categories';
+import { CheckoutContainer } from 'pages/checkout/checkout.container';
+import { ProductDetailsContainer } from 'pages/productDetails/product-details.container';
+import { ProductsList } from 'pages/products-list/products-list';
+import { RestaurantProductDetailsContainer } from 'pages/restaurant/restaurant-product-details/restaurant-product-details.container';
+import { RestaurantContainer } from 'pages/restaurant/restaurant.container';
+import { RestaurantsListContainer } from 'pages/restaurants-list/restaurants.container';
+
+import { categoryLoader } from 'api/airtable/category';
+import { productsLoader } from 'api/airtable/products';
+import { restaurantLoader, restaurantProductsLoader, restaurantsLoader } from 'api/airtable/restaurant';
+
+import { fetchTelegramUser } from 'actions/webApp-actions';
 
 const queryClient = new QueryClient();
 export const Telegram = window.Telegram.WebApp;

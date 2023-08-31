@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { Box, Icon, IconButton, Typography } from '@mui/material';
-import { hideMainButton } from '../../../actions/webApp-actions';
-import { useShoppingCart } from '../../../context/cart.context';
+
+import { hideMainButton } from 'actions/webApp-actions';
+
+import { useShoppingCart } from 'context/cart.context';
 
 export const CartHeader = ({ restaurantTitle }: { restaurantTitle?: string }) => {
 	const { clearCart } = useShoppingCart();

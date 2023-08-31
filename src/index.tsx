@@ -1,11 +1,13 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
+
 import { Box, CircularProgress, CssBaseline, ThemeProvider } from '@mui/material';
 
+import { theme } from 'theme';
+
 import './index.css';
-import { theme } from './theme';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import reportWebVitals from './reportWebVitals';
 
 declare global {
 	interface Window {

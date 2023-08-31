@@ -1,7 +1,8 @@
 import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BottomNavigation, BottomNavigationAction, Box, styled, useTheme } from '@mui/material';
+
 import { House } from '@mui/icons-material';
+import { BottomNavigation, BottomNavigationAction, Box, styled, useTheme } from '@mui/material';
 
 interface FooterProps {}
 

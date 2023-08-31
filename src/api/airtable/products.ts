@@ -1,7 +1,9 @@
-import { fetchAirtableData } from '../api';
 import { QueryClient } from '@tanstack/react-query';
-import { getAirtableUrl } from '../../utils/airtable';
 import { LoaderFunctionArgs } from 'react-router-dom';
+
+import { getAirtableUrl } from 'utils/airtable';
+
+import { fetchAirtableData } from 'api/api';
 
 export const productsQuery = (category: string | undefined) => {
 	const url = getAirtableUrl('Products', category);
@@ -24,12 +26,10 @@ export const productsQuery = (category: string | undefined) => {
 	};
 };
 
-export const productsLoader =
-	(queryClient: QueryClient) =>
-	async ({ params }: LoaderFunctionArgs) => {
-		const categoryId = params.categoryId;
+export const productsLoader = (queryClient: QueryClient) => async ({ params }: LoaderFunctionArgs) => {
+	const categoryId = params.categoryId;
 
-		const query = productsQuery(categoryId);
+	const query = productsQuery(categoryId);
 
-		return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
-	};
+	return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
+};

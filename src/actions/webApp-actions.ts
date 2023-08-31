@@ -1,4 +1,5 @@
-import { Telegram, TelegramTheme } from '../app/App';
+import { Telegram, TelegramTheme } from 'app/App';
+
 import CryptoJS from 'crypto-js';
 
 const verifyInitData = (telegramInitData: string): boolean => {

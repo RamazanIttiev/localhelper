@@ -1,8 +1,11 @@
 import React from 'react';
+import { WorkingStatus } from 'reactkit/workingStatus';
+
 import { Box, Icon, Typography } from '@mui/material';
-import { theme } from '../../../theme';
-import { RestaurantModel } from '../../../models/product.model';
-import { WorkingStatus } from '../../../reactkit/workingStatus';
+
+import { theme } from 'theme';
+
+import { RestaurantModel } from 'models/product.model';
 
 interface Props {
 	restaurant: Pick<RestaurantModel, 'workingTime' | 'workingStatus' | 'image' | 'location' | 'title'>;

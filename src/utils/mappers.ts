@@ -1,5 +1,6 @@
+import { RestaurantModel } from 'models/product.model';
+
 import { isWorkingHour } from './restaurant';
-import { RestaurantModel } from '../models/product.model';
 
 export const mapRestaurants = (restaurants: RestaurantModel[] | undefined): RestaurantModel[] => {
 	return restaurants

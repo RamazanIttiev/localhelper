@@ -1,15 +1,22 @@
 import React from 'react';
-import { Container, Switch } from '@mui/material';
-import { FormUI } from './components/form';
-import { isUserAgentTelegram } from '../../utils/deviceInfo';
-import { SaveInfoField, SaveInfoWrapper } from './checkout.styled';
-import { HintTitle } from '../../reactkit/hintTitle';
-import { CartList } from '../cart/components/cart-list';
-import { OrderInfo } from './components/orderInfo';
-import { theme } from '../../theme';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { UserData } from '../../models/user.model';
-import { RestaurantProductModel } from '../restaurant/restaurant-product/restaurant-product.model';
+import { HintTitle } from 'reactkit/hintTitle';
+
+import { Container, Switch } from '@mui/material';
+
+import { theme } from 'theme';
+
+import { CartList } from 'pages/cart/components/cart-list';
+import { RestaurantProductModel } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+
+import { FormUI } from './components/form';
+import { OrderInfo } from './components/orderInfo';
+
+import { UserData } from 'models/user.model';
+
+import { isUserAgentTelegram } from 'utils/deviceInfo';
+
+import { SaveInfoField, SaveInfoWrapper } from './checkout.styled';
 
 interface Props {
 	saveInfo?: boolean;

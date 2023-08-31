@@ -1,9 +1,9 @@
 import React from 'react';
-import { HintTitle } from '../../../components/hintTitle';
+import { HintTitle } from '../../../reactkit/hintTitle';
 import { LoaderButton } from '../../../reactkit/loaderButton';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { isUserAgentTelegram } from '../../../utils/deviceInfo';
-import { ErrorText } from '../../../components/errorText';
+import { ErrorText } from '../../../reactkit/errorText';
 import { UserData } from '../../../models/user.model';
 import { Input } from '../../../reactkit/input';
 

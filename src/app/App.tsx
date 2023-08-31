@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from './Layout';
-import { Products } from '../pages/products/products';
+import { ProductsList } from '../pages/products-list/products-list';
 import { Categories } from '../pages/categories/categories';
 import { RestaurantsListContainer } from '../pages/restaurants-list/restaurants.container';
 import { createBrowserRouter, createRoutesFromElements, json, Route, RouterProvider } from 'react-router-dom';
@@ -26,7 +26,7 @@ const router = createBrowserRouter(
 			<Route index element={<Categories />} />
 			<Route
 				path=":categoryId"
-				element={<Products />}
+				element={<ProductsList />}
 				loader={async () => {
 					const [category, products] = await Promise.all([
 						categoryLoader(queryClient),

@@ -3,6 +3,8 @@ import { Container, Grid } from '@mui/material';
 import { FoodModel, RestaurantModel } from '../../models/product.model';
 import { RestaurantHeader } from './restaurant-header/restaurant-header';
 import { RestaurantProductContainer } from './restaurant-product/restaurant-product.container';
+import { HeaderSkeleton } from '../../components/headerSkeleton';
+import { ProductSkeleton } from '../../components/productSkeleton';
 
 interface Props {
 	readonly flowId: string;
@@ -13,11 +15,10 @@ interface Props {
 export const Restaurant = ({ restaurant, products, flowId }: Props) => {
 	return (
 		<>
-			{restaurant && <RestaurantHeader restaurant={restaurant} />}
+			{!restaurant ? <HeaderSkeleton /> : <RestaurantHeader restaurant={restaurant} />}
 			<Container sx={{ pt: 2 }} maxWidth={'sm'}>
 				<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
-					{products &&
-						restaurant &&
+					{products && restaurant ? (
 						products.map((product: FoodModel) => {
 							return (
 								<Grid item xs={6} md={5} key={product.id}>
@@ -28,7 +29,10 @@ export const Restaurant = ({ restaurant, products, flowId }: Props) => {
 									/>
 								</Grid>
 							);
-						})}
+						})
+					) : (
+						<ProductSkeleton />
+					)}
 				</Grid>
 			</Container>
 		</>

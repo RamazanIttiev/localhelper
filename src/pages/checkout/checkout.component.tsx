@@ -3,7 +3,7 @@ import { Container, Switch } from '@mui/material';
 import { FormUI } from './components/form';
 import { isUserAgentTelegram } from '../../utils/deviceInfo';
 import { SaveInfoField, SaveInfoWrapper } from './checkout.styled';
-import { HintTitle } from '../../components/hintTitle';
+import { HintTitle } from '../../reactkit/hintTitle';
 import { CartList } from '../cart/components/cart-list';
 import { OrderInfo } from './components/orderInfo';
 import { theme } from '../../theme';

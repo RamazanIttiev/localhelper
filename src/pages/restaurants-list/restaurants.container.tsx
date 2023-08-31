@@ -5,6 +5,7 @@ import { RestaurantCard } from './restaurant-card';
 import { hideMainButton } from '../../actions/webApp-actions';
 import { restaurantsQuery } from '../../api/airtable/restaurant';
 import { useParams } from 'react-router-dom';
+import { RestaurantSkeleton } from '../../components/restaurantSkeleton';
 
 export const RestaurantsListContainer = () => {
 	const { restaurantId } = useParams();
@@ -16,12 +17,15 @@ export const RestaurantsListContainer = () => {
 
 	return (
 		<Container sx={{ pt: 2 }} maxWidth={'sm'}>
-			{!!restaurants &&
+			{restaurants ? (
 				[...restaurants]
 					.sort(a => (a.isWorking ? -1 : 1))
 					.map(restaurant => {
 						return <RestaurantCard key={restaurant.title} restaurant={restaurant} />;
-					})}
+					})
+			) : (
+				<RestaurantSkeleton />
+			)}
 		</Container>
 	);
 };

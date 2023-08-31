@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ErrorType } from '../../models/error.model';
-import { IconBadge } from '../../reactkit/iconBadge';
-import { setHaptic } from '../../actions/webApp-actions';
-import { LoaderButton } from '../../reactkit/loaderButton';
-import { ProductModel } from '../../models/product.model';
+import { ErrorType } from '../../../models/error.model';
+import { IconBadge } from '../../../reactkit/iconBadge';
+import { setHaptic } from '../../../actions/webApp-actions';
+import { LoaderButton } from '../../../reactkit/loaderButton';
+import { ProductModel } from '../../../models/product.model';
 import { Box, Card, CardContent, Typography } from '@mui/material';
 
-import { isUserAgentTelegram } from '../../utils/deviceInfo';
+import { isUserAgentTelegram } from '../../../utils/deviceInfo';
 
 interface Props {
 	flowId: string;

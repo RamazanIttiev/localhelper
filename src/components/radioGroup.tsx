@@ -1,5 +1,5 @@
 import React from 'react';
-import { HintTitle } from './hintTitle';
+import { HintTitle } from '../reactkit/hintTitle';
 import { FormControl, FormControlLabel, Radio, useTheme } from '@mui/material';
 import { RadioButtonsGroup } from '../pages/productDetails/productDetails.styled';
 import { FoodExtraOptions } from '../models/product.model';

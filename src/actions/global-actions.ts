@@ -10,7 +10,7 @@ export const handleOrder = async (
 	handleLoading: (value: boolean) => void,
 	handleError: (value: ErrorType) => void,
 ) => {
-	setHaptic('light');
+	setHaptic('soft');
 	handleLoading(true);
 	try {
 		const { result } = await sendWebAppDeepLink(flowId, order);

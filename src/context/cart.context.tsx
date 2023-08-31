@@ -37,7 +37,7 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 	};
 
 	const incrementCartAmount = (id: string, restaurantTitle: string) => {
-		setHaptic('light');
+		setHaptic('soft');
 
 		const modifyCart = () =>
 			setCartItems(currentItems => {
@@ -67,7 +67,7 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 	};
 
 	const decrementCartAmount = (id: string) => {
-		setHaptic('light');
+		setHaptic('soft');
 		setCartItems(currentItems => {
 			const cartItem = findCartItem(id);
 
@@ -93,7 +93,7 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 	};
 
 	const clearCart = () => {
-		setHaptic('light');
+		setHaptic('soft');
 		setCartItems([]);
 	};
 

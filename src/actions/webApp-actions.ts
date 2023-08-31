@@ -34,11 +34,11 @@ export const disableMainButton = (text: string) => {
 	});
 };
 export const handleBackButton = (callback: () => unknown) => {
-	setHaptic('light');
+	setHaptic('soft');
 	Telegram.onEvent('backButtonClicked', callback);
 };
 export const handleMainButton = (callback: () => unknown) => {
-	setHaptic('light');
+	setHaptic('soft');
 	Telegram.onEvent('mainButtonClicked', callback);
 };
 export const enableMainButton = () => {
@@ -49,7 +49,7 @@ export const enableMainButton = () => {
 	});
 };
 export const removeMainButtonEvent = (callback: () => unknown) => {
-	setHaptic('light');
+	setHaptic('soft');
 	Telegram.offEvent('mainButtonClicked', callback);
 };
 export const fetchTelegramUser = () => {

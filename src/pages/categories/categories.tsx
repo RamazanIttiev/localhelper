@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { Container, Grid } from '@mui/material';
 
+import { useLocalStorage } from 'usehooks-ts';
+
 import { Category } from 'components/category';
 
-import { COUNTRY_CODE, GeoLocationProps } from 'models/geolocation.model';
+import { GeoLocationProps } from 'models/geolocation.model';
 
 import { getGeolocation } from 'api/geolocation';
 
@@ -22,22 +24,26 @@ interface CategoryModel {
 
 export const Categories = () => {
 	const { pathname } = useLocation();
-	const [geolocation, setGeolocation] = useState<GeoLocationProps | undefined>();
+	const [geolocation, setGeolocation] = useLocalStorage<GeoLocationProps | null>('geolocation', {
+		country_code2: 'LK',
+	});
 
 	useEffect(() => {
 		const fetchGeolocation = async () => {
 			try {
-				const geo = await getGeolocation();
-				setGeolocation(geo);
+				if (geolocation === null) {
+					const geo = await getGeolocation();
+					setGeolocation(geo);
+				} else return;
 			} catch (error) {
 				console.log(error);
 			}
 		};
 
 		fetchGeolocation().catch(error => error);
-	}, []);
+	}, [geolocation, setGeolocation]);
 
-	const isIndia = geolocation?.country_code2 === COUNTRY_CODE.India;
+	const isIndia = geolocation?.country_code2 === 'IN';
 	const userCountry = geolocation?.country_code2;
 
 	if (!geolocation) return null;

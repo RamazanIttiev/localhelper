@@ -1,7 +1,5 @@
-export enum COUNTRY_CODE {
-	India = 'IN',
-}
+export type CountryCode = 'LK' | 'IN';
 
 export interface GeoLocationProps {
-	country_code2: COUNTRY_CODE;
+	country_code2: CountryCode;
 }

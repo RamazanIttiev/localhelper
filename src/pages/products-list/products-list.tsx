@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Container, Grid } from '@mui/material';

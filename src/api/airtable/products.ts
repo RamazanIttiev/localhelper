@@ -22,7 +22,8 @@ export const productsQuery = (category: string | undefined) => {
 			}
 			return products;
 		},
-		enabled: category !== 'food',
+		// cached for 2 hours
+		staleTime: 10000 * 60 * 60 * 2,
 	};
 };
 

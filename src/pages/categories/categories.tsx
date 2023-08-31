@@ -29,6 +29,8 @@ export const Categories = () => {
 	});
 
 	useEffect(() => {
+		const abortController = new AbortController();
+
 		const fetchGeolocation = async () => {
 			try {
 				if (geolocation === null) {
@@ -41,6 +43,10 @@ export const Categories = () => {
 		};
 
 		fetchGeolocation().catch(error => error);
+
+		return () => {
+			abortController.abort(); // Cancel the request if component unmounts
+		};
 	}, [geolocation, setGeolocation]);
 
 	const isIndia = geolocation?.country_code2 === 'IN';

@@ -4,12 +4,12 @@ import { WorkingStatus } from 'reactkit/workingStatus';
 
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 
-import { RestaurantModel } from 'models/product.model';
+import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 import { setHaptic } from 'actions/webApp-actions';
 
 interface Props {
-	restaurant: RestaurantModel;
+	restaurant: Restaurant;
 }
 
 export const RestaurantCard = ({ restaurant }: Props) => {

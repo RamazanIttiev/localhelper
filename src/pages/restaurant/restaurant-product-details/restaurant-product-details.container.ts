@@ -1,7 +1,7 @@
 import { createElement, useCallback, useEffect, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { RestaurantModel } from 'models/product.model';
+import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 import {
 	handleMainButton,
@@ -13,13 +13,13 @@ import {
 
 import { useShoppingCart } from 'context/cart.context';
 
-import { RestaurantProductModel } from '../restaurant-product/restaurant-product.model';
+import { RestaurantProduct } from '../restaurant-product/restaurant-product.model';
 import { RestaurantProductDetails } from './restaurant-product-details.component';
 
 interface RouteState {
 	readonly flowId: string;
-	readonly restaurant: RestaurantModel;
-	readonly restaurantProduct: RestaurantProductModel;
+	readonly restaurant: Restaurant;
+	readonly restaurantProduct: RestaurantProduct;
 }
 
 export const RestaurantProductDetailsContainer = () => {

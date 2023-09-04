@@ -1,7 +1,7 @@
 import { createElement, useCallback, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { DefaultProductModel } from 'models/product.model';
+import { DefaultProductModel } from 'pages/products-list/product/product.model';
 
 import { handleOrder } from 'actions/global-actions';
 import {

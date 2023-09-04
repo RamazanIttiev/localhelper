@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 
 import { useLocalStorage } from 'usehooks-ts';
 
-import { RestaurantProductModel } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
 
 import { CartItem, ShoppingCartContextProps, ShoppingCartProviderProps } from 'models/cart.model';
 
@@ -21,7 +21,7 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 
 	const isCartEmpty = cartItems.length === 0;
 
-	const findProduct = (products: RestaurantProductModel[], id: string) =>
+	const findProduct = (products: RestaurantProduct[], id: string) =>
 		products?.find(product => {
 			return product.id === id;
 		});
@@ -97,14 +97,14 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 		setCartItems([]);
 	};
 
-	const getCartTotalAmount = (products: RestaurantProductModel[]) =>
+	const getCartTotalAmount = (products: RestaurantProduct[]) =>
 		cartItems.reduce((total, cartItem): number => {
 			const product = findProduct(products, cartItem.id);
 
 			return total + (product?.price || 0) * cartItem.amount;
 		}, 0);
 
-	const getCartOrder = (products: RestaurantProductModel[]) =>
+	const getCartOrder = (products: RestaurantProduct[]) =>
 		getCartOrderString(
 			cartItems.map((cartItem, index) => {
 				const product = findProduct(products, cartItem.id);
@@ -113,8 +113,8 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 			}),
 		);
 
-	const getOrderCheckout = (products: RestaurantProductModel[]) =>
-		cartItems.map((cartItem): Pick<RestaurantProductModel, 'image' | 'title' | 'price' | 'amount'> | undefined => {
+	const getOrderCheckout = (products: RestaurantProduct[]) =>
+		cartItems.map((cartItem): Pick<RestaurantProduct, 'image' | 'title' | 'price' | 'amount'> | undefined => {
 			const product = findProduct(products, cartItem.id);
 
 			if (product) {

@@ -5,11 +5,9 @@ import { FormControl, FormControlLabel, Radio, useTheme } from '@mui/material';
 
 import { RadioButtonsGroup } from 'pages/productDetails/productDetails.styled';
 
-import { FoodExtraOptions } from 'models/product.model';
-
 interface RadioButtonsProps {
 	buttons: string[];
-	productExtra?: FoodExtraOptions;
+	productExtra?: any;
 	handleExtra?: (event: React.SyntheticEvent) => void;
 }
 

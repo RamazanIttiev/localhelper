@@ -5,8 +5,9 @@ import { LoaderButton } from 'reactkit/loaderButton';
 
 import { Box, Card, CardContent, Typography } from '@mui/material';
 
+import { Product } from 'pages/products-list/product/product.model';
+
 import { ErrorType } from 'models/error.model';
-import { ProductModel } from 'models/product.model';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 
@@ -15,12 +16,12 @@ import { setHaptic } from 'actions/webApp-actions';
 interface Props {
 	flowId: string;
 	loading: boolean;
-	product: ProductModel;
+	product: Product;
 	errorState: ErrorType;
 	handleProductOrder: () => Promise<Response | undefined>;
 }
 
-export const Product = ({ flowId, loading, product, errorState, handleProductOrder }: Props) => {
+export const ProductComponent = ({ flowId, loading, product, errorState, handleProductOrder }: Props) => {
 	return (
 		<>
 			<Card

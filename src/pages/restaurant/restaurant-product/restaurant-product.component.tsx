@@ -8,18 +8,17 @@ import { Card, CardActions, CardContent, CardMedia, Typography } from '@mui/mate
 import { AmountButtons } from 'components/amountButtons';
 import { ImageBackdrop } from 'components/imageBackdrop';
 
-import { RestaurantModel } from 'models/product.model';
-
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 
 import { setHaptic } from 'actions/webApp-actions';
 
-import { RestaurantProductModel } from './restaurant-product.model';
+import { Restaurant } from '../restaurant.model';
+import { RestaurantProduct } from './restaurant-product.model';
 
 interface Props {
 	readonly flowId: string;
-	readonly restaurant: RestaurantModel;
-	readonly restaurantProduct: RestaurantProductModel;
+	readonly restaurant: Restaurant;
+	readonly restaurantProduct: RestaurantProduct;
 }
 
 export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }: Props) => {

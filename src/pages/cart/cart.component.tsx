@@ -4,14 +4,14 @@ import { Box, Container } from '@mui/material';
 
 import { theme } from 'theme';
 
-import { RestaurantProductModel } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
 
 import { CartHeader } from './components/cart-header';
 import { CartList } from './components/cart-list';
 
 interface Props {
 	restaurantTitle: string;
-	cartList: RestaurantProductModel[];
+	cartList: RestaurantProduct[];
 }
 
 export const Cart = ({ cartList, restaurantTitle }: Props) => {

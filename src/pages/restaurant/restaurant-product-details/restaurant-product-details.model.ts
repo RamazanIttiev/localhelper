@@ -1,8 +1,8 @@
-import { RestaurantProductModel } from '../restaurant-product/restaurant-product.model';
+import { RestaurantProduct } from '../restaurant-product/restaurant-product.model';
 
-export interface RestaurantProductDetailsModel {
+export interface RestaurantProductDetails {
 	flowId: string;
 	restaurantTitle: string;
 	isRestaurantWorking: boolean;
-	restaurantProduct: RestaurantProductModel;
+	restaurantProduct: RestaurantProduct;
 }

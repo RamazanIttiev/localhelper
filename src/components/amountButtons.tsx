@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react';
 
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
 
-import { RestaurantProductModel } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
 
 import { useShoppingCart } from 'context/cart.context';
 
@@ -11,7 +11,7 @@ interface Props {
 	showAmount?: boolean;
 	styles?: CSSProperties;
 	restaurantTitle: string;
-	product: RestaurantProductModel;
+	product: RestaurantProduct;
 }
 
 export const AmountButtons = ({ styles, product, showAmount = false, showPrice = true, restaurantTitle }: Props) => {

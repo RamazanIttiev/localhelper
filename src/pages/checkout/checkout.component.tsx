@@ -7,7 +7,7 @@ import { Container, Switch } from '@mui/material';
 import { theme } from 'theme';
 
 import { CartList } from 'pages/cart/components/cart-list';
-import { RestaurantProductModel } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
 
 import { FormUI } from './components/form';
 import { OrderInfo } from './components/orderInfo';
@@ -24,7 +24,7 @@ interface Props {
 	restaurantTitle: string;
 	errors: FieldErrors<UserData>;
 	onSubmit: () => Promise<void>;
-	cartList: RestaurantProductModel[];
+	cartList: RestaurantProduct[];
 	register: UseFormRegister<UserData>;
 	handleSaveInfo: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }

@@ -1,15 +1,15 @@
 import { createElement, FC, useCallback, useEffect, useState } from 'react';
 
+import { ProductComponent } from 'pages/products-list/product/product.component';
+import { Product } from 'pages/products-list/product/product.model';
+
 import { ErrorType } from 'models/error.model';
-import { ProductModel } from 'models/product.model';
 
 import { clearResponseMessage, handleOrder } from 'actions/global-actions';
 
-import { Product } from './product.component';
-
 interface ProductContainerProps {
 	flowId: string;
-	product: ProductModel;
+	product: Product;
 }
 
 export const ProductContainer: FC<ProductContainerProps> = ({ flowId, product }) => {
@@ -38,7 +38,7 @@ export const ProductContainer: FC<ProductContainerProps> = ({ flowId, product })
 		);
 	}, [flowId, product?.contact, product?.coordinates, product.title]);
 
-	return createElement(Product, {
+	return createElement(ProductComponent, {
 		flowId,
 		product,
 		loading,

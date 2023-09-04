@@ -5,10 +5,10 @@ import { Box, Icon, Typography } from '@mui/material';
 
 import { theme } from 'theme';
 
-import { RestaurantModel } from 'models/product.model';
+import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 interface Props {
-	restaurant: Pick<RestaurantModel, 'workingTime' | 'workingStatus' | 'image' | 'location' | 'title'>;
+	restaurant: Pick<Restaurant, 'workingTime' | 'workingStatus' | 'image' | 'location' | 'title'>;
 }
 
 export const RestaurantHeader = ({ restaurant }: Props) => {

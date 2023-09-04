@@ -8,19 +8,18 @@ import { theme } from 'theme';
 import { AmountButtons } from 'components/amountButtons';
 import { MuiCarousel } from 'components/carousel';
 
-import { RestaurantModel } from 'models/product.model';
-
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 
 import { useShoppingCart } from 'context/cart.context';
 
 import dishImage from 'assets/food.webp';
 
-import { RestaurantProductModel } from '../restaurant-product/restaurant-product.model';
+import { RestaurantProduct } from '../restaurant-product/restaurant-product.model';
+import { Restaurant } from '../restaurant.model';
 
 interface Props {
-	readonly restaurant: RestaurantModel;
-	readonly restaurantProduct: RestaurantProductModel;
+	readonly restaurant: Restaurant;
+	readonly restaurantProduct: RestaurantProduct;
 }
 
 export const RestaurantProductDetails = ({ restaurantProduct, restaurant }: Props) => {

@@ -2,7 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import { createElement, useCallback, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { CategoryModel, FoodModel, RestaurantModel } from 'models/product.model';
+import { Category } from 'pages/categories/category.model';
+import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 import { categoryQuery } from 'api/airtable/category';
 import { restaurantProductsQuery, restaurantQuery } from 'api/airtable/restaurant';
@@ -17,16 +19,16 @@ import {
 
 import { useShoppingCart } from 'context/cart.context';
 
-import { Restaurant } from './restaurant.component';
+import { RestaurantComponent } from './restaurant.component';
 
 export const RestaurantContainer = () => {
 	const navigate = useNavigate();
 	const { isCartEmpty } = useShoppingCart();
 	const { restaurantId, categoryId } = useParams();
 
-	const { data: category } = useQuery<CategoryModel>(categoryQuery(categoryId));
-	const { data: products } = useQuery<FoodModel[]>(restaurantProductsQuery(restaurantId));
-	const { data: restaurant } = useQuery<RestaurantModel>(restaurantQuery(restaurantId));
+	const { data: category } = useQuery<Category>(categoryQuery(categoryId));
+	const { data: products } = useQuery<RestaurantProduct[]>(restaurantProductsQuery(restaurantId));
+	const { data: restaurant } = useQuery<Restaurant>(restaurantQuery(restaurantId));
 
 	const flowId = category?.flowId || '';
 
@@ -53,5 +55,5 @@ export const RestaurantContainer = () => {
 		};
 	}, [isCartEmpty, navigateToCart]);
 
-	return createElement(Restaurant, { restaurant, products, flowId });
+	return createElement(RestaurantComponent, { restaurant, products, flowId });
 };

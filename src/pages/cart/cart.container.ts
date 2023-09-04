@@ -1,9 +1,8 @@
 import { createElement, useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { RestaurantProductModel } from 'pages/restaurant/restaurant-product/restaurant-product.model';
-
-import { RestaurantModel } from 'models/product.model';
+import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 import { getAirtableUrl } from 'utils/airtable';
 import { getMappedCartList } from 'utils/cart';
@@ -19,7 +18,7 @@ import { Cart } from './cart.component';
 interface RouteState {
 	state: {
 		flowId: string;
-		restaurant: RestaurantModel;
+		restaurant: Restaurant;
 	};
 }
 
@@ -31,7 +30,7 @@ export const CartContainer = () => {
 	const flowId = state.flowId;
 	const restaurant = state.restaurant;
 
-	const [restaurantProducts, setRestaurantProducts] = useState<RestaurantProductModel[]>([]);
+	const [restaurantProducts, setRestaurantProducts] = useState<RestaurantProduct[]>([]);
 
 	const restaurantTitle = getCartRestaurant();
 	const cartList = getMappedCartList(restaurantProducts, cartItems);

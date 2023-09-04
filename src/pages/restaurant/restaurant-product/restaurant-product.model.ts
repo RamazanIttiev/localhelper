@@ -1,9 +1,13 @@
-export interface RestaurantProductModel {
+export interface RestaurantProduct {
 	id: string;
 	title: string;
 	price: number;
-	image: { url: string }[];
 	amount: number;
+	image: { url: string }[];
+	spicy?: number;
+	location?: string;
+	vegetarian?: string;
 	description?: string;
+	restaurant?: string[];
 	iconBadges?: { url: string }[];
 }

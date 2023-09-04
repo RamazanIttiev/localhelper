@@ -4,10 +4,10 @@ import { Box, Typography } from '@mui/material';
 
 import { theme } from 'theme';
 
-import { CategoryModel } from 'models/product.model';
+import { Category } from 'pages/categories/category.model';
 
 interface HeaderProps {
-	category: Pick<CategoryModel, 'headerTitle' | 'headerImage'> | undefined;
+	category: Pick<Category, 'headerTitle' | 'headerImage'> | undefined;
 }
 
 export const ProductsHeader = ({ category }: HeaderProps) => {

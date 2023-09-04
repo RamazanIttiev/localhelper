@@ -2,9 +2,9 @@ import React, { createElement, useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { RestaurantProductModel } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { Restaurant } from 'pages/restaurant/restaurant.model';
 
-import { RestaurantModel } from 'models/product.model';
 import { UserData, UserDB } from 'models/user.model';
 
 import { fetchUser, saveUserInfo } from 'api/user';
@@ -19,8 +19,8 @@ import { Checkout } from './checkout.component';
 interface RouteState {
 	state: {
 		flowId: string;
-		restaurant: RestaurantModel;
-		cartList: RestaurantProductModel[];
+		restaurant: Restaurant;
+		cartList: RestaurantProduct[];
 	};
 }
 

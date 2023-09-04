@@ -3,12 +3,12 @@ import { IconBadges } from 'reactkit/iconBadges';
 
 import { Box, Card, CardContent, CardMedia, Container, Typography } from '@mui/material';
 
+import { Product } from 'pages/products-list/product/product.model';
+
 import { MuiCarousel } from 'components/carousel';
 
-import { ProductModel } from 'models/product.model';
-
 interface Props {
-	product: ProductModel;
+	product: Product;
 }
 
 export const ProductDetails = ({ product }: Props) => {

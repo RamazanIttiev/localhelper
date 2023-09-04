@@ -1,8 +1,8 @@
-import { RestaurantModel } from 'models/product.model';
+import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 import { isWorkingHour } from './restaurant';
 
-export const mapRestaurants = (restaurants: RestaurantModel[] | undefined): RestaurantModel[] => {
+export const mapRestaurants = (restaurants: Restaurant[] | undefined): Restaurant[] => {
 	return restaurants
 		? restaurants.map(restaurant => ({
 				...restaurant,
@@ -13,7 +13,7 @@ export const mapRestaurants = (restaurants: RestaurantModel[] | undefined): Rest
 		: [];
 };
 
-export const mapRestaurant = (restaurant: RestaurantModel): RestaurantModel => {
+export const mapRestaurant = (restaurant: Restaurant): Restaurant => {
 	return {
 		...restaurant,
 		// products: products.filter(product => isFood(product) && product.restaurant?.[0] === restaurant.id),

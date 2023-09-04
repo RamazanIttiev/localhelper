@@ -17,7 +17,7 @@ import transfer from 'assets/transfer.webp';
 
 import { categories } from './mock/categories';
 
-interface CategoryModel {
+interface Category {
 	title: string;
 	image: string;
 }
@@ -64,7 +64,7 @@ export const Categories = () => {
 				spacing={4}
 				sx={{ pt: pathname === '/' ? 3 : 0 }}>
 				{!isIndia &&
-					categories.map(({ title, image }: CategoryModel) => {
+					categories.map(({ title, image }: Category) => {
 						return <Category key={title} isLink title={title} image={image} />;
 					})}
 				<Category title={'Exchange'} image={exchange} flowId={'ZGw6MTI3Mjgx'} userCountry={userCountry} />

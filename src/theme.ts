@@ -10,6 +10,10 @@ export const theme = createTheme({
 			default: TelegramTheme?.bg_color || '#212121',
 			paper: TelegramTheme?.button_color || '#303030',
 		},
+		action: {
+			selected: '#fff',
+			disabled: '#777777',
+		},
 		text: { primary: '#fff' },
 		info: { main: TelegramTheme?.hint_color || '#ccc' },
 		success: { main: '#00ff0d' },

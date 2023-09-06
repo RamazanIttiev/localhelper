@@ -63,6 +63,8 @@ const router = createBrowserRouter(
 				element={<RestaurantProductDetailsContainer />}
 			/>
 
+			<Route path="feed" element={<div />} />
+
 			<Route
 				path="shopping-cart"
 				element={<CartContainer />}

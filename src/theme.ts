@@ -14,7 +14,7 @@ export const theme = createTheme({
 			selected: '#fff',
 			disabled: '#777777',
 		},
-		text: { primary: '#fff' },
+		text: { primary: TelegramTheme?.text_color || '#fff' },
 		info: { main: TelegramTheme?.hint_color || '#ccc' },
 		success: { main: '#00ff0d' },
 		error: { main: '#ff8a8a' },

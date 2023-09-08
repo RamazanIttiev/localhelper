@@ -27,7 +27,7 @@ export const ProductsList = () => {
 	return (
 		<>
 			{!category ? <HeaderSkeleton /> : <ProductsHeader category={category} />}
-			<Container sx={{ pt: 2 }} maxWidth={'sm'}>
+			<Container sx={{ pt: 2, pb: 6 }} maxWidth={'sm'}>
 				<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
 					{products ? (
 						products.map((product: Product) => {

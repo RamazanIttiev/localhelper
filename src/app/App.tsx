@@ -7,6 +7,7 @@ import { Layout } from 'app/Layout';
 import { CartContainer } from 'pages/cart/cart.container';
 import { Categories } from 'pages/categories/categories';
 import { CheckoutContainer } from 'pages/checkout/checkout.container';
+import { FeedContainer } from 'pages/feed/feed.container';
 import { ProductDetailsContainer } from 'pages/productDetails/product-details.container';
 import { ProductsList } from 'pages/products-list/products-list';
 import { RestaurantProductDetailsContainer } from 'pages/restaurant/restaurant-product-details/restaurant-product-details.container';
@@ -14,6 +15,7 @@ import { RestaurantContainer } from 'pages/restaurant/restaurant.container';
 import { RestaurantsListContainer } from 'pages/restaurants-list/restaurants.container';
 
 import { categoryLoader } from 'api/airtable/category';
+import { feedLoader } from 'api/airtable/feed';
 import { productsLoader } from 'api/airtable/products';
 import { restaurantLoader, restaurantProductsLoader, restaurantsLoader } from 'api/airtable/restaurant';
 
@@ -63,15 +65,12 @@ const router = createBrowserRouter(
 				element={<RestaurantProductDetailsContainer />}
 			/>
 
-			<Route path="feed" element={<div />} />
+			<Route path="feed" element={<FeedContainer />} loader={() => feedLoader(queryClient)} />
 
 			<Route
 				path="shopping-cart"
 				element={<CartContainer />}
-				loader={async () => {
-					const [restaurantsProducts] = await Promise.all([restaurantProductsLoader(queryClient)]);
-					return json({ restaurantsProducts });
-				}}
+				loader={() => restaurantProductsLoader(queryClient)}
 			/>
 
 			<Route path="checkout" loader={() => fetchTelegramUser()} element={<CheckoutContainer />} />

@@ -7,4 +7,4 @@ export type CategoryId =
 
 export type RestaurantId = 'recLjSkSDRH76OSn7' | 'recDaTRCa0i6vXlMq' | 'recMfHiZy6XIJ9B7W' | 'receAwG5pK2w7PrzG';
 
-export type AirtableData = 'Products' | 'Category' | 'Restaurants' | 'Restaurant' | 'RestaurantProducts';
+export type AirtableData = 'Products' | 'Category' | 'Restaurants' | 'Restaurant' | 'RestaurantProducts' | 'Feed';

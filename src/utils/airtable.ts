@@ -69,5 +69,7 @@ export const getAirtableUrl = (airtableData: AirtableData, category?: string, re
 				`${process.env.REACT_APP_AIRTABLE_URL}/Products?filterByFormula=AND(NOT({restaurant}=BLANK()), {restaurant}='${restaurant}')` ||
 				''
 			);
+		case 'Feed':
+			return `${process.env.REACT_APP_AIRTABLE_URL}/Feed` || '';
 	}
 };

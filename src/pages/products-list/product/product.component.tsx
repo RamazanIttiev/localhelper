@@ -7,21 +7,15 @@ import { Box, Card, CardContent, Typography } from '@mui/material';
 
 import { Product } from 'pages/products-list/product/product.model';
 
-import { ErrorType } from 'models/error.model';
-
-import { isUserAgentTelegram } from 'utils/deviceInfo';
-
 import { setHaptic } from 'actions/webApp-actions';
 
 interface Props {
 	flowId: string;
-	loading: boolean;
 	product: Product;
-	errorState: ErrorType;
-	handleProductOrder: () => Promise<Response | undefined>;
+	handleClick: () => void;
 }
 
-export const ProductComponent = ({ flowId, loading, product, errorState, handleProductOrder }: Props) => {
+export const ProductComponent = ({ flowId, product, handleClick }: Props) => {
 	return (
 		<>
 			<Card
@@ -82,14 +76,7 @@ export const ProductComponent = ({ flowId, loading, product, errorState, handleP
 						</Typography>
 					</CardContent>
 				</Link>
-				{isUserAgentTelegram && (
-					<LoaderButton
-						loading={loading}
-						errorState={errorState}
-						text={`${product.price} Rs`}
-						handleClick={handleProductOrder}
-					/>
-				)}
+				{<LoaderButton text={`${product.price} Rs`} handleClick={handleClick} />}
 			</Card>
 		</>
 	);

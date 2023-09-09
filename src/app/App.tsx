@@ -10,6 +10,7 @@ import { CheckoutContainer } from 'pages/checkout/checkout.container';
 import { FeedContainer } from 'pages/feed/feed.container';
 import { ProductDetailsContainer } from 'pages/productDetails/product-details.container';
 import { ProductsList } from 'pages/products-list/products-list';
+import { RestaurantCheckoutContainer } from 'pages/restaurant-checkout/restaurant-checkout.container';
 import { RestaurantProductDetailsContainer } from 'pages/restaurant/restaurant-product-details/restaurant-product-details.container';
 import { RestaurantContainer } from 'pages/restaurant/restaurant.container';
 import { RestaurantsListContainer } from 'pages/restaurants-list/restaurants.container';
@@ -73,7 +74,8 @@ const router = createBrowserRouter(
 				loader={() => restaurantProductsLoader(queryClient)}
 			/>
 
-			<Route path="checkout" loader={() => fetchTelegramUser()} element={<CheckoutContainer />} />
+			<Route path="checkout" loader={() => fetchTelegramUser()} element={<RestaurantCheckoutContainer />} />
+			<Route path=":categoryId/:productId/checkout" element={<CheckoutContainer />} />
 		</Route>,
 	),
 );

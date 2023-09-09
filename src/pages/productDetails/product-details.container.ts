@@ -1,9 +1,8 @@
 import { createElement, useCallback, useEffect, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DefaultProductModel } from 'pages/products-list/product/product.model';
 
-import { handleOrder } from 'actions/global-actions';
 import {
 	handleMainButton,
 	hideMainButton,
@@ -20,39 +19,33 @@ interface RouteState {
 }
 
 export const ProductDetailsContainer = () => {
+	const navigate = useNavigate();
+
 	const { state } = useLocation();
 	const routeState: RouteState = state;
-
+	console.log(location);
 	const flowId = useMemo(() => routeState.flowId, [routeState.flowId]);
 	const product = useMemo(() => routeState.product, [routeState.product]);
 
-	const handleProductOrder = useCallback(() => {
-		return handleOrder(
-			flowId,
-			{
-				itemName: product.title,
-				placeNumber: product?.contact,
-				placeCoordinates: product?.coordinates,
+	const handleClick = useCallback(() => {
+		navigate(`checkout`, {
+			state: {
+				flowId,
+				product,
 			},
-			() => {
-				console.log();
-			},
-			() => {
-				console.log();
-			},
-		);
-	}, [flowId, product.contact, product.coordinates, product.title]);
+		});
+	}, [flowId, navigate, product]);
 
 	useEffect(() => {
 		showMainButton();
 		setMainButtonText('Order');
-		handleMainButton(handleProductOrder);
+		handleMainButton(handleClick);
 
 		return () => {
 			hideMainButton();
-			removeMainButtonEvent(handleProductOrder);
+			removeMainButtonEvent(handleClick);
 		};
-	}, [handleProductOrder]);
+	}, [handleClick]);
 
 	return createElement(ProductDetails, { product });
 };

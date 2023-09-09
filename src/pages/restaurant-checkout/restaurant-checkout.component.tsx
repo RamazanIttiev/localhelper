@@ -16,7 +16,7 @@ import { UserData } from 'models/user.model';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 
-import { SaveInfoField, SaveInfoWrapper } from './checkout.styled';
+import { SaveInfoField, SaveInfoWrapper } from './restaurant-checkout.styled';
 
 interface Props {
 	saveInfo?: boolean;
@@ -29,7 +29,7 @@ interface Props {
 	handleSaveInfo: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Checkout = ({
+export const RestaurantCheckoutComponent = ({
 	errors,
 	register,
 	onSubmit,

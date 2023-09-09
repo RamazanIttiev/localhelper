@@ -17,11 +17,6 @@ import transfer from 'assets/transfer.webp';
 
 import { categories } from './mock/categories';
 
-interface Category {
-	title: string;
-	image: string;
-}
-
 export const Categories = () => {
 	const { pathname } = useLocation();
 	const [geolocation, setGeolocation] = useLocalStorage<GeoLocationProps | null>('geolocation', {
@@ -64,7 +59,7 @@ export const Categories = () => {
 				spacing={4}
 				sx={{ pt: pathname === '/' ? 3 : 0 }}>
 				{!isIndia &&
-					categories.map(({ title, image }: Category) => {
+					categories.map(({ title, image }) => {
 						return <Category key={title} isLink title={title} image={image} />;
 					})}
 				<Category title={'Exchange'} image={exchange} flowId={'ZGw6MTI3Mjgx'} userCountry={userCountry} />

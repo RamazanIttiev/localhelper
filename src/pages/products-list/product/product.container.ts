@@ -1,48 +1,29 @@
-import { createElement, FC, useCallback, useEffect, useState } from 'react';
+import { createElement, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { ProductComponent } from 'pages/products-list/product/product.component';
 import { Product } from 'pages/products-list/product/product.model';
 
-import { ErrorType } from 'models/error.model';
-
-import { clearResponseMessage, handleOrder } from 'actions/global-actions';
-
-interface ProductContainerProps {
+interface Props {
 	flowId: string;
 	product: Product;
 }
 
-export const ProductContainer: FC<ProductContainerProps> = ({ flowId, product }) => {
-	const [loading, setLoading] = useState(false);
-	const [errorState, setErrorState] = useState<ErrorType>({
-		isError: null,
-	});
+export const ProductContainer = ({ flowId, product }: Props) => {
+	const navigate = useNavigate();
 
-	useEffect(() => {
-		clearResponseMessage(errorState, handleError);
-	}, [errorState]);
-
-	const handleLoading = (value: boolean) => setLoading(value);
-	const handleError = (value: ErrorType) => setErrorState(value);
-
-	const handleProductOrder = useCallback(() => {
-		return handleOrder(
-			flowId,
-			{
-				itemName: product.title,
-				placeNumber: product?.contact,
-				placeCoordinates: product?.coordinates,
+	const handleClick = useCallback(() => {
+		navigate(`${product.title}/checkout`, {
+			state: {
+				flowId,
+				product,
 			},
-			handleLoading,
-			handleError,
-		);
-	}, [flowId, product?.contact, product?.coordinates, product.title]);
+		});
+	}, [flowId, navigate, product]);
 
 	return createElement(ProductComponent, {
 		flowId,
 		product,
-		loading,
-		errorState,
-		handleProductOrder,
+		handleClick,
 	});
 };

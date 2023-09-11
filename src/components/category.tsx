@@ -1,9 +1,13 @@
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CategoryDialog } from './categoryDialog';
-import { setHaptic } from '../actions/webApp-actions';
-import { getServicesRoute } from '../utils/restaurant';
+
 import { Box, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+
+import { getServicesRoute } from 'utils/restaurant';
+
+import { setHaptic } from 'actions/webApp-actions';
+
+import { CategoryDialog } from './categoryDialog';
 
 interface CategoryProps {
 	title: string;
@@ -28,7 +32,7 @@ export const Category: FC<CategoryProps> = ({ title, image, isLink = false, flow
 
 	return (
 		<>
-			<Grid item xs={5} md={4} key={title} onClick={() => setHaptic('light')}>
+			<Grid item xs={5} sm={4} md={4} key={title} onClick={() => setHaptic('light')}>
 				<Card
 					onClick={isLink ? undefined : handleOpen}
 					sx={{
@@ -42,7 +46,7 @@ export const Category: FC<CategoryProps> = ({ title, image, isLink = false, flow
 							<Box
 								component={'img'}
 								src={image}
-								alt={title}
+								alt={`${title} category`}
 								fontSize="small"
 								sx={{
 									width: '7rem',

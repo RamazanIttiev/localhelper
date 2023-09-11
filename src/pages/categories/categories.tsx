@@ -1,47 +1,70 @@
-import React, { useEffect, useState } from 'react';
-import { categories } from './mock/categories';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import { Container, Grid } from '@mui/material';
-import { Category } from '../../components/category';
-import { getGeolocation } from '../../api/geolocation';
-import { useReactRouter } from '../../hooks/useReactRouter';
-import { COUNTRY_CODE, GeoLocationProps } from '../../models/geolocation.model';
 
-import bonus from '../../assets/bonus.webp';
-import exchange from '../../assets/exchange.webp';
-import transfer from '../../assets/transfer.webp';
+import { useLocalStorage } from 'usehooks-ts';
 
-interface CategoryModel {
+import { Category } from 'components/category';
+
+import { GeoLocationProps } from 'models/geolocation.model';
+
+import { getGeolocation } from 'api/geolocation';
+
+import bonus from 'assets/bonus.webp';
+import exchange from 'assets/exchange.webp';
+import transfer from 'assets/transfer.webp';
+
+import { categories } from './mock/categories';
+
+interface Category {
 	title: string;
 	image: string;
 }
 
 export const Categories = () => {
-	const { pathname } = useReactRouter();
-	const [geolocation, setGeolocation] = useState<GeoLocationProps | undefined>();
+	const { pathname } = useLocation();
+	const [geolocation, setGeolocation] = useLocalStorage<GeoLocationProps | null>('geolocation', {
+		country_code2: 'LK',
+	});
 
 	useEffect(() => {
+		const abortController = new AbortController();
+
 		const fetchGeolocation = async () => {
 			try {
-				const geo = await getGeolocation();
-				setGeolocation(geo);
+				if (geolocation === null) {
+					const geo = await getGeolocation();
+					setGeolocation(geo);
+				} else return;
 			} catch (error) {
 				console.log(error);
 			}
 		};
 
 		fetchGeolocation().catch(error => error);
-	}, []);
 
-	const isIndia = geolocation?.country_code2 === COUNTRY_CODE.India;
+		return () => {
+			abortController.abort(); // Cancel the request if component unmounts
+		};
+	}, [geolocation, setGeolocation]);
+
+	const isIndia = geolocation?.country_code2 === 'IN';
 	const userCountry = geolocation?.country_code2;
 
 	if (!geolocation) return null;
 
 	return (
 		<Container maxWidth={'md'} sx={{ pb: 1 }}>
-			<Grid container justifyContent={'center'} spacing={4} sx={{ pt: pathname === '/' ? 3 : 0 }}>
+			<Grid
+				container
+				columns={10}
+				max-width={'sm'}
+				justifyContent={'center'}
+				spacing={4}
+				sx={{ pt: pathname === '/' ? 3 : 0 }}>
 				{!isIndia &&
-					categories.map(({ title, image }: CategoryModel) => {
+					categories.map(({ title, image }: Category) => {
 						return <Category key={title} isLink title={title} image={image} />;
 					})}
 				<Category title={'Exchange'} image={exchange} flowId={'ZGw6MTI3Mjgx'} userCountry={userCountry} />

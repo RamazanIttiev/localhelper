@@ -1,6 +1,7 @@
 import React from 'react';
+import { HintTitle } from 'reactkit/hintTitle';
+
 import { Box, Typography, useTheme } from '@mui/material';
-import { HintTitle } from '../../../components/hintTitle';
 
 interface OrderInfoProps {
 	payment?: string;

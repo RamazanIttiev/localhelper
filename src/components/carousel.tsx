@@ -1,47 +1,22 @@
 import React from 'react';
-import { Box, useTheme } from '@mui/material';
 import { isDesktop } from 'react-device-detect';
 import Carousel from 'react-material-ui-carousel';
-import { IconBadge } from '../reactkit/iconBadge';
-import { ProductModel } from '../models/product.model';
-import { isUserAgentTelegram } from '../utils/deviceInfo';
+import { IconBadges } from 'reactkit/iconBadges';
 
-interface CarouselProps {
-	selectedProduct: ProductModel;
+import { Box, useTheme } from '@mui/material';
+
+import { isUserAgentTelegram } from 'utils/deviceInfo';
+
+interface Props {
+	title: string;
+	iconBadges: { url: string }[] | undefined;
+	images: { url: string }[];
 }
 
-export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
+export const MuiCarousel = ({ title, iconBadges, images }: Props) => {
 	const theme = useTheme();
 
-	return selectedProduct.image.length === 1 ? (
-		<>
-			<Box
-				component={'img'}
-				src={selectedProduct.image[0].url}
-				alt={selectedProduct.title}
-				width={'100%'}
-				sx={{
-					borderRadius: 3,
-					height: '20rem',
-					margin: '0 auto',
-					display: 'block',
-					objectFit: 'cover',
-				}}
-			/>
-			{selectedProduct.infoBadges?.map(icon => (
-				<IconBadge
-					key={icon}
-					icon={icon}
-					containerStyles={{
-						position: 'absolute',
-						top: '0.5rem',
-						left: '1.5rem',
-					}}
-					iconStyles={{ margin: '0 2px' }}
-				/>
-			))}
-		</>
-	) : (
+	return (
 		<Carousel
 			autoPlay={false}
 			stopAutoPlayOnHover
@@ -50,13 +25,13 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 			navButtonsAlwaysVisible={!isUserAgentTelegram && isDesktop}
 			indicatorIconButtonProps={{ style: { margin: '0 0.3rem' } }}
 			activeIndicatorIconButtonProps={{ style: { color: theme.palette.background.paper } }}>
-			{selectedProduct.image.map(({ url }) => {
+			{images.map(({ url }) => {
 				return (
-					<React.Fragment key={selectedProduct.title}>
+					<React.Fragment key={title}>
 						<Box
 							component={'img'}
 							src={url}
-							alt={selectedProduct.title}
+							alt={title}
 							width={'100%'}
 							sx={{
 								borderRadius: 3,
@@ -66,18 +41,7 @@ export const MuiCarousel = ({ selectedProduct }: CarouselProps) => {
 								objectFit: 'cover',
 							}}
 						/>
-						{selectedProduct.infoBadges?.map(icon => (
-							<IconBadge
-								key={icon}
-								icon={icon}
-								containerStyles={{
-									position: 'absolute',
-									top: '0.5rem',
-									left: '0.5rem',
-								}}
-								iconStyles={{ margin: '0 2px' }}
-							/>
-						))}
+						<IconBadges iconBadges={iconBadges} />
 					</React.Fragment>
 				);
 			})}

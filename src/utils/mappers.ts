@@ -1,7 +1,8 @@
-import { isWorkingHour } from './restaurant';
-import { RestaurantModel } from '../models/product.model';
+import { Restaurant } from 'pages/restaurant/restaurant.model';
 
-export const mapRestaurants = (restaurants: RestaurantModel[] | undefined): RestaurantModel[] => {
+import { isWorkingHour } from './restaurant';
+
+export const mapRestaurants = (restaurants: Restaurant[] | undefined): Restaurant[] => {
 	return restaurants
 		? restaurants.map(restaurant => ({
 				...restaurant,
@@ -12,7 +13,7 @@ export const mapRestaurants = (restaurants: RestaurantModel[] | undefined): Rest
 		: [];
 };
 
-export const mapRestaurant = (restaurant: RestaurantModel): RestaurantModel => {
+export const mapRestaurant = (restaurant: Restaurant): Restaurant => {
 	return {
 		...restaurant,
 		// products: products.filter(product => isFood(product) && product.restaurant?.[0] === restaurant.id),
@@ -24,30 +25,4 @@ export const mapRestaurant = (restaurant: RestaurantModel): RestaurantModel => {
 
 export const mapRecords = (records: any[]) => {
 	return records.map(item => item.fields);
-};
-
-export const mapInfoBadges = (badge: string) => {
-	switch (badge) {
-		case 'ac': {
-			return 'ac_unit';
-		}
-		case 'wifi': {
-			return 'wifi';
-		}
-		case 'pool': {
-			return 'pool';
-		}
-		case 'breakfast': {
-			return 'restaurant';
-		}
-		case 'vegetarian': {
-			return 'grass';
-		}
-		case 'spicy': {
-			return 'local_fire_department';
-		}
-		case 'tv': {
-			return 'tv';
-		}
-	}
 };

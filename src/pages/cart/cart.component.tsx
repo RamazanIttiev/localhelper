@@ -1,28 +1,24 @@
 import React from 'react';
-import { theme } from '../../theme';
-import { Box } from '@mui/material';
-import { CartList } from './cart-list';
-import { CartHeader } from './cartHeader';
-import { LoaderButton } from '../../reactkit/loaderButton';
-import { isUserAgentTelegram } from '../../utils/deviceInfo';
 
-interface CartProps {
-	restaurantTitle?: string;
-	isRestaurantWorking?: boolean;
-	restaurantWorkingTime?: string;
-	navigateToCheckout: () => void;
+import { Box, Container } from '@mui/material';
+
+import { theme } from 'theme';
+
+import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+
+import { CartHeader } from './components/cart-header';
+import { CartList } from './components/cart-list';
+
+interface Props {
+	restaurantTitle: string;
+	cartList: RestaurantProduct[];
 }
 
-export const CartUI = ({
-	restaurantTitle,
-	navigateToCheckout,
-	isRestaurantWorking,
-	restaurantWorkingTime,
-}: CartProps) => {
+export const Cart = ({ cartList, restaurantTitle }: Props) => {
 	return (
-		<>
+		<Container maxWidth={'sm'} sx={{ pb: 5 }}>
 			<CartHeader restaurantTitle={restaurantTitle} />
-			<CartList />
+			<CartList cartList={cartList} restaurantTitle={restaurantTitle} />
 			<Box
 				sx={{
 					left: 0,
@@ -31,16 +27,8 @@ export const CartUI = ({
 					position: 'fixed',
 					padding: 2,
 					backgroundColor: theme.palette.background.default,
-				}}>
-				{!isUserAgentTelegram && (
-					<LoaderButton
-						isMainButton
-						disabled={!isRestaurantWorking}
-						handleClick={navigateToCheckout}
-						text={isRestaurantWorking ? 'Checkout' : `Working time - ${restaurantWorkingTime}`}
-					/>
-				)}
-			</Box>
-		</>
+				}}
+			/>
+		</Container>
 	);
 };

@@ -1,14 +1,22 @@
 {
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  },
   "compilerOptions": {
+    "outDir": "dist",
+    "baseUrl": "src",
+    "rootDir": "src",
     "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext",
+      "esnext"
     ],
     "typeRoots": [
       "./node_modules/@types",
-      "./node_modules/telegram-webapps-types",
+      "./node_modules/telegram-webapps-types"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -23,8 +31,46 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "paths": {
+      "*": [
+        "./*"
+      ],
+      "actions/*": [
+        "./actions/*"
+      ],
+      "api/*": [
+        "./api/*"
+      ],
+      "app/*": [
+        "./app/*"
+      ],
+      "assets/*": [
+        "./assets/*"
+      ],
+      "components/*": [
+        "./components/*"
+      ],
+      "context/*": [
+        "./context/*"
+      ],
+      "models/*": [
+        "./models/*"
+      ],
+      "pages/*": [
+        "./pages/*"
+      ],
+      "reactkit/*": [
+        "./reactkit/*"
+      ],
+      "utils/*": [
+        "./utils/*"
+      ],
+      "theme": [
+        "./theme"
+      ]
+    }
   },
   "include": [
-    "src"
+    "src/**/*"
   ]
 }

@@ -1,4 +1,4 @@
-import { apiRequest } from './api';
+import { apiRequest } from 'api/api';
 
 export const getGeolocation = async () => {
 	const ipKey = process.env.REACT_APP_GEO_API_KEY || '';

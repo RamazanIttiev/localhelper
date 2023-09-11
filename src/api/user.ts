@@ -1,7 +1,9 @@
-import { mapRecords } from '../utils/mappers';
-import { UserData, UserDB } from '../models/user.model';
-import { Telegram } from '../app/App';
-import { apiRequest } from './api';
+import { Telegram } from 'app/App';
+import { mapRecords } from 'utils/mappers';
+
+import { UserData, UserDB } from 'models/user.model';
+
+import { apiRequest } from 'api/api';
 
 const findUser = (users: UserDB[]) => {
 	return users.find(user => user.id === Telegram.initDataUnsafe.user?.id.toString());

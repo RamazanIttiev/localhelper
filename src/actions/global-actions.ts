@@ -1,6 +1,8 @@
-import { ErrorType } from '../models/error.model';
+import { ErrorType } from 'models/error.model';
+
+import { sendWebAppDeepLink } from 'api/telegram';
+
 import { setHaptic } from './webApp-actions';
-import { sendWebAppDeepLink } from '../api/telegram';
 
 export const handleOrder = async (
 	flowId: string,
@@ -8,7 +10,7 @@ export const handleOrder = async (
 	handleLoading: (value: boolean) => void,
 	handleError: (value: ErrorType) => void,
 ) => {
-	setHaptic('light');
+	setHaptic('soft');
 	handleLoading(true);
 	try {
 		const { result } = await sendWebAppDeepLink(flowId, order);

@@ -1,17 +1,25 @@
-import React from 'react';
-import { Layout } from './Layout';
-import { Products } from '../pages/products/products';
-import { Categories } from '../pages/categories/categories';
-import { RestaurantsContainer } from '../pages/restaurants/restaurants.container';
-import { createBrowserRouter, createRoutesFromElements, json, Route, RouterProvider } from 'react-router-dom';
-import { ProductDetailsContainer } from '../pages/productDetails/productDetails.container';
-import { CheckoutContainer } from '../pages/checkout/checkout.container';
-import { fetchTelegramUser } from '../actions/webApp-actions';
-import { CartContainer } from '../pages/cart/cart.container';
-import { categoryLoader } from '../api/airtable/category';
 import { QueryClient } from '@tanstack/react-query';
-import { productsLoader } from '../api/airtable/products';
-import { restaurantLoader, restaurantProductsLoader, restaurantsLoader } from '../api/airtable/restaurant';
+import React from 'react';
+import { createBrowserRouter, createRoutesFromElements, json, Route, RouterProvider } from 'react-router-dom';
+
+import { Layout } from 'app/Layout';
+
+import { CartContainer } from 'pages/cart/cart.container';
+import { Categories } from 'pages/categories/categories';
+import { CheckoutContainer } from 'pages/checkout/checkout.container';
+import { FeedContainer } from 'pages/feed/feed.container';
+import { ProductDetailsContainer } from 'pages/productDetails/product-details.container';
+import { ProductsList } from 'pages/products-list/products-list';
+import { RestaurantProductDetailsContainer } from 'pages/restaurant/restaurant-product-details/restaurant-product-details.container';
+import { RestaurantContainer } from 'pages/restaurant/restaurant.container';
+import { RestaurantsListContainer } from 'pages/restaurants-list/restaurants.container';
+
+import { categoryLoader } from 'api/airtable/category';
+import { feedLoader } from 'api/airtable/feed';
+import { productsLoader } from 'api/airtable/products';
+import { restaurantLoader, restaurantProductsLoader, restaurantsLoader } from 'api/airtable/restaurant';
+
+import { fetchTelegramUser } from 'actions/webApp-actions';
 
 const queryClient = new QueryClient();
 export const Telegram = window.Telegram.WebApp;
@@ -24,7 +32,7 @@ const router = createBrowserRouter(
 			<Route index element={<Categories />} />
 			<Route
 				path=":categoryId"
-				element={<Products />}
+				element={<ProductsList />}
 				loader={async () => {
 					const [category, products] = await Promise.all([
 						categoryLoader(queryClient),
@@ -36,12 +44,12 @@ const router = createBrowserRouter(
 
 			<Route
 				path=":categoryId/restaurants"
-				element={<RestaurantsContainer />}
+				element={<RestaurantsListContainer />}
 				loader={() => restaurantsLoader(queryClient)}
 			/>
 			<Route
 				path=":categoryId/restaurants/:restaurantId"
-				element={<Products />}
+				element={<RestaurantContainer />}
 				loader={async () => {
 					const [restaurants, restaurantsProducts] = await Promise.all([
 						restaurantLoader(queryClient),
@@ -52,9 +60,18 @@ const router = createBrowserRouter(
 			/>
 
 			<Route path=":categoryId/:productId" element={<ProductDetailsContainer />} />
-			<Route path=":categoryId/restaurants/:restaurantId/:productId" element={<ProductDetailsContainer />} />
+			<Route
+				path=":categoryId/restaurants/:restaurantId/:productId"
+				element={<RestaurantProductDetailsContainer />}
+			/>
 
-			<Route path="shopping-cart" element={<CartContainer />} />
+			<Route path="feed" element={<FeedContainer />} loader={() => feedLoader(queryClient)} />
+
+			<Route
+				path="shopping-cart"
+				element={<CartContainer />}
+				loader={() => restaurantProductsLoader(queryClient)}
+			/>
 
 			<Route path="checkout" loader={() => fetchTelegramUser()} element={<CheckoutContainer />} />
 		</Route>,

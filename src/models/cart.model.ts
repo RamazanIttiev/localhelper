@@ -1,29 +1,28 @@
 import { ReactNode } from 'react';
-import { FoodExtraOptions, FoodModel, ProductModel } from './product.model';
+
+import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
 
 export interface ShoppingCartProviderProps {
 	children: ReactNode;
 }
 
 export interface ShoppingCartContextProps {
-	incrementCartAmount: (id: string, restaurant: string[], extraOptions?: FoodExtraOptions) => void;
-	decrementCartAmount: (id: string) => void;
-	clearCart: () => void;
-	cartItems: CartItem[];
-	getCartTotalAmount: (products: ProductModel[]) => number;
 	isCartEmpty: boolean;
-	getCartOrder: (products: ProductModel[]) => string;
+	cartItems: CartItem[];
+	clearCart: () => void;
 	getItemAmount: (id: string) => number;
+	decrementCartAmount: (id: string) => void;
+	incrementCartAmount: (id: string, restaurantId: string) => void;
+	getCartOrder: (products: RestaurantProduct[]) => string;
+	getCartTotalAmount: (products: RestaurantProduct[]) => number;
 	getOrderCheckout: (
-		products: ProductModel[],
-	) => (Pick<FoodModel, 'title' | 'amount' | 'image' | 'price'> | undefined)[];
-	findProduct: (products: ProductModel[], id: string) => FoodModel | undefined;
-	addNewProduct: (product: CartItem) => void;
+		products: RestaurantProduct[],
+	) => (Pick<RestaurantProduct, 'title' | 'amount' | 'image' | 'price'> | undefined)[];
+	getCartRestaurant: () => string;
 }
 
 export interface CartItem {
 	id: string;
 	amount: number;
-	restaurant: string[];
-	extraOptions?: FoodExtraOptions;
+	restaurantTitle: string;
 }

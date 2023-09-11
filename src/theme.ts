@@ -1,5 +1,6 @@
 import { createTheme } from '@mui/material';
-import { TelegramTheme } from './app/App';
+
+import { TelegramTheme } from 'app/App';
 
 export const theme = createTheme({
 	palette: {
@@ -9,7 +10,11 @@ export const theme = createTheme({
 			default: TelegramTheme?.bg_color || '#212121',
 			paper: TelegramTheme?.button_color || '#303030',
 		},
-		text: { primary: '#fff' },
+		action: {
+			selected: '#fff',
+			disabled: '#777777',
+		},
+		text: { primary: TelegramTheme?.text_color || '#fff' },
 		info: { main: TelegramTheme?.hint_color || '#ccc' },
 		success: { main: '#00ff0d' },
 		error: { main: '#ff8a8a' },

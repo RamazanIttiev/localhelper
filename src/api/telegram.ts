@@ -1,5 +1,6 @@
-import { Telegram } from '../app/App';
-import { apiRequest } from './api';
+import { Telegram } from 'app/App';
+
+import { apiRequest } from 'api/api';
 
 interface SendData {
 	range: number[];

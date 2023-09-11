@@ -1,5 +1,11 @@
-import React, { useEffect } from 'react';
 import { Global } from '@emotion/react';
+import React, { useEffect } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+
+import { useDocumentTitle } from 'usehooks-ts';
+
+import { Footer } from 'components/footer';
+
 import {
 	enableWebAppClosingConfirmation,
 	expandWebApp,
@@ -7,15 +13,13 @@ import {
 	hideBackButton,
 	showBackButton,
 	webAppIsReady,
-} from '../actions/webApp-actions';
-import { useDocumentTitle } from 'usehooks-ts';
-import { useReactRouter } from '../hooks/useReactRouter';
-import { ShoppingCartProvider } from '../context/cart.context';
-import { Outlet, useNavigate } from 'react-router-dom';
+} from 'actions/webApp-actions';
+
+import { ShoppingCartProvider } from 'context/cart.context';
 
 export const Layout = () => {
 	const navigate = useNavigate();
-	const { pathname } = useReactRouter();
+	const { pathname } = useLocation();
 
 	useDocumentTitle('LocalHelper');
 
@@ -39,6 +43,7 @@ export const Layout = () => {
 
 			<ShoppingCartProvider>
 				<Outlet />
+				<Footer />
 			</ShoppingCartProvider>
 		</>
 	);

@@ -5,7 +5,7 @@ import { Container, Grid } from '@mui/material';
 
 import { useLocalStorage } from 'usehooks-ts';
 
-import { Category } from 'components/category';
+import { CategoryCard } from 'pages/categories/category-card/category-card';
 
 import { GeoLocationProps } from 'models/geolocation.model';
 
@@ -60,12 +60,17 @@ export const Categories = () => {
 				sx={{ pt: pathname === '/' ? 3 : 0 }}>
 				{!isIndia &&
 					categories.map(({ title, image }) => {
-						return <Category key={title} isLink title={title} image={image} />;
+						return <CategoryCard key={title} isLink title={title} image={image} />;
 					})}
-				<Category title={'Exchange'} image={exchange} flowId={'ZGw6MTI3Mjgx'} userCountry={userCountry} />
-				<Category title={'Bonus'} image={bonus} flowId={'ZGw6MTI3Mjc4'} />
+				<CategoryCard title={'Exchange'} image={exchange} flowId={'ZGw6MTI3Mjgx'} userCountry={userCountry} />
+				<CategoryCard title={'Bonus'} image={bonus} flowId={'ZGw6MTI3Mjc4'} />
 				{!isIndia && (
-					<Category title={'Transfer'} image={transfer} flowId={'ZGw6MTI1MDQ5'} userCountry={userCountry} />
+					<CategoryCard
+						title={'Transfer'}
+						image={transfer}
+						flowId={'ZGw6MTI1MDQ5'}
+						userCountry={userCountry}
+					/>
 				)}
 			</Grid>
 		</Container>

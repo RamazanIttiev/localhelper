@@ -1,13 +1,13 @@
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Box, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
+
+import { CategoryDialog } from 'components/categoryDialog';
 
 import { getServicesRoute } from 'utils/restaurant';
 
 import { setHaptic } from 'actions/webApp-actions';
-
-import { CategoryDialog } from './categoryDialog';
 
 interface CategoryProps {
 	title: string;
@@ -17,7 +17,7 @@ interface CategoryProps {
 	userCountry?: string;
 }
 
-export const Category: FC<CategoryProps> = ({ title, image, isLink = false, flowId = '', userCountry }) => {
+export const CategoryCard: FC<CategoryProps> = ({ title, image, isLink = false, flowId = '', userCountry }) => {
 	const [isOpened, setIsOpened] = useState(false);
 
 	const handleOpen = () => {
@@ -41,27 +41,34 @@ export const Category: FC<CategoryProps> = ({ title, image, isLink = false, flow
 						cursor: 'pointer',
 						background: 'inherit',
 					}}>
-					<Box component={isLink ? Link : Box} to={route}>
-						<CardMedia>
-							<Box
-								component={'img'}
-								src={image}
-								alt={`${title} category`}
-								fontSize="small"
-								sx={{
-									width: '7rem',
-									height: '7rem',
-									display: 'block',
-									margin: '0 auto',
-									borderRadius: '50%',
-								}}
-							/>
-						</CardMedia>
-						<CardContent sx={{ '&:last-child': { p: 0.5 }, mt: 1 }}>
+					<Box
+						component={isLink ? Link : Box}
+						to={route}
+						sx={{
+							background: '#404040d9',
+							display: 'flex',
+							borderRadius: '24px',
+							height: '7rem',
+							position: 'relative',
+						}}>
+						<CardContent sx={{ '&:last-child': { p: 0.5 } }}>
 							<Typography sx={{ textAlign: 'center', fontWeight: '600' }} component={'p'} variant="body1">
 								{title}
 							</Typography>
 						</CardContent>
+						<Box
+							component={'img'}
+							src={image}
+							alt={`${title} category`}
+							fontSize="small"
+							sx={{
+								height: '6rem',
+								display: 'block',
+								position: 'absolute',
+								bottom: '0',
+								right: '0',
+							}}
+						/>
 					</Box>
 				</Card>
 			</Grid>

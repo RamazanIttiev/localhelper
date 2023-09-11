@@ -12,7 +12,7 @@ import { isUserAgentTelegram } from 'utils/deviceInfo';
 
 import { useShoppingCart } from 'context/cart.context';
 
-import dishImage from 'assets/food.webp';
+import skeletonImage from 'assets/food.webp';
 
 import { RestaurantProduct } from '../restaurant-product/restaurant-product.model';
 import { Restaurant } from '../restaurant.model';
@@ -40,7 +40,7 @@ export const RestaurantProductDetails = ({ restaurantProduct, restaurant }: Prop
 					) : (
 						<Box
 							component={'img'}
-							src={dishImage}
+							src={skeletonImage}
 							alt={title}
 							width={'100%'}
 							sx={{

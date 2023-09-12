@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { BikesCheckoutContainer } from 'pages/checkout/bikes-checkout/bikes-checkout.container';
 import { RestaurantCheckoutContainer } from 'pages/checkout/restaurant-checkout/restaurant-checkout.container';
+import { ToursCheckoutContainer } from 'pages/checkout/tours-checkout/tours-checkout.container';
 import { TransferCheckoutContainer } from 'pages/checkout/transfer-checkout/transfer-checkout.container';
 
 export const CheckoutContainer = () => {
@@ -17,6 +18,9 @@ export const CheckoutContainer = () => {
 		}
 		case 'transfer': {
 			return createElement(TransferCheckoutContainer);
+		}
+		case 'tours': {
+			return createElement(ToursCheckoutContainer);
 		}
 		default: {
 			return createElement('');

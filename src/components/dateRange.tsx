@@ -8,7 +8,7 @@ import { Input } from 'reactkit/input';
 
 import { Box } from '@mui/material';
 
-import { BikesCheckoutModel } from 'pages/bikes-checkout/bikes-checkout.model';
+import { BikesCheckoutModel } from 'pages/checkout/bikes-checkout/bikes-checkout.model';
 
 interface Props {
 	errors: FieldErrors<BikesCheckoutModel>;

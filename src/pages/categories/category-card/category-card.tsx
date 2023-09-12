@@ -5,7 +5,7 @@ import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 
 import { CategoryDialog } from 'components/categoryDialog';
 
-import { getServicesRoute } from 'utils/restaurant';
+import { getServicesRoute } from 'utils/route';
 
 import { setHaptic } from 'actions/webApp-actions';
 
@@ -44,6 +44,7 @@ export const CategoryCard: FC<CategoryProps> = ({ title, image, isLink = false, 
 					<Box
 						component={isLink ? Link : Box}
 						to={route}
+						state={flowId}
 						sx={{
 							background: '#404040d9',
 							display: 'flex',

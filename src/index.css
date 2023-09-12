@@ -6,3 +6,7 @@ a {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+.datepicker {
+    width: 100%;
+}

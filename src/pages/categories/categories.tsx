@@ -66,6 +66,7 @@ export const Categories = () => {
 				<CategoryCard title={'Bonus'} image={bonus} flowId={'ZGw6MTI3Mjc4'} />
 				{!isIndia && (
 					<CategoryCard
+						isLink
 						title={'Transfer'}
 						image={transfer}
 						flowId={'ZGw6MTI1MDQ5'}

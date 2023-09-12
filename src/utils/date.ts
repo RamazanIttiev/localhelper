@@ -19,3 +19,10 @@ export const formatDaysText = (numDays: number) => {
 		return `days`;
 	}
 };
+
+export const filterPassedTime = (time: Date) => {
+	const currentDate = new Date();
+	const selectedDate = new Date(time);
+
+	return currentDate.getTime() < selectedDate.getTime();
+};

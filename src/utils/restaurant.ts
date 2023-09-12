@@ -1,14 +1,5 @@
 import { CartItem } from 'models/cart.model';
 
-export const getServicesRoute = (title: string) => {
-	switch (title) {
-		case 'Food':
-			return `${title.toLowerCase()}/restaurants`;
-		default:
-			return title.toLowerCase();
-	}
-};
-
 export const isWorkingHour = (open?: string, close?: string) => {
 	const now = new Date();
 	const sriLankaTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Colombo', hour12: false }));

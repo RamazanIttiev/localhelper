@@ -1,7 +1,9 @@
 import React, { ReactNode } from 'react';
 import { UseFormRegister } from 'react-hook-form';
+
 import { OutlinedTextFieldProps, styled, TextField } from '@mui/material';
-import { TelegramTheme } from '../app/App';
+
+import { TelegramTheme } from 'app/App';
 
 const StyledSelect = styled(TextField)(
 	`
@@ -16,6 +18,8 @@ const StyledSelect = styled(TextField)(
 	({ theme }) => ({
 		'& .MuiOutlinedInput-root': {
 			color: theme.palette.text,
+			height: '56px',
+
 			'&-input': {
 				padding: '13px 14px',
 			},

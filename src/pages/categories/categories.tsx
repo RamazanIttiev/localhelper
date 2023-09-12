@@ -62,7 +62,13 @@ export const Categories = () => {
 					categories.map(({ title, image }) => {
 						return <CategoryCard key={title} isLink title={title} image={image} />;
 					})}
-				<CategoryCard title={'Exchange'} image={exchange} flowId={'ZGw6MTI3Mjgx'} userCountry={userCountry} />
+				<CategoryCard
+					title={'Exchange'}
+					isLink
+					image={exchange}
+					flowId={'ZGw6MTI3Mjgx'}
+					userCountry={userCountry}
+				/>
 				<CategoryCard title={'Bonus'} image={bonus} flowId={'ZGw6MTI3Mjc4'} />
 				{!isIndia && (
 					<CategoryCard

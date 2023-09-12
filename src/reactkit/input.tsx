@@ -21,5 +21,12 @@ export const Input = styled(TextField)(
 				borderWidth: '1px',
 			},
 		},
+
+		'& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+			display: 'none',
+		},
+		'& input[type=number]': {
+			MozAppearance: 'textfield',
+		},
 	}),
 );

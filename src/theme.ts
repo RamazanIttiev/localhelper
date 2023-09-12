@@ -33,8 +33,8 @@ export const theme = createTheme({
 			fontSize: '1rem',
 		},
 		body2: {
-			fontSize: '0.75rem',
-			letterSpacing: '1px',
+			fontSize: '0.8rem',
+			letterSpacing: '1.5px',
 			color: TelegramTheme?.hint_color || '#ccc',
 		},
 		caption: {

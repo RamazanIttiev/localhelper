@@ -7,6 +7,8 @@ import { Box, Card, CardContent, Typography } from '@mui/material';
 
 import { Product } from 'pages/products-list/product/product.model';
 
+import { isUserAgentTelegram } from 'utils/deviceInfo';
+
 import { setHaptic } from 'actions/webApp-actions';
 
 interface Props {
@@ -76,7 +78,7 @@ export const ProductComponent = ({ flowId, product, handleClick }: Props) => {
 						</Typography>
 					</CardContent>
 				</Link>
-				{<LoaderButton text={`${product.price} Rs`} handleClick={handleClick} />}
+				{isUserAgentTelegram && <LoaderButton text={`${product.price} Rs`} handleClick={handleClick} />}
 			</Card>
 		</>
 	);

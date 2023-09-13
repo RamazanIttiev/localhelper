@@ -1,4 +1,4 @@
-import { createElement, useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
 
@@ -75,11 +75,13 @@ export const BikesCheckoutContainer = () => {
 		};
 	}, [handleForm]);
 
-	return createElement(BikesCheckoutComponent, {
-		product,
-		control,
-		register,
-		errors,
-		rentPeriod,
-	});
+	return (
+		<BikesCheckoutComponent
+			errors={errors}
+			product={product}
+			control={control}
+			register={register}
+			rentPeriod={rentPeriod}
+		/>
+	);
 };

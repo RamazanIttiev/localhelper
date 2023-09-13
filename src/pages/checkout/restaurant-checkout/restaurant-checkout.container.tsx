@@ -1,4 +1,4 @@
-import React, { createElement, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -125,14 +125,16 @@ export const RestaurantCheckoutContainer = () => {
 		};
 	}, [onSubmit]);
 
-	return createElement(RestaurantCheckoutComponent, {
-		cartList,
-		cartTotalAmount,
-		register,
-		errors,
-		onSubmit,
-		saveInfo,
-		handleSaveInfo,
-		restaurantTitle: restaurant.title,
-	});
+	return (
+		<RestaurantCheckoutComponent
+			cartList={cartList}
+			cartTotalAmount={cartTotalAmount}
+			register={register}
+			errors={errors}
+			onSubmit={onSubmit}
+			saveInfo={saveInfo}
+			handleSaveInfo={handleSaveInfo}
+			restaurantTitle={restaurant.title}
+		/>
+	);
 };

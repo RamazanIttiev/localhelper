@@ -96,7 +96,7 @@ export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }:
 						<InfoBadge text={'We are closed'} />
 					)
 				) : (
-					<InfoBadge text={`${price.toString()} Rs`} />
+					<InfoBadge text={`${price.toString()} Rs`} sx={{ marginTop: '0.5rem' }} />
 				)}
 			</Card>
 		</>

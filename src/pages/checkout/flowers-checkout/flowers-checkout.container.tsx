@@ -1,4 +1,4 @@
-import { createElement, useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
 
@@ -64,9 +64,5 @@ export const FlowersCheckoutContainer = () => {
 		};
 	}, [handleForm]);
 
-	return createElement(FlowersCheckoutComponent, {
-		product,
-		register,
-		errors,
-	});
+	return <FlowersCheckoutComponent product={product} register={register} errors={errors} />;
 };

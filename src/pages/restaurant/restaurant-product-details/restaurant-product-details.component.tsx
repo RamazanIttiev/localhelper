@@ -1,5 +1,6 @@
 import React from 'react';
 import { InfoBadge } from 'reactkit/infoBadge';
+import { LoaderButton } from 'reactkit/loaderButton';
 
 import { Box, Card, CardActions, CardContent, CardMedia, Container, Typography } from '@mui/material';
 
@@ -9,6 +10,7 @@ import { AmountButtons } from 'components/amountButtons';
 import { MuiCarousel } from 'components/carousel';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
+import { openTelegram } from 'utils/service';
 
 import { useShoppingCart } from 'context/cart.context';
 
@@ -90,7 +92,10 @@ export const RestaurantProductDetails = ({ restaurantProduct, restaurant }: Prop
 						<InfoBadge text={'We are closed'} />
 					)
 				) : (
-					<InfoBadge text={`${price.toString()} Rs`} />
+					<>
+						<InfoBadge text={`${price.toString()} Rs`} />
+						<LoaderButton isMainButton text={'Order in telegram'} handleClick={openTelegram} />
+					</>
 				)}
 			</Card>
 		</Container>

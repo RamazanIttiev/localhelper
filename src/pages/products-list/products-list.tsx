@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { LoaderButton } from 'reactkit/loaderButton';
 
 import { Container, Grid } from '@mui/material';
 
@@ -9,6 +10,9 @@ import { Product } from 'pages/products-list/product/product.model';
 
 import { HeaderSkeleton } from 'components/headerSkeleton';
 import { ProductSkeleton } from 'components/productSkeleton';
+
+import { isUserAgentTelegram } from 'utils/deviceInfo';
+import { openTelegram } from 'utils/service';
 
 import { categoryQuery } from 'api/airtable/category';
 import { productsQuery } from 'api/airtable/products';
@@ -30,13 +34,19 @@ export const ProductsList = () => {
 			<Container sx={{ pt: 2, pb: 6 }} maxWidth={'sm'}>
 				<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
 					{products ? (
-						products.map((product: Product) => {
-							return (
-								<Grid item xs={6} md={5} key={product.id}>
-									<ProductContainer product={product} flowId={flowId} />
-								</Grid>
-							);
-						})
+						<>
+							{products.map((product: Product) => {
+								return (
+									<Grid item xs={6} md={5} key={product.id}>
+										<ProductContainer product={product} flowId={flowId} />
+									</Grid>
+								);
+							})}
+
+							{!isUserAgentTelegram && (
+								<LoaderButton isMainButton text={'Order in telegram'} handleClick={openTelegram} />
+							)}
+						</>
 					) : (
 						<ProductSkeleton />
 					)}

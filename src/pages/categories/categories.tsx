@@ -9,6 +9,8 @@ import { CategoryCard } from 'pages/categories/category-card/category-card';
 
 import { GeoLocationProps } from 'models/geolocation.model';
 
+import { isUserAgentTelegram } from 'utils/deviceInfo';
+
 import { getGeolocation } from 'api/geolocation';
 
 import bonus from 'assets/bonus.webp';
@@ -64,7 +66,7 @@ export const Categories = () => {
 					})}
 				<CategoryCard
 					title={'Exchange'}
-					isLink
+					isLink={isUserAgentTelegram}
 					image={exchange}
 					flowId={'ZGw6MTI3Mjgx'}
 					userCountry={userCountry}
@@ -72,7 +74,7 @@ export const Categories = () => {
 				<CategoryCard title={'Bonus'} image={bonus} flowId={'ZGw6MTI3Mjc4'} />
 				{!isIndia && (
 					<CategoryCard
-						isLink
+						isLink={isUserAgentTelegram}
 						title={'Transfer'}
 						image={transfer}
 						flowId={'ZGw6MTI1MDQ5'}

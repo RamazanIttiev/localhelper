@@ -2,7 +2,7 @@ import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { HintTitle } from 'reactkit/hintTitle';
 
-import { Container, Switch } from '@mui/material';
+import { Switch } from '@mui/material';
 
 import { theme } from 'theme';
 
@@ -40,7 +40,7 @@ export const RestaurantCheckoutComponent = ({
 	cartTotalAmount,
 }: Props) => {
 	return (
-		<Container maxWidth={'sm'} sx={{ pt: '1rem', position: 'relative' }}>
+		<>
 			<FormUI errors={errors} register={register} onSubmit={onSubmit} />
 			{isUserAgentTelegram && (
 				<SaveInfoWrapper>
@@ -66,6 +66,6 @@ export const RestaurantCheckoutComponent = ({
 			/>
 			<CartList cartList={cartList} restaurantTitle={restaurantTitle} />
 			<OrderInfo orderTotal={cartTotalAmount} />
-		</Container>
+		</>
 	);
 };

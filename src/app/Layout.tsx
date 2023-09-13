@@ -6,6 +6,8 @@ import { useDocumentTitle } from 'usehooks-ts';
 
 import { Footer } from 'components/footer';
 
+import { isUserAgentTelegram } from 'utils/deviceInfo';
+
 import {
 	enableWebAppClosingConfirmation,
 	expandWebApp,
@@ -31,6 +33,8 @@ export const Layout = () => {
 		handleBackButton(() => navigate(-1));
 	}, [pathname, navigate]);
 
+	const footerIsVisible = !pathname.includes('checkout') && isUserAgentTelegram;
+
 	return (
 		<>
 			<Global
@@ -43,7 +47,7 @@ export const Layout = () => {
 
 			<ShoppingCartProvider>
 				<Outlet />
-				<Footer />
+				{footerIsVisible && <Footer />}
 			</ShoppingCartProvider>
 		</>
 	);

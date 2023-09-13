@@ -1,4 +1,4 @@
-import { createElement, useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
 
@@ -63,10 +63,5 @@ export const ToursCheckoutContainer = () => {
 		};
 	}, [handleForm]);
 
-	return createElement(ToursCheckoutComponent, {
-		product,
-		control,
-		register,
-		errors,
-	});
+	return <ToursCheckoutComponent errors={errors} control={control} product={product} register={register} />;
 };

@@ -1,11 +1,15 @@
 import React from 'react';
 import { IconBadges } from 'reactkit/iconBadges';
+import { LoaderButton } from 'reactkit/loaderButton';
 
 import { Box, Card, CardContent, CardMedia, Container, Typography } from '@mui/material';
 
 import { Product } from 'pages/products-list/product/product.model';
 
 import { MuiCarousel } from 'components/carousel';
+
+import { isUserAgentTelegram } from 'utils/deviceInfo';
+import { openTelegram } from 'utils/service';
 
 interface Props {
 	product: Product;
@@ -61,6 +65,9 @@ export const ProductDetails = ({ product }: Props) => {
 					</Box>
 				</CardContent>
 			</Card>
+			{!isUserAgentTelegram && (
+				<LoaderButton isMainButton text={'Order in telegram'} handleClick={openTelegram} />
+			)}
 		</Container>
 	);
 };

@@ -1,13 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { LoaderButton } from 'reactkit/loaderButton';
 
 import { Box, Drawer, Typography, useTheme } from '@mui/material';
 
-import { ErrorType } from 'models/error.model';
-
 import { isUserAgentTelegram } from 'utils/deviceInfo';
+import { openTelegram } from 'utils/service';
 
-import { clearResponseMessage, handleOrder } from 'actions/global-actions';
+import { handleOrder } from 'actions/global-actions';
 import {
 	handleMainButton,
 	hideMainButton,
@@ -27,17 +26,6 @@ interface CategoryDialogProps {
 
 export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, userCountry }: CategoryDialogProps) => {
 	const theme = useTheme();
-	const [loading, setLoading] = useState(false);
-	const [errorState, setErrorState] = useState<ErrorType>({
-		isError: null,
-	});
-
-	useEffect(() => {
-		clearResponseMessage(errorState, handleError);
-	}, [errorState]);
-
-	const handleLoading = (value: boolean) => setLoading(value);
-	const handleError = (value: ErrorType) => setErrorState(value);
 
 	const handleProductOrder = useCallback(() => {
 		return handleOrder(
@@ -46,28 +34,21 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, us
 				itemName: title,
 				userCountry,
 			},
-			handleLoading,
-			handleError,
+			() => console.log(),
+			() => console.log(),
 		);
 	}, [flowId, title, userCountry]);
 
 	useEffect(() => {
 		if (isOpened) {
 			showMainButton();
-			setMainButtonText('Buy');
+			setMainButtonText('Continue');
 			handleMainButton(handleProductOrder);
 		} else {
 			hideMainButton();
 			removeMainButtonEvent(handleProductOrder);
 		}
 	}, [isOpened, handleProductOrder]);
-
-	useEffect(() => {
-		return () => {
-			hideMainButton();
-			removeMainButtonEvent(handleProductOrder);
-		};
-	}, [handleProductOrder]);
 
 	return (
 		<Drawer anchor={'bottom'} onClose={handleClose} open={isOpened}>
@@ -97,10 +78,9 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, us
 				</Typography>
 				{!isUserAgentTelegram && (
 					<LoaderButton
-						text={'Buy'}
-						loading={loading}
-						errorState={errorState}
-						handleClick={handleProductOrder}
+						isMainButton
+						text={isUserAgentTelegram ? 'Continue' : 'Open Telegram'}
+						handleClick={isUserAgentTelegram ? handleProductOrder : openTelegram}
 					/>
 				)}
 			</Box>

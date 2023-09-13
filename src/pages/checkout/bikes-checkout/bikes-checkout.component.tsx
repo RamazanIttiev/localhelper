@@ -2,7 +2,7 @@ import React from 'react';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { HintTitle } from 'reactkit/hintTitle';
 
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import { theme } from 'theme';
 
@@ -24,7 +24,7 @@ interface Props {
 
 export const BikesCheckoutComponent = ({ register, errors, control, product, rentPeriod }: Props) => {
 	return (
-		<Container maxWidth={'sm'} sx={{ pt: '1rem', pb: '4rem', position: 'relative' }}>
+		<>
 			<BikesCheckoutForm control={control} errors={errors} register={register} />
 			<Box sx={{ display: 'flex', flexDirection: 'column', mt: '2rem' }}>
 				<HintTitle text={'Order info'} styles={{ marginBottom: '0.5rem' }} />
@@ -91,6 +91,6 @@ export const BikesCheckoutComponent = ({ register, errors, control, product, ren
 					</Box>
 				)}
 			</Box>
-		</Container>
+		</>
 	);
 };

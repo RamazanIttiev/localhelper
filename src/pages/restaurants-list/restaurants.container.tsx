@@ -21,7 +21,7 @@ export const RestaurantsListContainer = () => {
 	}, []);
 
 	return (
-		<Container sx={{ pt: 2 }} maxWidth={'sm'}>
+		<Container sx={{ pt: 2, pb: 4 }} maxWidth={'sm'}>
 			{restaurants ? (
 				[...restaurants]
 					.sort(a => (a.isWorking ? -1 : 1))

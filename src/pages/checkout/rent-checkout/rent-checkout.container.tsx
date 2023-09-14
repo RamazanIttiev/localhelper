@@ -15,10 +15,10 @@ import {
 	showMainButton,
 } from 'actions/webApp-actions';
 
-import { BikesCheckoutComponent } from './bikes-checkout.component';
-import { BikesCheckoutModel } from './bikes-checkout.model';
+import { RentCheckoutComponent } from './rent-checkout.component';
+import { RentCheckoutModel } from './rent-checkout.model';
 
-export const BikesCheckoutContainer = () => {
+export const RentCheckoutContainer = () => {
 	const { state } = useLocation();
 	const product: DefaultProductModel = state.product || {};
 
@@ -27,7 +27,7 @@ export const BikesCheckoutContainer = () => {
 		handleSubmit,
 		control,
 		formState: { errors },
-	} = useForm<BikesCheckoutModel>({
+	} = useForm<RentCheckoutModel>({
 		defaultValues: { startDate: null, endDate: null },
 	});
 
@@ -37,7 +37,7 @@ export const BikesCheckoutContainer = () => {
 	const rentPeriod = getDateDiff(startDate, endDate);
 
 	const onSubmit = useCallback(
-		(data: BikesCheckoutModel) => {
+		(data: RentCheckoutModel) => {
 			return handleOrder(
 				state?.flowId,
 				{
@@ -78,7 +78,7 @@ export const BikesCheckoutContainer = () => {
 	}, [handleForm]);
 
 	return (
-		<BikesCheckoutComponent
+		<RentCheckoutComponent
 			errors={errors}
 			product={product}
 			control={control}

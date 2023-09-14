@@ -8,12 +8,10 @@ import { Label } from 'reactkit/label';
 
 import { Box } from '@mui/material';
 
-import { BikesCheckoutModel } from 'pages/checkout/bikes-checkout/bikes-checkout.model';
-
 interface Props {
-	errors: FieldErrors<BikesCheckoutModel>;
-	control: Control<BikesCheckoutModel>;
-	register: UseFormRegister<BikesCheckoutModel>;
+	errors: FieldErrors<any>;
+	control: Control<any>;
+	register: UseFormRegister<any>;
 	startValidationText?: string;
 	endValidationText?: string;
 	startPlaceholderText?: string;

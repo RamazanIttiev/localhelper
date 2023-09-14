@@ -7,6 +7,7 @@ import { Container } from '@mui/material';
 import { BikesCheckoutContainer } from 'pages/checkout/bikes-checkout/bikes-checkout.container';
 import { ExchangeContainer } from 'pages/checkout/exchange-checkout/exchange-checkout.container';
 import { FlowersCheckoutContainer } from 'pages/checkout/flowers-checkout/flowers-checkout.container';
+import { RentCheckoutContainer } from 'pages/checkout/rent-checkout/rent-checkout.container';
 import { RestaurantCheckoutContainer } from 'pages/checkout/restaurant-checkout/restaurant-checkout.container';
 import { ToursCheckoutContainer } from 'pages/checkout/tours-checkout/tours-checkout.container';
 import { TransferCheckoutContainer } from 'pages/checkout/transfer-checkout/transfer-checkout.container';
@@ -34,6 +35,9 @@ const renderCheckoutContainer = (categoryId: string | undefined) => {
 		case 'flowers': {
 			return <FlowersCheckoutContainer />;
 		}
+		case 'rent': {
+			return <RentCheckoutContainer />;
+		}
 		default: {
 			return null;
 		}
@@ -42,7 +46,7 @@ const renderCheckoutContainer = (categoryId: string | undefined) => {
 
 export const CheckoutContainer = () => {
 	const { categoryId } = useParams();
-	console.log(categoryId);
+
 	return (
 		<Container maxWidth={'sm'} sx={{ pt: '1rem', pb: '1rem', position: 'relative' }}>
 			{renderCheckoutContainer(categoryId)}

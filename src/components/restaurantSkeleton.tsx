@@ -3,7 +3,7 @@ import { Grid, Skeleton } from '@mui/material';
 export const RestaurantSkeleton = () => (
 	<>
 		{Array.from(new Array(4)).map((item, index) => (
-			<Grid item xs={6} md={5} key={index} sx={{ mb: '1rem' }}>
+			<Grid item xs={12} md={12} key={index} sx={{ mb: '1rem' }}>
 				<Skeleton
 					variant="rectangular"
 					width={'100%'}

@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Container } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 
 import { RestaurantSkeleton } from 'components/restaurantSkeleton';
 
@@ -21,16 +21,22 @@ export const RestaurantsListContainer = () => {
 	}, []);
 
 	return (
-		<Container sx={{ pt: 2, pb: 4 }} maxWidth={'sm'}>
-			{restaurants ? (
-				[...restaurants]
-					.sort(a => (a.isWorking ? -1 : 1))
-					.map(restaurant => {
-						return <RestaurantCard key={restaurant.title} restaurant={restaurant} />;
-					})
-			) : (
-				<RestaurantSkeleton />
-			)}
+		<Container sx={{ pt: 2, pb: 5 }} maxWidth={'sm'}>
+			<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
+				{restaurants ? (
+					[...restaurants]
+						.sort(a => (a.isWorking ? -1 : 1))
+						.map(restaurant => {
+							return (
+								<Grid item xs={12} md={12} key={restaurant.id}>
+									<RestaurantCard key={restaurant.title} restaurant={restaurant} />
+								</Grid>
+							);
+						})
+				) : (
+					<RestaurantSkeleton />
+				)}
+			</Grid>
 		</Container>
 	);
 };

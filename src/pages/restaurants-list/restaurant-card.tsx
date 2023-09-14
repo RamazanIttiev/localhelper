@@ -17,11 +17,10 @@ export const RestaurantCard = ({ restaurant }: Props) => {
 		<Card
 			onClick={() => setHaptic('light')}
 			sx={{
-				pb: 2,
+				mb: 2,
 				display: 'flex',
 				height: 'auto',
 				boxShadow: 'none',
-				minHeight: '16rem',
 				flexDirection: 'column',
 				background: 'transparent',
 				justifyContent: 'space-between',
@@ -53,7 +52,7 @@ export const RestaurantCard = ({ restaurant }: Props) => {
 							textTransform: 'capitalize',
 						}}
 						component="h3"
-						variant={'subtitle1'}>
+						variant={'subtitle2'}>
 						{restaurant.title}
 					</Typography>
 					<Box

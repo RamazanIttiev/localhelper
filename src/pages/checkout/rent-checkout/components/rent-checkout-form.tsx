@@ -8,15 +8,15 @@ import { Box } from '@mui/material';
 
 import { DateRange } from 'components/dateRange';
 
-import { BikesCheckoutModel } from '../bikes-checkout.model';
+import { RentCheckoutModel } from '../rent-checkout.model';
 
 interface Props {
-	errors: FieldErrors<BikesCheckoutModel>;
-	control: Control<BikesCheckoutModel>;
-	register: UseFormRegister<BikesCheckoutModel>;
+	errors: FieldErrors<RentCheckoutModel>;
+	control: Control<RentCheckoutModel>;
+	register: UseFormRegister<RentCheckoutModel>;
 }
 
-export const BikesCheckoutForm = ({ register, errors, control }: Props) => {
+export const RentCheckoutForm = ({ register, errors, control }: Props) => {
 	return (
 		<form>
 			<Box mb={'1rem'}>

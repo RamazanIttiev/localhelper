@@ -3,8 +3,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Control, Controller, FieldErrors, UseFormRegister, useWatch } from 'react-hook-form';
 import { ErrorText } from 'reactkit/errorText';
-import { HintTitle } from 'reactkit/hintTitle';
-import { Input } from 'reactkit/input';
+import { StyledInput } from 'reactkit/input';
+import { Label } from 'reactkit/label';
 
 import { Box } from '@mui/material';
 
@@ -35,7 +35,7 @@ export const DateRange = ({
 	return (
 		<Box display={'flex'}>
 			<Box mr={1}>
-				<HintTitle text={'From'} styles={{ marginBottom: '0.5rem' }} />
+				<Label text={'From'} styles={{ marginBottom: '0.5rem' }} />
 				<Controller
 					control={control}
 					{...register('startDate', {
@@ -51,7 +51,7 @@ export const DateRange = ({
 							minDate={new Date()}
 							dateFormat={'dd.MM.yyyy'}
 							showDisabledMonthNavigation
-							customInput={<Input fullWidth />}
+							customInput={<StyledInput fullWidth />}
 							placeholderText={startPlaceholderText}
 						/>
 					)}
@@ -60,7 +60,7 @@ export const DateRange = ({
 			</Box>
 
 			<Box>
-				<HintTitle text={'To'} styles={{ marginBottom: '0.5rem' }} />
+				<Label text={'To'} styles={{ marginBottom: '0.5rem' }} />
 				<Controller
 					control={control}
 					{...register('endDate', {
@@ -75,7 +75,7 @@ export const DateRange = ({
 							minDate={startDate}
 							dateFormat={'dd.MM.yyyy'}
 							showDisabledMonthNavigation
-							customInput={<Input fullWidth />}
+							customInput={<StyledInput fullWidth />}
 							placeholderText={endPlaceholderText}
 						/>
 					)}

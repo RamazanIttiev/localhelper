@@ -2,11 +2,11 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { ErrorText } from 'reactkit/errorText';
-import { HintTitle } from 'reactkit/hintTitle';
-import { Input } from 'reactkit/input';
-import { Select } from 'reactkit/seclect';
+import { Input, StyledInput } from 'reactkit/input';
+import { Label } from 'reactkit/label';
+import { Select } from 'reactkit/select';
 
-import { Box, MenuItem } from '@mui/material';
+import { Box } from '@mui/material';
 
 import { filterPassedTime } from 'utils/date';
 
@@ -21,89 +21,75 @@ interface Props {
 export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 	return (
 		<form>
-			<Box mb={'2rem'}>
-				<HintTitle text={'Name'} />
+			<Box mb={'1rem'}>
+				<Label text={'Name'} />
 				<Input
-					fullWidth
+					required
 					type={'text'}
-					margin="dense"
-					color={'info'}
+					register={register}
+					fieldName={'userName'}
+					requiredMessage={'Name is required'}
+					pattern={/^[a-zA-Z]+$/}
+					patternMessage={"I guess that's not a valid name..."}
 					error={errors.userName !== undefined}
 					placeholder={'John'}
-					{...register('userName', {
-						required: {
-							value: true,
-							message: 'Name is required',
-						},
-						pattern: {
-							value: /^[a-zA-Z]+$/,
-							message: "I guess that's not a valid name...",
-						},
-					})}
 				/>
 				<ErrorText text={errors.userName?.message} />
-				<HintTitle text={'Phone'} />
+			</Box>
+
+			<Box mb={'1rem'}>
+				<Label text={'Phone'} />
 				<Input
+					required
 					fullWidth
 					type={'tel'}
-					margin="dense"
-					color={'info'}
+					register={register}
+					fieldName={'userPhone'}
 					error={errors.userPhone !== undefined}
 					placeholder={'8 999 777 03 02'}
-					{...register('userPhone', {
-						required: { value: true, message: 'I need your phone number' },
-						pattern: { value: /^[0-9+-]+$/, message: "I think your phone number isn't correct..." },
-						minLength: { value: 8, message: 'Your phone number is too short' },
-					})}
+					pattern={/^[0-9+-]+$/}
+					minLength={8}
+					requiredMessage={'I need your phone number'}
+					minLengthMessage={'Your phone number is too short'}
+					patternMessage={"I think your phone number isn't correct..."}
 				/>
 				{errors.userPhone?.type !== 'required' && <ErrorText text={errors.userPhone?.message} />}
 			</Box>
 
-			<Box mb={'2rem'}>
-				<HintTitle text={'From'} />
+			<Box mb={'1rem'}>
+				<Label text={'From'} />
 				<Input
-					fullWidth
+					required
 					type={'text'}
-					margin="dense"
-					color={'info'}
-					error={errors.pointA !== undefined}
+					fieldName={'pointA'}
+					register={register}
+					pattern={/^[a-zA-Z]+$/}
 					placeholder={'Weligama, W 15'}
-					{...register('pointA', {
-						required: {
-							value: true,
-							message: 'This field is required',
-						},
-						pattern: {
-							value: /^[a-zA-Z]+$/,
-							message: 'Are you sure you are there?',
-						},
-					})}
+					error={errors.pointA !== undefined}
+					requiredMessage={'This field is required'}
+					patternMessage={'Are you sure you are there?'}
 				/>
 				<ErrorText text={errors.pointA?.message} />
-				<HintTitle text={'To'} />
+			</Box>
+
+			<Box mb={'1rem'}>
+				<Label text={'To'} />
 				<Input
-					fullWidth
+					required
 					type={'text'}
-					margin="dense"
-					color={'info'}
-					error={errors.pointB !== undefined}
+					fieldName={'pointB'}
+					register={register}
+					pattern={/^[a-zA-Z]+$/}
 					placeholder={'Colombo airport'}
-					{...register('pointB', {
-						required: {
-							value: true,
-							message: 'This field is required',
-						},
-						pattern: {
-							value: /^[a-zA-Z]+$/,
-							message: "I don't know where this place is, sorry",
-						},
-					})}
+					error={errors.pointB !== undefined}
+					requiredMessage={'This field is required'}
+					patternMessage={"I don't know where this place is, sorry"}
 				/>
 				<ErrorText text={errors.pointB?.message} />
 			</Box>
 
-			<Box mb={'2rem'}>
-				<HintTitle text={'Date and Time'} styles={{ marginBottom: '0.5rem' }} />
+			<Box mb={'1rem'}>
+				<Label text={'Date and Time'} styles={{ marginBottom: '0.5rem' }} />
 				<Controller
 					control={control}
 					{...register('date', {
@@ -123,7 +109,7 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 							timeFormat="HH:mm"
 							dateFormat="MMMM d, HH:mm"
 							showDisabledMonthNavigation
-							customInput={<Input fullWidth />}
+							customInput={<StyledInput fullWidth />}
 							placeholderText={new Date().toLocaleDateString('en-US', {
 								timeZone: 'Asia/Colombo',
 								hour12: false,
@@ -134,25 +120,16 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 				{errors.date?.type !== 'required' && <ErrorText text={errors.date?.message} />}
 			</Box>
 
-			<Box mb={'2rem'}>
-				<HintTitle text={'Passengers'} styles={{ marginBottom: '0.5rem' }} />
+			<Box mb={'1rem'}>
+				<Label text={'Passengers'} styles={{ marginBottom: '0.5rem' }} />
 				<Select
-					fullWidth
 					type={'number'}
-					margin="dense"
-					color={'info'}
-					error={errors.passengers !== undefined}
 					defaultValue={3}
-					{...register('passengers', {
-						required: {
-							value: true,
-							message: 'This field is required',
-						},
-					})}>
-					{[1, 2, 3, 4, 5, 6, 7, 8].map(number => {
-						return <MenuItem value={number}>{number}</MenuItem>;
-					})}
-				</Select>
+					register={register}
+					fieldName={'passengers'}
+					options={[1, 2, 3, 4, 5, 6, 7, 8]}
+					error={errors.passengers !== undefined}
+				/>
 				{errors.passengers?.type !== 'required' && <ErrorText text={errors.passengers?.message} />}
 			</Box>
 		</form>

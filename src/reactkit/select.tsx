@@ -1,11 +1,11 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { UseFormRegister } from 'react-hook-form';
 
-import { OutlinedTextFieldProps, styled, TextField } from '@mui/material';
+import { styled, Select as MuiSelect, OutlinedTextFieldProps, MenuItem, SelectProps } from '@mui/material';
 
 import { TelegramTheme } from 'app/App';
 
-const StyledSelect = styled(TextField)(
+export const StyledSelect = styled(MuiSelect)(
 	`
   background: #303030;
   font-size: 0.8rem !important;
@@ -18,7 +18,6 @@ const StyledSelect = styled(TextField)(
 	({ theme }) => ({
 		'& .MuiOutlinedInput-root': {
 			color: theme.palette.text,
-			height: '56px',
 
 			'&-input': {
 				padding: '13px 14px',
@@ -37,30 +36,62 @@ const StyledSelect = styled(TextField)(
 	}),
 );
 
-interface SelectProps extends Partial<OutlinedTextFieldProps> {
+interface Props extends Partial<SelectProps> {
 	fieldName: string;
-	children: ReactNode;
-	defaultValue: string;
+	options: string[] | number[];
 	register: UseFormRegister<any>;
+	pattern?: RegExp;
+	required?: boolean;
+	fullWidth?: boolean;
+	patternMessage?: string;
+	requiredMessage?: string;
+	defaultValue?: string | number;
 	margin?: 'dense' | 'none' | undefined;
 	color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
 }
 
-export const Select = ({ sx, color, margin, fieldName, register, children, defaultValue }: SelectProps) => {
+export const Select = ({
+	sx,
+	color,
+	margin,
+	fieldName,
+	register,
+	required = false,
+	requiredMessage,
+	pattern = new RegExp(''),
+	patternMessage,
+	fullWidth = true,
+	defaultValue,
+	options,
+}: Props) => {
 	return (
 		<StyledSelect
-			select
 			sx={{
-				...sx,
 				'& .MuiSelect-icon': {
 					color: '#fff' || TelegramTheme?.button_color,
 				},
+				height: '56px',
+				...sx,
 			}}
+			fullWidth={fullWidth}
 			color={color || 'info'}
 			margin={margin || 'dense'}
 			defaultValue={defaultValue}
-			inputProps={{ ...register(fieldName) }}>
-			{children}
+			{...register(fieldName, {
+				required: {
+					value: required,
+					message: requiredMessage || '',
+				},
+				pattern: {
+					value: pattern,
+					message: patternMessage || '',
+				},
+			})}>
+			{options.map(option => (
+				<MenuItem key={option} value={option}>
+					{option}
+				</MenuItem>
+			))}
 		</StyledSelect>
 	);
 };

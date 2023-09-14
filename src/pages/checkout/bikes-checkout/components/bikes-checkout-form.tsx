@@ -1,8 +1,8 @@
 import React from 'react';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { ErrorText } from 'reactkit/errorText';
-import { HintTitle } from 'reactkit/hintTitle';
 import { Input } from 'reactkit/input';
+import { Label } from 'reactkit/label';
 
 import { Box } from '@mui/material';
 
@@ -20,24 +20,17 @@ export const BikesCheckoutForm = ({ register, errors, control }: Props) => {
 	return (
 		<form>
 			<Box mb={'1rem'}>
-				<HintTitle text={'Name'} />
+				<Label text={'Name'} />
 				<Input
-					fullWidth
+					required
 					type={'text'}
-					margin="dense"
-					color={'info'}
+					register={register}
+					fieldName={'userName'}
+					requiredMessage={'Name is required'}
+					pattern={/^[a-zA-Z]+$/}
+					patternMessage={"I guess that's not a valid name..."}
 					error={errors.userName !== undefined}
 					placeholder={'John'}
-					{...register('userName', {
-						required: {
-							value: true,
-							message: 'Name is required',
-						},
-						pattern: {
-							value: /^[a-zA-Z]+$/,
-							message: "I guess that's not a valid name...",
-						},
-					})}
 				/>
 				<ErrorText text={errors.userName?.message} />
 			</Box>

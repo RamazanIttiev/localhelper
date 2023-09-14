@@ -42,7 +42,7 @@ const renderCheckoutContainer = (categoryId: string | undefined) => {
 
 export const CheckoutContainer = () => {
 	const { categoryId } = useParams();
-
+	console.log(categoryId);
 	return (
 		<Container maxWidth={'sm'} sx={{ pt: '1rem', pb: '1rem', position: 'relative' }}>
 			{renderCheckoutContainer(categoryId)}

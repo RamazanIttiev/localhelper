@@ -3,17 +3,21 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { ErrorText } from 'reactkit/errorText';
 import { Input } from 'reactkit/input';
 import { Label } from 'reactkit/label';
+import { LoaderButton } from 'reactkit/loaderButton';
 
 import { Box } from '@mui/material';
 
-import { FlowersCheckoutModel } from '../flowers-checkout.model';
+import { UserData } from 'models/user.model';
 
-interface Props {
-	errors: FieldErrors<FlowersCheckoutModel>;
-	register: UseFormRegister<FlowersCheckoutModel>;
+import { isUserAgentTelegram } from 'utils/deviceInfo';
+
+interface FormUIProps {
+	onSubmit: () => void;
+	errors: FieldErrors<UserData>;
+	register: UseFormRegister<UserData>;
 }
 
-export const FlowersCheckoutForm = ({ register, errors }: Props) => {
+export const RestaurantCheckoutForm = ({ register, errors, onSubmit }: FormUIProps) => {
 	return (
 		<form>
 			<Box mb={'1rem'}>
@@ -29,7 +33,7 @@ export const FlowersCheckoutForm = ({ register, errors }: Props) => {
 					error={errors.userName !== undefined}
 					placeholder={'John'}
 				/>
-				<ErrorText text={errors.userName?.message} />
+				{errors.userName?.type !== 'required' && <ErrorText text={errors.userName?.message} />}
 			</Box>
 
 			<Box mb={'1rem'}>
@@ -48,22 +52,29 @@ export const FlowersCheckoutForm = ({ register, errors }: Props) => {
 					minLengthMessage={'Your phone number is too short'}
 					patternMessage={"I think your phone number isn't correct..."}
 				/>
-				{<ErrorText text={errors.userPhone?.message} />}
+				{errors.userPhone?.type !== 'required' && <ErrorText text={errors.userPhone?.message} />}
 			</Box>
-
-			<Box>
-				<Label text={'Address'} />
+			<Box mb={'1rem'}>
+				<Label text={'Delivery address'} styles={{ marginTop: '0.5rem' }} />
 				<Input
 					required
+					fullWidth
 					type={'text'}
+					minLength={8}
 					register={register}
 					fieldName={'userAddress'}
-					placeholder={'Weligama, W 15'}
-					requiredMessage={'Address is required'}
 					error={errors.userAddress !== undefined}
+					placeholder={'Weligama, W 15'}
+					requiredMessage={'Please write your address'}
+					minLengthMessage={'The address is too short'}
 				/>
-				{<ErrorText text={errors.userAddress?.message} />}
+				{errors.userAddress?.type !== 'required' && <ErrorText text={errors.userAddress?.message} />}
 			</Box>
+
+			<Label text={'Hotel'} />
+			<Input fullWidth type={'text'} register={register} placeholder={'Hotel'} fieldName={'userHotel'} />
+
+			{!isUserAgentTelegram && <LoaderButton isMainButton text={'Order'} handleClick={onSubmit} />}
 		</form>
 	);
 };

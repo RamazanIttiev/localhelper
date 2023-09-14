@@ -1,5 +1,5 @@
 import React from 'react';
-import { HintTitle } from 'reactkit/hintTitle';
+import { Label } from 'reactkit/label';
 
 import { Box, Typography, useTheme } from '@mui/material';
 
@@ -14,7 +14,7 @@ export const OrderInfo = ({ orderTotal, delivery = 'Free', payment = 'Cash' }: O
 
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', mt: '2rem' }}>
-			<HintTitle text={'Order info'} styles={{ marginBottom: '0.5rem' }} />
+			<Label text={'Order info'} styles={{ marginBottom: '0.5rem' }} />
 			<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} mb={1}>
 				<Typography fontSize={'1rem'} component={'span'}>
 					Total

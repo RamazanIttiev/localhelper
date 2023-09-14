@@ -7,9 +7,12 @@ interface HintTitleProps {
 	styles?: CSSProperties;
 }
 
-export const HintTitle = ({ text, styles }: HintTitleProps) => {
+export const Label = ({ text, styles }: HintTitleProps) => {
 	return (
-		<Typography variant={'body2'} sx={{ filter: 'brightness(50%)', letterSpacing: '1px', ...styles }}>
+		<Typography
+			component={'label'}
+			variant={'body2'}
+			sx={{ filter: 'brightness(50%)', letterSpacing: '1px', ...styles }}>
 			{text}
 		</Typography>
 	);

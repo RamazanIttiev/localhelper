@@ -1,7 +1,7 @@
 import { FormControlLabel, FormGroup, styled } from '@mui/material';
 
 export const SaveInfoWrapper = styled(FormGroup)(`
-  margin: 3rem 0;
+  margin: 2rem 0;
 `);
 
 export const SaveInfoField = styled(FormControlLabel)(`

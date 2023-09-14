@@ -7,7 +7,6 @@ import { Layout } from 'app/Layout';
 import { CartContainer } from 'pages/cart/cart.container';
 import { Categories } from 'pages/categories/categories';
 import { CheckoutContainer } from 'pages/checkout/checkout.container';
-import { RestaurantCheckoutContainer } from 'pages/checkout/restaurant-checkout/restaurant-checkout.container';
 import { FeedContainer } from 'pages/feed/feed.container';
 import { ProductDetailsContainer } from 'pages/productDetails/product-details.container';
 import { ProductsList } from 'pages/products-list/products-list';
@@ -19,8 +18,6 @@ import { categoryLoader } from 'api/airtable/category';
 import { feedLoader } from 'api/airtable/feed';
 import { productsLoader } from 'api/airtable/products';
 import { restaurantLoader, restaurantProductsLoader, restaurantsLoader } from 'api/airtable/restaurant';
-
-import { fetchTelegramUser } from 'actions/webApp-actions';
 
 const queryClient = new QueryClient();
 export const Telegram = window.Telegram.WebApp;
@@ -74,7 +71,6 @@ const router = createBrowserRouter(
 				loader={() => restaurantProductsLoader(queryClient)}
 			/>
 
-			<Route path="checkout" loader={() => fetchTelegramUser()} element={<RestaurantCheckoutContainer />} />
 			<Route path=":categoryId/:productId/checkout" element={<CheckoutContainer />} />
 		</Route>,
 	),

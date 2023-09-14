@@ -1,5 +1,5 @@
 import React from 'react';
-import { HintTitle } from 'reactkit/hintTitle';
+import { Label } from 'reactkit/label';
 
 import { FormControl, FormControlLabel, Radio, useTheme } from '@mui/material';
 
@@ -16,7 +16,7 @@ export const RadioButtons = ({ buttons, productExtra, handleExtra }: RadioButton
 
 	return (
 		<FormControl sx={{ width: '100%', mt: '1rem' }}>
-			<HintTitle text={'Options'} styles={{ marginBottom: '0.5rem' }} />
+			<Label text={'Options'} styles={{ marginBottom: '0.5rem' }} />
 			<RadioButtonsGroup
 				value={productExtra?.dishSize}
 				onChange={handleExtra}

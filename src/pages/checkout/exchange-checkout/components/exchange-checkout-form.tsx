@@ -1,11 +1,11 @@
 import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { ErrorText } from 'reactkit/errorText';
-import { HintTitle } from 'reactkit/hintTitle';
 import { Input } from 'reactkit/input';
+import { Label } from 'reactkit/label';
 import { Select } from 'reactkit/select';
 
-import { Box, MenuItem } from '@mui/material';
+import { Box } from '@mui/material';
 
 import { ExchangeCheckoutModel } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
 
@@ -14,79 +14,56 @@ interface Props {
 	register: UseFormRegister<ExchangeCheckoutModel>;
 }
 
-const selectItems = [
-	{
-		value: 'USDT',
-		label: 'attach_money',
-	},
-	{
-		value: 'INR',
-		label: 'currency_rupee',
-	},
-];
-
 export const ExchangeCheckoutForm = ({ register, errors }: Props) => {
 	return (
 		<form>
 			<Box mb={'1rem'}>
-				<HintTitle text={'Name'} />
+				<Label text={'Name'} />
 				<Input
-					fullWidth
+					required
 					type={'text'}
-					margin="dense"
-					color={'info'}
+					register={register}
+					fieldName={'userName'}
+					requiredMessage={'Name is required'}
+					pattern={/^[a-zA-Z]+$/}
+					patternMessage={"I guess that's not a valid name..."}
 					error={errors.userName !== undefined}
 					placeholder={'John'}
-					{...register('userName', {
-						required: {
-							value: true,
-							message: 'Name is required',
-						},
-						pattern: {
-							value: /^[a-zA-Z]+$/,
-							message: "I guess that's not a valid name...",
-						},
-					})}
 				/>
 				<ErrorText text={errors.userName?.message} />
 			</Box>
 
-			<HintTitle text={'Phone'} />
-			<Input
-				fullWidth
-				type={'tel'}
-				margin="dense"
-				color={'info'}
-				error={errors.userPhone !== undefined}
-				placeholder={'8 999 777 03 02'}
-				{...register('userPhone', {
-					required: { value: true, message: 'I need your phone number' },
-					pattern: { value: /^[0-9+-]+$/, message: "I think your phone number isn't correct..." },
-					minLength: { value: 8, message: 'Your phone number is too short' },
-				})}
-			/>
-			{<ErrorText text={errors.userPhone?.message} />}
+			<Box mb={'1rem'}>
+				<Label text={'Phone'} />
+				<Input
+					required
+					fullWidth
+					type={'tel'}
+					register={register}
+					fieldName={'userPhone'}
+					error={errors.userPhone !== undefined}
+					placeholder={'8 999 777 03 02'}
+					pattern={/^[0-9+-]+$/}
+					minLength={8}
+					requiredMessage={'I need your phone number'}
+					minLengthMessage={'Your phone number is too short'}
+					patternMessage={"I think your phone number isn't correct..."}
+				/>
+				{<ErrorText text={errors.userPhone?.message} />}
+			</Box>
 
-			<HintTitle text={'Amount'} />
-			<Box sx={{ display: 'flex', alignItems: 'center' }}>
+			<Label text={'Amount'} />
+			<Box sx={{ display: 'flex', alignItems: 'end' }}>
 				<Input
 					required
 					type="number"
-					margin="dense"
+					register={register}
+					fieldName={'exchangeAmount'}
 					placeholder="100 000"
 					error={errors.exchangeAmount !== undefined}
-					{...register('exchangeAmount', {
-						required: { value: true, message: 'How much do you want to exchange?' },
-						pattern: {
-							value: /^[1-9]\d*(\d+)?$/i,
-							message: 'Please enter an integer',
-						},
-						min: {
-							value: 1,
-							message: 'Value should be at least 1',
-						},
-					})}
 					sx={{
+						mt: 0,
+						mb: 0,
 						borderTopRightRadius: 0,
 						borderBottomRightRadius: 0,
 						'& .MuiOutlinedInput-root': {
@@ -98,22 +75,19 @@ export const ExchangeCheckoutForm = ({ register, errors }: Props) => {
 
 				<Select
 					register={register}
+					options={['USDT', 'INR']}
 					fieldName={'exchangeCurrency'}
 					defaultValue={'USDT'}
 					sx={{
 						width: '9rem',
-						height: 56,
 						borderTopLeftRadius: 0,
 						borderBottomLeftRadius: 0,
 						'& .MuiOutlinedInput-root': {
 							borderTopLeftRadius: 0,
 							borderBottomLeftRadius: 0,
 						},
-					}}>
-					{selectItems.map(option => {
-						return <MenuItem value={option.value}>{option.value}</MenuItem>;
-					})}
-				</Select>
+					}}
+				/>
 			</Box>
 			{<ErrorText text={errors.exchangeAmount?.message} />}
 		</form>

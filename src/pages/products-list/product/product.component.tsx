@@ -9,8 +9,6 @@ import { Product } from 'pages/products-list/product/product.model';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 
-import { setHaptic } from 'actions/webApp-actions';
-
 interface Props {
 	flowId: string;
 	product: Product;
@@ -19,67 +17,64 @@ interface Props {
 
 export const ProductComponent = ({ flowId, product, handleClick }: Props) => {
 	return (
-		<>
-			<Card
-				onClick={() => setHaptic('light')}
-				sx={{
-					pb: 2,
-					display: 'flex',
-					height: 'auto',
-					boxShadow: 'none',
-					flexDirection: 'column',
-					background: 'transparent',
-					justifyContent: 'space-between',
-				}}>
-				<Link
-					key={product.id}
-					to={product.title.toLowerCase()}
-					state={{ product, flowId }}
-					style={{ position: 'relative' }}>
-					<>
-						<Box
-							component={'img'}
-							src={product.image[0].url}
-							alt={product.title}
-							sx={{
-								display: 'block',
-								width: '100%',
-								height: '11rem',
-								borderRadius: '1rem',
-								objectFit: 'cover',
-							}}
-						/>
-						<IconBadges iconBadges={product.iconBadges} />
-					</>
-					<CardContent
+		<Card
+			sx={{
+				pb: 2,
+				display: 'flex',
+				height: 'auto',
+				boxShadow: 'none',
+				flexDirection: 'column',
+				background: 'transparent',
+				justifyContent: 'space-between',
+			}}>
+			<Link
+				key={product.id}
+				to={product.title.toLowerCase()}
+				state={{ product, flowId }}
+				style={{ position: 'relative' }}>
+				<>
+					<Box
+						component={'img'}
+						src={product.image[0].url}
+						alt={product.title}
 						sx={{
-							'&:last-child': { pb: 0 },
-							p: 0,
-							height: '100%',
+							display: 'block',
+							width: '100%',
+							height: '11rem',
+							borderRadius: '1rem',
+							objectFit: 'cover',
+						}}
+					/>
+					<IconBadges iconBadges={product.iconBadges} />
+				</>
+				<CardContent
+					sx={{
+						'&:last-child': { pb: 0 },
+						p: 0,
+						height: '100%',
+						display: 'flex',
+						alignItems: 'baseline',
+						flexDirection: 'column',
+						justifyContent: 'center',
+						mt: '1rem',
+						mb: '0.5rem',
+					}}>
+					<Typography
+						sx={{
+							m: 0,
 							display: 'flex',
-							alignItems: 'baseline',
-							flexDirection: 'column',
+							fontSize: '0.8rem',
+							fontWeight: '600',
+							alignItems: 'center',
 							justifyContent: 'center',
-							mt: '1rem',
-							mb: '0.5rem',
-						}}>
-						<Typography
-							sx={{
-								m: 0,
-								display: 'flex',
-								fontSize: '0.8rem',
-								fontWeight: '600',
-								alignItems: 'center',
-								justifyContent: 'center',
-								textTransform: 'capitalize',
-							}}
-							component="h3">
-							{product.title.toLowerCase()}
-						</Typography>
-					</CardContent>
-				</Link>
-				{isUserAgentTelegram && <LoaderButton text={`${product.price} Rs`} handleClick={handleClick} />}
-			</Card>
-		</>
+							textTransform: 'capitalize',
+						}}
+						component="h3">
+						{product.title.toLowerCase()}
+					</Typography>
+				</CardContent>
+			</Link>
+			{isUserAgentTelegram && <LoaderButton text={`${product.price} Rs`} handleClick={handleClick} />}
+		</Card>
 	);
 };

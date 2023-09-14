@@ -7,6 +7,7 @@ import {
 	handleMainButton,
 	hideMainButton,
 	removeMainButtonEvent,
+	setHaptic,
 	setMainButtonText,
 	showMainButton,
 } from 'actions/webApp-actions';
@@ -33,16 +34,15 @@ export const RestaurantProductDetailsContainer = () => {
 	const restaurant = useMemo(() => routeState.restaurant, [routeState.restaurant]);
 	const restaurantProduct = useMemo(() => routeState.restaurantProduct, [routeState.restaurantProduct]);
 
-	const navigateToCart = useCallback(
-		() =>
-			navigate('/shopping-cart', {
-				state: {
-					flowId,
-					restaurant,
-				},
-			}),
-		[navigate, flowId, restaurant],
-	);
+	const navigateToCart = useCallback(() => {
+		setHaptic('soft');
+		navigate('/shopping-cart', {
+			state: {
+				flowId,
+				restaurant,
+			},
+		});
+	}, [navigate, flowId, restaurant]);
 
 	useEffect(() => {
 		if (!isCartEmpty) {

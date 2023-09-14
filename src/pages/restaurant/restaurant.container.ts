@@ -13,6 +13,7 @@ import {
 	handleMainButton,
 	hideMainButton,
 	removeMainButtonEvent,
+	setHaptic,
 	setMainButtonText,
 	showMainButton,
 } from 'actions/webApp-actions';
@@ -32,16 +33,15 @@ export const RestaurantContainer = () => {
 
 	const flowId = category?.flowId || '';
 
-	const navigateToCart = useCallback(
-		() =>
-			navigate('/shopping-cart', {
-				state: {
-					flowId,
-					restaurant,
-				},
-			}),
-		[navigate, flowId, restaurant],
-	);
+	const navigateToCart = useCallback(() => {
+		setHaptic('soft');
+		navigate('/shopping-cart', {
+			state: {
+				flowId,
+				restaurant,
+			},
+		});
+	}, [navigate, flowId, restaurant]);
 
 	useEffect(() => {
 		if (!isCartEmpty) {

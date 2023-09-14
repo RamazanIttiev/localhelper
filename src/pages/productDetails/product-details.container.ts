@@ -7,6 +7,7 @@ import {
 	handleMainButton,
 	hideMainButton,
 	removeMainButtonEvent,
+	setHaptic,
 	setMainButtonText,
 	showMainButton,
 } from 'actions/webApp-actions';
@@ -23,11 +24,12 @@ export const ProductDetailsContainer = () => {
 
 	const { state } = useLocation();
 	const routeState: RouteState = state;
-	console.log(location);
+
 	const flowId = useMemo(() => routeState.flowId, [routeState.flowId]);
 	const product = useMemo(() => routeState.product, [routeState.product]);
 
 	const handleClick = useCallback(() => {
+		setHaptic('soft');
 		navigate(`checkout`, {
 			state: {
 				flowId,

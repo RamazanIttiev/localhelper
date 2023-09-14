@@ -1,5 +1,5 @@
 import { createElement, useCallback, useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
@@ -9,7 +9,13 @@ import { getMappedCartList } from 'utils/cart';
 
 import { fetchAirtableData } from 'api/api';
 
-import { handleMainButton, removeMainButtonEvent, setMainButtonText, showMainButton } from 'actions/webApp-actions';
+import {
+	handleMainButton,
+	removeMainButtonEvent,
+	setHaptic,
+	setMainButtonText,
+	showMainButton,
+} from 'actions/webApp-actions';
 
 import { useShoppingCart } from 'context/cart.context';
 
@@ -23,8 +29,6 @@ interface RouteState {
 }
 
 export const CartContainer = () => {
-	const { categoryId } = useParams();
-
 	const { state }: RouteState = useLocation();
 	const navigate = useNavigate();
 	const { getCartRestaurant, isCartEmpty, cartItems } = useShoppingCart();
@@ -52,6 +56,7 @@ export const CartContainer = () => {
 	}, [restaurantTitle]);
 
 	const navigateToCheckout = useCallback(() => {
+		setHaptic('soft');
 		navigate(`/food/${restaurant.title}/checkout`, {
 			state: {
 				flowId,

@@ -10,8 +10,6 @@ import { ImageBackdrop } from 'components/imageBackdrop';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 
-import { setHaptic } from 'actions/webApp-actions';
-
 import { Restaurant } from '../restaurant.model';
 import { RestaurantProduct } from './restaurant-product.model';
 
@@ -28,7 +26,6 @@ export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }:
 	return (
 		<>
 			<Card
-				onClick={() => setHaptic('light')}
 				sx={{
 					pb: 2,
 					display: 'flex',

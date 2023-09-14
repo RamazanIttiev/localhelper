@@ -13,6 +13,7 @@ import {
 	expandWebApp,
 	handleBackButton,
 	hideBackButton,
+	setHaptic,
 	showBackButton,
 	webAppIsReady,
 } from 'actions/webApp-actions';
@@ -30,7 +31,10 @@ export const Layout = () => {
 		expandWebApp();
 		enableWebAppClosingConfirmation();
 		pathname === '/' ? hideBackButton() : showBackButton();
-		handleBackButton(() => navigate(-1));
+		handleBackButton(() => {
+			setHaptic('soft');
+			navigate(-1);
+		});
 	}, [pathname, navigate]);
 
 	const footerIsVisible = !pathname.includes('checkout') && isUserAgentTelegram;

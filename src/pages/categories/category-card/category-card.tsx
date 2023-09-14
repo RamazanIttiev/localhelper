@@ -7,8 +7,6 @@ import { CategoryDialog } from 'components/categoryDialog';
 
 import { getServicesRoute } from 'utils/route';
 
-import { setHaptic } from 'actions/webApp-actions';
-
 interface CategoryProps {
 	title: string;
 	image: string;
@@ -32,7 +30,7 @@ export const CategoryCard: FC<CategoryProps> = ({ title, image, isLink = false, 
 
 	return (
 		<>
-			<Grid item xs={5} sm={4} md={4} key={title} onClick={() => setHaptic('light')}>
+			<Grid item xs={5} sm={4} md={4} key={title}>
 				<Card
 					onClick={isLink ? undefined : handleOpen}
 					sx={{

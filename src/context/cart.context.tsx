@@ -9,7 +9,7 @@ import { CartItem, ShoppingCartContextProps, ShoppingCartProviderProps } from 'm
 import { getCartOrderString } from 'utils/cart';
 import { isSameRestaurant } from 'utils/restaurant';
 
-import { hideMainButton, setHaptic } from 'actions/webApp-actions';
+import { hideMainButton } from 'actions/webApp-actions';
 
 const ShoppingCartContext = createContext({} as ShoppingCartContextProps);
 
@@ -37,8 +37,6 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 	};
 
 	const incrementCartAmount = (id: string, restaurantTitle: string) => {
-		setHaptic('soft');
-
 		const modifyCart = () =>
 			setCartItems(currentItems => {
 				const cartItem = findCartItem(id);
@@ -67,7 +65,6 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 	};
 
 	const decrementCartAmount = (id: string) => {
-		setHaptic('soft');
 		setCartItems(currentItems => {
 			const cartItem = findCartItem(id);
 
@@ -93,7 +90,6 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 	};
 
 	const clearCart = () => {
-		setHaptic('soft');
 		setCartItems([]);
 	};
 

@@ -6,8 +6,6 @@ import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
-import { setHaptic } from 'actions/webApp-actions';
-
 interface Props {
 	restaurant: Restaurant;
 }
@@ -15,7 +13,6 @@ interface Props {
 export const RestaurantCard = ({ restaurant }: Props) => {
 	return (
 		<Card
-			onClick={() => setHaptic('light')}
 			sx={{
 				mb: 2,
 				display: 'flex',

@@ -23,6 +23,7 @@ export const categoryQuery = (category: string | undefined) => {
 			return category;
 		},
 		// cached for 2 hours
+		cacheTime: 10000 * 60 * 60 * 2,
 		staleTime: 10000 * 60 * 60 * 2,
 	};
 };

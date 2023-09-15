@@ -25,6 +25,7 @@ export const restaurantsQuery = (category: string | undefined) => {
 			return mapRestaurants(restaurants);
 		},
 		// cached for 2 hours
+		cacheTime: 10000 * 60 * 60 * 2,
 		staleTime: 10000 * 60 * 60 * 2,
 	};
 };
@@ -53,6 +54,7 @@ export const restaurantQuery = (restaurant: string | undefined) => {
 			return mapRestaurant(restaurant);
 		},
 		// cached for 2 hours
+		cacheTime: 10000 * 60 * 60 * 2,
 		staleTime: 10000 * 60 * 60 * 2,
 	};
 };
@@ -83,6 +85,7 @@ export const restaurantProductsQuery = (restaurant: string | undefined) => {
 			return restaurantProducts;
 		},
 		// cached for 2 hours
+		cacheTime: 10000 * 60 * 60 * 2,
 		staleTime: 10000 * 60 * 60 * 2,
 	};
 };

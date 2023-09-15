@@ -22,6 +22,7 @@ export const feedQuery = () => {
 			return feed;
 		},
 		// cached for 1 hours
+		cacheTime: 10000 * 60 * 60,
 		staleTime: 10000 * 60 * 60,
 	};
 };

@@ -15,6 +15,8 @@ import {
 	showMainButton,
 } from 'actions/webApp-actions';
 
+import { useTelegramUser } from 'context/user.context';
+
 import { BikesCheckoutComponent } from './bikes-checkout.component';
 import { BikesCheckoutModel } from './bikes-checkout.model';
 
@@ -22,13 +24,15 @@ export const BikesCheckoutContainer = () => {
 	const { state } = useLocation();
 	const product: DefaultProductModel = state.product || {};
 
+	const tgUser = useTelegramUser();
+
 	const {
 		register,
 		handleSubmit,
 		control,
 		formState: { errors },
 	} = useForm<BikesCheckoutModel>({
-		defaultValues: { startDate: null, endDate: null },
+		defaultValues: { userName: tgUser.first_name, startDate: null, endDate: null },
 	});
 
 	const startDate = useWatch({ control, name: 'startDate' });

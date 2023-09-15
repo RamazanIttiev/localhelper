@@ -13,11 +13,14 @@ import {
 	showMainButton,
 } from 'actions/webApp-actions';
 
+import { useTelegramUser } from 'context/user.context';
+
 import { ToursCheckoutComponent } from './tours-checkout.component';
 import { ToursCheckoutModel } from './tours-checkout.model';
 
 export const ToursCheckoutContainer = () => {
 	const { state } = useLocation();
+	const tgUser = useTelegramUser();
 
 	const flowId = state.flowId || '';
 	const product: DefaultProductModel = state.product || {};
@@ -27,7 +30,7 @@ export const ToursCheckoutContainer = () => {
 		handleSubmit,
 		control,
 		formState: { errors },
-	} = useForm<ToursCheckoutModel>();
+	} = useForm<ToursCheckoutModel>({ defaultValues: { userName: tgUser.first_name } });
 
 	const onSubmit = useCallback(
 		(data: ToursCheckoutModel) => {
@@ -36,12 +39,13 @@ export const ToursCheckoutContainer = () => {
 				{
 					data,
 					tourTitle: product.title,
+					tgUserNick: tgUser.username,
 				},
 				() => console.log(),
 				() => console.log(),
 			);
 		},
-		[product.title, flowId],
+		[flowId, product.title, tgUser.username],
 	);
 
 	const handleForm = useCallback(async () => {

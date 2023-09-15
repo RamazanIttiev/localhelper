@@ -13,11 +13,14 @@ import {
 	showMainButton,
 } from 'actions/webApp-actions';
 
+import { useTelegramUser } from 'context/user.context';
+
 import { FlowersCheckoutComponent } from './flowers-checkout.component';
 import { FlowersCheckoutModel } from './flowers-checkout.model';
 
 export const FlowersCheckoutContainer = () => {
 	const { state } = useLocation();
+	const tgUser = useTelegramUser();
 
 	const flowId = state.flowId || '';
 	const product: DefaultProductModel = state.product || {};
@@ -26,7 +29,7 @@ export const FlowersCheckoutContainer = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<FlowersCheckoutModel>();
+	} = useForm<FlowersCheckoutModel>({ defaultValues: { userName: tgUser.first_name } });
 
 	const onSubmit = useCallback(
 		(data: FlowersCheckoutModel) => {
@@ -37,12 +40,13 @@ export const FlowersCheckoutContainer = () => {
 					productTitle: product.title,
 					placeTitle: product.place,
 					placeContact: product.contact,
+					tgUserNick: tgUser.username,
 				},
 				() => console.log(),
 				() => console.log(),
 			);
 		},
-		[flowId, product.title, product.place, product.contact],
+		[flowId, product.title, product.place, product.contact, tgUser.username],
 	);
 
 	const handleForm = useCallback(async () => {

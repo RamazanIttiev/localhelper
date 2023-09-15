@@ -11,11 +11,14 @@ import {
 	showMainButton,
 } from 'actions/webApp-actions';
 
+import { useTelegramUser } from 'context/user.context';
+
 import { TransferCheckoutComponent } from './transfer-checkout.component';
 import { TransferCheckoutModel } from './transfer-checkout.model';
 
 export const TransferCheckoutContainer = () => {
 	const { state } = useLocation();
+	const tgUser = useTelegramUser();
 
 	const flowId = state.flowId || '';
 
@@ -25,7 +28,7 @@ export const TransferCheckoutContainer = () => {
 		control,
 		formState: { errors },
 	} = useForm<TransferCheckoutModel>({
-		defaultValues: { date: null },
+		defaultValues: { userName: tgUser.first_name, date: null },
 	});
 
 	const onSubmit = useCallback(
@@ -35,12 +38,13 @@ export const TransferCheckoutContainer = () => {
 				{
 					...data,
 					date: data.date?.toISOString(),
+					tgUserNick: tgUser.username,
 				},
 				() => console.log(),
 				() => console.log(),
 			);
 		},
-		[flowId],
+		[flowId, tgUser.username],
 	);
 
 	const handleForm = useCallback(async () => {

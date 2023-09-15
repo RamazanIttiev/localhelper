@@ -21,7 +21,7 @@ import { restaurantLoader, restaurantProductsLoader, restaurantsLoader } from 'a
 
 const queryClient = new QueryClient();
 export const Telegram = window.Telegram.WebApp;
-export const TelegramUser = window.Telegram.initDataUnsafe?.user;
+export const TelegramUser = window.Telegram.WebApp.initDataUnsafe.user;
 export const TelegramTheme = Telegram.themeParams !== undefined ? Telegram.themeParams : null;
 
 const router = createBrowserRouter(

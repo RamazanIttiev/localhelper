@@ -15,6 +15,8 @@ import {
 	showMainButton,
 } from 'actions/webApp-actions';
 
+import { useTelegramUser } from 'context/user.context';
+
 import { RentCheckoutComponent } from './rent-checkout.component';
 import { RentCheckoutModel } from './rent-checkout.model';
 
@@ -22,13 +24,15 @@ export const RentCheckoutContainer = () => {
 	const { state } = useLocation();
 	const product: DefaultProductModel = state.product || {};
 
+	const tgUser = useTelegramUser();
+
 	const {
 		register,
 		handleSubmit,
 		control,
 		formState: { errors },
 	} = useForm<RentCheckoutModel>({
-		defaultValues: { startDate: null, endDate: null },
+		defaultValues: { userName: tgUser.first_name, startDate: null, endDate: null },
 	});
 
 	const startDate = useWatch({ control, name: 'startDate' });
@@ -50,12 +54,13 @@ export const RentCheckoutContainer = () => {
 					rentStart: data.startDate?.toDateString(),
 					rentEnd: data.endDate?.toDateString(),
 					rentPeriod,
+					tgUserNick: tgUser.username,
 				},
 				() => console.log(),
 				() => console.log(),
 			);
 		},
-		[product.contact, product.place, product.price, product.title, rentPeriod, state?.flowId],
+		[product.contact, product.place, product.price, product.title, rentPeriod, state?.flowId, tgUser.username],
 	);
 
 	const handleForm = useCallback(async () => {

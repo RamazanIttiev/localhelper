@@ -19,6 +19,7 @@ import {
 } from 'actions/webApp-actions';
 
 import { ShoppingCartProvider } from 'context/cart.context';
+import { UserProvider } from 'context/user.context';
 
 export const Layout = () => {
 	const navigate = useNavigate();
@@ -55,7 +56,9 @@ export const Layout = () => {
 			/>
 
 			<ShoppingCartProvider>
-				<Outlet />
+				<UserProvider>
+					<Outlet />
+				</UserProvider>
 				{footerIsVisible && <Footer />}
 			</ShoppingCartProvider>
 		</>

@@ -7,14 +7,14 @@ import { LoaderButton } from 'reactkit/loaderButton';
 
 import { Box } from '@mui/material';
 
-import { UserData } from 'models/user.model';
+import { RestaurantCheckoutModel } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 
 interface FormUIProps {
 	onSubmit: () => void;
-	errors: FieldErrors<UserData>;
-	register: UseFormRegister<UserData>;
+	errors: FieldErrors<RestaurantCheckoutModel>;
+	register: UseFormRegister<RestaurantCheckoutModel>;
 }
 
 export const RestaurantCheckoutForm = ({ register, errors, onSubmit }: FormUIProps) => {

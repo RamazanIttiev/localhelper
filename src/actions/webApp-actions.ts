@@ -1,8 +1,8 @@
-import { Telegram, TelegramTheme } from 'app/App';
+import { Telegram, TelegramTheme, TelegramUser } from 'app/App';
 
 import CryptoJS from 'crypto-js';
 
-const verifyInitData = (telegramInitData: string): boolean => {
+export const verifyInitData = (telegramInitData: string): boolean => {
 	const initData = new URLSearchParams(telegramInitData);
 	const hash = initData.get('hash');
 	const dataToCheck: string[] = [];
@@ -51,7 +51,7 @@ export const removeMainButtonEvent = (callback: () => unknown) => {
 };
 export const fetchTelegramUser = () => {
 	if (verifyInitData(Telegram.initData)) {
-		return JSON.stringify(Telegram.initData);
+		return TelegramUser;
 	}
 	return {};
 };

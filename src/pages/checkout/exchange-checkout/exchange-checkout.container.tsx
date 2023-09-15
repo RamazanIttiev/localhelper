@@ -7,10 +7,13 @@ import { ExchangeCheckoutModel } from 'pages/checkout/exchange-checkout/exchange
 import { handleOrder } from 'actions/global-actions';
 import { handleMainButton, removeMainButtonEvent, setMainButtonText, showMainButton } from 'actions/webApp-actions';
 
+import { useTelegramUser } from 'context/user.context';
+
 import { ExchangeCheckoutComponent } from './exchange-checkout.component';
 
 export const ExchangeContainer = () => {
 	const { state } = useLocation();
+	const tgUser = useTelegramUser();
 
 	const flowId: string = state;
 
@@ -19,7 +22,7 @@ export const ExchangeContainer = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm<ExchangeCheckoutModel>({
-		defaultValues: { exchangeCurrency: 'USDT' },
+		defaultValues: { userName: tgUser.first_name, exchangeCurrency: 'USDT' },
 	});
 
 	const onSubmit = useCallback(

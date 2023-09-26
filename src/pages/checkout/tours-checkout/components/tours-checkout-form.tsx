@@ -2,10 +2,11 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { ErrorText } from 'reactkit/errorText';
+import { HintText } from 'reactkit/hintText';
 import { StyledInput } from 'reactkit/input';
 import { InputGroup } from 'reactkit/inputGroup';
-import { Label } from 'reactkit/label';
 import { Select } from 'reactkit/select';
+import { SelectGroup } from 'reactkit/selectGroup';
 
 import { Box } from '@mui/material';
 
@@ -51,18 +52,16 @@ export const ToursCheckoutForm = ({ register, errors, control }: Props) => {
 				patternMessage={"I think your phone number isn't correct..."}
 			/>
 
-			<Box mb={'1rem'}>
-				<Label text={'Passengers'} />
-				<Select
-					type={'number'}
-					defaultValue={3}
-					register={register}
-					fieldName={'passengers'}
-					options={[1, 2, 3, 4, 5, 6, 7, 8]}
-					error={errors.passengers !== undefined}
-				/>
-				{errors.passengers?.type !== 'required' && <ErrorText text={errors.passengers?.message} />}
-			</Box>
+			<SelectGroup
+				label={'Passengers'}
+				type={'number'}
+				defaultValue={3}
+				register={register}
+				fieldName={'passengers'}
+				options={[1, 2, 3, 4, 5, 6, 7, 8]}
+				error={errors.passengers !== undefined}
+				errorMessage={errors.passengers?.message}
+			/>
 
 			<InputGroup
 				label={'Pick up place'}
@@ -76,7 +75,7 @@ export const ToursCheckoutForm = ({ register, errors, control }: Props) => {
 			/>
 
 			<Box mb={'1rem'}>
-				<Label text={'Date of the tour'} labelStyles={{ marginBottom: '0.5rem' }} />
+				<HintText text={'Date of the tour'} sx={{ ml: 2 }} />
 				<Controller
 					control={control}
 					{...register('date', {

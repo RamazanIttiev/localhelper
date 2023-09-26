@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { LoaderButton } from 'reactkit/loaderButton';
+import { ActionButton } from 'reactkit/actionButton';
 
 import { Container } from '@mui/material';
 
@@ -52,7 +52,7 @@ export const CheckoutContainer = () => {
 			{renderCheckoutContainer(categoryId)}
 
 			{!isUserAgentTelegram && (
-				<LoaderButton isMainButton text={'Order in telegram'} handleClick={openTelegram} />
+				<ActionButton isMainButton text={'Order in telegram'} handleClick={openTelegram} />
 			)}
 		</Container>
 	);

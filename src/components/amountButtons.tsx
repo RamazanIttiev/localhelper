@@ -2,9 +2,16 @@ import React, { CSSProperties } from 'react';
 
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
 
+import { theme } from 'theme';
+
 import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
 
+import { setHaptic } from 'actions/webApp-actions';
+
 import { useShoppingCart } from 'context/cart.context';
+
+import { ReactComponent as AddIcon } from 'assets/svg/add.svg';
+import { ReactComponent as RemoveIcon } from 'assets/svg/remove.svg';
 
 interface Props {
 	showPrice?: boolean;
@@ -21,26 +28,36 @@ export const AmountButtons = ({ styles, product, showAmount = false, showPrice =
 	const productAmount = getItemAmount(product.id);
 	const isRemoveVisible = productAmount > 0;
 
+	const handleRemove = () => {
+		setHaptic('soft');
+		decrementCartAmount(product.id);
+	};
+
+	const handleAdd = () => {
+		setHaptic('soft');
+		incrementCartAmount(product.id, restaurantTitle);
+	};
+
 	return (
 		<Box
 			sx={{
 				p: 0,
 				maxWidth: '9rem',
-				borderRadius: '1rem',
+				borderRadius: theme.tg_theme.borderRadius.base,
 				transition: 'all 0.2s',
 				display: 'flex',
 				alignItems: 'center',
 				justifyContent: 'space-between',
 				width: isRemoveVisible ? '9rem' : '8rem',
-				background: theme.palette.background.paper,
+				background: theme.tg_theme.palette.button_color,
 				...styles,
 			}}>
 			<IconButton
 				sx={{ p: isRemoveVisible ? 1 : 0, transition: 'all 0.2s' }}
 				size={'medium'}
-				onClick={() => decrementCartAmount(product.id)}>
+				onClick={handleRemove}>
 				<Icon fontSize={'small'} sx={{ color: '#fff', opacity: isRemoveVisible ? 1 : 0 }}>
-					remove
+					<RemoveIcon style={{ width: 'auto', height: '16px' }} />
 				</Icon>
 			</IconButton>
 			<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -51,9 +68,9 @@ export const AmountButtons = ({ styles, product, showAmount = false, showPrice =
 					</Typography>
 				)}
 			</Box>
-			<IconButton size={'medium'} onClick={() => incrementCartAmount(product.id, restaurantTitle)}>
+			<IconButton size={'medium'} onClick={handleAdd}>
 				<Icon fontSize={'small'} sx={{ color: '#fff' }}>
-					add
+					<AddIcon style={{ width: 'auto', height: '16px' }} />
 				</Icon>
 			</IconButton>
 		</Box>

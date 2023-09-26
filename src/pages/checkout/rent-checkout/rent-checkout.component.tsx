@@ -1,6 +1,6 @@
 import React from 'react';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
-import { Label } from 'reactkit/label';
+import { HintText } from 'reactkit/hintText';
 
 import { Box, Typography } from '@mui/material';
 
@@ -27,7 +27,7 @@ export const RentCheckoutComponent = ({ register, errors, control, product, rent
 		<>
 			<RentCheckoutForm control={control} errors={errors} register={register} />
 			<Box sx={{ display: 'flex', flexDirection: 'column', mt: '2rem' }}>
-				<Label text={'Order info'} labelStyles={{ marginBottom: '0.5rem' }} />
+				<HintText text={'Order info'} sx={{ mb: '0.5rem' }} />
 				<Box sx={{ display: 'flex', alignItems: 'flex-start' }} mb={1}>
 					<Box
 						component={'img'}

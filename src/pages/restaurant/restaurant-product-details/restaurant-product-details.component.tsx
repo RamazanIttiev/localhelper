@@ -1,6 +1,6 @@
 import React from 'react';
+import { ActionButton } from 'reactkit/actionButton';
 import { InfoBadge } from 'reactkit/infoBadge';
-import { LoaderButton } from 'reactkit/loaderButton';
 
 import { Box, Card, CardActions, CardContent, CardMedia, Container, Typography } from '@mui/material';
 
@@ -82,7 +82,6 @@ export const RestaurantProductDetails = ({ restaurantProduct, restaurant }: Prop
 								styles={{
 									maxWidth: '13rem',
 									width: isRemoveVisible ? '13rem' : '12rem',
-									background: theme.palette.background.paper,
 								}}
 								restaurantTitle={restaurant.title}
 								product={restaurantProduct}
@@ -94,7 +93,7 @@ export const RestaurantProductDetails = ({ restaurantProduct, restaurant }: Prop
 				) : (
 					<>
 						<InfoBadge text={`${price.toString()} Rs`} />
-						<LoaderButton isMainButton text={'Order in telegram'} handleClick={openTelegram} />
+						<ActionButton isMainButton text={'Order in telegram'} handleClick={openTelegram} />
 					</>
 				)}
 			</Card>

@@ -15,7 +15,7 @@ export const ExchangeCheckoutComponent = ({ errors, register }: ExchangeComponen
 		<>
 			<ExchangeCheckoutForm errors={errors} register={register} />
 			<HintText
-				sx={{ marginTop: '2rem' }}
+				sx={{ mt: '2rem' }}
 				text={
 					'After confirming your order, you will need to provide your geolocation in telegram bot so the courier can find you'
 				}

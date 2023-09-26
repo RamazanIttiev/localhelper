@@ -13,6 +13,7 @@ declare module '@mui/material/styles' {
 				link_color: string;
 				button_color: string;
 				button_text_color: string;
+				button_hover_color: string;
 			};
 			fontSize: {
 				largeTitle: string;
@@ -22,7 +23,6 @@ declare module '@mui/material/styles' {
 				body: string;
 				caption: string;
 			};
-			fontFamily: string;
 			fontWeight: { normal: string; bold: string; extraBold: string };
 			borderRadius: {
 				actionButton: string;
@@ -47,15 +47,15 @@ export const theme = createTheme({
 			link_color: WebAppTheme?.link_color || '#696969',
 			button_color: WebAppTheme?.button_color || '#696969',
 			button_text_color: WebAppTheme?.button_text_color || '#fff',
+			button_hover_color: 'rgba(0, 0, 0, 0.04)',
 		},
-		fontFamily: '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
 		fontSize: {
 			largeTitle: '34px',
 			title1: '28px',
 			title2: '22px',
 			title3: '20px',
-			body: '17px',
-			caption: '16px',
+			body: '16px',
+			caption: '12px',
 		},
 		fontWeight: { normal: '400', bold: '700', extraBold: '900' },
 		borderRadius: {
@@ -65,6 +65,9 @@ export const theme = createTheme({
 		height: '44px',
 	},
 	palette: {
+		primary: {
+			main: WebAppTheme?.text_color || '#fff',
+		},
 		action: {
 			selected: '#fff',
 			disabled: '#777777',
@@ -80,6 +83,9 @@ export const theme = createTheme({
 		warning: { main: '#F3C04B' },
 	},
 
+	typography: {
+		fontFamily: '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
+	},
 	components: {
 		MuiDrawer: {
 			styleOverrides: {

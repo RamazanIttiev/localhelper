@@ -4,6 +4,8 @@ import { WorkingStatus } from 'reactkit/workingStatus';
 
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 
+import { theme } from 'theme';
+
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 interface Props {
@@ -26,7 +28,7 @@ export const RestaurantCard = ({ restaurant }: Props) => {
 				<CardMedia
 					component="img"
 					image={restaurant.image[0].url}
-					sx={{ height: '11rem', borderRadius: '2rem' }}
+					sx={{ height: '11rem', borderRadius: theme.tg_theme.borderRadius.base }}
 				/>
 
 				<CardContent

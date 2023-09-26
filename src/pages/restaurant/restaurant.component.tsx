@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoaderButton } from 'reactkit/loaderButton';
+import { ActionButton } from 'reactkit/actionButton';
 
 import { Container, Grid } from '@mui/material';
 
@@ -42,7 +42,7 @@ export const RestaurantComponent = ({ restaurant, products, flowId }: Props) => 
 							})}
 
 							{!isUserAgentTelegram && (
-								<LoaderButton isMainButton text={'Order in telegram'} handleClick={openTelegram} />
+								<ActionButton isMainButton text={'Order in telegram'} handleClick={openTelegram} />
 							)}
 						</>
 					) : (

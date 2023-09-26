@@ -7,6 +7,8 @@ import { theme } from 'theme';
 
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
+import { ReactComponent as LocationIcon } from 'assets/svg/location.svg';
+
 interface Props {
 	restaurant: Pick<Restaurant, 'workingTime' | 'workingStatus' | 'image' | 'location' | 'title'>;
 }
@@ -64,7 +66,7 @@ export const RestaurantHeader = ({ restaurant }: Props) => {
 							sx={{
 								marginRight: '0.2rem',
 							}}>
-							location_on
+							<LocationIcon />
 						</Icon>
 						<Typography component="p" variant={'body1'}>
 							{location}

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 
+import { theme } from 'theme';
+
 import { CategoryDialog } from 'components/categoryDialog';
 
 import { getServicesRoute } from 'utils/route';
@@ -46,7 +48,7 @@ export const CategoryCard: FC<CategoryProps> = ({ title, image, isLink = false, 
 						sx={{
 							background: '#404040d9',
 							display: 'flex',
-							borderRadius: '24px',
+							borderRadius: theme.tg_theme.borderRadius.base,
 							height: '7rem',
 							position: 'relative',
 						}}>

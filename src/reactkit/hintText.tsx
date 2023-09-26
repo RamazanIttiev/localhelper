@@ -1,15 +1,23 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 
-import { Typography } from '@mui/material';
+import { SxProps, Typography } from '@mui/material';
+
+import { theme } from 'theme';
 
 interface Props {
 	text: string;
-	sx?: CSSProperties;
+	sx?: SxProps;
 }
 
 export const HintText = ({ text, sx }: Props) => {
 	return (
-		<Typography variant={'body2'} sx={{ filter: 'brightness(50%)', letterSpacing: '1px', ...sx }}>
+		<Typography
+			sx={{
+				textTransform: 'uppercase',
+				color: theme.tg_theme.palette.hint_color,
+				fontSize: theme.tg_theme.fontSize.caption,
+				...sx,
+			}}>
 			{text}
 		</Typography>
 	);

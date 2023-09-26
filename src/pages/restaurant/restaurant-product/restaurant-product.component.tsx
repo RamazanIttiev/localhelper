@@ -1,9 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { IconBadges } from 'reactkit/iconBadges';
 import { InfoBadge } from 'reactkit/infoBadge';
+import { Link } from 'reactkit/link';
 
 import { Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+
+import { theme } from 'theme';
 
 import { AmountButtons } from 'components/amountButtons';
 import { ImageBackdrop } from 'components/imageBackdrop';
@@ -35,14 +37,13 @@ export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }:
 					background: 'transparent',
 					justifyContent: 'space-between',
 				}}>
-				<Link
-					key={id}
-					to={title}
-					state={{ restaurantProduct, restaurant, flowId }}
-					style={{ position: 'relative' }}>
+				<Link key={id} to={title} state={{ restaurantProduct, restaurant, flowId }}>
 					{image && (
 						<>
-							<CardMedia image={image[0].url} sx={{ height: '11rem', borderRadius: '1rem' }} />
+							<CardMedia
+								image={image[0].url}
+								sx={{ height: '11rem', borderRadius: theme.tg_theme.borderRadius.base }}
+							/>
 							<IconBadges iconBadges={iconBadges} />
 						</>
 					)}

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { LoaderButton } from 'reactkit/loaderButton';
+import { ActionButton } from 'reactkit/actionButton';
 
 import { Container, Grid } from '@mui/material';
 
@@ -44,7 +44,7 @@ export const ProductsList = () => {
 							})}
 
 							{!isUserAgentTelegram && (
-								<LoaderButton isMainButton text={'Order in telegram'} handleClick={openTelegram} />
+								<ActionButton isMainButton text={'Order in telegram'} handleClick={openTelegram} />
 							)}
 						</>
 					) : (

@@ -47,11 +47,6 @@ export const Layout = () => {
 					'.PrivateSwipeArea-root': {
 						zIndex: '0 !important',
 					},
-
-					'.MuiGrid-item': {
-						transition: 'all 0.2s ease',
-						'&:active': { transform: 'scale(0.9)' },
-					},
 				}}
 			/>
 

@@ -2,10 +2,11 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { ErrorText } from 'reactkit/errorText';
+import { HintText } from 'reactkit/hintText';
 import { StyledInput } from 'reactkit/input';
 import { InputGroup } from 'reactkit/inputGroup';
-import { Label } from 'reactkit/label';
 import { Select } from 'reactkit/select';
+import { SelectGroup } from 'reactkit/selectGroup';
 
 import { Box, FormControl } from '@mui/material';
 
@@ -88,7 +89,7 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 				})}
 				render={({ field }) => (
 					<FormControl variant="standard" fullWidth sx={{ mb: 2 }}>
-						<Label text={'Date and Time'} />
+						<HintText text={'Date and Time'} sx={{ ml: 2 }} />
 						<DatePicker
 							wrapperClassName="datepicker"
 							selected={field.value}
@@ -114,18 +115,16 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 				)}
 			/>
 
-			<Box mb={'1rem'}>
-				<Label text={'Passengers'} />
-				<Select
-					type={'number'}
-					defaultValue={3}
-					register={register}
-					fieldName={'passengers'}
-					options={[1, 2, 3, 4, 5, 6, 7, 8]}
-					error={errors.passengers !== undefined}
-				/>
-				{errors.passengers?.type !== 'required' && <ErrorText text={errors.passengers?.message} />}
-			</Box>
+			<SelectGroup
+				label={'Passengers'}
+				type={'number'}
+				defaultValue={3}
+				register={register}
+				fieldName={'passengers'}
+				options={[1, 2, 3, 4, 5, 6, 7, 8]}
+				error={errors.passengers !== undefined}
+				errorMessage={errors.passengers?.message}
+			/>
 		</form>
 	);
 };

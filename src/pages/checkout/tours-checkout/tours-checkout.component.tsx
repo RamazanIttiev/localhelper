@@ -1,5 +1,6 @@
 import React from 'react';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
+import { HintText } from 'reactkit/hintText';
 import { Label } from 'reactkit/label';
 
 import { Box, Typography } from '@mui/material';
@@ -24,7 +25,7 @@ export const ToursCheckoutComponent = ({ register, errors, control, product }: P
 		<>
 			<ToursCheckoutForm control={control} errors={errors} register={register} />
 			<Box sx={{ display: 'flex', flexDirection: 'column', mt: '2rem' }}>
-				<Label text={'Order info'} labelStyles={{ marginBottom: '0.5rem' }} />
+				<HintText text={'Order info'} sx={{ mb: '0.5rem' }} />
 				<Box sx={{ display: 'flex', alignItems: 'flex-start' }} mb={1}>
 					<Box
 						component={'img'}
@@ -39,13 +40,11 @@ export const ToursCheckoutComponent = ({ register, errors, control, product }: P
 						}}
 					/>
 					<Box sx={{ display: 'flex', alignItems: 'self-start', flexDirection: 'column' }}>
-						<Typography variant={'body1'} sx={{ color: theme.palette.info.main }}>
-							{product.title}
-						</Typography>
+						<Typography variant={'body1'}>{product.title}</Typography>
 
-						<Typography variant={'body1'} sx={{ display: 'flex', color: theme.palette.info.main }}>
+						<Typography variant={'body1'} sx={{ display: 'flex' }}>
 							Total price:
-							<Typography fontWeight={600} color={'#fff'} ml={1}>
+							<Typography fontWeight={600} ml={1}>
 								{product.price} Rs
 							</Typography>
 						</Typography>

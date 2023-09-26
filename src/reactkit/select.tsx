@@ -37,9 +37,7 @@ interface Props extends Partial<SelectProps> {
 	fieldName: string;
 	options: string[] | number[];
 	register: UseFormRegister<any>;
-	pattern?: RegExp;
 	required?: boolean;
-	patternMessage?: string;
 	requiredMessage?: string;
 }
 
@@ -49,8 +47,6 @@ export const Select = ({
 	register,
 	required = false,
 	requiredMessage,
-	pattern = new RegExp(''),
-	patternMessage,
 	fullWidth = true,
 	defaultValue,
 	options,
@@ -74,10 +70,6 @@ export const Select = ({
 				required: {
 					value: required,
 					message: requiredMessage || '',
-				},
-				pattern: {
-					value: pattern,
-					message: patternMessage || '',
 				},
 			})}>
 			{options.map(option => (

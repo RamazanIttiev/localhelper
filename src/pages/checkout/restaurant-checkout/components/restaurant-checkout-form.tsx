@@ -1,12 +1,7 @@
 import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { ErrorText } from 'reactkit/errorText';
-import { Input } from 'reactkit/input';
+import { ActionButton } from 'reactkit/actionButton';
 import { InputGroup } from 'reactkit/inputGroup';
-import { Label } from 'reactkit/label';
-import { LoaderButton } from 'reactkit/loaderButton';
-
-import { Box } from '@mui/material';
 
 import { RestaurantCheckoutModel } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
 
@@ -62,7 +57,7 @@ export const RestaurantCheckoutForm = ({ register, errors, onSubmit }: FormUIPro
 				fieldName={'userHotel'}
 			/>
 
-			{!isUserAgentTelegram && <LoaderButton isMainButton text={'Order'} handleClick={onSubmit} />}
+			{!isUserAgentTelegram && <ActionButton isMainButton text={'Order'} handleClick={onSubmit} />}
 		</form>
 	);
 };

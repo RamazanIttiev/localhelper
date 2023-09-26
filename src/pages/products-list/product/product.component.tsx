@@ -1,9 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { ActionButton } from 'reactkit/actionButton';
 import { IconBadges } from 'reactkit/iconBadges';
-import { LoaderButton } from 'reactkit/loaderButton';
+import { Link } from 'reactkit/link';
 
 import { Box, Card, CardContent, Typography } from '@mui/material';
+
+import { theme } from 'theme';
 
 import { Product } from 'pages/products-list/product/product.model';
 
@@ -27,11 +29,7 @@ export const ProductComponent = ({ flowId, product, handleClick }: Props) => {
 				background: 'transparent',
 				justifyContent: 'space-between',
 			}}>
-			<Link
-				key={product.id}
-				to={product.title.toLowerCase()}
-				state={{ product, flowId }}
-				style={{ position: 'relative' }}>
+			<Link key={product.id} to={product.title.toLowerCase()} state={{ product, flowId }}>
 				<>
 					<Box
 						component={'img'}
@@ -41,7 +39,7 @@ export const ProductComponent = ({ flowId, product, handleClick }: Props) => {
 							display: 'block',
 							width: '100%',
 							height: '11rem',
-							borderRadius: '1rem',
+							borderRadius: theme.tg_theme.borderRadius.base,
 							objectFit: 'cover',
 						}}
 					/>
@@ -74,7 +72,7 @@ export const ProductComponent = ({ flowId, product, handleClick }: Props) => {
 					</Typography>
 				</CardContent>
 			</Link>
-			{isUserAgentTelegram && <LoaderButton text={`${product.price} Rs`} handleClick={handleClick} />}
+			{isUserAgentTelegram && <ActionButton text={`${product.price} Rs`} handleClick={handleClick} />}
 		</Card>
 	);
 };

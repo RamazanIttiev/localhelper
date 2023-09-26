@@ -1,10 +1,8 @@
 import React from 'react';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
-import { Label } from 'reactkit/label';
+import { HintText } from 'reactkit/hintText';
 
 import { Box, Typography } from '@mui/material';
-
-import { theme } from 'theme';
 
 import { DefaultProductModel } from 'pages/products-list/product/product.model';
 
@@ -27,7 +25,7 @@ export const BikesCheckoutComponent = ({ register, errors, control, product, ren
 		<>
 			<BikesCheckoutForm control={control} errors={errors} register={register} />
 			<Box sx={{ display: 'flex', flexDirection: 'column', mt: '2rem' }}>
-				<Label text={'Order info'} labelStyles={{ marginBottom: '0.5rem' }} />
+				<HintText text={'Order info'} sx={{ mb: '0.5rem' }} />
 				<Box sx={{ display: 'flex', alignItems: 'flex-start' }} mb={1}>
 					<Box
 						component={'img'}
@@ -42,19 +40,11 @@ export const BikesCheckoutComponent = ({ register, errors, control, product, ren
 						}}
 					/>
 					<Box sx={{ display: 'flex', alignItems: 'self-start', flexDirection: 'column' }} mb={'3rem'}>
-						<Typography
-							component={'span'}
-							variant={'body1'}
-							fontWeight={'bold'}
-							sx={{ color: theme.palette.info.main }}>
+						<Typography component={'span'} variant={'body1'} fontWeight={'bold'}>
 							{product.title}
 						</Typography>
 
-						<Typography
-							component={'span'}
-							variant={'body1'}
-							fontWeight={'bold'}
-							sx={{ color: theme.palette.info.main }}>
+						<Typography component={'span'} variant={'body1'} fontWeight={'bold'}>
 							{product.price} Rs
 						</Typography>
 					</Box>
@@ -71,7 +61,6 @@ export const BikesCheckoutComponent = ({ register, errors, control, product, ren
 									width: '1.5rem',
 									height: '1.5rem',
 									borderRadius: '50%',
-									backgroundColor: theme.palette.primary.main,
 									display: 'flex',
 									justifyContent: 'center',
 									alignItems: 'center',
@@ -81,11 +70,7 @@ export const BikesCheckoutComponent = ({ register, errors, control, product, ren
 							</Typography>
 							{formatDaysText(rentPeriod)}
 						</Typography>
-						<Typography
-							component={'span'}
-							variant={'body1'}
-							fontWeight={'bold'}
-							sx={{ color: theme.palette.info.main }}>
+						<Typography component={'span'} variant={'body1'} fontWeight={'bold'}>
 							{product.price * rentPeriod} Rs
 						</Typography>
 					</Box>

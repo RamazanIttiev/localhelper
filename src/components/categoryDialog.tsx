@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { LoaderButton } from 'reactkit/loaderButton';
+import { ActionButton } from 'reactkit/actionButton';
 
 import { Box, Drawer, Typography, useTheme } from '@mui/material';
 
@@ -77,7 +77,7 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, us
 					{title}
 				</Typography>
 				{!isUserAgentTelegram && (
-					<LoaderButton
+					<ActionButton
 						isMainButton
 						text={isUserAgentTelegram ? 'Continue' : 'Open Telegram'}
 						handleClick={isUserAgentTelegram ? handleProductOrder : openTelegram}

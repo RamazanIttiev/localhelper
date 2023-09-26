@@ -1,8 +1,8 @@
 import React from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import { ErrorText } from 'reactkit/errorText';
+import { HintText } from 'reactkit/hintText';
 import { Input } from 'reactkit/input';
-import { Label } from 'reactkit/label';
 
 import { FormControl, OutlinedTextFieldProps, SxProps } from '@mui/material';
 
@@ -34,7 +34,7 @@ export const InputGroup = (props: Props) => {
 
 	return (
 		<FormControl variant="standard" fullWidth sx={{ mb: 2, ...containerStyles }}>
-			<Label text={label} labelStyles={labelStyles} />
+			<HintText text={label} sx={{ ml: 2, ...labelStyles }} />
 			<Input {...props} />
 			<ErrorText text={errorMessage} />
 		</FormControl>

@@ -1,6 +1,6 @@
 import React from 'react';
+import { ActionButton } from 'reactkit/actionButton';
 import { IconBadges } from 'reactkit/iconBadges';
-import { LoaderButton } from 'reactkit/loaderButton';
 
 import { Box, Card, CardContent, CardMedia, Container, Typography } from '@mui/material';
 
@@ -66,7 +66,7 @@ export const ProductDetails = ({ product }: Props) => {
 				</CardContent>
 			</Card>
 			{!isUserAgentTelegram && (
-				<LoaderButton isMainButton text={'Order in telegram'} handleClick={openTelegram} />
+				<ActionButton isMainButton text={'Order in telegram'} handleClick={openTelegram} />
 			)}
 		</Container>
 	);

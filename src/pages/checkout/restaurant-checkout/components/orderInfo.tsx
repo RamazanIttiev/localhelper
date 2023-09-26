@@ -1,7 +1,7 @@
 import React from 'react';
-import { Label } from 'reactkit/label';
+import { HintText } from 'reactkit/hintText';
 
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 interface OrderInfoProps {
 	payment?: string;
@@ -10,20 +10,14 @@ interface OrderInfoProps {
 }
 
 export const OrderInfo = ({ orderTotal, delivery = 'Free', payment = 'Cash' }: OrderInfoProps) => {
-	const theme = useTheme();
-
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', mt: '2rem' }}>
-			<Label text={'Order info'} labelStyles={{ marginBottom: '0.5rem' }} />
+			<HintText text={'Order info'} sx={{ mb: '1rem' }} />
 			<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} mb={1}>
 				<Typography fontSize={'1rem'} component={'span'}>
 					Total
 				</Typography>
-				<Typography
-					component={'span'}
-					variant={'body1'}
-					fontWeight={'bold'}
-					sx={{ color: theme.palette.info.main }}>
+				<Typography component={'span'} variant={'body1'} fontWeight={'bold'}>
 					{orderTotal} Rs
 				</Typography>
 			</Box>
@@ -31,11 +25,7 @@ export const OrderInfo = ({ orderTotal, delivery = 'Free', payment = 'Cash' }: O
 				<Typography fontSize={'1rem'} component={'span'}>
 					Delivery
 				</Typography>
-				<Typography
-					component={'span'}
-					variant={'body1'}
-					fontWeight={'bold'}
-					sx={{ color: theme.palette.info.main }}>
+				<Typography component={'span'} variant={'body1'} fontWeight={'bold'}>
 					{delivery}
 				</Typography>
 			</Box>
@@ -43,11 +33,7 @@ export const OrderInfo = ({ orderTotal, delivery = 'Free', payment = 'Cash' }: O
 				<Typography fontSize={'1rem'} component={'span'}>
 					Payment method
 				</Typography>
-				<Typography
-					component={'span'}
-					variant={'body1'}
-					fontWeight={'bold'}
-					sx={{ color: theme.palette.info.main }}>
+				<Typography component={'span'} variant={'body1'} fontWeight={'bold'}>
 					{payment}
 				</Typography>
 			</Box>

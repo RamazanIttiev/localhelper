@@ -1,4 +1,4 @@
-import { Telegram, TelegramTheme, TelegramUser } from 'app/App';
+import { TelegramUser, WebApp, WebAppTheme } from 'app/App';
 
 import CryptoJS from 'crypto-js';
 
@@ -16,41 +16,41 @@ export const verifyInitData = (telegramInitData: string): boolean => {
 	return _hash === hash;
 };
 
-export const webAppIsReady = () => Telegram.ready();
-export const expandWebApp = () => Telegram.expand();
-export const enableWebAppClosingConfirmation = () => Telegram.enableClosingConfirmation();
-export const showBackButton = () => Telegram.BackButton.show();
-export const hideBackButton = () => Telegram.BackButton.hide();
-export const showMainButton = () => Telegram.MainButton.show();
-export const hideMainButton = () => Telegram.MainButton.hide();
-export const setMainButtonText = (text: string) => Telegram.MainButton.setText(text);
-export const setHaptic = (state: string) => Telegram.HapticFeedback.impactOccurred(state);
+export const webAppIsReady = () => WebApp.ready();
+export const expandWebApp = () => WebApp.expand();
+export const enableWebAppClosingConfirmation = () => WebApp.enableClosingConfirmation();
+export const showBackButton = () => WebApp.BackButton.show();
+export const hideBackButton = () => WebApp.BackButton.hide();
+export const showMainButton = () => WebApp.MainButton.show();
+export const hideMainButton = () => WebApp.MainButton.hide();
+export const setMainButtonText = (text: string) => WebApp.MainButton.setText(text);
+export const setHaptic = (state: string) => WebApp.HapticFeedback.impactOccurred(state);
 export const disableMainButton = (text: string) => {
-	Telegram.MainButton.disable();
-	Telegram.MainButton.setParams({
+	WebApp.MainButton.disable();
+	WebApp.MainButton.setParams({
 		text,
 		color: '#292929',
 		text_color: '#ccc',
 	});
 };
 export const handleBackButton = (callback: () => unknown) => {
-	Telegram.onEvent('backButtonClicked', callback);
+	WebApp.onEvent('backButtonClicked', callback);
 };
 export const handleMainButton = (callback: () => unknown) => {
-	Telegram.onEvent('mainButtonClicked', callback);
+	WebApp.onEvent('mainButtonClicked', callback);
 };
 export const enableMainButton = () => {
-	Telegram.MainButton.enable();
-	Telegram.MainButton.setParams({
-		color: TelegramTheme?.button_color,
-		text_color: TelegramTheme?.text_color,
+	WebApp.MainButton.enable();
+	WebApp.MainButton.setParams({
+		color: WebAppTheme?.button_color,
+		text_color: WebAppTheme?.text_color,
 	});
 };
 export const removeMainButtonEvent = (callback: () => unknown) => {
-	Telegram.offEvent('mainButtonClicked', callback);
+	WebApp.offEvent('mainButtonClicked', callback);
 };
 export const fetchTelegramUser = () => {
-	if (verifyInitData(Telegram.initData)) {
+	if (verifyInitData(WebApp.initData)) {
 		return TelegramUser;
 	}
 	return {};

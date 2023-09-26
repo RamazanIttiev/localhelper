@@ -1,40 +1,37 @@
 import React from 'react';
 import { UseFormRegister } from 'react-hook-form';
 
-import { styled, Select as MuiSelect, OutlinedTextFieldProps, MenuItem, SelectProps } from '@mui/material';
+import { styled, NativeSelect, SelectProps, InputBase } from '@mui/material';
 
-import { TelegramTheme } from 'app/App';
+import { WebAppTheme } from 'app/App';
 
-export const StyledSelect = styled(MuiSelect)(
-	`
-  background: #303030;
-  font-size: 0.8rem !important;
-  color: #fff;
-  border-radius: 8px;
-  width: 100%;
-  box-shadow: none;
-  `,
+import { ReactComponent as SelectIcon } from 'assets/svg/select.svg';
 
-	({ theme }) => ({
-		'& .MuiOutlinedInput-root': {
-			color: theme.palette.text,
+export const StyledSelect = styled(InputBase, {
+	shouldForwardProp: prop => prop !== 'disableUnderline',
+})(``, ({ theme }) => ({
+	background: theme.tg_theme.palette.secondary_bg_color,
+	color: theme.tg_theme.palette.text_color,
+	borderRadius: theme.tg_theme.borderRadius.base,
+	fontSize: theme.tg_theme.fontSize.body,
+	height: theme.tg_theme.height,
 
-			'&-input': {
-				padding: '13px 14px',
-			},
-			'&:hover fieldset': {
-				borderColor: theme.typography.caption.color,
-			},
-			'&.Mui-focused fieldset': {
-				borderColor: theme.typography.caption.color,
-				borderWidth: '1px',
-			},
-		},
-		'& .MuiSelect-select': {
-			padding: '13px 14px',
-		},
-	}),
-);
+	'& .MuiInputBase-input': {
+		padding: '8px 16px',
+	},
+
+	'&:before': {
+		content: 'unset',
+	},
+	'&:after': {
+		content: 'unset',
+	},
+
+	'& .MuiOutlinedInput-input': {
+		color: theme.tg_theme.palette.text_color,
+		borderRadius: theme.tg_theme.borderRadius.base,
+	},
+}));
 
 interface Props extends Partial<SelectProps> {
 	fieldName: string;
@@ -42,18 +39,12 @@ interface Props extends Partial<SelectProps> {
 	register: UseFormRegister<any>;
 	pattern?: RegExp;
 	required?: boolean;
-	fullWidth?: boolean;
 	patternMessage?: string;
 	requiredMessage?: string;
-	defaultValue?: string | number;
-	margin?: 'dense' | 'none' | undefined;
-	color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
 }
 
 export const Select = ({
 	sx,
-	color,
-	margin,
 	fieldName,
 	register,
 	required = false,
@@ -65,18 +56,20 @@ export const Select = ({
 	options,
 }: Props) => {
 	return (
-		<StyledSelect
+		<NativeSelect
 			sx={{
-				'& .MuiSelect-icon': {
-					color: '#fff' || TelegramTheme?.button_color,
+				'& .MuiNativeSelect-icon': {
+					mr: '16px',
+					color: WebAppTheme?.hint_color || '#fff',
 				},
-				height: '56px',
 				...sx,
 			}}
+			input={<StyledSelect />}
+			IconComponent={SelectIcon}
 			fullWidth={fullWidth}
-			color={color || 'info'}
-			margin={margin || 'dense'}
 			defaultValue={defaultValue}
+			disableUnderline
+			variant={'standard'}
 			{...register(fieldName, {
 				required: {
 					value: required,
@@ -88,10 +81,10 @@ export const Select = ({
 				},
 			})}>
 			{options.map(option => (
-				<MenuItem key={option} value={option}>
+				<option key={option} value={option}>
 					{option}
-				</MenuItem>
+				</option>
 			))}
-		</StyledSelect>
+		</NativeSelect>
 	);
 };

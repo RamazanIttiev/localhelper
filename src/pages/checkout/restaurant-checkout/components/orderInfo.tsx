@@ -14,7 +14,7 @@ export const OrderInfo = ({ orderTotal, delivery = 'Free', payment = 'Cash' }: O
 
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', mt: '2rem' }}>
-			<Label text={'Order info'} styles={{ marginBottom: '0.5rem' }} />
+			<Label text={'Order info'} labelStyles={{ marginBottom: '0.5rem' }} />
 			<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} mb={1}>
 				<Typography fontSize={'1rem'} component={'span'}>
 					Total

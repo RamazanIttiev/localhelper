@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Control, Controller, FieldErrors, UseFormRegister, useWatch } from 'react-hook-form';
@@ -6,7 +6,7 @@ import { ErrorText } from 'reactkit/errorText';
 import { StyledInput } from 'reactkit/input';
 import { Label } from 'reactkit/label';
 
-import { Box } from '@mui/material';
+import { Box, FormControl } from '@mui/material';
 
 interface Props {
 	errors: FieldErrors<any>;
@@ -32,54 +32,61 @@ export const DateRange = ({
 
 	return (
 		<Box display={'flex'}>
-			<Box mr={1}>
-				<Label text={'From'} styles={{ marginBottom: '0.5rem' }} />
-				<Controller
-					control={control}
-					{...register('startDate', {
-						required: startValidationText,
-					})}
-					render={({ field }) => (
+			<Controller
+				control={control}
+				{...register('startDate', {
+					required: startValidationText,
+				})}
+				render={({ field }) => (
+					<FormControl variant="standard" fullWidth sx={{ mr: 1 }}>
+						<Label text={'From'} />
 						<DatePicker
+							onFocus={e => e.target.blur()}
 							selected={field.value}
 							onChange={date => field.onChange(date)}
 							selectsStart
+							onChangeRaw={e => e.preventDefault()}
 							startDate={startDate}
 							endDate={endDate}
 							minDate={new Date()}
 							dateFormat={'dd.MM.yyyy'}
 							showDisabledMonthNavigation
-							customInput={<StyledInput fullWidth />}
+							onKeyDown={event => {
+								event.preventDefault();
+							}}
+							customInput={<StyledInput />}
 							placeholderText={startPlaceholderText}
 						/>
-					)}
-				/>
-				<ErrorText text={errors.startDate?.message} />
-			</Box>
+						<ErrorText text={errors.startDate?.message} />
+					</FormControl>
+				)}
+			/>
 
-			<Box>
-				<Label text={'To'} styles={{ marginBottom: '0.5rem' }} />
-				<Controller
-					control={control}
-					{...register('endDate', {
-						required: endValidationText,
-					})}
-					render={({ field }) => (
+			<Controller
+				control={control}
+				{...register('endDate', {
+					required: endValidationText,
+				})}
+				render={({ field }) => (
+					<FormControl variant="standard" fullWidth>
+						<Label text={'To'} />
 						<DatePicker
+							onFocus={e => e.target.blur()}
 							selected={field.value}
 							onChange={date => field.onChange(date)}
+							onChangeRaw={e => e.preventDefault()}
 							selectsEnd
 							endDate={endDate}
 							minDate={startDate}
 							dateFormat={'dd.MM.yyyy'}
 							showDisabledMonthNavigation
-							customInput={<StyledInput fullWidth />}
+							customInput={<StyledInput />}
 							placeholderText={endPlaceholderText}
 						/>
-					)}
-				/>
-				<ErrorText text={errors.endDate?.message} />
-			</Box>
+						<ErrorText text={errors.endDate?.message} />
+					</FormControl>
+				)}
+			/>
 		</Box>
 	);
 };

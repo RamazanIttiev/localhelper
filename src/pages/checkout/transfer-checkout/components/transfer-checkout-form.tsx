@@ -2,11 +2,12 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { ErrorText } from 'reactkit/errorText';
-import { Input, StyledInput } from 'reactkit/input';
+import { StyledInput } from 'reactkit/input';
+import { InputGroup } from 'reactkit/inputGroup';
 import { Label } from 'reactkit/label';
 import { Select } from 'reactkit/select';
 
-import { Box } from '@mui/material';
+import { Box, FormControl } from '@mui/material';
 
 import { filterPassedTime } from 'utils/date';
 
@@ -21,81 +22,73 @@ interface Props {
 export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 	return (
 		<form>
-			<Box mb={'1rem'}>
-				<Label text={'Name'} />
-				<Input
-					required
-					type={'text'}
-					register={register}
-					fieldName={'userName'}
-					requiredMessage={'Name is required'}
-					pattern={/^[a-zA-Z]+$/}
-					patternMessage={"I guess that's not a valid name..."}
-					error={errors.userName !== undefined}
-					placeholder={'John'}
-				/>
-				<ErrorText text={errors.userName?.message} />
-			</Box>
+			<InputGroup
+				label={'Name'}
+				errorMessage={errors.userName?.message}
+				required
+				type={'text'}
+				register={register}
+				fieldName={'userName'}
+				requiredMessage={'Name is required'}
+				pattern={/^[a-zA-Z]+$/}
+				patternMessage={"I guess that's not a valid name..."}
+				error={errors.userName !== undefined}
+				placeholder={'John'}
+			/>
 
-			<Box mb={'1rem'}>
-				<Label text={'Phone'} />
-				<Input
-					required
-					fullWidth
-					type={'tel'}
-					register={register}
-					fieldName={'userPhone'}
-					error={errors.userPhone !== undefined}
-					placeholder={'8 999 777 03 02'}
-					pattern={/^[0-9+-]+$/}
-					minLength={8}
-					requiredMessage={'I need your phone number'}
-					minLengthMessage={'Your phone number is too short'}
-					patternMessage={"I think your phone number isn't correct..."}
-				/>
-				{errors.userPhone?.type !== 'required' && <ErrorText text={errors.userPhone?.message} />}
-			</Box>
+			<InputGroup
+				label={'Phone'}
+				errorMessage={errors.userPhone?.message}
+				required
+				fullWidth
+				type={'tel'}
+				register={register}
+				fieldName={'userPhone'}
+				error={errors.userPhone !== undefined}
+				placeholder={'8 999 777 03 02'}
+				pattern={/^[0-9+-]+$/}
+				minLength={8}
+				requiredMessage={'I need your phone number'}
+				minLengthMessage={'Your phone number is too short'}
+				patternMessage={"I think your phone number isn't correct..."}
+			/>
 
-			<Box mb={'1rem'}>
-				<Label text={'From'} />
-				<Input
-					required
-					type={'text'}
-					fieldName={'pointA'}
-					register={register}
-					pattern={/^[a-zA-Z]+$/}
-					placeholder={'Weligama, W 15'}
-					error={errors.pointA !== undefined}
-					requiredMessage={'This field is required'}
-					patternMessage={'Are you sure you are there?'}
-				/>
-				<ErrorText text={errors.pointA?.message} />
-			</Box>
+			<InputGroup
+				label={'From'}
+				errorMessage={errors.pointA?.message}
+				required
+				type={'text'}
+				fieldName={'pointA'}
+				register={register}
+				pattern={/^[a-zA-Z]+$/}
+				placeholder={'Weligama, W 15'}
+				error={errors.pointA !== undefined}
+				requiredMessage={'This field is required'}
+				patternMessage={'Are you sure you are there?'}
+			/>
 
-			<Box mb={'1rem'}>
-				<Label text={'To'} />
-				<Input
-					required
-					type={'text'}
-					fieldName={'pointB'}
-					register={register}
-					pattern={/^[a-zA-Z]+$/}
-					placeholder={'Colombo airport'}
-					error={errors.pointB !== undefined}
-					requiredMessage={'This field is required'}
-					patternMessage={"I don't know where this place is, sorry"}
-				/>
-				<ErrorText text={errors.pointB?.message} />
-			</Box>
+			<InputGroup
+				label={'To'}
+				errorMessage={errors.pointB?.message}
+				required
+				type={'text'}
+				fieldName={'pointB'}
+				register={register}
+				pattern={/^[a-zA-Z]+$/}
+				placeholder={'Colombo airport'}
+				error={errors.pointB !== undefined}
+				requiredMessage={'This field is required'}
+				patternMessage={"I don't know where this place is, sorry"}
+			/>
 
-			<Box mb={'1rem'}>
-				<Label text={'Date and Time'} styles={{ marginBottom: '0.5rem' }} />
-				<Controller
-					control={control}
-					{...register('date', {
-						required: 'I have to know when to pick you up',
-					})}
-					render={({ field }) => (
+			<Controller
+				control={control}
+				{...register('date', {
+					required: 'I have to know when to pick you up',
+				})}
+				render={({ field }) => (
+					<FormControl variant="standard" fullWidth sx={{ mb: 2 }}>
+						<Label text={'Date and Time'} />
 						<DatePicker
 							wrapperClassName="datepicker"
 							selected={field.value}
@@ -110,18 +103,19 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 							dateFormat="MMMM d, HH:mm"
 							showDisabledMonthNavigation
 							customInput={<StyledInput fullWidth />}
+							onFocus={e => e.target.blur()}
 							placeholderText={new Date().toLocaleDateString('en-US', {
 								timeZone: 'Asia/Colombo',
 								hour12: false,
 							})}
 						/>
-					)}
-				/>
-				{errors.date?.type !== 'required' && <ErrorText text={errors.date?.message} />}
-			</Box>
+						{errors.date?.type !== 'required' && <ErrorText text={errors.date?.message} />}
+					</FormControl>
+				)}
+			/>
 
 			<Box mb={'1rem'}>
-				<Label text={'Passengers'} styles={{ marginBottom: '0.5rem' }} />
+				<Label text={'Passengers'} />
 				<Select
 					type={'number'}
 					defaultValue={3}

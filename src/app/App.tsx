@@ -20,9 +20,10 @@ import { productsLoader } from 'api/airtable/products';
 import { restaurantLoader, restaurantProductsLoader, restaurantsLoader } from 'api/airtable/restaurant';
 
 const queryClient = new QueryClient();
-export const Telegram = window.Telegram.WebApp;
+
+export const WebApp = window.Telegram.WebApp;
 export const TelegramUser = window.Telegram.WebApp.initDataUnsafe.user;
-export const TelegramTheme = Telegram.themeParams !== undefined ? Telegram.themeParams : null;
+export const WebAppTheme = WebApp.themeParams !== undefined ? WebApp.themeParams : null;
 
 const router = createBrowserRouter(
 	createRoutesFromElements(

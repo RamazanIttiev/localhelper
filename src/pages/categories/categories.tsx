@@ -66,7 +66,7 @@ export const Categories = () => {
 					})}
 				<CategoryCard
 					title={'Exchange'}
-					isLink={isUserAgentTelegram}
+					isLink
 					image={exchange}
 					flowId={'ZGw6MTI3Mjgx'}
 					userCountry={userCountry}

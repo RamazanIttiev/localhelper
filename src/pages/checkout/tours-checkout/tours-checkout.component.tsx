@@ -24,7 +24,7 @@ export const ToursCheckoutComponent = ({ register, errors, control, product }: P
 		<>
 			<ToursCheckoutForm control={control} errors={errors} register={register} />
 			<Box sx={{ display: 'flex', flexDirection: 'column', mt: '2rem' }}>
-				<Label text={'Order info'} styles={{ marginBottom: '0.5rem' }} />
+				<Label text={'Order info'} labelStyles={{ marginBottom: '0.5rem' }} />
 				<Box sx={{ display: 'flex', alignItems: 'flex-start' }} mb={1}>
 					<Box
 						component={'img'}

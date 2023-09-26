@@ -1,19 +1,28 @@
 import React, { CSSProperties } from 'react';
 
-import { Typography } from '@mui/material';
+import { InputLabel, SxProps } from '@mui/material';
+
+import { theme } from 'theme';
 
 interface HintTitleProps {
 	text: string;
-	styles?: CSSProperties;
+	labelStyles?: SxProps;
 }
 
-export const Label = ({ text, styles }: HintTitleProps) => {
+export const Label = ({ text, labelStyles }: HintTitleProps) => {
 	return (
-		<Typography
-			component={'label'}
-			variant={'body2'}
-			sx={{ filter: 'brightness(50%)', letterSpacing: '1px', ...styles }}>
+		<InputLabel
+			shrink
+			sx={{
+				ml: 2,
+				position: 'static',
+				lineHeight: 1,
+				color: theme.tg_theme.palette.hint_color,
+				fontSize: theme.tg_theme.fontSize.caption,
+				textTransform: 'uppercase',
+				...labelStyles,
+			}}>
 			{text}
-		</Typography>
+		</InputLabel>
 	);
 };

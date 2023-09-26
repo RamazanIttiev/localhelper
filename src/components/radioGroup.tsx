@@ -16,7 +16,7 @@ export const RadioButtons = ({ buttons, productExtra, handleExtra }: RadioButton
 
 	return (
 		<FormControl sx={{ width: '100%', mt: '1rem' }}>
-			<Label text={'Options'} styles={{ marginBottom: '0.5rem' }} />
+			<Label text={'Options'} labelStyles={{ marginBottom: '0.5rem' }} />
 			<RadioButtonsGroup
 				value={productExtra?.dishSize}
 				onChange={handleExtra}

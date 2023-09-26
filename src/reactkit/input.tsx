@@ -1,63 +1,64 @@
 import { UseFormRegister } from 'react-hook-form';
 
-import { OutlinedTextFieldProps, styled, TextField } from '@mui/material';
+import { OutlinedTextFieldProps, styled, Input as MuiInput, SxProps } from '@mui/material';
 
-export const StyledInput = styled(TextField)(
-	`
-  background: #303030;
-  font-size: 0.8rem !important;
-  color: #fff;
-  border-radius: 8px;
-  width: 100%;
-  box-shadow: none;
-  margin-top: 0;
-  margin-bottom: 0;
-  `,
+export const StyledInput = styled(MuiInput, {
+	shouldForwardProp: prop => prop !== 'disableUnderline',
+})(``, ({ theme }) => ({
+	background: theme.tg_theme.palette.secondary_bg_color,
+	color: theme.tg_theme.palette.text_color,
+	borderRadius: theme.tg_theme.borderRadius.base,
+	fontSize: theme.tg_theme.fontSize.body,
+	height: theme.tg_theme.height,
+	padding: '8px 16px',
+	margin: '0 !important',
 
-	({ theme }) => ({
-		'& .MuiOutlinedInput-root': {
-			color: theme.palette.text,
+	'&:before': {
+		content: 'unset',
+	},
+	'&:after': {
+		content: 'unset',
+	},
 
-			'&:hover fieldset': {
-				borderColor: theme.typography.caption.color,
-			},
-			'&.Mui-focused fieldset': {
-				borderColor: theme.typography.caption.color,
-				borderWidth: '1px',
-			},
+	'& .MuiInput-input': {
+		padding: 0,
+		color: theme.tg_theme.palette.text_color,
+		height: theme.tg_theme.height,
+		borderRadius: theme.tg_theme.borderRadius.base,
+
+		'&:hover fieldset': {
+			borderColor: theme.tg_theme.palette.secondary_bg_color,
 		},
+		'&.Mui-focused fieldset': {
+			borderColor: theme.tg_theme.palette.secondary_bg_color,
+			borderWidth: '1px',
+		},
+	},
 
-		'& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
-			display: 'none',
-		},
-		'& input[type=number]': {
-			MozAppearance: 'textfield',
-		},
-	}),
-);
+	'& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+		display: 'none',
+	},
+	'& input[type=number]': {
+		MozAppearance: 'textfield',
+	},
+}));
 
 interface Props extends Partial<OutlinedTextFieldProps> {
 	type: string;
 	fieldName: string;
 	register: UseFormRegister<any>;
-	placeholder: string;
 	error?: boolean;
 	pattern?: RegExp;
 	minLength?: string | number;
 	minLengthMessage?: string;
 	required?: boolean;
-	fullWidth?: boolean;
 	patternMessage?: string;
 	requiredMessage?: string;
-	defaultValue?: string | number;
-	margin?: 'dense' | 'none' | undefined;
-	color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
+	inputStyles?: SxProps;
 }
 
 export const Input = ({
-	sx,
-	color,
-	margin,
+	inputStyles,
 	fieldName,
 	register,
 	minLength,
@@ -73,13 +74,12 @@ export const Input = ({
 }: Props) => {
 	return (
 		<StyledInput
-			sx={{ ...sx }}
+			sx={{ ...inputStyles }}
 			error={error}
 			fullWidth={fullWidth}
-			color={color || 'info'}
-			margin={margin || 'dense'}
 			defaultValue={defaultValue}
 			placeholder={placeholder}
+			disableUnderline
 			{...register(fieldName, {
 				required: {
 					value: required,

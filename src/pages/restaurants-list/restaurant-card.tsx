@@ -4,9 +4,9 @@ import { WorkingStatus } from 'reactkit/workingStatus';
 
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 
-import { theme } from 'theme';
-
 import { Restaurant } from 'pages/restaurant/restaurant.model';
+
+import { theme } from '../../theme/theme';
 
 interface Props {
 	restaurant: Restaurant;

@@ -5,12 +5,12 @@ import { Link } from 'reactkit/link';
 
 import { Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
-import { theme } from 'theme';
-
 import { AmountButtons } from 'components/amountButtons';
 import { ImageBackdrop } from 'components/imageBackdrop';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
+
+import { theme } from '../../../theme/theme';
 
 import { Restaurant } from '../restaurant.model';
 import { RestaurantProduct } from './restaurant-product.model';
@@ -91,10 +91,10 @@ export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }:
 							<AmountButtons product={restaurantProduct} restaurantTitle={restaurant.title} />
 						</CardActions>
 					) : (
-						<InfoBadge text={'We are closed'} />
+						<InfoBadge text={'We are closed'} sx={{ mt: 1 }} />
 					)
 				) : (
-					<InfoBadge text={`${price.toString()} Rs`} sx={{ marginTop: '0.5rem' }} />
+					<InfoBadge text={`${price.toString()} Rs`} sx={{ mt: 1 }} />
 				)}
 			</Card>
 		</>

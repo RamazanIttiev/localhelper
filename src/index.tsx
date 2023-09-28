@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 
 import { Box, CircularProgress, CssBaseline, ThemeProvider } from '@mui/material';
 
-import { theme } from 'theme';
+import { theme } from './theme/theme';
 
 import './index.css';
 import reportWebVitals from './reportWebVitals';

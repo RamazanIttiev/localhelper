@@ -2,8 +2,6 @@ import React, { CSSProperties } from 'react';
 
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
 
-import { theme } from 'theme';
-
 import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
 
 import { setHaptic } from 'actions/webApp-actions';
@@ -12,6 +10,8 @@ import { useShoppingCart } from 'context/cart.context';
 
 import { ReactComponent as AddIcon } from 'assets/svg/add.svg';
 import { ReactComponent as RemoveIcon } from 'assets/svg/remove.svg';
+
+import { theme } from '../theme/theme';
 
 interface Props {
 	showPrice?: boolean;

@@ -4,8 +4,6 @@ import { InfoBadge } from 'reactkit/infoBadge';
 
 import { Box, Card, CardActions, CardContent, CardMedia, Container, Typography } from '@mui/material';
 
-import { theme } from 'theme';
-
 import { AmountButtons } from 'components/amountButtons';
 import { MuiCarousel } from 'components/carousel';
 
@@ -15,6 +13,8 @@ import { openTelegram } from 'utils/service';
 import { useShoppingCart } from 'context/cart.context';
 
 import skeletonImage from 'assets/food.webp';
+
+import { theme } from '../../../theme/theme';
 
 import { RestaurantProduct } from '../restaurant-product/restaurant-product.model';
 import { Restaurant } from '../restaurant.model';

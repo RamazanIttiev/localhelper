@@ -5,11 +5,11 @@ import { Label } from 'reactkit/label';
 
 import { Box, Typography } from '@mui/material';
 
-import { theme } from 'theme';
-
 import { DefaultProductModel } from 'pages/products-list/product/product.model';
 
 import { ToursCheckoutForm } from './components/tours-checkout-form';
+
+import { theme } from '../../../theme/theme';
 
 import { ToursCheckoutModel } from './tours-checkout.model';
 

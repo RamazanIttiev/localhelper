@@ -8,14 +8,13 @@ import { getDateDiff } from 'utils/date';
 
 import { handleOrder } from 'actions/global-actions';
 import {
+	getTelegramUser,
 	handleMainButton,
 	hideMainButton,
 	removeMainButtonEvent,
 	setMainButtonText,
 	showMainButton,
 } from 'actions/webApp-actions';
-
-import { useTelegramUser } from 'context/user.context';
 
 import { BikesCheckoutComponent } from './bikes-checkout.component';
 import { BikesCheckoutModel } from './bikes-checkout.model';
@@ -24,7 +23,7 @@ export const BikesCheckoutContainer = () => {
 	const { state } = useLocation();
 	const product: DefaultProductModel = state.product || {};
 
-	const tgUser = useTelegramUser();
+	const tgUser = getTelegramUser();
 
 	const {
 		register,
@@ -32,7 +31,7 @@ export const BikesCheckoutContainer = () => {
 		control,
 		formState: { errors },
 	} = useForm<BikesCheckoutModel>({
-		defaultValues: { userName: tgUser.first_name, startDate: null, endDate: null },
+		defaultValues: { userName: tgUser?.first_name, startDate: null, endDate: null },
 	});
 
 	const startDate = useWatch({ control, name: 'startDate' });

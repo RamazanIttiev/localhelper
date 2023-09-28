@@ -1,7 +1,9 @@
 import { Box, Grid, Skeleton } from '@mui/material';
 
+import { theme } from 'theme/theme';
+
 const background = {
-	backgroundColor: 'rgba(0, 0, 0, 0.28)',
+	backgroundColor: theme.tg_theme.palette.bg_color,
 };
 
 export const ProductSkeleton = () => (
@@ -11,7 +13,7 @@ export const ProductSkeleton = () => (
 				<Skeleton
 					variant="rectangular"
 					width={'100%'}
-					sx={{ borderRadius: '0.5rem', height: '11rem', ...background }}
+					sx={{ borderRadius: theme.tg_theme.borderRadius.base, height: '11rem', ...background }}
 				/>
 				<Box sx={{ pt: 0.5 }}>
 					<Skeleton sx={{ borderRadius: '0.5rem', ...background }} />

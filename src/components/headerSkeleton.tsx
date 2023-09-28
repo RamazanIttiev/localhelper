@@ -2,14 +2,16 @@ import React from 'react';
 
 import { Skeleton } from '@mui/material';
 
+import { theme } from 'theme/theme';
+
 export const HeaderSkeleton = () => (
 	<Skeleton
 		variant="rectangular"
 		sx={{
-			borderBottomRightRadius: '0.5rem',
-			borderBottomLeftRadius: '0.5rem',
 			height: '17rem',
-			backgroundColor: 'rgba(0, 0, 0, 0.28)',
+			backgroundColor: theme.tg_theme.palette.bg_color,
+			borderBottomRightRadius: theme.tg_theme.borderRadius.base,
+			borderBottomLeftRadius: theme.tg_theme.borderRadius.base,
 		}}
 	/>
 );

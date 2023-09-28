@@ -7,10 +7,15 @@ import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restauran
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 import { handleOrder } from 'actions/global-actions';
-import { handleMainButton, removeMainButtonEvent, setMainButtonText, showMainButton } from 'actions/webApp-actions';
+import {
+	getTelegramUser,
+	handleMainButton,
+	removeMainButtonEvent,
+	setMainButtonText,
+	showMainButton,
+} from 'actions/webApp-actions';
 
 import { useShoppingCart } from 'context/cart.context';
-import { useTelegramUser } from 'context/user.context';
 
 import { RestaurantCheckoutComponent } from './restaurant-checkout.component';
 
@@ -25,7 +30,7 @@ interface RouteState {
 export const RestaurantCheckoutContainer = () => {
 	const { state }: RouteState = useLocation();
 	const navigate = useNavigate();
-	const tgUser = useTelegramUser();
+	const tgUser = getTelegramUser();
 
 	const flowId = state.flowId;
 	const restaurant = state.restaurant;
@@ -40,7 +45,7 @@ export const RestaurantCheckoutContainer = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<RestaurantCheckoutModel>({ defaultValues: { userName: tgUser.first_name } });
+	} = useForm<RestaurantCheckoutModel>({ defaultValues: { userName: tgUser?.first_name } });
 
 	const produceOrder = useCallback(() => {
 		return handleOrder(
@@ -52,7 +57,7 @@ export const RestaurantCheckoutContainer = () => {
 				placeCoordinates: restaurant?.coordinates,
 				order: cartOrder,
 				orderTotal: cartTotalAmount,
-				tgUserNick: tgUser.username,
+				tgUserNick: tgUser?.username,
 			},
 			() => {
 				console.log();
@@ -74,7 +79,7 @@ export const RestaurantCheckoutContainer = () => {
 		restaurant?.coordinates,
 		cartOrder,
 		cartTotalAmount,
-		tgUser.username,
+		tgUser?.username,
 		clearCart,
 		navigate,
 	]);

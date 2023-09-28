@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Box, Container } from '@mui/material';
 
-import { theme } from 'theme';
-
 import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
 
 import { CartHeader } from './components/cart-header';
 import { CartList } from './components/cart-list';
+
+import { theme } from '../../theme/theme';
 
 interface Props {
 	restaurantTitle: string;

@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Box, useTheme } from '@mui/material';
 
+import { theme } from 'theme/theme';
+
 interface Props {
 	iconBadges: { url: string }[] | undefined;
 }
@@ -25,7 +27,7 @@ export const IconBadges = ({ iconBadges }: Props) => {
 							height: '1.5rem',
 							fontSize: '1rem',
 							alignItems: 'center',
-							borderRadius: '0.5rem',
+							borderRadius: theme.tg_theme.borderRadius.actionButton,
 							justifyContent: 'center',
 							background: theme.palette.background.default,
 						}}

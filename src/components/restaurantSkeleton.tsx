@@ -1,5 +1,7 @@
 import { Grid, Skeleton } from '@mui/material';
 
+import { theme } from 'theme/theme';
+
 export const RestaurantSkeleton = () => (
 	<>
 		{Array.from(new Array(4)).map((item, index) => (
@@ -7,7 +9,11 @@ export const RestaurantSkeleton = () => (
 				<Skeleton
 					variant="rectangular"
 					width={'100%'}
-					sx={{ borderRadius: '0.5rem', height: '11rem', backgroundColor: 'rgba(0, 0, 0, 0.28)' }}
+					sx={{
+						height: '11rem',
+						borderRadius: theme.tg_theme.borderRadius.base,
+						backgroundColor: theme.tg_theme.palette.bg_color,
+					}}
 				/>
 			</Grid>
 		))}

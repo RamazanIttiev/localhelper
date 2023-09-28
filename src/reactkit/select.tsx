@@ -3,14 +3,14 @@ import { UseFormRegister } from 'react-hook-form';
 
 import { styled, NativeSelect, SelectProps, InputBase } from '@mui/material';
 
-import { WebAppTheme } from 'app/App';
-
 import { ReactComponent as SelectIcon } from 'assets/svg/select.svg';
+
+import { theme } from 'theme/theme';
 
 export const StyledSelect = styled(InputBase, {
 	shouldForwardProp: prop => prop !== 'disableUnderline',
 })(``, ({ theme }) => ({
-	background: theme.tg_theme.palette.secondary_bg_color,
+	background: theme.tg_theme.palette.bg_color,
 	color: theme.tg_theme.palette.text_color,
 	borderRadius: theme.tg_theme.borderRadius.base,
 	fontSize: theme.tg_theme.fontSize.body,
@@ -56,7 +56,7 @@ export const Select = ({
 			sx={{
 				'& .MuiNativeSelect-icon': {
 					mr: '16px',
-					color: WebAppTheme?.hint_color || '#fff',
+					color: theme.tg_theme.palette.hint_color || '#fff',
 				},
 				...sx,
 			}}

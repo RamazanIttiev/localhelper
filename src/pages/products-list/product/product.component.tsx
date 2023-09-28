@@ -5,11 +5,11 @@ import { Link } from 'reactkit/link';
 
 import { Box, Card, CardContent, Typography } from '@mui/material';
 
-import { theme } from 'theme';
-
 import { Product } from 'pages/products-list/product/product.model';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
+
+import { theme } from '../../../theme/theme';
 
 interface Props {
 	flowId: string;

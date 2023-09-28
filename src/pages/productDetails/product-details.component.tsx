@@ -11,6 +11,8 @@ import { MuiCarousel } from 'components/carousel';
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 import { openTelegram } from 'utils/service';
 
+import { theme } from 'theme/theme';
+
 interface Props {
 	product: Product;
 }
@@ -57,7 +59,7 @@ export const ProductDetails = ({ product }: Props) => {
 									padding: '1rem',
 									borderRadius: '1rem',
 									color: '#fff',
-									background: '#303030',
+									background: theme.tg_theme.palette.bg_color,
 								}}>
 								{description}
 							</Typography>

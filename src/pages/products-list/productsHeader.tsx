@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Box, Typography } from '@mui/material';
 
-import { theme } from 'theme';
-
 import { Category } from 'pages/categories/category.model';
+
+import { theme } from '../../theme/theme';
 
 interface HeaderProps {
 	category: Pick<Category, 'headerTitle' | 'headerImage'> | undefined;

@@ -5,11 +5,11 @@ import { Input } from 'reactkit/input';
 
 import { Box, Typography } from '@mui/material';
 
-import { theme } from 'theme';
-
 import { ExchangeCheckoutModel } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
 
 import { ReactComponent as USDIcon } from 'assets/svg/usd.svg';
+
+import { theme } from '../../../../../theme/theme';
 
 interface Props {
 	icon?: ReactNode;

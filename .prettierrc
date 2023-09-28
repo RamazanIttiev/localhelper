@@ -38,6 +38,7 @@
     "actions",
     "context",
     "assets",
+    "theme",
     "[./]",
     "[../]"
   ],

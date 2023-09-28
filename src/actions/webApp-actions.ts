@@ -1,6 +1,8 @@
-import { TelegramUser, WebApp, WebAppTheme } from 'app/App';
+import { TgUser, TgTheme, TgWebApp } from 'app/App';
 
 import CryptoJS from 'crypto-js';
+
+import { WebAppHapticFeedback, WebAppUser } from 'theme/types';
 
 export const verifyInitData = (telegramInitData: string): boolean => {
 	const initData = new URLSearchParams(telegramInitData);
@@ -16,42 +18,41 @@ export const verifyInitData = (telegramInitData: string): boolean => {
 	return _hash === hash;
 };
 
-export const webAppIsReady = () => WebApp.ready();
-export const expandWebApp = () => WebApp.expand();
-export const enableWebAppClosingConfirmation = () => WebApp.enableClosingConfirmation();
-export const showBackButton = () => WebApp.BackButton.show();
-export const hideBackButton = () => WebApp.BackButton.hide();
-export const showMainButton = () => WebApp.MainButton.show();
-export const hideMainButton = () => WebApp.MainButton.hide();
-export const setMainButtonText = (text: string) => WebApp.MainButton.setText(text);
-export const setHaptic = (state: string) => WebApp.HapticFeedback.impactOccurred(state);
+export const webAppIsReady = () => TgWebApp.ready();
+export const expandWebApp = () => TgWebApp.expand();
+export const enableWebAppClosingConfirmation = () => TgWebApp.enableClosingConfirmation();
+export const showBackButton = () => TgWebApp.BackButton.show();
+export const hideBackButton = () => TgWebApp.BackButton.hide();
+export const showMainButton = () => TgWebApp.MainButton.show();
+export const hideMainButton = () => TgWebApp.MainButton.hide();
+export const setMainButtonText = (text: string) => TgWebApp.MainButton.setText(text);
+export const setHaptic = (state: WebAppHapticFeedback) => TgWebApp.HapticFeedback.impactOccurred(state);
 export const disableMainButton = (text: string) => {
-	WebApp.MainButton.disable();
-	WebApp.MainButton.setParams({
+	TgWebApp.MainButton.disable();
+	TgWebApp.MainButton.setParams({
 		text,
 		color: '#292929',
 		text_color: '#ccc',
 	});
 };
 export const handleBackButton = (callback: () => unknown) => {
-	WebApp.onEvent('backButtonClicked', callback);
+	TgWebApp.onEvent('backButtonClicked', callback);
 };
 export const handleMainButton = (callback: () => unknown) => {
-	WebApp.onEvent('mainButtonClicked', callback);
+	TgWebApp.onEvent('mainButtonClicked', callback);
 };
 export const enableMainButton = () => {
-	WebApp.MainButton.enable();
-	WebApp.MainButton.setParams({
-		color: WebAppTheme?.button_color,
-		text_color: WebAppTheme?.text_color,
+	TgWebApp.MainButton.enable();
+	TgWebApp.MainButton.setParams({
+		color: TgTheme?.button_color,
+		text_color: TgTheme?.text_color,
 	});
 };
 export const removeMainButtonEvent = (callback: () => unknown) => {
-	WebApp.offEvent('mainButtonClicked', callback);
+	TgWebApp.offEvent('mainButtonClicked', callback);
 };
-export const fetchTelegramUser = () => {
-	if (verifyInitData(WebApp.initData)) {
-		return TelegramUser;
+export const getTelegramUser = (): WebAppUser | undefined => {
+	if (verifyInitData(TgWebApp.initData)) {
+		return TgUser;
 	}
-	return {};
 };

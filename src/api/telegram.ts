@@ -1,4 +1,4 @@
-import { WebApp } from 'app/App';
+import { TgWebApp } from 'app/App';
 
 import { apiRequest } from 'api/api';
 
@@ -13,7 +13,7 @@ const sendWebAppMessage = async (text: string) => {
 	const headers = {};
 	const body = {
 		message: text,
-		queryId: WebApp.initDataUnsafe.query_id,
+		queryId: TgWebApp.initDataUnsafe.query_id,
 	};
 
 	return await apiRequest(url, 'POST', headers, body);

@@ -1,10 +1,10 @@
 import React, { ReactNode } from 'react';
 
-import { Box, useTheme } from '@mui/material';
+import { Box } from '@mui/material';
+
+import { theme } from 'theme/theme';
 
 export const ImageBackdrop = ({ children }: { children: ReactNode }) => {
-	const theme = useTheme();
-
 	return (
 		<Box
 			sx={{
@@ -16,7 +16,7 @@ export const ImageBackdrop = ({ children }: { children: ReactNode }) => {
 				height: '11rem',
 				alignItems: 'start',
 				position: 'absolute',
-				borderRadius: '1rem',
+				borderRadius: theme.tg_theme.borderRadius.base,
 				justifyContent: 'flex-end',
 				background: theme.palette.background.default,
 			}}>

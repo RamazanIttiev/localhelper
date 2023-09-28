@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, Typography } from '@mui/material';
 
-import { theme } from '../theme';
+import { theme } from '../theme/theme';
 
 interface WorkingStatusProps {
 	workingTime: string;

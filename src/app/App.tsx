@@ -19,11 +19,13 @@ import { feedLoader } from 'api/airtable/feed';
 import { productsLoader } from 'api/airtable/products';
 import { restaurantLoader, restaurantProductsLoader, restaurantsLoader } from 'api/airtable/restaurant';
 
+import { WebApp, WebAppTheme, WebAppUser } from 'theme/types';
+
 const queryClient = new QueryClient();
 
-export const WebApp = window.Telegram.WebApp;
-export const TelegramUser = window.Telegram.WebApp.initDataUnsafe.user;
-export const WebAppTheme = WebApp.themeParams !== undefined ? WebApp.themeParams : null;
+export const TgWebApp: WebApp = window.Telegram.WebApp;
+export const TgUser: WebAppUser | undefined = TgWebApp.initDataUnsafe.user;
+export const TgTheme: WebAppTheme = TgWebApp.themeParams;
 
 const router = createBrowserRouter(
 	createRoutesFromElements(

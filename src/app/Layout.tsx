@@ -2,6 +2,8 @@ import { Global } from '@emotion/react';
 import React, { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import { TgTheme, TgWebApp } from 'app/App';
+
 import { useDocumentTitle } from 'usehooks-ts';
 
 import { Footer } from 'components/footer';
@@ -19,7 +21,6 @@ import {
 } from 'actions/webApp-actions';
 
 import { ShoppingCartProvider } from 'context/cart.context';
-import { UserProvider } from 'context/user.context';
 
 export const Layout = () => {
 	const navigate = useNavigate();
@@ -36,6 +37,9 @@ export const Layout = () => {
 			setHaptic('soft');
 			navigate(-1);
 		});
+
+		TgWebApp.setHeaderColor(TgTheme.secondary_bg_color || '#1C1C1D');
+		TgWebApp.setBackgroundColor(TgTheme.bg_color || '#1a1a1a');
 	}, [pathname, navigate]);
 
 	const footerIsVisible = !pathname.includes('checkout') && isUserAgentTelegram;
@@ -51,9 +55,7 @@ export const Layout = () => {
 			/>
 
 			<ShoppingCartProvider>
-				<UserProvider>
-					<Outlet />
-				</UserProvider>
+				<Outlet />
 				{footerIsVisible && <Footer />}
 			</ShoppingCartProvider>
 		</>

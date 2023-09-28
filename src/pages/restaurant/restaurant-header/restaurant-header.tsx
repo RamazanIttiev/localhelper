@@ -3,11 +3,11 @@ import { WorkingStatus } from 'reactkit/workingStatus';
 
 import { Box, Icon, Typography } from '@mui/material';
 
-import { theme } from 'theme';
-
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 import { ReactComponent as LocationIcon } from 'assets/svg/location.svg';
+
+import { theme } from '../../../theme/theme';
 
 interface Props {
 	restaurant: Pick<Restaurant, 'workingTime' | 'workingStatus' | 'image' | 'location' | 'title'>;

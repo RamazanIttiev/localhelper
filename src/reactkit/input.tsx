@@ -5,7 +5,7 @@ import { OutlinedTextFieldProps, styled, Input as MuiInput, SxProps } from '@mui
 export const StyledInput = styled(MuiInput, {
 	shouldForwardProp: prop => prop !== 'disableUnderline',
 })(``, ({ theme }) => ({
-	background: theme.tg_theme.palette.secondary_bg_color,
+	background: theme.tg_theme.palette.bg_color,
 	color: theme.tg_theme.palette.text_color,
 	borderRadius: theme.tg_theme.borderRadius.base,
 	fontSize: theme.tg_theme.fontSize.body,

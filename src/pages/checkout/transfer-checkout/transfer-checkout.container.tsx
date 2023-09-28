@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import { handleOrder } from 'actions/global-actions';
 import {
+	getTelegramUser,
 	handleMainButton,
 	hideMainButton,
 	removeMainButtonEvent,
@@ -11,14 +12,12 @@ import {
 	showMainButton,
 } from 'actions/webApp-actions';
 
-import { useTelegramUser } from 'context/user.context';
-
 import { TransferCheckoutComponent } from './transfer-checkout.component';
 import { TransferCheckoutModel } from './transfer-checkout.model';
 
 export const TransferCheckoutContainer = () => {
 	const { state } = useLocation();
-	const tgUser = useTelegramUser();
+	const tgUser = getTelegramUser();
 
 	const flowId = state.flowId || '';
 
@@ -28,7 +27,7 @@ export const TransferCheckoutContainer = () => {
 		control,
 		formState: { errors },
 	} = useForm<TransferCheckoutModel>({
-		defaultValues: { userName: tgUser.first_name, date: null },
+		defaultValues: { userName: tgUser?.first_name, date: null },
 	});
 
 	const onSubmit = useCallback(
@@ -38,13 +37,13 @@ export const TransferCheckoutContainer = () => {
 				{
 					...data,
 					date: data.date?.toISOString(),
-					tgUserNick: tgUser.username,
+					tgUserNick: tgUser?.username,
 				},
 				() => console.log(),
 				() => console.log(),
 			);
 		},
-		[flowId, tgUser.username],
+		[flowId, tgUser?.username],
 	);
 
 	const handleForm = useCallback(async () => {

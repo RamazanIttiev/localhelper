@@ -6,6 +6,7 @@ import { DefaultProductModel } from 'pages/products-list/product/product.model';
 
 import { handleOrder } from 'actions/global-actions';
 import {
+	getTelegramUser,
 	handleMainButton,
 	hideMainButton,
 	removeMainButtonEvent,
@@ -13,14 +14,12 @@ import {
 	showMainButton,
 } from 'actions/webApp-actions';
 
-import { useTelegramUser } from 'context/user.context';
-
 import { ToursCheckoutComponent } from './tours-checkout.component';
 import { ToursCheckoutModel } from './tours-checkout.model';
 
 export const ToursCheckoutContainer = () => {
 	const { state } = useLocation();
-	const tgUser = useTelegramUser();
+	const tgUser = getTelegramUser();
 
 	const flowId = state.flowId || '';
 	const product: DefaultProductModel = state.product || {};
@@ -30,7 +29,7 @@ export const ToursCheckoutContainer = () => {
 		handleSubmit,
 		control,
 		formState: { errors },
-	} = useForm<ToursCheckoutModel>({ defaultValues: { userName: tgUser.first_name } });
+	} = useForm<ToursCheckoutModel>({ defaultValues: { userName: tgUser?.first_name } });
 
 	const onSubmit = useCallback(
 		(data: ToursCheckoutModel) => {
@@ -39,13 +38,13 @@ export const ToursCheckoutContainer = () => {
 				{
 					data,
 					tourTitle: product.title,
-					tgUserNick: tgUser.username,
+					tgUserNick: tgUser?.username,
 				},
 				() => console.log(),
 				() => console.log(),
 			);
 		},
-		[flowId, product.title, tgUser.username],
+		[flowId, product.title, tgUser?.username],
 	);
 
 	const handleForm = useCallback(async () => {

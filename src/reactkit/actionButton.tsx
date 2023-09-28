@@ -3,7 +3,7 @@ import { isMobile } from 'react-device-detect';
 
 import { Button, ButtonProps } from '@mui/material';
 
-import { theme } from 'theme';
+import { theme } from '../theme/theme';
 
 interface Props extends ButtonProps {
 	isMainButton?: boolean;

@@ -4,13 +4,13 @@ import { HintText } from 'reactkit/hintText';
 
 import { Box, Typography } from '@mui/material';
 
-import { theme } from 'theme';
-
 import { DefaultProductModel } from 'pages/products-list/product/product.model';
 
 import { RentCheckoutForm } from './components/rent-checkout-form';
 
 import { formatDaysText } from 'utils/date';
+
+import { theme } from '../../../theme/theme';
 
 import { RentCheckoutModel } from './rent-checkout.model';
 

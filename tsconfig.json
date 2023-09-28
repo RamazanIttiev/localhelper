@@ -16,7 +16,7 @@
     ],
     "typeRoots": [
       "./node_modules/@types",
-      "./node_modules/telegram-webapps-types"
+      "./node_modules/telegram-webapps-types-new"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -65,8 +65,8 @@
       "utils/*": [
         "./utils/*"
       ],
-      "theme": [
-        "./theme"
+      "theme/*": [
+        "./theme/*"
       ]
     }
   },

@@ -1,10 +1,10 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 
-import { Typography, useTheme } from '@mui/material';
+import { SxProps, Typography, useTheme } from '@mui/material';
 
 interface InfoBadgeProps {
 	text: string;
-	sx?: CSSProperties;
+	sx?: SxProps;
 }
 
 export const InfoBadge = ({ text, sx }: InfoBadgeProps) => {
@@ -15,10 +15,12 @@ export const InfoBadge = ({ text, sx }: InfoBadgeProps) => {
 			variant="body2"
 			sx={{
 				fontWeight: 700,
-				padding: '0.3rem 0.6rem',
+				padding: '4px 8px',
 				width: 'fit-content',
-				borderRadius: '1rem',
-				background: theme.palette.background.paper,
+				fontSize: theme.tg_theme.fontSize.caption,
+				borderRadius: theme.tg_theme.borderRadius.actionButton,
+				color: theme.tg_theme.palette.button_text_color,
+				background: theme.tg_theme.palette.button_color,
 				...sx,
 			}}>
 			{text}

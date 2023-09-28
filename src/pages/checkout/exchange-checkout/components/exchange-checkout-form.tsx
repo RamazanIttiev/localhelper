@@ -1,8 +1,6 @@
 import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { ErrorText } from 'reactkit/errorText';
 import { InputGroup } from 'reactkit/inputGroup';
-import { Select } from 'reactkit/select';
 
 import { ExchangeCheckoutModel } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
 
@@ -43,34 +41,6 @@ export const ExchangeCheckoutForm = ({ register, errors }: Props) => {
 				minLengthMessage={'Your phone number is too short'}
 				patternMessage={"I think your phone number isn't correct..."}
 			/>
-
-			<InputGroup
-				label={'Amount'}
-				required
-				type="number"
-				register={register}
-				fieldName={'exchangeAmount'}
-				placeholder="100 000"
-				error={errors.exchangeAmount !== undefined}
-				errorMessage={errors.exchangeAmount?.message}
-			/>
-
-			<Select
-				register={register}
-				options={['USDT', 'INR']}
-				fieldName={'exchangeCurrency'}
-				defaultValue={'USDT'}
-				sx={{
-					width: '9rem',
-					borderTopLeftRadius: 0,
-					borderBottomLeftRadius: 0,
-					'& .MuiOutlinedInput-root': {
-						borderTopLeftRadius: 0,
-						borderBottomLeftRadius: 0,
-					},
-				}}
-			/>
-			{<ErrorText text={errors.exchangeAmount?.message} />}
 		</form>
 	);
 };

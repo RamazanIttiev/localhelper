@@ -15,28 +15,54 @@ import { TransferCheckoutContainer } from 'pages/checkout/transfer-checkout/tran
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 import { openTelegram } from 'utils/service';
 
+const containerStyles = { pt: '1rem', pb: '1rem', position: 'relative' };
+
 const renderCheckoutContainer = (categoryId: string | undefined) => {
 	switch (categoryId) {
 		case 'food': {
-			return <RestaurantCheckoutContainer />;
+			return (
+				<Container maxWidth={'sm'} sx={containerStyles}>
+					<RestaurantCheckoutContainer />
+				</Container>
+			);
 		}
 		case 'transport': {
-			return <BikesCheckoutContainer />;
+			return (
+				<Container maxWidth={'sm'} sx={containerStyles}>
+					<BikesCheckoutContainer />
+				</Container>
+			);
 		}
 		case 'transfer': {
-			return <TransferCheckoutContainer />;
+			return (
+				<Container maxWidth={'sm'} sx={containerStyles}>
+					<TransferCheckoutContainer />
+				</Container>
+			);
 		}
 		case 'tours': {
-			return <ToursCheckoutContainer />;
+			return (
+				<Container maxWidth={'sm'} sx={containerStyles}>
+					<ToursCheckoutContainer />
+				</Container>
+			);
 		}
 		case 'exchange': {
 			return <ExchangeContainer />;
 		}
 		case 'flowers': {
-			return <FlowersCheckoutContainer />;
+			return (
+				<Container maxWidth={'sm'} sx={containerStyles}>
+					<FlowersCheckoutContainer />
+				</Container>
+			);
 		}
 		case 'rent': {
-			return <RentCheckoutContainer />;
+			return (
+				<Container maxWidth={'sm'} sx={containerStyles}>
+					<RentCheckoutContainer />
+				</Container>
+			);
 		}
 		default: {
 			return null;
@@ -48,12 +74,12 @@ export const CheckoutContainer = () => {
 	const { categoryId } = useParams();
 
 	return (
-		<Container maxWidth={'sm'} sx={{ pt: '1rem', pb: '1rem', position: 'relative' }}>
+		<>
 			{renderCheckoutContainer(categoryId)}
 
 			{!isUserAgentTelegram && (
 				<ActionButton isMainButton text={'Order in telegram'} handleClick={openTelegram} />
 			)}
-		</Container>
+		</>
 	);
 };

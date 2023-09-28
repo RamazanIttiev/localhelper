@@ -16,11 +16,13 @@ declare module '@mui/material/styles' {
 				button_hover_color: string;
 			};
 			fontSize: {
+				extraLargeTitle: string;
 				largeTitle: string;
 				title1: string;
 				title2: string;
 				title3: string;
 				body: string;
+				info: string;
 				caption: string;
 			};
 			fontWeight: { normal: string; bold: string; extraBold: string };
@@ -40,7 +42,7 @@ declare module '@mui/material/styles' {
 export const theme = createTheme({
 	tg_theme: {
 		palette: {
-			bg_color: WebAppTheme?.bg_color || '#0E0E0E',
+			bg_color: WebAppTheme?.bg_color || '#1a1a1a',
 			secondary_bg_color: WebAppTheme?.secondary_bg_color || '#1C1C1D',
 			text_color: WebAppTheme?.text_color || '#fff',
 			hint_color: WebAppTheme?.hint_color || '#B1C3D5',
@@ -50,11 +52,13 @@ export const theme = createTheme({
 			button_hover_color: 'rgba(0, 0, 0, 0.04)',
 		},
 		fontSize: {
+			extraLargeTitle: '56px',
 			largeTitle: '34px',
 			title1: '28px',
 			title2: '22px',
 			title3: '20px',
 			body: '16px',
+			info: '14px',
 			caption: '12px',
 		},
 		fontWeight: { normal: '400', bold: '700', extraBold: '900' },

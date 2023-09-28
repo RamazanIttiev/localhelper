@@ -22,9 +22,6 @@ export const StyledInput = styled(MuiInput, {
 
 	'& .MuiInput-input': {
 		padding: 0,
-		color: theme.tg_theme.palette.text_color,
-		height: theme.tg_theme.height,
-		borderRadius: theme.tg_theme.borderRadius.base,
 
 		'&:hover fieldset': {
 			borderColor: theme.tg_theme.palette.secondary_bg_color,

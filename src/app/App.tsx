@@ -18,6 +18,7 @@ import { categoryLoader } from 'api/airtable/category';
 import { feedLoader } from 'api/airtable/feed';
 import { productsLoader } from 'api/airtable/products';
 import { restaurantLoader, restaurantProductsLoader, restaurantsLoader } from 'api/airtable/restaurant';
+import { getExchangeRate } from 'api/exchangeRate';
 import { geolocationLoader } from 'api/geolocation';
 
 import { WebApp, WebAppTheme, WebAppUser } from 'theme/types';

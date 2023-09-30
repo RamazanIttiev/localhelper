@@ -86,7 +86,7 @@ export const theme = createTheme({
 	},
 
 	typography: {
-		fontFamily: '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
+		fontFamily: 'ui-rounded, sans-serif',
 	},
 	components: {
 		MuiDrawer: {

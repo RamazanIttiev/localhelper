@@ -1,7 +1,5 @@
 import { createTheme } from '@mui/material';
 
-import { TgTheme } from 'app/App';
-
 declare module '@mui/material/styles' {
 	interface CustomTheme {
 		tg_theme: {
@@ -42,13 +40,13 @@ declare module '@mui/material/styles' {
 export const theme = createTheme({
 	tg_theme: {
 		palette: {
-			bg_color: TgTheme?.bg_color || '#1a1a1a',
-			secondary_bg_color: TgTheme?.secondary_bg_color || '#1C1C1D',
-			text_color: TgTheme?.text_color || '#fff',
-			hint_color: TgTheme?.hint_color || '#B1C3D5',
-			link_color: TgTheme?.link_color || '#696969',
-			button_color: TgTheme?.button_color || '#696969',
-			button_text_color: TgTheme?.button_text_color || '#fff',
+			bg_color: window.Telegram.WebApp.theme_params?.bg_color || '#1a1a1a',
+			secondary_bg_color: window.Telegram.WebApp.theme_params?.secondary_bg_color || '#1C1C1D',
+			text_color: window.Telegram.WebApp.theme_params?.text_color || '#fff',
+			hint_color: window.Telegram.WebApp.theme_params?.hint_color || '#B1C3D5',
+			link_color: window.Telegram.WebApp.theme_params?.link_color || '#696969',
+			button_color: window.Telegram.WebApp.theme_params?.button_color || '#696969',
+			button_text_color: window.Telegram.WebApp.theme_params?.button_text_color || '#fff',
 			button_hover_color: 'rgba(0, 0, 0, 0.04)',
 		},
 		fontSize: {
@@ -70,17 +68,17 @@ export const theme = createTheme({
 	},
 	palette: {
 		primary: {
-			main: TgTheme?.text_color || '#fff',
+			main: window.Telegram.WebApp.theme_params?.text_color || '#fff',
 		},
 		action: {
 			selected: '#fff',
 			disabled: '#777777',
 		},
 		text: {
-			primary: TgTheme?.text_color || '#fff',
+			primary: window.Telegram.WebApp.theme_params?.text_color || '#fff',
 		},
 		background: {
-			default: TgTheme?.secondary_bg_color || '#1C1C1D',
+			default: window.Telegram.WebApp.theme_params?.secondary_bg_color || '#1C1C1D',
 		},
 		success: { main: '#71E079' },
 		error: { main: '#DE3A3A' },
@@ -105,7 +103,9 @@ export const theme = createTheme({
 			styleOverrides: {
 				input: {
 					'&:-webkit-autofill': {
-						'-webkit-box-shadow': `0 0 0 100px ${TgTheme?.button_color || '#303030'} inset`,
+						'-webkit-box-shadow': `0 0 0 100px ${
+							window.Telegram.WebApp.theme_params?.button_color || '#303030'
+						} inset`,
 						'-webkit-text-fill-color': '#fff',
 						'-webkit-background-clip': 'text',
 					},
@@ -120,7 +120,7 @@ export const theme = createTheme({
 					color: '#fff',
 					'&.Mui-focused': {
 						// increase the specificity for the pseudo class
-						color: TgTheme?.hint_color || '#B1C3D5',
+						color: window.Telegram.WebApp.theme_params?.hint_color || '#B1C3D5',
 					},
 				},
 			},

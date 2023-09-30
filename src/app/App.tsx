@@ -18,6 +18,7 @@ import { categoryLoader } from 'api/airtable/category';
 import { feedLoader } from 'api/airtable/feed';
 import { productsLoader } from 'api/airtable/products';
 import { restaurantLoader, restaurantProductsLoader, restaurantsLoader } from 'api/airtable/restaurant';
+import { geolocationLoader } from 'api/geolocation';
 
 import { WebApp, WebAppTheme, WebAppUser } from 'theme/types';
 
@@ -30,7 +31,7 @@ export const TgTheme: WebAppTheme = TgWebApp.themeParams;
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<Layout />}>
-			<Route index element={<Categories />} />
+			<Route index element={<Categories />} loader={() => geolocationLoader(queryClient)} />
 			<Route
 				path=":categoryId"
 				element={<ProductsList />}

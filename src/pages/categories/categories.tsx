@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { Container, Grid } from '@mui/material';
-
-import { useLocalStorage } from 'usehooks-ts';
 
 import { CategoryCard } from 'pages/categories/category-card/category-card';
 
@@ -11,7 +10,7 @@ import { GeoLocationProps } from 'models/geolocation.model';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 
-import { getGeolocation } from 'api/geolocation';
+import { geolocationQuery } from 'api/geolocation';
 
 import bonus from 'assets/bonus.webp';
 import exchange from 'assets/exchange.webp';
@@ -21,30 +20,7 @@ import { categories } from './mock/categories';
 
 export const Categories = () => {
 	const { pathname } = useLocation();
-	const [geolocation, setGeolocation] = useLocalStorage<GeoLocationProps | null>('geolocation', {
-		country_code2: 'LK',
-	});
-
-	useEffect(() => {
-		const abortController = new AbortController();
-
-		const fetchGeolocation = async () => {
-			try {
-				if (geolocation === null) {
-					const geo = await getGeolocation();
-					setGeolocation(geo);
-				} else return;
-			} catch (error) {
-				console.log(error);
-			}
-		};
-
-		fetchGeolocation().catch(error => error);
-
-		return () => {
-			abortController.abort(); // Cancel the request if component unmounts
-		};
-	}, [geolocation, setGeolocation]);
+	const { data: geolocation } = useQuery<GeoLocationProps>(geolocationQuery());
 
 	const isIndia = geolocation?.country_code2 === 'IN';
 	const userCountry = geolocation?.country_code2;

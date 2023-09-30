@@ -1,10 +1,12 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { Box, CircularProgress, CssBaseline, ThemeProvider } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 
-import { theme } from './theme/theme';
+import App from 'app/App';
+
+import { theme } from 'theme/theme';
 
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -17,8 +19,6 @@ declare global {
 
 const queryClient = new QueryClient();
 
-const App = lazy(() => import('./app/App'));
-
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
@@ -26,20 +26,7 @@ root.render(
 		<ThemeProvider theme={theme}>
 			<QueryClientProvider client={queryClient}>
 				<CssBaseline />
-				<Suspense
-					fallback={
-						<Box
-							sx={{
-								top: '50%',
-								right: ' 50%',
-								position: 'absolute',
-								transform: 'translate(50%, -50%)',
-							}}>
-							<CircularProgress color={'primary'} />
-						</Box>
-					}>
-					<App />
-				</Suspense>
+				<App />
 			</QueryClientProvider>
 		</ThemeProvider>
 	</React.StrictMode>,

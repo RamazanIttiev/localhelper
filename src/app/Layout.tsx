@@ -9,6 +9,7 @@ import { useDocumentTitle } from 'usehooks-ts';
 import { Footer } from 'components/footer';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
+import { addOpacityToHexColor } from 'utils/service';
 
 import {
 	enableWebAppClosingConfirmation,
@@ -38,8 +39,7 @@ export const Layout = () => {
 			navigate(-1);
 		});
 
-		TgWebApp.setHeaderColor(TgTheme.secondary_bg_color || '#1C1C1D');
-		TgWebApp.setBackgroundColor(TgTheme.bg_color || '#1a1a1a');
+		TgWebApp.setHeaderColor(addOpacityToHexColor(TgTheme.secondary_bg_color || '#1C1C1D', 0.06));
 	}, [pathname, navigate]);
 
 	const footerIsVisible = !pathname.includes('checkout') && isUserAgentTelegram;

@@ -1,5 +1,7 @@
 import { createTheme } from '@mui/material';
 
+import { addOpacityToHexColor } from 'utils/service';
+
 declare module '@mui/material/styles' {
 	interface CustomTheme {
 		tg_theme: {
@@ -78,7 +80,7 @@ export const theme = createTheme({
 			primary: window.Telegram.WebApp.themeParams?.text_color || '#fff',
 		},
 		background: {
-			default: window.Telegram.WebApp.themeParams?.secondary_bg_color || '#1C1C1D',
+			default: addOpacityToHexColor(window.Telegram.WebApp.themeParams?.secondary_bg_color || '#1C1C1D', 0.06),
 		},
 		success: { main: '#71E079' },
 		error: { main: '#DE3A3A' },

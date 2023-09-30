@@ -46,37 +46,32 @@ export const CategoryCard: FC<CategoryProps> = ({
 		<Fragment key={title}>
 			<Card
 				onClick={isLink ? undefined : handleOpen}
+				component={isLink ? Link : Box}
+				to={route}
+				state={flowId}
 				sx={{
 					border: 'none',
 					boxShadow: 'none',
 					cursor: 'pointer',
-					background: 'inherit',
+					background: theme.tg_theme.palette.bg_color,
+					display: 'flex',
+					flexWrap: 'wrap',
+					borderRadius: theme.tg_theme.borderRadius.base,
+					justifyContent: secondary ? 'center' : 'space-between',
 					...sx,
 				}}>
+				<Typography sx={{ textAlign: 'center', fontWeight: '600', p: 1 }} component={'p'} variant="body1">
+					{title}
+				</Typography>
 				<Box
-					component={isLink ? Link : Box}
-					to={route}
-					state={flowId}
+					component={'img'}
+					src={image}
+					alt={`${title} category`}
 					sx={{
-						background: '#404040d9',
-						display: 'flex',
-						flexWrap: 'wrap',
-						borderRadius: theme.tg_theme.borderRadius.base,
-						justifyContent: secondary ? 'center' : 'space-between',
-					}}>
-					<Typography sx={{ textAlign: 'center', fontWeight: '600', p: 1 }} component={'p'} variant="body1">
-						{title}
-					</Typography>
-					<Box
-						component={'img'}
-						src={image}
-						alt={`${title} category`}
-						sx={{
-							height: '5rem',
-							...imageSx,
-						}}
-					/>
-				</Box>
+						height: '5rem',
+						...imageSx,
+					}}
+				/>
 			</Card>
 			<CategoryDialog
 				handleClose={handleClose}

@@ -1,13 +1,13 @@
-import React, { FC, useState } from 'react';
+import React, { FC, Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import { Box, Card, SxProps, Typography } from '@mui/material';
 
 import { CategoryDialog } from 'components/categoryDialog';
 
 import { getServicesRoute } from 'utils/route';
 
-import { theme } from '../../../theme/theme';
+import { theme } from 'theme/theme';
 
 interface CategoryProps {
 	title: string;
@@ -15,9 +15,21 @@ interface CategoryProps {
 	isLink?: boolean;
 	flowId?: string;
 	userCountry?: string;
+	sx: SxProps;
+	imageSx?: SxProps;
+	secondary?: boolean;
 }
 
-export const CategoryCard: FC<CategoryProps> = ({ title, image, isLink = false, flowId = '', userCountry }) => {
+export const CategoryCard: FC<CategoryProps> = ({
+	title,
+	image,
+	isLink = false,
+	flowId = '',
+	userCountry,
+	sx,
+	imageSx,
+	secondary,
+}) => {
 	const [isOpened, setIsOpened] = useState(false);
 
 	const handleOpen = () => {
@@ -31,48 +43,41 @@ export const CategoryCard: FC<CategoryProps> = ({ title, image, isLink = false, 
 	const route = getServicesRoute(title);
 
 	return (
-		<>
-			<Grid item xs={5} sm={4} md={4} key={title}>
-				<Card
-					onClick={isLink ? undefined : handleOpen}
+		<Fragment key={title}>
+			<Card
+				onClick={isLink ? undefined : handleOpen}
+				sx={{
+					border: 'none',
+					boxShadow: 'none',
+					cursor: 'pointer',
+					background: 'inherit',
+					...sx,
+				}}>
+				<Box
+					component={isLink ? Link : Box}
+					to={route}
+					state={flowId}
 					sx={{
-						border: 'none',
-						boxShadow: 'none',
-						cursor: 'pointer',
-						background: 'inherit',
+						background: '#404040d9',
+						display: 'flex',
+						flexWrap: 'wrap',
+						borderRadius: theme.tg_theme.borderRadius.base,
+						justifyContent: secondary ? 'center' : 'space-between',
 					}}>
+					<Typography sx={{ textAlign: 'center', fontWeight: '600', p: 1 }} component={'p'} variant="body1">
+						{title}
+					</Typography>
 					<Box
-						component={isLink ? Link : Box}
-						to={route}
-						state={flowId}
+						component={'img'}
+						src={image}
+						alt={`${title} category`}
 						sx={{
-							background: '#404040d9',
-							display: 'flex',
-							borderRadius: theme.tg_theme.borderRadius.base,
-							height: '7rem',
-							position: 'relative',
-						}}>
-						<CardContent sx={{ '&:last-child': { p: 0.5 } }}>
-							<Typography sx={{ textAlign: 'center', fontWeight: '600' }} component={'p'} variant="body1">
-								{title}
-							</Typography>
-						</CardContent>
-						<Box
-							component={'img'}
-							src={image}
-							alt={`${title} category`}
-							fontSize="small"
-							sx={{
-								height: '6rem',
-								display: 'block',
-								position: 'absolute',
-								bottom: '0',
-								right: '0',
-							}}
-						/>
-					</Box>
-				</Card>
-			</Grid>
+							height: '5rem',
+							...imageSx,
+						}}
+					/>
+				</Box>
+			</Card>
 			<CategoryDialog
 				handleClose={handleClose}
 				flowId={flowId}
@@ -81,6 +86,6 @@ export const CategoryCard: FC<CategoryProps> = ({ title, image, isLink = false, 
 				image={image}
 				userCountry={userCountry}
 			/>
-		</>
+		</Fragment>
 	);
 };

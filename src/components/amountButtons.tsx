@@ -11,8 +11,6 @@ import { useShoppingCart } from 'context/cart.context';
 import { ReactComponent as AddIcon } from 'assets/svg/add.svg';
 import { ReactComponent as RemoveIcon } from 'assets/svg/remove.svg';
 
-import { theme } from '../theme/theme';
-
 interface Props {
 	showPrice?: boolean;
 	showAmount?: boolean;

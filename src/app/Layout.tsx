@@ -1,4 +1,5 @@
 import { Global } from '@emotion/react';
+import { BackButton, WebAppProvider } from '@vkruglikov/react-telegram-web-app';
 import React, { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
@@ -14,7 +15,6 @@ import { addOpacityToHexColor } from 'utils/service';
 import {
 	enableWebAppClosingConfirmation,
 	expandWebApp,
-	handleBackButton,
 	hideBackButton,
 	setHaptic,
 	showBackButton,
@@ -34,10 +34,6 @@ export const Layout = () => {
 		expandWebApp();
 		enableWebAppClosingConfirmation();
 		pathname === '/' ? hideBackButton() : showBackButton();
-		handleBackButton(() => {
-			setHaptic('soft');
-			navigate(-1);
-		});
 
 		TgWebApp.setHeaderColor(addOpacityToHexColor(TgTheme.secondary_bg_color || '#1C1C1D', 0.06));
 	}, [pathname, navigate]);
@@ -54,10 +50,21 @@ export const Layout = () => {
 				}}
 			/>
 
-			<ShoppingCartProvider>
-				<Outlet />
-				{footerIsVisible && <Footer />}
-			</ShoppingCartProvider>
+			<WebAppProvider
+				options={{
+					smoothButtonsTransition: true,
+				}}>
+				<BackButton
+					onClick={() => {
+						setHaptic('soft');
+						navigate(-1);
+					}}
+				/>
+				<ShoppingCartProvider>
+					<Outlet />
+					{footerIsVisible && <Footer />}
+				</ShoppingCartProvider>
+			</WebAppProvider>
 		</>
 	);
 };

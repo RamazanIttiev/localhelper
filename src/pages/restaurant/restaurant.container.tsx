@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { createElement, useCallback, useEffect } from 'react';
+import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Category } from 'pages/categories/category.model';
@@ -9,14 +10,7 @@ import { Restaurant } from 'pages/restaurant/restaurant.model';
 import { categoryQuery } from 'api/airtable/category';
 import { restaurantProductsQuery, restaurantQuery } from 'api/airtable/restaurant';
 
-import {
-	handleMainButton,
-	hideMainButton,
-	removeMainButtonEvent,
-	setHaptic,
-	setMainButtonText,
-	showMainButton,
-} from 'actions/webApp-actions';
+import { setHaptic } from 'actions/webApp-actions';
 
 import { useShoppingCart } from 'context/cart.context';
 
@@ -43,17 +37,10 @@ export const RestaurantContainer = () => {
 		});
 	}, [navigate, flowId, restaurant]);
 
-	useEffect(() => {
-		if (!isCartEmpty) {
-			showMainButton();
-			setMainButtonText('To Cart');
-			handleMainButton(navigateToCart);
-		} else hideMainButton();
-
-		return () => {
-			removeMainButtonEvent(navigateToCart);
-		};
-	}, [isCartEmpty, navigateToCart]);
-
-	return createElement(RestaurantComponent, { restaurant, products, flowId });
+	return (
+		<>
+			<RestaurantComponent flowId={flowId} restaurant={restaurant} products={products} />
+			{!isCartEmpty && <MainButton text={'To Cart'} onClick={navigateToCart} />}
+		</>
+	);
 };

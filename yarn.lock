@@ -2789,6 +2789,11 @@
     "@typescript-eslint/types" "5.57.0"
     eslint-visitor-keys "^3.3.0"
 
+"@vkruglikov/react-telegram-web-app@^2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@vkruglikov/react-telegram-web-app/-/react-telegram-web-app-2.1.4.tgz#400e3425bb4862b3b6b61d78ad7a49a694bebf30"
+  integrity sha512-qiMQdpwcLhFy6FaAQ7vWlRlF0QFMDH9xA/Tp8vQFk9N5FjRW1JaeUYfF19RejFCieAPbO9LWwGjbxeRxQRYA6Q==
+
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.11.1.tgz#2bfd767eae1a6996f432ff7e8d7fc75679c0b6a7"

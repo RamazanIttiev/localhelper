@@ -1,4 +1,5 @@
-import { createElement, useCallback, useEffect, useState } from 'react';
+import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
@@ -9,13 +10,7 @@ import { getMappedCartList } from 'utils/cart';
 
 import { fetchAirtableData } from 'api/api';
 
-import {
-	handleMainButton,
-	removeMainButtonEvent,
-	setHaptic,
-	setMainButtonText,
-	showMainButton,
-} from 'actions/webApp-actions';
+import { setHaptic } from 'actions/webApp-actions';
 
 import { useShoppingCart } from 'context/cart.context';
 
@@ -67,23 +62,15 @@ export const CartContainer = () => {
 	}, [cartList, flowId, navigate, restaurant]);
 
 	useEffect(() => {
-		showMainButton();
-		setMainButtonText('Checkout');
-		handleMainButton(navigateToCheckout);
-
-		return () => {
-			removeMainButtonEvent(navigateToCheckout);
-		};
-	}, [navigateToCheckout]);
-
-	useEffect(() => {
 		if (isCartEmpty) {
 			navigate(-1);
 		}
 	}, [isCartEmpty, navigate]);
 
-	return createElement(Cart, {
-		cartList,
-		restaurantTitle,
-	});
+	return (
+		<>
+			<Cart cartList={cartList} restaurantTitle={restaurant.title} />
+			<MainButton text={'Checkout'} onClick={navigateToCheckout} />
+		</>
+	);
 };

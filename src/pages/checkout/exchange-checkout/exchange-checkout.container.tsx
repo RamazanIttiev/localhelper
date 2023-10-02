@@ -1,17 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLoaderData, useLocation } from 'react-router-dom';
 
 import { ExchangeCheckoutModel } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
 
 import { handleOrder } from 'actions/global-actions';
-import {
-	getTelegramUser,
-	handleMainButton,
-	removeMainButtonEvent,
-	setMainButtonText,
-	showMainButton,
-} from 'actions/webApp-actions';
+import { getTelegramUser } from 'actions/webApp-actions';
 
 import { ReactComponent as RupeeIcon } from 'assets/svg/rupee.svg';
 import { ReactComponent as USDIcon } from 'assets/svg/usd.svg';
@@ -67,50 +62,31 @@ export const ExchangeContainer = () => {
 		},
 	};
 
-	const onSubmit = useCallback(
-		(data: ExchangeCheckoutModel) => {
-			return handleOrder(
-				flowId,
-				{
-					...data,
-					currencyToChange: 'USDT',
-					currencyToReceive: 'LK',
-					amountToReceive,
-				},
-				() => console.log(),
-				() => console.log(),
-			);
-		},
-		[amountToReceive, flowId],
-	);
-
-	const handleForm = useCallback(async () => {
-		try {
-			await handleSubmit(onSubmit)();
-		} catch (error) {
-			console.error('Error submitting form:', error);
-		}
-	}, [onSubmit, handleSubmit]);
-
-	useEffect(() => {
-		showMainButton();
-		setMainButtonText('Exchange');
-
-		handleMainButton(handleForm);
-
-		return () => {
-			removeMainButtonEvent(handleForm);
-		};
-	}, [handleForm]);
+	const onSubmit = handleSubmit((data: ExchangeCheckoutModel) => {
+		return handleOrder(
+			flowId,
+			{
+				...data,
+				currencyToChange: 'USDT',
+				currencyToReceive: 'LK',
+				amountToReceive,
+			},
+			() => console.log(),
+			() => console.log(),
+		);
+	});
 
 	return (
-		<ExchangeCheckoutComponent
-			amountToChange={exchangeState.amountToChange}
-			amountToReceive={exchangeState.amountToReceive}
-			errors={errors}
-			register={register}
-			exchangeRate={exchangeRate}
-			control={control}
-		/>
+		<>
+			<ExchangeCheckoutComponent
+				amountToChange={exchangeState.amountToChange}
+				amountToReceive={exchangeState.amountToReceive}
+				errors={errors}
+				register={register}
+				exchangeRate={exchangeRate}
+				control={control}
+			/>
+			<MainButton text="Exchange" onClick={onSubmit} />;
+		</>
 	);
 };

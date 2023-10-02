@@ -13,7 +13,6 @@ interface Props {
 	cartTotalAmount: number;
 	restaurantTitle: string;
 	errors: FieldErrors<RestaurantCheckoutModel>;
-	onSubmit: () => Promise<void>;
 	cartList: RestaurantProduct[];
 	register: UseFormRegister<RestaurantCheckoutModel>;
 }
@@ -21,14 +20,13 @@ interface Props {
 export const RestaurantCheckoutComponent = ({
 	errors,
 	register,
-	onSubmit,
 	cartList,
 	restaurantTitle,
 	cartTotalAmount,
 }: Props) => {
 	return (
 		<>
-			<RestaurantCheckoutForm errors={errors} register={register} onSubmit={onSubmit} />
+			<RestaurantCheckoutForm errors={errors} register={register} />
 			{/*{isUserAgentTelegram && (*/}
 			{/*	<SaveInfoWrapper>*/}
 			{/*		<SaveInfoField*/}

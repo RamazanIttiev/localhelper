@@ -1,19 +1,15 @@
 import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { ActionButton } from 'reactkit/actionButton';
 import { InputGroup } from 'reactkit/inputGroup';
 
 import { RestaurantCheckoutModel } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
 
-import { isUserAgentTelegram } from 'utils/deviceInfo';
-
 interface FormUIProps {
-	onSubmit: () => void;
 	errors: FieldErrors<RestaurantCheckoutModel>;
 	register: UseFormRegister<RestaurantCheckoutModel>;
 }
 
-export const RestaurantCheckoutForm = ({ register, errors, onSubmit }: FormUIProps) => {
+export const RestaurantCheckoutForm = ({ register, errors }: FormUIProps) => {
 	return (
 		<form>
 			<InputGroup
@@ -56,8 +52,6 @@ export const RestaurantCheckoutForm = ({ register, errors, onSubmit }: FormUIPro
 				placeholder={'Hotel'}
 				fieldName={'userHotel'}
 			/>
-
-			{!isUserAgentTelegram && <ActionButton isMainButton text={'Order'} handleClick={onSubmit} />}
 		</form>
 	);
 };

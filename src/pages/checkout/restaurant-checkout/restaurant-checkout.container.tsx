@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect } from 'react';
+import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -7,13 +8,7 @@ import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restauran
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 import { handleOrder } from 'actions/global-actions';
-import {
-	getTelegramUser,
-	handleMainButton,
-	removeMainButtonEvent,
-	setMainButtonText,
-	showMainButton,
-} from 'actions/webApp-actions';
+import { getTelegramUser } from 'actions/webApp-actions';
 
 import { useShoppingCart } from 'context/cart.context';
 
@@ -47,7 +42,7 @@ export const RestaurantCheckoutContainer = () => {
 		formState: { errors },
 	} = useForm<RestaurantCheckoutModel>({ defaultValues: { userName: tgUser?.first_name } });
 
-	const produceOrder = useCallback(() => {
+	const onSubmit = handleSubmit(() => {
 		return handleOrder(
 			flowId,
 			{
@@ -71,47 +66,18 @@ export const RestaurantCheckoutContainer = () => {
 				navigate(-1);
 			}
 		});
-	}, [
-		flowId,
-		restaurant?.title,
-		restaurant?.contact,
-		restaurant?.location,
-		restaurant?.coordinates,
-		cartOrder,
-		cartTotalAmount,
-		tgUser?.username,
-		clearCart,
-		navigate,
-	]);
-
-	const onSubmit = useCallback(async () => {
-		try {
-			await handleSubmit(produceOrder)();
-		} catch (error) {
-			// Handle any errors that occur during form submission
-			console.error('Error submitting form:', error);
-		}
-	}, [handleSubmit, produceOrder]);
-
-	useEffect(() => {
-		showMainButton();
-		setMainButtonText('Order');
-
-		handleMainButton(onSubmit);
-
-		return () => {
-			removeMainButtonEvent(onSubmit);
-		};
-	}, [onSubmit]);
+	});
 
 	return (
-		<RestaurantCheckoutComponent
-			cartList={cartList}
-			cartTotalAmount={cartTotalAmount}
-			register={register}
-			errors={errors}
-			onSubmit={onSubmit}
-			restaurantTitle={restaurant.title}
-		/>
+		<>
+			<RestaurantCheckoutComponent
+				cartList={cartList}
+				cartTotalAmount={cartTotalAmount}
+				register={register}
+				errors={errors}
+				restaurantTitle={restaurant.title}
+			/>
+			<MainButton text={'Order'} onClick={onSubmit} />
+		</>
 	);
 };

@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect } from 'react';
+import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import React, { useCallback } from 'react';
 import { ActionButton } from 'reactkit/actionButton';
 
 import { Box, Drawer, Typography, useTheme } from '@mui/material';
@@ -7,15 +8,8 @@ import { isUserAgentTelegram } from 'utils/deviceInfo';
 import { openTelegram } from 'utils/service';
 
 import { handleOrder } from 'actions/global-actions';
-import {
-	handleMainButton,
-	hideMainButton,
-	removeMainButtonEvent,
-	setMainButtonText,
-	showMainButton,
-} from 'actions/webApp-actions';
 
-interface CategoryDialogProps {
+interface Props {
 	title: string;
 	image: string;
 	isOpened: boolean;
@@ -24,10 +18,10 @@ interface CategoryDialogProps {
 	userCountry?: string;
 }
 
-export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, userCountry }: CategoryDialogProps) => {
+export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, userCountry }: Props) => {
 	const theme = useTheme();
 
-	const handleProductOrder = useCallback(() => {
+	const handleSubmit = useCallback(() => {
 		return handleOrder(
 			flowId,
 			{
@@ -38,17 +32,6 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, us
 			() => console.log(),
 		);
 	}, [flowId, title, userCountry]);
-
-	useEffect(() => {
-		if (isOpened) {
-			showMainButton();
-			setMainButtonText('Continue');
-			handleMainButton(handleProductOrder);
-		} else {
-			hideMainButton();
-			removeMainButtonEvent(handleProductOrder);
-		}
-	}, [isOpened, handleProductOrder]);
 
 	return (
 		<Drawer anchor={'bottom'} onClose={handleClose} open={isOpened}>
@@ -76,12 +59,10 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, us
 				<Typography sx={{ textAlign: 'center', fontWeight: '600', mb: '1rem' }} component={'p'} variant="body1">
 					{title}
 				</Typography>
-				{!isUserAgentTelegram && (
-					<ActionButton
-						isMainButton
-						text={isUserAgentTelegram ? 'Continue' : 'Open Telegram'}
-						handleClick={isUserAgentTelegram ? handleProductOrder : openTelegram}
-					/>
+				{!isUserAgentTelegram ? (
+					<ActionButton isMainButton text={'Open Telegram'} handleClick={openTelegram} />
+				) : (
+					<MainButton onClick={handleSubmit} />
 				)}
 			</Box>
 		</Drawer>

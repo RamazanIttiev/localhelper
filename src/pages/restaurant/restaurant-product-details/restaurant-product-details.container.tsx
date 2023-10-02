@@ -1,16 +1,10 @@
-import { createElement, useCallback, useEffect, useMemo } from 'react';
+import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
-import {
-	handleMainButton,
-	hideMainButton,
-	removeMainButtonEvent,
-	setHaptic,
-	setMainButtonText,
-	showMainButton,
-} from 'actions/webApp-actions';
+import { setHaptic } from 'actions/webApp-actions';
 
 import { useShoppingCart } from 'context/cart.context';
 
@@ -44,20 +38,10 @@ export const RestaurantProductDetailsContainer = () => {
 		});
 	}, [navigate, flowId, restaurant]);
 
-	useEffect(() => {
-		if (!isCartEmpty) {
-			showMainButton();
-			setMainButtonText('To Cart');
-			handleMainButton(navigateToCart);
-		} else hideMainButton();
-
-		return () => {
-			removeMainButtonEvent(navigateToCart);
-		};
-	}, [isCartEmpty, navigateToCart]);
-
-	return createElement(RestaurantProductDetails, {
-		restaurant,
-		restaurantProduct,
-	});
+	return (
+		<>
+			<RestaurantProductDetails restaurantProduct={restaurantProduct} restaurant={restaurant} />
+			{!isCartEmpty && <MainButton text={'To Cart'} onClick={navigateToCart} />}
+		</>
+	);
 };

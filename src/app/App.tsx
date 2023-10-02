@@ -83,6 +83,7 @@ const router = createBrowserRouter(
 					if (params.categoryId === 'exchange') {
 						return defer({ exchangeRate: getExchangeRate() });
 					}
+					return 1;
 				}}
 			/>
 		</Route>,

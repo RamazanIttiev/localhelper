@@ -1,16 +1,10 @@
-import { createElement, useCallback, useEffect, useMemo } from 'react';
+import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DefaultProductModel } from 'pages/products-list/product/product.model';
 
-import {
-	handleMainButton,
-	hideMainButton,
-	removeMainButtonEvent,
-	setHaptic,
-	setMainButtonText,
-	showMainButton,
-} from 'actions/webApp-actions';
+import { setHaptic } from 'actions/webApp-actions';
 
 import { ProductDetails } from './product-details.component';
 
@@ -38,16 +32,10 @@ export const ProductDetailsContainer = () => {
 		});
 	}, [flowId, navigate, product]);
 
-	useEffect(() => {
-		showMainButton();
-		setMainButtonText('Order');
-		handleMainButton(handleClick);
-
-		return () => {
-			hideMainButton();
-			removeMainButtonEvent(handleClick);
-		};
-	}, [handleClick]);
-
-	return createElement(ProductDetails, { product });
+	return (
+		<>
+			<ProductDetails product={product} />
+			<MainButton text={'Order'} onClick={handleClick} />
+		</>
+	);
 };

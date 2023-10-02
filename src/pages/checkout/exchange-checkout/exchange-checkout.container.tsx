@@ -11,6 +11,8 @@ import { getTelegramUser } from 'actions/webApp-actions';
 import { ReactComponent as RupeeIcon } from 'assets/svg/rupee.svg';
 import { ReactComponent as USDIcon } from 'assets/svg/usd.svg';
 
+import { theme } from 'theme/theme';
+
 import { ExchangeCheckoutComponent } from './exchange-checkout.component';
 
 export const ExchangeContainer = () => {
@@ -37,7 +39,7 @@ export const ExchangeContainer = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 		control,
 	} = useForm<ExchangeCheckoutModel>({
 		defaultValues: { userName: tgUser?.first_name, currency: 'USDT' },
@@ -92,7 +94,15 @@ export const ExchangeContainer = () => {
 				exchangeRate={exchangeRate}
 				control={control}
 			/>
-			<MainButton text="Exchange" onClick={onSubmit} />
+			<MainButton
+				text="Exchange"
+				onClick={onSubmit}
+				disabled={isSubmitting}
+				progress={isSubmitting}
+				color={
+					isSubmitting ? theme.tg_theme.palette.button_disabled_color : theme.tg_theme.palette.button_color
+				}
+			/>
 		</>
 	);
 };

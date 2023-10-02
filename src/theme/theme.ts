@@ -14,6 +14,7 @@ declare module '@mui/material/styles' {
 				button_color: string;
 				button_text_color: string;
 				button_hover_color: string;
+				button_disabled_color: string;
 			};
 			fontSize: {
 				extraLargeTitle: string;
@@ -50,6 +51,8 @@ export const theme = createTheme({
 			button_color: window.Telegram.WebApp.themeParams?.button_color || '#696969',
 			button_text_color: window.Telegram.WebApp.themeParams?.button_text_color || '#fff',
 			button_hover_color: 'rgba(0, 0, 0, 0.04)',
+			button_disabled_color:
+				addOpacityToHexColor(window.Telegram.WebApp.themeParams?.button_color, 0.2) || '#ccc',
 		},
 		fontSize: {
 			extraLargeTitle: '56px',

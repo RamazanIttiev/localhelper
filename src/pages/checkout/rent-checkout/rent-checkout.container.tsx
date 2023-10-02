@@ -9,6 +9,8 @@ import { getDateDiff } from 'utils/date';
 import { handleOrder } from 'actions/global-actions';
 import { getTelegramUser } from 'actions/webApp-actions';
 
+import { theme } from 'theme/theme';
+
 import { RentCheckoutComponent } from './rent-checkout.component';
 import { RentCheckoutModel } from './rent-checkout.model';
 
@@ -24,7 +26,7 @@ export const RentCheckoutContainer = () => {
 		register,
 		handleSubmit,
 		control,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 	} = useForm<RentCheckoutModel>({
 		defaultValues: { userName: tgUser?.first_name, startDate: null, endDate: null },
 	});
@@ -67,7 +69,15 @@ export const RentCheckoutContainer = () => {
 				register={register}
 				rentPeriod={rentPeriod}
 			/>
-			<MainButton text={'Order'} onClick={onSubmit} />
+			<MainButton
+				text={'Order'}
+				onClick={onSubmit}
+				disabled={isSubmitting}
+				progress={isSubmitting}
+				color={
+					isSubmitting ? theme.tg_theme.palette.button_disabled_color : theme.tg_theme.palette.button_color
+				}
+			/>
 		</>
 	);
 };

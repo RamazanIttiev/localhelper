@@ -7,6 +7,8 @@ import { DefaultProductModel } from 'pages/products-list/product/product.model';
 import { handleOrder } from 'actions/global-actions';
 import { getTelegramUser } from 'actions/webApp-actions';
 
+import { theme } from 'theme/theme';
+
 import { ToursCheckoutComponent } from './tours-checkout.component';
 import { ToursCheckoutModel } from './tours-checkout.model';
 
@@ -23,7 +25,7 @@ export const ToursCheckoutContainer = () => {
 		register,
 		handleSubmit,
 		control,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 	} = useForm<ToursCheckoutModel>({ defaultValues: { userName: tgUser?.first_name } });
 
 	const onSubmit = handleSubmit(
@@ -46,7 +48,15 @@ export const ToursCheckoutContainer = () => {
 	return (
 		<>
 			<ToursCheckoutComponent errors={errors} control={control} product={product} register={register} />
-			<MainButton text={'Order'} onClick={onSubmit} />
+			<MainButton
+				text={'Order'}
+				onClick={onSubmit}
+				disabled={isSubmitting}
+				progress={isSubmitting}
+				color={
+					isSubmitting ? theme.tg_theme.palette.button_disabled_color : theme.tg_theme.palette.button_color
+				}
+			/>
 		</>
 	);
 };

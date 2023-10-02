@@ -12,6 +12,8 @@ import { getTelegramUser } from 'actions/webApp-actions';
 
 import { useShoppingCart } from 'context/cart.context';
 
+import { theme } from 'theme/theme';
+
 import { RestaurantCheckoutComponent } from './restaurant-checkout.component';
 
 interface RouteState {
@@ -41,7 +43,7 @@ export const RestaurantCheckoutContainer = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 	} = useForm<RestaurantCheckoutModel>({ defaultValues: { userName: tgUser?.first_name } });
 
 	const onSubmit = handleSubmit(
@@ -83,7 +85,15 @@ export const RestaurantCheckoutContainer = () => {
 				errors={errors}
 				restaurantTitle={restaurant.title}
 			/>
-			<MainButton text={'Order'} onClick={onSubmit} />
+			<MainButton
+				text={'Order'}
+				onClick={onSubmit}
+				disabled={isSubmitting}
+				progress={isSubmitting}
+				color={
+					isSubmitting ? theme.tg_theme.palette.button_disabled_color : theme.tg_theme.palette.button_color
+				}
+			/>
 		</>
 	);
 };

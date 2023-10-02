@@ -7,6 +7,8 @@ import { DefaultProductModel } from 'pages/products-list/product/product.model';
 import { handleOrder } from 'actions/global-actions';
 import { getTelegramUser } from 'actions/webApp-actions';
 
+import { theme } from 'theme/theme';
+
 import { FlowersCheckoutComponent } from './flowers-checkout.component';
 import { FlowersCheckoutModel } from './flowers-checkout.model';
 
@@ -22,7 +24,7 @@ export const FlowersCheckoutContainer = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 	} = useForm<FlowersCheckoutModel>({ defaultValues: { userName: tgUser?.first_name } });
 
 	const onSubmit = handleSubmit(
@@ -47,7 +49,15 @@ export const FlowersCheckoutContainer = () => {
 	return (
 		<>
 			<FlowersCheckoutComponent product={product} register={register} errors={errors} />
-			<MainButton text={'Order'} onClick={onSubmit} />
+			<MainButton
+				text={'Order'}
+				onClick={onSubmit}
+				disabled={isSubmitting}
+				progress={isSubmitting}
+				color={
+					isSubmitting ? theme.tg_theme.palette.button_disabled_color : theme.tg_theme.palette.button_color
+				}
+			/>
 		</>
 	);
 };

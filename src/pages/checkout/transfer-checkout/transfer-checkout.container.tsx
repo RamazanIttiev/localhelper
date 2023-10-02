@@ -5,6 +5,8 @@ import { useLocation } from 'react-router-dom';
 import { handleOrder } from 'actions/global-actions';
 import { getTelegramUser } from 'actions/webApp-actions';
 
+import { theme } from 'theme/theme';
+
 import { TransferCheckoutComponent } from './transfer-checkout.component';
 import { TransferCheckoutModel } from './transfer-checkout.model';
 
@@ -20,7 +22,7 @@ export const TransferCheckoutContainer = () => {
 		register,
 		handleSubmit,
 		control,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 	} = useForm<TransferCheckoutModel>({
 		defaultValues: { userName: tgUser?.first_name, date: null },
 	});
@@ -45,7 +47,15 @@ export const TransferCheckoutContainer = () => {
 	return (
 		<>
 			<TransferCheckoutComponent register={register} errors={errors} control={control} />
-			<MainButton text={'Order'} onClick={onSubmit} />
+			<MainButton
+				text={'Order'}
+				onClick={onSubmit}
+				disabled={isSubmitting}
+				progress={isSubmitting}
+				color={
+					isSubmitting ? theme.tg_theme.palette.button_disabled_color : theme.tg_theme.palette.button_color
+				}
+			/>
 		</>
 	);
 };

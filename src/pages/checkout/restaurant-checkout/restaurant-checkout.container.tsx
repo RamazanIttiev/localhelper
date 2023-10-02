@@ -1,4 +1,4 @@
-import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -27,6 +27,8 @@ export const RestaurantCheckoutContainer = () => {
 	const navigate = useNavigate();
 	const tgUser = getTelegramUser();
 
+	const [impactOccurred, notificationOccurred] = useHapticFeedback();
+
 	const flowId = state.flowId;
 	const restaurant = state.restaurant;
 	const cartList = state.cartList;
@@ -42,31 +44,35 @@ export const RestaurantCheckoutContainer = () => {
 		formState: { errors },
 	} = useForm<RestaurantCheckoutModel>({ defaultValues: { userName: tgUser?.first_name } });
 
-	const onSubmit = handleSubmit(() => {
-		return handleOrder(
-			flowId,
-			{
-				placeTitle: restaurant?.title,
-				placeNumber: restaurant?.contact,
-				placeLocation: restaurant?.location,
-				placeCoordinates: restaurant?.coordinates,
-				order: cartOrder,
-				orderTotal: cartTotalAmount,
-				tgUserNick: tgUser?.username,
-			},
-			() => {
-				console.log();
-			},
-			() => {
-				console.log();
-			},
-		).then(response => {
-			if (response?.ok) {
-				clearCart();
-				navigate(-1);
-			}
-		});
-	});
+	const onSubmit = handleSubmit(
+		() => {
+			impactOccurred('light');
+			return handleOrder(
+				flowId,
+				{
+					placeTitle: restaurant?.title,
+					placeNumber: restaurant?.contact,
+					placeLocation: restaurant?.location,
+					placeCoordinates: restaurant?.coordinates,
+					order: cartOrder,
+					orderTotal: cartTotalAmount,
+					tgUserNick: tgUser?.username,
+				},
+				() => {
+					console.log();
+				},
+				() => {
+					console.log();
+				},
+			).then(response => {
+				if (response?.ok) {
+					clearCart();
+					navigate(-1);
+				}
+			});
+		},
+		() => notificationOccurred('error'),
+	);
 
 	return (
 		<>

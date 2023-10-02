@@ -1,5 +1,5 @@
 import { Global } from '@emotion/react';
-import { BackButton, WebAppProvider } from '@vkruglikov/react-telegram-web-app';
+import { BackButton, useHapticFeedback, WebAppProvider } from '@vkruglikov/react-telegram-web-app';
 import React, { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
@@ -16,7 +16,6 @@ import {
 	enableWebAppClosingConfirmation,
 	expandWebApp,
 	hideBackButton,
-	setHaptic,
 	showBackButton,
 	webAppIsReady,
 } from 'actions/webApp-actions';
@@ -26,6 +25,7 @@ import { ShoppingCartProvider } from 'context/cart.context';
 export const Layout = () => {
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
+	const [impactOccurred] = useHapticFeedback();
 
 	useDocumentTitle('LocalHelper');
 
@@ -56,7 +56,7 @@ export const Layout = () => {
 				}}>
 				<BackButton
 					onClick={() => {
-						setHaptic('soft');
+						impactOccurred('light');
 						navigate(-1);
 					}}
 				/>

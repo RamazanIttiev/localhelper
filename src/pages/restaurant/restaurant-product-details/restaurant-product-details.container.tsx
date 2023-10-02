@@ -1,10 +1,8 @@
-import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Restaurant } from 'pages/restaurant/restaurant.model';
-
-import { setHaptic } from 'actions/webApp-actions';
 
 import { useShoppingCart } from 'context/cart.context';
 
@@ -24,19 +22,21 @@ export const RestaurantProductDetailsContainer = () => {
 	const navigate = useNavigate();
 	const { isCartEmpty } = useShoppingCart();
 
+	const [impactOccurred] = useHapticFeedback();
+
 	const flowId = useMemo(() => routeState.flowId, [routeState.flowId]);
 	const restaurant = useMemo(() => routeState.restaurant, [routeState.restaurant]);
 	const restaurantProduct = useMemo(() => routeState.restaurantProduct, [routeState.restaurantProduct]);
 
 	const navigateToCart = useCallback(() => {
-		setHaptic('soft');
+		impactOccurred('light');
 		navigate('/shopping-cart', {
 			state: {
 				flowId,
 				restaurant,
 			},
 		});
-	}, [navigate, flowId, restaurant]);
+	}, [impactOccurred, navigate, flowId, restaurant]);
 
 	return (
 		<>

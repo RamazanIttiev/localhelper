@@ -1,10 +1,9 @@
+import { useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import React, { CSSProperties } from 'react';
 
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
 
 import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
-
-import { setHaptic } from 'actions/webApp-actions';
 
 import { useShoppingCart } from 'context/cart.context';
 
@@ -21,18 +20,19 @@ interface Props {
 
 export const AmountButtons = ({ styles, product, showAmount = false, showPrice = true, restaurantTitle }: Props) => {
 	const theme = useTheme();
+	const [impactOccurred] = useHapticFeedback();
 	const { incrementCartAmount, decrementCartAmount, getItemAmount } = useShoppingCart();
 
 	const productAmount = getItemAmount(product.id);
 	const isRemoveVisible = productAmount > 0;
 
 	const handleRemove = () => {
-		setHaptic('soft');
+		impactOccurred('light');
 		decrementCartAmount(product.id);
 	};
 
 	const handleAdd = () => {
-		setHaptic('soft');
+		impactOccurred('light');
 		incrementCartAmount(product.id, restaurantTitle);
 	};
 

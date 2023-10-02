@@ -1,4 +1,4 @@
-import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import React, { useCallback } from 'react';
 import { ActionButton } from 'reactkit/actionButton';
 
@@ -21,7 +21,10 @@ interface Props {
 export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, userCountry }: Props) => {
 	const theme = useTheme();
 
+	const [impactOccurred] = useHapticFeedback();
+
 	const handleSubmit = useCallback(() => {
+		impactOccurred('light');
 		return handleOrder(
 			flowId,
 			{
@@ -31,7 +34,7 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, us
 			() => console.log(),
 			() => console.log(),
 		);
-	}, [flowId, title, userCountry]);
+	}, [flowId, impactOccurred, title, userCountry]);
 
 	return (
 		<Drawer anchor={'bottom'} onClose={handleClose} open={isOpened}>

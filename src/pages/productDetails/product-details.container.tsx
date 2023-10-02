@@ -1,10 +1,8 @@
-import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { DefaultProductModel } from 'pages/products-list/product/product.model';
-
-import { setHaptic } from 'actions/webApp-actions';
 
 import { ProductDetails } from './product-details.component';
 
@@ -19,18 +17,20 @@ export const ProductDetailsContainer = () => {
 	const { state } = useLocation();
 	const routeState: RouteState = state;
 
+	const [impactOccurred] = useHapticFeedback();
+
 	const flowId = useMemo(() => routeState.flowId, [routeState.flowId]);
 	const product = useMemo(() => routeState.product, [routeState.product]);
 
 	const handleClick = useCallback(() => {
-		setHaptic('soft');
+		impactOccurred('light');
 		navigate(`checkout`, {
 			state: {
 				flowId,
 				product,
 			},
 		});
-	}, [flowId, navigate, product]);
+	}, [flowId, impactOccurred, navigate, product]);
 
 	return (
 		<>

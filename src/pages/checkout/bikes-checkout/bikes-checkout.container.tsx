@@ -1,4 +1,4 @@
-import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import { useForm, useWatch } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
 
@@ -18,6 +18,8 @@ export const BikesCheckoutContainer = () => {
 
 	const tgUser = getTelegramUser();
 
+	const [impactOccurred, notificationOccurred] = useHapticFeedback();
+
 	const {
 		register,
 		handleSubmit,
@@ -32,24 +34,28 @@ export const BikesCheckoutContainer = () => {
 
 	const rentPeriod = getDateDiff(startDate, endDate);
 
-	const onSubmit = handleSubmit((data: BikesCheckoutModel) => {
-		return handleOrder(
-			state?.flowId,
-			{
-				placeContact: product.contact,
-				placeName: product.place,
-				itemPrice: product.price,
-				itemTitle: product.title,
-				userName: data.userName,
-				userPhone: data.userPhone,
-				rentStart: data.startDate?.toDateString(),
-				rentEnd: data.endDate?.toDateString(),
-				rentPeriod,
-			},
-			() => console.log(),
-			() => console.log(),
-		);
-	});
+	const onSubmit = handleSubmit(
+		(data: BikesCheckoutModel) => {
+			impactOccurred('light');
+			return handleOrder(
+				state?.flowId,
+				{
+					placeContact: product.contact,
+					placeName: product.place,
+					itemPrice: product.price,
+					itemTitle: product.title,
+					userName: data.userName,
+					userPhone: data.userPhone,
+					rentStart: data.startDate?.toDateString(),
+					rentEnd: data.endDate?.toDateString(),
+					rentPeriod,
+				},
+				() => console.log(),
+				() => console.log(),
+			);
+		},
+		() => notificationOccurred('error'),
+	);
 
 	return (
 		<>

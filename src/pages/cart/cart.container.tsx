@@ -1,4 +1,4 @@
-import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -9,8 +9,6 @@ import { getAirtableUrl } from 'utils/airtable';
 import { getMappedCartList } from 'utils/cart';
 
 import { fetchAirtableData } from 'api/api';
-
-import { setHaptic } from 'actions/webApp-actions';
 
 import { useShoppingCart } from 'context/cart.context';
 
@@ -27,6 +25,8 @@ export const CartContainer = () => {
 	const { state }: RouteState = useLocation();
 	const navigate = useNavigate();
 	const { getCartRestaurant, isCartEmpty, cartItems } = useShoppingCart();
+
+	const [impactOccurred] = useHapticFeedback();
 
 	const flowId = state.flowId;
 	const restaurant = state.restaurant;
@@ -51,7 +51,7 @@ export const CartContainer = () => {
 	}, [restaurantTitle]);
 
 	const navigateToCheckout = useCallback(() => {
-		setHaptic('soft');
+		impactOccurred('light');
 		navigate(`/food/${restaurant.title}/checkout`, {
 			state: {
 				flowId,
@@ -59,7 +59,7 @@ export const CartContainer = () => {
 				restaurant,
 			},
 		});
-	}, [cartList, flowId, navigate, restaurant]);
+	}, [cartList, flowId, impactOccurred, navigate, restaurant]);
 
 	useEffect(() => {
 		if (isCartEmpty) {

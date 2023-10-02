@@ -1,4 +1,4 @@
-import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
 
@@ -12,6 +12,8 @@ export const TransferCheckoutContainer = () => {
 	const { state } = useLocation();
 	const tgUser = getTelegramUser();
 
+	const [impactOccurred, notificationOccurred] = useHapticFeedback();
+
 	const flowId = state.flowId || '';
 
 	const {
@@ -23,18 +25,22 @@ export const TransferCheckoutContainer = () => {
 		defaultValues: { userName: tgUser?.first_name, date: null },
 	});
 
-	const onSubmit = handleSubmit((data: TransferCheckoutModel) => {
-		return handleOrder(
-			flowId,
-			{
-				...data,
-				date: data.date?.toISOString(),
-				tgUserNick: tgUser?.username,
-			},
-			() => console.log(),
-			() => console.log(),
-		);
-	});
+	const onSubmit = handleSubmit(
+		(data: TransferCheckoutModel) => {
+			impactOccurred('light');
+			return handleOrder(
+				flowId,
+				{
+					...data,
+					date: data.date?.toISOString(),
+					tgUserNick: tgUser?.username,
+				},
+				() => console.log(),
+				() => console.log(),
+			);
+		},
+		() => notificationOccurred('error'),
+	);
 
 	return (
 		<>

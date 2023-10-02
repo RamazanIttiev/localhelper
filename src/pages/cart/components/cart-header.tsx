@@ -1,8 +1,9 @@
+import { useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import React from 'react';
 
 import { Box, Icon, IconButton, Typography } from '@mui/material';
 
-import { hideMainButton, setHaptic } from 'actions/webApp-actions';
+import { hideMainButton } from 'actions/webApp-actions';
 
 import { useShoppingCart } from 'context/cart.context';
 
@@ -10,9 +11,10 @@ import { ReactComponent as TrashBin } from 'assets/svg/trashBin.svg';
 
 export const CartHeader = ({ restaurantTitle }: { restaurantTitle?: string }) => {
 	const { clearCart } = useShoppingCart();
+	const [impactOccurred] = useHapticFeedback();
 
 	const handleClearCart = () => {
-		setHaptic('soft');
+		impactOccurred('light');
 		const answer = confirm('Do you want to clear your cart?');
 		answer && clearCart();
 		answer && hideMainButton();

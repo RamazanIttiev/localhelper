@@ -2,7 +2,7 @@ import { TgUser, TgWebApp } from 'app/App';
 
 import CryptoJS from 'crypto-js';
 
-import { WebAppHapticFeedback, WebAppUser } from 'theme/types';
+import { WebAppUser } from 'theme/types';
 
 export const verifyInitData = (telegramInitData: string): boolean => {
 	const initData = new URLSearchParams(telegramInitData);
@@ -24,7 +24,6 @@ export const enableWebAppClosingConfirmation = () => TgWebApp.enableClosingConfi
 export const showBackButton = () => TgWebApp.BackButton.show();
 export const hideBackButton = () => TgWebApp.BackButton.hide();
 export const hideMainButton = () => TgWebApp.MainButton.hide();
-export const setHaptic = (state: WebAppHapticFeedback) => TgWebApp.HapticFeedback.impactOccurred(state);
 
 export const getTelegramUser = (): WebAppUser | undefined => {
 	if (verifyInitData(TgWebApp.initData)) {

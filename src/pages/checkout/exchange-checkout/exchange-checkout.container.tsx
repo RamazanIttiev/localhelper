@@ -1,4 +1,4 @@
-import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLoaderData, useLocation } from 'react-router-dom';
@@ -17,6 +17,8 @@ export const ExchangeContainer = () => {
 	const { state } = useLocation();
 	const tgUser = getTelegramUser();
 	const { exchangeRate } = useLoaderData() as { exchangeRate: Promise<number> };
+
+	const [impactOccurred, notificationOccurred] = useHapticFeedback();
 
 	const [amountToReceive, setAmountToReceive] = useState(0);
 
@@ -62,19 +64,23 @@ export const ExchangeContainer = () => {
 		},
 	};
 
-	const onSubmit = handleSubmit((data: ExchangeCheckoutModel) => {
-		return handleOrder(
-			flowId,
-			{
-				...data,
-				currencyToChange: 'USDT',
-				currencyToReceive: 'LK',
-				amountToReceive,
-			},
-			() => console.log(),
-			() => console.log(),
-		);
-	});
+	const onSubmit = handleSubmit(
+		(data: ExchangeCheckoutModel) => {
+			impactOccurred('light');
+			return handleOrder(
+				flowId,
+				{
+					...data,
+					currencyToChange: 'USDT',
+					currencyToReceive: 'LK',
+					amountToReceive,
+				},
+				() => console.log(),
+				() => console.log(),
+			);
+		},
+		() => notificationOccurred('error'),
+	);
 
 	return (
 		<>
@@ -86,7 +92,7 @@ export const ExchangeContainer = () => {
 				exchangeRate={exchangeRate}
 				control={control}
 			/>
-			<MainButton text="Exchange" onClick={onSubmit} />;
+			<MainButton text="Exchange" onClick={onSubmit} />
 		</>
 	);
 };

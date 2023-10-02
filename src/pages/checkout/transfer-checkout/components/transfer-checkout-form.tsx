@@ -5,10 +5,9 @@ import { ErrorText } from 'reactkit/errorText';
 import { HintText } from 'reactkit/hintText';
 import { StyledInput } from 'reactkit/input';
 import { InputGroup } from 'reactkit/inputGroup';
-import { Select } from 'reactkit/select';
 import { SelectGroup } from 'reactkit/selectGroup';
 
-import { Box, FormControl } from '@mui/material';
+import { FormControl } from '@mui/material';
 
 import { filterPassedTime } from 'utils/date';
 
@@ -110,7 +109,7 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 								hour12: false,
 							})}
 						/>
-						{errors.date?.type !== 'required' && <ErrorText text={errors.date?.message} />}
+						<ErrorText text={errors.date?.message} />
 					</FormControl>
 				)}
 			/>

@@ -5,7 +5,6 @@ import { ErrorText } from 'reactkit/errorText';
 import { HintText } from 'reactkit/hintText';
 import { StyledInput } from 'reactkit/input';
 import { InputGroup } from 'reactkit/inputGroup';
-import { Select } from 'reactkit/select';
 import { SelectGroup } from 'reactkit/selectGroup';
 
 import { Box } from '@mui/material';
@@ -101,7 +100,7 @@ export const ToursCheckoutForm = ({ register, errors, control }: Props) => {
 						/>
 					)}
 				/>
-				{errors.date?.type !== 'required' && <ErrorText text={errors.date?.message} />}
+				<ErrorText text={errors.date?.message} />
 			</Box>
 		</form>
 	);

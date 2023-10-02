@@ -37,14 +37,22 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, us
 	}, [flowId, impactOccurred, title, userCountry]);
 
 	return (
-		<Drawer anchor={'bottom'} onClose={handleClose} open={isOpened}>
+		<Drawer
+			anchor={'bottom'}
+			onClose={handleClose}
+			open={isOpened}
+			sx={{
+				'& .MuiPaper-root': {
+					background: theme.tg_theme.palette.bg_color,
+				},
+			}}>
 			<Box
 				sx={{
 					p: '3rem 3rem',
 					display: 'flex',
 					alignItems: 'center',
 					flexDirection: 'column',
-					background: theme.palette.background.default,
+					background: theme.tg_theme.palette.bg_color,
 				}}>
 				<Box
 					component={'img'}
@@ -56,7 +64,6 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, us
 						height: '7rem',
 						display: 'block',
 						mb: '1rem',
-						borderRadius: '50%',
 					}}
 				/>
 				<Typography sx={{ textAlign: 'center', fontWeight: '600', mb: '1rem' }} component={'p'} variant="body1">

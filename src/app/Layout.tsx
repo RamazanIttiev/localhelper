@@ -35,7 +35,7 @@ export const Layout = () => {
 		enableWebAppClosingConfirmation();
 		pathname === '/' ? hideBackButton() : showBackButton();
 
-		TgWebApp.setHeaderColor(addOpacityToHexColor(TgTheme.secondary_bg_color || '#1C1C1D', 0.06));
+		TgWebApp.setHeaderColor(addOpacityToHexColor(TgTheme.secondary_bg_color || '#1C1C1D', 0.06) || '#1C1C1D');
 	}, [pathname, navigate]);
 
 	const footerIsVisible = !pathname.includes('checkout') && isUserAgentTelegram;

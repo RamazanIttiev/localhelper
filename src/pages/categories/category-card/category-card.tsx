@@ -15,7 +15,7 @@ interface CategoryProps {
 	isLink?: boolean;
 	flowId?: string;
 	userCountry?: string;
-	sx: SxProps;
+	sx?: SxProps;
 	imageSx?: SxProps;
 	secondary?: boolean;
 }
@@ -56,6 +56,7 @@ export const CategoryCard: FC<CategoryProps> = ({
 					background: theme.tg_theme.palette.bg_color,
 					display: 'flex',
 					flexWrap: 'wrap',
+					alignItems: 'center',
 					borderRadius: theme.tg_theme.borderRadius.base,
 					justifyContent: secondary ? 'center' : 'space-between',
 					...sx,

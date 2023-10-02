@@ -10,6 +10,8 @@ import { GeoLocationProps } from 'models/geolocation.model';
 
 import { geolocationQuery } from 'api/geolocation';
 
+import feed from 'assets/feed.avif';
+
 import { categoriesPrimary, categoriesSecondary } from './mock/categories';
 
 export const Categories = () => {
@@ -68,6 +70,15 @@ export const Categories = () => {
 						);
 					})}
 			</Box>
+
+			<CategoryCard
+				title={'Feed'}
+				image={feed}
+				flowId={'flowId'}
+				isLink={true}
+				sx={{ pr: '16px' }}
+				imageSx={{ height: '3rem' }}
+			/>
 		</Container>
 	);
 };

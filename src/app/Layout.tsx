@@ -7,9 +7,6 @@ import { TgTheme, TgWebApp } from 'app/App';
 
 import { useDocumentTitle } from 'usehooks-ts';
 
-import { Footer } from 'components/footer';
-
-import { isUserAgentTelegram } from 'utils/deviceInfo';
 import { addOpacityToHexColor } from 'utils/service';
 
 import {
@@ -38,8 +35,6 @@ export const Layout = () => {
 		TgWebApp.setHeaderColor(addOpacityToHexColor(TgTheme.secondary_bg_color || '#1C1C1D', 0.06) || '#1C1C1D');
 	}, [pathname, navigate]);
 
-	const footerIsVisible = !pathname.includes('checkout') && isUserAgentTelegram;
-
 	return (
 		<>
 			<Global
@@ -62,7 +57,6 @@ export const Layout = () => {
 				/>
 				<ShoppingCartProvider>
 					<Outlet />
-					{footerIsVisible && <Footer />}
 				</ShoppingCartProvider>
 			</WebAppProvider>
 		</>

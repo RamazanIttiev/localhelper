@@ -41,9 +41,8 @@ export const ExchangeCurrencyInput = ({ error, register, state, exchangeRate, co
 				}}>
 				{state.fieldName === 'amountToChange' ? (
 					<Input
-						autoComplete={'off'}
 						required={state.required}
-						type="number"
+						type="tel"
 						register={register}
 						requiredMessage={state.requiredMessage}
 						pattern={state.pattern}

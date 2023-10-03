@@ -52,9 +52,11 @@ interface Props extends Partial<OutlinedTextFieldProps> {
 	patternMessage?: string;
 	requiredMessage?: string;
 	inputStyles?: SxProps;
+	autoComplete?: string;
 }
 
 export const Input = ({
+	type,
 	inputStyles,
 	fieldName,
 	register,
@@ -68,15 +70,18 @@ export const Input = ({
 	fullWidth = true,
 	defaultValue,
 	pattern = new RegExp(''),
+	autoComplete = 'off',
 }: Props) => {
 	return (
 		<StyledInput
+			type={type}
 			sx={{ ...inputStyles }}
 			error={error}
 			fullWidth={fullWidth}
 			defaultValue={defaultValue}
 			placeholder={placeholder}
 			disableUnderline
+			autoComplete={autoComplete}
 			{...register(fieldName, {
 				required: {
 					value: required,

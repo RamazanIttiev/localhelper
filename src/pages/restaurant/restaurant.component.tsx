@@ -6,8 +6,8 @@ import { Container, Grid } from '@mui/material';
 import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
-import { HeaderSkeleton } from 'components/headerSkeleton';
-import { ProductSkeleton } from 'components/productSkeleton';
+import { HeaderSkeleton } from 'components/skeletons/headerSkeleton';
+import { ProductSkeleton } from 'components/skeletons/productSkeleton';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 import { openTelegram } from 'utils/service';

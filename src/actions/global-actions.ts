@@ -28,13 +28,3 @@ export const handleOrder = async (
 		});
 	}
 };
-
-export const clearResponseMessage = (errorState: ErrorType, handleError: (value: ErrorType) => void) => {
-	if (errorState.isError !== null) {
-		setTimeout(() => {
-			handleError({
-				isError: null,
-			});
-		}, 5000);
-	}
-};

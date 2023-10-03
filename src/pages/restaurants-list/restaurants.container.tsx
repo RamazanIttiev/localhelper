@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import { Container, Grid } from '@mui/material';
 
-import { RestaurantSkeleton } from 'components/restaurantSkeleton';
+import { RestaurantSkeleton } from 'components/skeletons/restaurantSkeleton';
 
 import { restaurantsQuery } from 'api/airtable/restaurant';
 

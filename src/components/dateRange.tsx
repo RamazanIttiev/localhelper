@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Control, Controller, FieldErrors, UseFormRegister, useWatch } from 'react-hook-form';
 import { ErrorText } from 'reactkit/errorText';
+import { HintText } from 'reactkit/hintText';
 import { StyledInput } from 'reactkit/input';
-import { Label } from 'reactkit/label';
 
 import { Box, FormControl } from '@mui/material';
 
@@ -39,7 +39,7 @@ export const DateRange = ({
 				})}
 				render={({ field }) => (
 					<FormControl variant="standard" fullWidth sx={{ mr: 1 }}>
-						<Label text={'From'} />
+						<HintText sx={{ ml: 2 }} text={'From'} />
 						<DatePicker
 							onFocus={e => e.target.blur()}
 							selected={field.value}
@@ -69,7 +69,7 @@ export const DateRange = ({
 				})}
 				render={({ field }) => (
 					<FormControl variant="standard" fullWidth>
-						<Label text={'To'} />
+						<HintText sx={{ ml: 2 }} text={'To'} />
 						<DatePicker
 							onFocus={e => e.target.blur()}
 							selected={field.value}

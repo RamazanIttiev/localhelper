@@ -2,7 +2,7 @@ import React from 'react';
 
 import { SxProps, Typography } from '@mui/material';
 
-import { theme } from '../theme/theme';
+import { theme } from 'theme/theme';
 
 interface Props {
 	text: string;

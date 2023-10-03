@@ -10,7 +10,7 @@ import { RentCheckoutForm } from './components/rent-checkout-form';
 
 import { formatDaysText } from 'utils/date';
 
-import { theme } from '../../../theme/theme';
+import { theme } from 'theme/theme';
 
 import { RentCheckoutModel } from './rent-checkout.model';
 
@@ -46,7 +46,7 @@ export const RentCheckoutComponent = ({ register, errors, control, product, rent
 							component={'span'}
 							variant={'body1'}
 							fontWeight={'bold'}
-							sx={{ color: theme.palette.info.main }}>
+							sx={{ color: theme.tg_theme.palette.text_color }}>
 							{product.title}
 						</Typography>
 
@@ -54,7 +54,7 @@ export const RentCheckoutComponent = ({ register, errors, control, product, rent
 							component={'span'}
 							variant={'body1'}
 							fontWeight={'bold'}
-							sx={{ color: theme.palette.info.main }}>
+							sx={{ color: theme.tg_theme.palette.text_color }}>
 							{product.price} Rs
 						</Typography>
 					</Box>
@@ -71,7 +71,7 @@ export const RentCheckoutComponent = ({ register, errors, control, product, rent
 									width: '1.5rem',
 									height: '1.5rem',
 									borderRadius: '50%',
-									backgroundColor: theme.palette.primary.main,
+									backgroundColor: theme.tg_theme.palette.button_color,
 									display: 'flex',
 									justifyContent: 'center',
 									alignItems: 'center',
@@ -85,7 +85,7 @@ export const RentCheckoutComponent = ({ register, errors, control, product, rent
 							component={'span'}
 							variant={'body1'}
 							fontWeight={'bold'}
-							sx={{ color: theme.palette.info.main }}>
+							sx={{ color: theme.tg_theme.palette.text_color }}>
 							{product.price * rentPeriod} Rs
 						</Typography>
 					</Box>

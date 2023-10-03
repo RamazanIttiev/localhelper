@@ -8,8 +8,8 @@ import { Container, Grid } from '@mui/material';
 import { Category } from 'pages/categories/category.model';
 import { Product } from 'pages/products-list/product/product.model';
 
-import { HeaderSkeleton } from 'components/headerSkeleton';
-import { ProductSkeleton } from 'components/productSkeleton';
+import { HeaderSkeleton } from 'components/skeletons/headerSkeleton';
+import { ProductSkeleton } from 'components/skeletons/productSkeleton';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 import { openTelegram } from 'utils/service';

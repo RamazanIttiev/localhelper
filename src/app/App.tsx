@@ -10,6 +10,7 @@ import { CheckoutContainer } from 'pages/checkout/checkout.container';
 import { FeedContainer } from 'pages/feed/feed.container';
 import { ProductDetailsContainer } from 'pages/productDetails/product-details.container';
 import { ProductsList } from 'pages/products-list/products-list';
+import { Profile } from 'pages/profile/profile';
 import { RestaurantProductDetailsContainer } from 'pages/restaurant/restaurant-product-details/restaurant-product-details.container';
 import { RestaurantContainer } from 'pages/restaurant/restaurant.container';
 import { RestaurantsListContainer } from 'pages/restaurants-list/restaurants.container';
@@ -20,6 +21,8 @@ import { productsLoader } from 'api/airtable/products';
 import { restaurantLoader, restaurantProductsLoader, restaurantsLoader } from 'api/airtable/restaurant';
 import { getExchangeRate } from 'api/exchangeRate';
 import { geolocationLoader } from 'api/geolocation';
+
+import profileImage from 'assets/profileImage.jpeg';
 
 import { WebApp, WebAppTheme, WebAppUser } from 'theme/types';
 
@@ -86,6 +89,8 @@ const router = createBrowserRouter(
 					return 1;
 				}}
 			/>
+
+			<Route path="profile" element={<Profile userPhoto={profileImage} />} />
 		</Route>,
 	),
 );

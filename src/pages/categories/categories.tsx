@@ -5,12 +5,14 @@ import { useLocation } from 'react-router-dom';
 import { Box, Container } from '@mui/material';
 
 import { CategoryCard } from 'pages/categories/category-card/category-card';
+import { ProfileCard } from 'pages/profile/profile-card/profile-card';
 
 import { GeoLocationProps } from 'models/geolocation.model';
 
 import { geolocationQuery } from 'api/geolocation';
 
 import feed from 'assets/feed.avif';
+import profileImage from 'assets/profileImage.jpeg';
 
 import { categoriesPrimary, categoriesSecondary } from './mock/categories';
 
@@ -24,7 +26,8 @@ export const Categories = () => {
 	if (!geolocation) return null;
 
 	return (
-		<Container maxWidth={'md'} sx={{ pb: 1 }}>
+		<Container maxWidth={'md'} sx={{ pb: 1, pt: 1 }}>
+			<ProfileCard userName={'Ramazan'} userPhoto={profileImage} />
 			<Box
 				sx={{
 					pt: pathname === '/' ? 3 : 0,

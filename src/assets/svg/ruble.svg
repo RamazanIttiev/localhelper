@@ -1,0 +1,20 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_62_2387)">
+        <mask id="mask0_62_2387" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="24"
+              height="24">
+            <path d="M24 0H0V24H24V0Z" fill="white"/>
+        </mask>
+        <g mask="url(#mask0_62_2387)">
+            <!-- Scale down the path by adding a transform attribute -->
+            <path d="M12 0C18.6228 0 24 5.3772 24 12C24 18.6228 18.6228 24 12 24C5.3772 24 0 18.6228 0 12C0 5.3772 5.3772 0 12 0Z"
+                  fill="#FFA800"/> <!-- Adjust the scale value as needed -->
+        </g>
+        <path stroke="#fff" transform="scale(0.69) translate(6, 5)" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="3" d="M8.5 11.5h6a4 4 0 0 0 0-8h-6v8Zm0 0h-2m7 4h-7M8.5 4v16.5"/>
+    </g>
+    <defs>
+        <clipPath id="clip0_62_2387">
+            <rect width="24" height="24" fill="white"/>
+        </clipPath>
+    </defs>
+</svg>

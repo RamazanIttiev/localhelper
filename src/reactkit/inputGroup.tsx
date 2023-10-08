@@ -35,7 +35,7 @@ export const InputGroup = (props: Props) => {
 	return (
 		<FormControl variant="standard" fullWidth sx={{ mb: 2, ...containerStyles }}>
 			<HintText text={label} sx={{ ml: 2, ...labelStyles }} />
-			<Input {...props} />
+			<Input {...props} sx={inputStyles} />
 			<ErrorText text={errorMessage} />
 		</FormControl>
 	);

@@ -39,22 +39,17 @@ export const BikesCheckoutContainer = () => {
 	const onSubmit = handleSubmit(
 		(data: BikesCheckoutModel) => {
 			impactOccurred('light');
-			return handleOrder(
-				state?.flowId,
-				{
-					placeContact: product.contact,
-					placeName: product.place,
-					itemPrice: product.price,
-					itemTitle: product.title,
-					userName: data.userName,
-					userPhone: data.userPhone,
-					rentStart: data.startDate?.toDateString(),
-					rentEnd: data.endDate?.toDateString(),
-					rentPeriod,
-				},
-				() => console.log(),
-				() => console.log(),
-			);
+			return handleOrder(state?.flowId, {
+				placeContact: product.contact,
+				placeName: product.place,
+				itemPrice: product.price,
+				itemTitle: product.title,
+				userName: data.userName,
+				userPhone: data.userPhone,
+				rentStart: data.startDate?.toDateString(),
+				rentEnd: data.endDate?.toDateString(),
+				rentPeriod,
+			});
 		},
 		() => notificationOccurred('error'),
 	);

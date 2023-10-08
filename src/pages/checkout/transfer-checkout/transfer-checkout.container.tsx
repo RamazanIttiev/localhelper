@@ -30,16 +30,11 @@ export const TransferCheckoutContainer = () => {
 	const onSubmit = handleSubmit(
 		(data: TransferCheckoutModel) => {
 			impactOccurred('light');
-			return handleOrder(
-				flowId,
-				{
-					...data,
-					date: data.date?.toISOString(),
-					tgUserNick: tgUser?.username,
-				},
-				() => console.log(),
-				() => console.log(),
-			);
+			return handleOrder(flowId, {
+				...data,
+				date: data.date?.toISOString(),
+				tgUserNick: tgUser?.username,
+			});
 		},
 		() => notificationOccurred('error'),
 	);

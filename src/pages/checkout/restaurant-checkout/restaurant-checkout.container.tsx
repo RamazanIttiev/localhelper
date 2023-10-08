@@ -49,24 +49,15 @@ export const RestaurantCheckoutContainer = () => {
 	const onSubmit = handleSubmit(
 		() => {
 			impactOccurred('light');
-			return handleOrder(
-				flowId,
-				{
-					placeTitle: restaurant?.title,
-					placeNumber: restaurant?.contact,
-					placeLocation: restaurant?.location,
-					placeCoordinates: restaurant?.coordinates,
-					order: cartOrder,
-					orderTotal: cartTotalAmount,
-					tgUserNick: tgUser?.username,
-				},
-				() => {
-					console.log();
-				},
-				() => {
-					console.log();
-				},
-			).then(response => {
+			return handleOrder(flowId, {
+				placeTitle: restaurant?.title,
+				placeNumber: restaurant?.contact,
+				placeLocation: restaurant?.location,
+				placeCoordinates: restaurant?.coordinates,
+				order: cartOrder,
+				orderTotal: cartTotalAmount,
+				tgUserNick: tgUser?.username,
+			}).then(response => {
 				if (response?.ok) {
 					clearCart();
 					navigate(-1);

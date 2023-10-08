@@ -69,17 +69,12 @@ export const ExchangeContainer = () => {
 	const onSubmit = handleSubmit(
 		(data: ExchangeCheckoutModel) => {
 			impactOccurred('light');
-			return handleOrder(
-				flowId,
-				{
-					...data,
-					currencyToChange: 'USDT',
-					currencyToReceive: 'LK',
-					amountToReceive,
-				},
-				() => console.log(),
-				() => console.log(),
-			);
+			return handleOrder(flowId, {
+				...data,
+				currencyToChange: 'USDT',
+				currencyToReceive: 'LK',
+				amountToReceive,
+			});
 		},
 		() => notificationOccurred('error'),
 	);

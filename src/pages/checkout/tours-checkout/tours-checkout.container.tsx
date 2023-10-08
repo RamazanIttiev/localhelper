@@ -31,16 +31,11 @@ export const ToursCheckoutContainer = () => {
 	const onSubmit = handleSubmit(
 		(data: ToursCheckoutModel) => {
 			impactOccurred('light');
-			return handleOrder(
-				flowId,
-				{
-					data,
-					tourTitle: product.title,
-					tgUserNick: tgUser?.username,
-				},
-				() => console.log(),
-				() => console.log(),
-			);
+			return handleOrder(flowId, {
+				data,
+				tourTitle: product.title,
+				tgUserNick: tgUser?.username,
+			});
 		},
 		() => notificationOccurred('error'),
 	);

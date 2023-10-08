@@ -25,15 +25,10 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, us
 
 	const handleSubmit = useCallback(() => {
 		impactOccurred('light');
-		return handleOrder(
-			flowId,
-			{
-				itemName: title,
-				userCountry,
-			},
-			() => console.log(),
-			() => console.log(),
-		);
+		return handleOrder(flowId, {
+			itemName: title,
+			userCountry,
+		});
 	}, [flowId, impactOccurred, title, userCountry]);
 
 	return (

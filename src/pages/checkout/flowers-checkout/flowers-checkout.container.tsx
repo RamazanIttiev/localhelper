@@ -30,18 +30,13 @@ export const FlowersCheckoutContainer = () => {
 	const onSubmit = handleSubmit(
 		(data: FlowersCheckoutModel) => {
 			impactOccurred('light');
-			return handleOrder(
-				flowId,
-				{
-					...data,
-					productTitle: product.title,
-					placeTitle: product.place,
-					placeContact: product.contact,
-					tgUserNick: tgUser?.username,
-				},
-				() => console.log(),
-				() => console.log(),
-			);
+			return handleOrder(flowId, {
+				...data,
+				productTitle: product.title,
+				placeTitle: product.place,
+				placeContact: product.contact,
+				tgUserNick: tgUser?.username,
+			});
 		},
 		() => notificationOccurred('error'),
 	);

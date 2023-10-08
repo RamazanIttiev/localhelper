@@ -39,23 +39,18 @@ export const RentCheckoutContainer = () => {
 	const onSubmit = handleSubmit(
 		(data: RentCheckoutModel) => {
 			impactOccurred('light');
-			return handleOrder(
-				state?.flowId,
-				{
-					placeContact: product.contact,
-					placeName: product.place,
-					itemPrice: product.price,
-					itemTitle: product.title,
-					userName: data.userName,
-					userPhone: data.userPhone,
-					rentStart: data.startDate?.toDateString(),
-					rentEnd: data.endDate?.toDateString(),
-					rentPeriod,
-					tgUserNick: tgUser?.username,
-				},
-				() => console.log(),
-				() => console.log(),
-			);
+			return handleOrder(state?.flowId, {
+				placeContact: product.contact,
+				placeName: product.place,
+				itemPrice: product.price,
+				itemTitle: product.title,
+				userName: data.userName,
+				userPhone: data.userPhone,
+				rentStart: data.startDate?.toDateString(),
+				rentEnd: data.endDate?.toDateString(),
+				rentPeriod,
+				tgUserNick: tgUser?.username,
+			});
 		},
 		() => notificationOccurred('error'),
 	);

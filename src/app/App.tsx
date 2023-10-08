@@ -10,6 +10,7 @@ import { CheckoutContainer } from 'pages/checkout/checkout.container';
 import { FeedContainer } from 'pages/feed/feed.container';
 import { ProductDetailsContainer } from 'pages/productDetails/product-details.container';
 import { ProductsList } from 'pages/products-list/products-list';
+import { ProfileContainer } from 'pages/profile/profile.container';
 import { RestaurantProductDetailsContainer } from 'pages/restaurant/restaurant-product-details/restaurant-product-details.container';
 import { RestaurantContainer } from 'pages/restaurant/restaurant.container';
 import { RestaurantsListContainer } from 'pages/restaurants-list/restaurants.container';
@@ -86,6 +87,8 @@ const router = createBrowserRouter(
 					return 1;
 				}}
 			/>
+
+			<Route path="profile" element={<ProfileContainer />} />
 		</Route>,
 	),
 );

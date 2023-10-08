@@ -50,7 +50,7 @@ export const ExchangeCurrencyInput = ({ error, register, state, exchangeRate, co
 						fieldName={state.fieldName}
 						placeholder="0"
 						error={error !== undefined}
-						inputStyles={{
+						sx={{
 							p: '0 16px 0 0',
 							borderRadius: 'none',
 							fontSize: theme.tg_theme.fontSize.extraLargeTitle,

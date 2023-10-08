@@ -83,9 +83,7 @@ export const theme = createTheme({
 			primary: window.Telegram.WebApp.themeParams?.text_color || '#fff',
 		},
 		background: {
-			default:
-				addOpacityToHexColor(window.Telegram.WebApp.themeParams?.secondary_bg_color || '#1C1C1D', 0.06) ||
-				'#1C1C1D',
+			default: window.Telegram.WebApp.themeParams?.secondary_bg_color || '#1C1C1D',
 		},
 		success: { main: '#71E079' },
 		error: { main: '#DE3A3A' },

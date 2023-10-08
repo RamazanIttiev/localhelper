@@ -7,8 +7,6 @@ import { TgTheme, TgWebApp } from 'app/App';
 
 import { useDocumentTitle } from 'usehooks-ts';
 
-import { addOpacityToHexColor } from 'utils/service';
-
 import {
 	enableWebAppClosingConfirmation,
 	expandWebApp,
@@ -32,7 +30,7 @@ export const Layout = () => {
 		enableWebAppClosingConfirmation();
 		pathname === '/' ? hideBackButton() : showBackButton();
 
-		TgWebApp.setHeaderColor(addOpacityToHexColor(TgTheme.secondary_bg_color || '#1C1C1D', 0.06) || '#1C1C1D');
+		TgWebApp.setHeaderColor(TgTheme.secondary_bg_color || '#1C1C1D');
 	}, [pathname, navigate]);
 
 	return (

@@ -1,6 +1,5 @@
 import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { InputGroup } from 'reactkit/inputGroup';
 
 import { ExchangeForm } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
 

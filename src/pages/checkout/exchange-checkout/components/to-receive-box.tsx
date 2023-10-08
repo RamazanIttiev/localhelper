@@ -7,8 +7,6 @@ import { ToReceiveState } from 'pages/checkout/exchange-checkout/model/exchange-
 
 import { theme } from 'theme/theme';
 
-import error = Simulate.error;
-
 interface Props {
 	state: ToReceiveState;
 }

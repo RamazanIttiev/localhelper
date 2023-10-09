@@ -1,9 +1,10 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
+import { EntityGroup } from 'reactkit/entityGroup';
 import { ErrorText } from 'reactkit/errorText';
 import { HintText } from 'reactkit/hintText';
-import { StyledInput } from 'reactkit/input';
+import { Input, StyledInput } from 'reactkit/input';
 import { InputGroup } from 'reactkit/inputGroup';
 import { SelectGroup } from 'reactkit/selectGroup';
 
@@ -22,19 +23,31 @@ interface Props {
 export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 	return (
 		<form>
-			<InputGroup
-				label={'Name'}
-				errorMessage={errors.userName?.message}
-				required
-				type={'text'}
-				register={register}
-				fieldName={'userName'}
-				requiredMessage={'Name is required'}
-				pattern={/^[a-zA-Z]+$/}
-				patternMessage={"I guess that's not a valid name..."}
-				error={errors.userName !== undefined}
-				placeholder={'John'}
-			/>
+			<EntityGroup
+				children={[
+					<Input
+						required
+						type={'text'}
+						register={register}
+						fieldName={'userName'}
+						requiredMessage={'Name is required'}
+						pattern={/^[a-zA-Z]+$/}
+						patternMessage={"I guess that's not a valid name..."}
+						error={errors.userName !== undefined}
+						placeholder={'John'}
+					/>,
+					<Input
+						required
+						type={'text'}
+						register={register}
+						fieldName={'userName'}
+						requiredMessage={'Name is required'}
+						pattern={/^[a-zA-Z]+$/}
+						patternMessage={"I guess that's not a valid name..."}
+						error={errors.userName !== undefined}
+						placeholder={'John'}
+					/>,
+				]}></EntityGroup>
 
 			<InputGroup
 				label={'Phone'}

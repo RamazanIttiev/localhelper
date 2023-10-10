@@ -16,10 +16,27 @@ export const EntityGroup = ({ children }: Props) => {
 				display: 'flex',
 				alignItems: 'center',
 				borderRadius: theme.tg_theme.borderRadius.base,
+				flexDirection: 'column',
 			}}>
 			{children.map(node => {
 				return (
-					<Box sx={{ display: 'flex' }}>
+					<Box
+						sx={{
+							display: 'flex',
+							width: '100%',
+							alignItems: 'center',
+							justifyContent: 'center',
+							background: theme.tg_theme.palette.bg_color,
+
+							'&:first-child': {
+								borderTopLeftRadius: theme.tg_theme.borderRadius.base,
+								borderTopRightRadius: theme.tg_theme.borderRadius.base,
+							},
+							'&:last-child': {
+								borderBottomLeftRadius: theme.tg_theme.borderRadius.base,
+								borderBottomRightRadius: theme.tg_theme.borderRadius.base,
+							},
+						}}>
 						<Box
 							sx={{
 								p: 1,
@@ -27,14 +44,7 @@ export const EntityGroup = ({ children }: Props) => {
 								display: 'flex',
 								alignItems: 'center',
 								background: theme.tg_theme.palette.bg_color,
-								borderTopLeftRadius: theme.tg_theme.borderRadius.base,
-
-								'&:first-child': {
-									borderTopLeftRadius: theme.tg_theme.borderRadius.base,
-								},
-								'&:last-child': {
-									borderBottomLeftRadius: theme.tg_theme.borderRadius.base,
-								},
+								borderRadius: 'inherit',
 							}}>
 							<HintText text={'Name'} />
 						</Box>
@@ -42,16 +52,17 @@ export const EntityGroup = ({ children }: Props) => {
 							sx={{
 								width: '100%',
 								pl: 2,
-								'&:first-child': {
-									borderTopRightRadius: theme.tg_theme.borderRadius.base,
-								},
-								'&::after': {
+								borderRadius: 'inherit',
+								// '&:first-child': {
+								// 	borderTopRightRadius: theme.tg_theme.borderRadius.base,
+								// },
+								'&:first-child::after': {
 									content: "''",
 									display: 'block',
 								},
-								'&:last-child': {
-									borderBottomRightRadius: theme.tg_theme.borderRadius.base,
-								},
+								// '&:last-child': {
+								// 	borderBottomRightRadius: theme.tg_theme.borderRadius.base,
+								// },
 							}}>
 							{node}
 						</Box>

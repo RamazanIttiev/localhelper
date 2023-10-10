@@ -47,7 +47,8 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 						error={errors.userName !== undefined}
 						placeholder={'John'}
 					/>,
-				]}></EntityGroup>
+				]}
+			/>
 
 			<InputGroup
 				label={'Phone'}

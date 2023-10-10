@@ -23,7 +23,7 @@ export const categoriesPrimary = [
 		title: 'Transfer',
 		image: transfer,
 		flowId: 'ZGw6MTI1MDQ5',
-		isLink: isUserAgentTelegram,
+		isLink: true,
 		sx: { width: '48%', mb: 2 },
 	},
 ];

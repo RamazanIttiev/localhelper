@@ -43,7 +43,7 @@ declare module '@mui/material/styles' {
 export const theme = createTheme({
 	tg_theme: {
 		palette: {
-			bg_color: window.Telegram.WebApp.themeParams?.bg_color || '#1a1a1a',
+			bg_color: window.Telegram.WebApp.themeParams?.bg_color || '#272727',
 			secondary_bg_color: window.Telegram.WebApp.themeParams?.secondary_bg_color || '#1C1C1D',
 			text_color: window.Telegram.WebApp.themeParams?.text_color || '#fff',
 			hint_color: window.Telegram.WebApp.themeParams?.hint_color || '#B1C3D5',

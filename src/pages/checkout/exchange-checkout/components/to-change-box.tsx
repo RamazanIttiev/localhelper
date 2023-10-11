@@ -1,3 +1,4 @@
+import { useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import React from 'react';
 import { Control, UseFormRegister, useWatch } from 'react-hook-form';
 import { ErrorText } from 'reactkit/errorText';
@@ -21,6 +22,7 @@ interface Props {
 
 export const ToChangeBox = ({ error, register, exchangeRate, control, state }: Props) => {
 	const currencyToChange = useWatch({ control, name: 'currencyToChange' });
+	const [impactOccurred] = useHapticFeedback();
 
 	return (
 		<Box sx={{ background: theme.tg_theme.palette.bg_color, p: 2, position: 'relative' }}>
@@ -32,6 +34,7 @@ export const ToChangeBox = ({ error, register, exchangeRate, control, state }: P
 			</Box>
 
 			<Box
+				onClick={() => impactOccurred('light')}
 				sx={{
 					display: 'flex',
 					alignItems: 'center',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { UseFormRegister } from 'react-hook-form';
 
-import { styled, NativeSelect, SelectProps, InputBase } from '@mui/material';
+import { styled, NativeSelect, SelectProps, InputBase, NativeSelectProps } from '@mui/material';
 
 import { ReactComponent as SelectIcon } from 'assets/svg/select.svg';
 
@@ -37,7 +37,7 @@ export const StyledSelect = styled(InputBase, {
 	},
 }));
 
-interface Props extends Partial<SelectProps> {
+interface Props extends Partial<NativeSelectProps> {
 	fieldName: string;
 	options: string[] | number[];
 	register: UseFormRegister<any>;
@@ -54,6 +54,7 @@ export const Select = ({
 	fullWidth = false,
 	defaultValue,
 	options,
+	...props
 }: Props) => {
 	return (
 		<NativeSelect
@@ -75,7 +76,8 @@ export const Select = ({
 					value: required,
 					message: requiredMessage || '',
 				},
-			})}>
+			})}
+			{...props}>
 			{options.map(option => (
 				<option key={option} value={option}>
 					{option}

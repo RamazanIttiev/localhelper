@@ -1,5 +1,4 @@
 import React from 'react';
-import { Simulate } from 'react-dom/test-utils';
 
 import { Box, Typography } from '@mui/material';
 

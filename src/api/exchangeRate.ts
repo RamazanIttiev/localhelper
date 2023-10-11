@@ -1,10 +1,10 @@
 import { CurrencyToChange } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
 
-export const getExchangeRate = async (currency: CurrencyToChange): Promise<number | Error> => {
+export const getExchangeRate = async (currency: CurrencyToChange): Promise<number | null> => {
 	return await new Promise((resolve, reject) => {
 		setTimeout(() => {
 			const exchangeRates = {
-				USD: 323.45,
+				USDT: 323.45,
 				RUB: 3.24,
 			};
 

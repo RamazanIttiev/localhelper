@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export type CurrencyToChange = 'USD' | 'RUB';
+export type CurrencyToChange = 'USDT' | 'RUB';
 
 export interface ExchangeForm {
 	amountToChange: number;
@@ -13,6 +13,6 @@ export interface ToChangeState {
 
 export interface ToReceiveState {
 	icon: ReactNode;
-	currency: 'LK';
+	currency: 'LKR';
 	value: number;
 }

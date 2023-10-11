@@ -5,7 +5,7 @@ export interface ExchangeFormFields {
 	userPhone?: string;
 	amountToChange: number;
 	amountToReceive: number;
-	currency: 'USDT' | 'LK';
+	currencyToChange: 'USDT' | 'LKR';
 }
 
 export interface ExchangeState {

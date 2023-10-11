@@ -11,7 +11,7 @@ export const useChange = (currencyToChange: CurrencyToChange) => {
 	useEffect(() => {
 		const getToChangeIcon = () => {
 			switch (currencyToChange) {
-				case 'USD': {
+				case 'USDT': {
 					return <USDIcon />;
 				}
 				case 'RUB': {

@@ -7,16 +7,17 @@ import { Select } from 'reactkit/select';
 
 import { Box, Skeleton, Typography } from '@mui/material';
 
-import { ExchangeForm, ToChangeState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
+import { ExchangeFormFields } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
+import { ToChangeState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
 import { amountToChangeValidation } from 'pages/checkout/exchange-checkout/service/validation';
 
 import { theme } from 'theme/theme';
 
 interface Props {
-	exchangeRate: number;
+	exchangeRate: number | null;
 	error?: string | undefined;
-	register: UseFormRegister<ExchangeForm>;
-	control: Control<ExchangeForm>;
+	register: UseFormRegister<ExchangeFormFields>;
+	control: Control<ExchangeFormFields>;
 	state: ToChangeState;
 }
 
@@ -56,9 +57,9 @@ export const ToChangeBox = ({ error, register, exchangeRate, control, state }: P
 
 				<Select
 					fieldName="currencyToChange"
-					options={['USD', 'RUB']}
+					options={['USDT', 'RUB']}
 					register={register}
-					defaultValue={'USD'}
+					defaultValue={'USDT'}
 					sx={{
 						color: theme.tg_theme.palette.hint_color,
 						fontWeight: theme.tg_theme.fontWeight.bold,
@@ -75,7 +76,7 @@ export const ToChangeBox = ({ error, register, exchangeRate, control, state }: P
 						color: theme.tg_theme.palette.hint_color,
 						fontSize: theme.tg_theme.fontSize.info,
 					}}>
-					1 {currencyToChange} ~ {exchangeRate} LK
+					1 {currencyToChange} ~ {exchangeRate} LKR
 				</Typography>
 			) : (
 				<Skeleton sx={{ width: '100px', height: '21px' }} />

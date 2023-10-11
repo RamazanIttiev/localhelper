@@ -5,16 +5,13 @@ import { Separator } from 'reactkit/separator';
 
 import { Container } from '@mui/material';
 
-import { ExchangeFormFields, ExchangeState } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
 import { ToChangeBox } from 'pages/checkout/exchange-checkout/components/to-change-box';
 import { ToReceiveBox } from 'pages/checkout/exchange-checkout/components/to-receive-box';
-import {
-	ToChangeState,
-	ToReceiveState,
-} from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
+import { ExchangeFormFields } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
+import { ToChangeState, ToReceiveState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
 
 interface ExchangeComponentProps {
-	exchangeRate: number;
+	exchangeRate: number | null;
 	errors: FieldErrors<ExchangeFormFields>;
 	register: UseFormRegister<ExchangeFormFields>;
 	control: Control<ExchangeFormFields>;

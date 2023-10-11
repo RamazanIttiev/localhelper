@@ -107,7 +107,7 @@ export const ExchangeCurrencyInput = ({ error, register, state, exchangeRate, co
 											color: theme.tg_theme.palette.hint_color,
 											fontSize: theme.tg_theme.fontSize.info,
 										}}>
-										1 {state.currency} ~ {resolvedRate} LK
+										1 {state.currency} ~ {resolvedRate} LKR
 									</Typography>
 								);
 							}}

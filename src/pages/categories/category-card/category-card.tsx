@@ -48,7 +48,7 @@ export const CategoryCard: FC<CategoryProps> = ({
 				onClick={isLink ? undefined : handleOpen}
 				component={isLink ? Link : Box}
 				to={route}
-				state={flowId}
+				state={{ item: {}, flowId }}
 				sx={{
 					border: 'none',
 					boxShadow: 'none',

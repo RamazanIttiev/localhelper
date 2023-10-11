@@ -6,10 +6,10 @@ import { computeAmount } from 'utils/service';
 
 import { ReactComponent as RupeeIcon } from 'assets/svg/rupee.svg';
 
-export const useReceive = (exchangeRate: number | Error, amountToChange: number) => {
+export const useReceive = (exchangeRate: number | Error | null, amountToChange: number) => {
 	const [toReceiveState, setToReceiveState] = useState<ToReceiveState>({
 		icon: <RupeeIcon />,
-		currency: 'LK',
+		currency: 'LKR',
 		value: 0,
 	});
 

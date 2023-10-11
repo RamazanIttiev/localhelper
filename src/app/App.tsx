@@ -18,7 +18,6 @@ import { categoryLoader } from 'api/airtable/category';
 import { feedLoader } from 'api/airtable/feed';
 import { itemsLoader } from 'api/airtable/items';
 import { restaurantLoader, restaurantItemsLoader, restaurantsLoader } from 'api/airtable/restaurant';
-import { getExchangeRate } from 'api/exchangeRate';
 import { geolocationLoader } from 'api/geolocation';
 
 import { WebApp, WebAppTheme, WebAppUser } from 'theme/types';
@@ -69,13 +68,9 @@ const router = createBrowserRouter(
 
 			<Route path="shopping-cart" element={<CartContainer />} loader={() => restaurantItemsLoader(queryClient)} />
 
-			<Route
-				path="shopping-cart"
-				element={<CartContainer />}
-				loader={() => restaurantProductsLoader(queryClient)}
-			/>
+			<Route path="shopping-cart" element={<CartContainer />} loader={() => restaurantItemsLoader(queryClient)} />
 
-			<Route path=":categoryId/:productId/checkout" element={<CheckoutContainer />} />
+			<Route path=":categoryId/:itemId/checkout" element={<CheckoutContainer />} />
 		</Route>,
 	),
 );

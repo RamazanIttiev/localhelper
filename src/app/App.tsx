@@ -1,6 +1,6 @@
 import { QueryClient } from '@tanstack/react-query';
 import React from 'react';
-import { createBrowserRouter, createRoutesFromElements, defer, json, Route, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, json, Route, RouterProvider } from 'react-router-dom';
 
 import { Layout } from 'app/Layout';
 
@@ -70,15 +70,12 @@ const router = createBrowserRouter(
 			<Route path="shopping-cart" element={<CartContainer />} loader={() => restaurantItemsLoader(queryClient)} />
 
 			<Route
-				path=":categoryId/:item/checkout"
-				element={<CheckoutContainer />}
-				loader={async ({ params }) => {
-					if (params.categoryId === 'exchange') {
-						return defer({ exchangeRate: getExchangeRate() });
-					}
-					return 1;
-				}}
+				path="shopping-cart"
+				element={<CartContainer />}
+				loader={() => restaurantProductsLoader(queryClient)}
 			/>
+
+			<Route path=":categoryId/:productId/checkout" element={<CheckoutContainer />} />
 		</Route>,
 	),
 );

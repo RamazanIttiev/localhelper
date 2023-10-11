@@ -7,15 +7,15 @@ import { Container } from '@mui/material';
 
 import { ExchangeCheckoutForm } from 'pages/checkout/exchange-checkout/components/exchange-checkout-form';
 import { ExchangeCurrencyInput } from 'pages/checkout/exchange-checkout/components/exchange-currency-input';
-import { ExchangeCheckoutModel, ExchangeState } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
+import { ExchangeFormFields, ExchangeState } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
 
 interface ExchangeComponentProps {
 	exchangeRate: Promise<number>;
 	amountToChange: ExchangeState;
 	amountToReceive: ExchangeState;
-	errors: FieldErrors<ExchangeCheckoutModel>;
-	register: UseFormRegister<ExchangeCheckoutModel>;
-	control: Control<ExchangeCheckoutModel>;
+	errors: FieldErrors<ExchangeFormFields>;
+	register: UseFormRegister<ExchangeFormFields>;
+	control: Control<ExchangeFormFields>;
 }
 
 export const ExchangeCheckoutComponent = ({

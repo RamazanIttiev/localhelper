@@ -51,9 +51,9 @@ export const getAirtableUrl = (airtableData: AirtableData, category?: string, re
 	switch (airtableData) {
 		case 'Category':
 			return `${process.env.REACT_APP_AIRTABLE_URL}/Categories/${categoryId}` || '';
-		case 'Products':
+		case 'Items':
 			return (
-				`${process.env.REACT_APP_AIRTABLE_URL}/Products?filterByFormula=AND(NOT({category}=BLANK()), {category}='${categoryTitle}')` ||
+				`${process.env.REACT_APP_AIRTABLE_URL}/Items?filterByFormula=AND(NOT({category}=BLANK()), {category}='${categoryTitle}')` ||
 				''
 			);
 		case 'Restaurants':
@@ -64,9 +64,9 @@ export const getAirtableUrl = (airtableData: AirtableData, category?: string, re
 			);
 		case 'Restaurant':
 			return `${process.env.REACT_APP_AIRTABLE_URL}/Restaurants/${restaurantId}` || '';
-		case 'RestaurantProducts':
+		case 'RestaurantItems':
 			return (
-				`${process.env.REACT_APP_AIRTABLE_URL}/Products?filterByFormula=AND(NOT({restaurant}=BLANK()), {restaurant}='${restaurant}')` ||
+				`${process.env.REACT_APP_AIRTABLE_URL}/Items?filterByFormula=AND(NOT({restaurant}=BLANK()), {restaurant}='${restaurant}')` ||
 				''
 			);
 		case 'Feed':

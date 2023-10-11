@@ -4,12 +4,12 @@ import { InputGroup } from 'reactkit/inputGroup';
 
 import { DateRange } from 'components/dateRange';
 
-import { BikesCheckoutModel } from '../bikes-checkout.model';
+import { BikesFormFields } from '../bikes-checkout.model';
 
 interface Props {
-	errors: FieldErrors<BikesCheckoutModel>;
-	control: Control<BikesCheckoutModel>;
-	register: UseFormRegister<BikesCheckoutModel>;
+	errors: FieldErrors<BikesFormFields>;
+	control: Control<BikesFormFields>;
+	register: UseFormRegister<BikesFormFields>;
 }
 
 export const BikesCheckoutForm = ({ register, errors, control }: Props) => {

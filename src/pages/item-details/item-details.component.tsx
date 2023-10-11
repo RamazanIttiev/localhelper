@@ -4,7 +4,7 @@ import { IconBadges } from 'reactkit/iconBadges';
 
 import { Box, Card, CardContent, CardMedia, Container, Typography } from '@mui/material';
 
-import { Product } from 'pages/products-list/product/product.model';
+import { Item } from 'pages/items-list/item/item.model';
 
 import { MuiCarousel } from 'components/carousel';
 
@@ -14,11 +14,11 @@ import { openTelegram } from 'utils/service';
 import { theme } from 'theme/theme';
 
 interface Props {
-	product: Product;
+	item: Item;
 }
 
-export const ProductDetails = ({ product }: Props) => {
-	const { image, title, description, iconBadges } = product;
+export const ItemDetails = ({ item }: Props) => {
+	const { image, title, description, iconBadges } = item;
 
 	return (
 		<Container sx={{ pt: 2, pb: 2, px: 6 }} maxWidth={'sm'}>
@@ -29,7 +29,7 @@ export const ProductDetails = ({ product }: Props) => {
 							<Box
 								component={'img'}
 								src={image[0].url}
-								alt={product.title}
+								alt={item.title}
 								width={'100%'}
 								sx={{
 									borderRadius: 3,

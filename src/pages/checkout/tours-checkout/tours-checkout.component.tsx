@@ -4,20 +4,20 @@ import { HintText } from 'reactkit/hintText';
 
 import { Box, Typography } from '@mui/material';
 
-import { DefaultProductModel } from 'pages/products-list/product/product.model';
+import { DefaultItemModel } from 'pages/items-list/item/item.model';
 
 import { ToursCheckoutForm } from './components/tours-checkout-form';
 
-import { ToursCheckoutModel } from './tours-checkout.model';
+import { ToursFormFields } from './tours-checkout.model';
 
 interface Props {
-	product: DefaultProductModel;
-	control: Control<ToursCheckoutModel>;
-	errors: FieldErrors<ToursCheckoutModel>;
-	register: UseFormRegister<ToursCheckoutModel>;
+	item: DefaultItemModel;
+	control: Control<ToursFormFields>;
+	errors: FieldErrors<ToursFormFields>;
+	register: UseFormRegister<ToursFormFields>;
 }
 
-export const ToursCheckoutComponent = ({ register, errors, control, product }: Props) => {
+export const ToursCheckoutComponent = ({ register, errors, control, item }: Props) => {
 	return (
 		<>
 			<ToursCheckoutForm control={control} errors={errors} register={register} />
@@ -26,8 +26,8 @@ export const ToursCheckoutComponent = ({ register, errors, control, product }: P
 				<Box sx={{ display: 'flex', alignItems: 'flex-start' }} mb={1}>
 					<Box
 						component={'img'}
-						src={product.image[0].url}
-						alt={product.title}
+						src={item.image[0].url}
+						alt={item.title}
 						sx={{
 							mr: 2,
 							width: '5rem',
@@ -37,12 +37,12 @@ export const ToursCheckoutComponent = ({ register, errors, control, product }: P
 						}}
 					/>
 					<Box sx={{ display: 'flex', alignItems: 'self-start', flexDirection: 'column' }}>
-						<Typography variant={'body1'}>{product.title}</Typography>
+						<Typography variant={'body1'}>{item.title}</Typography>
 
 						<Typography variant={'body1'} sx={{ display: 'flex' }}>
 							Total price:
 							<Typography fontWeight={600} ml={1}>
-								{product.price} Rs
+								{item.price} Rs
 							</Typography>
 						</Typography>
 					</Box>

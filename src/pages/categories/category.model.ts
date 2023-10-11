@@ -1,4 +1,4 @@
-import { Product } from 'pages/products-list/product/product.model';
+import { Item } from 'pages/items-list/item/item.model';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 export interface Category {
@@ -7,6 +7,6 @@ export interface Category {
 	flowId: string;
 	headerTitle: string;
 	headerImage: { url: string }[];
-	products: Product[] | undefined;
+	items: Item[] | undefined;
 	restaurant: Restaurant[] | undefined;
 }

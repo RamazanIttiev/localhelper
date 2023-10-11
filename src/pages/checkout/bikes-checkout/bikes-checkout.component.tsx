@@ -4,23 +4,23 @@ import { HintText } from 'reactkit/hintText';
 
 import { Box, Typography } from '@mui/material';
 
-import { DefaultProductModel } from 'pages/products-list/product/product.model';
+import { DefaultItemModel } from 'pages/items-list/item/item.model';
 
 import { BikesCheckoutForm } from './components/bikes-checkout-form';
 
 import { formatDaysText } from 'utils/date';
 
-import { BikesCheckoutModel } from './bikes-checkout.model';
+import { BikesFormFields } from './bikes-checkout.model';
 
 interface Props {
 	rentPeriod: number;
-	product: DefaultProductModel;
-	control: Control<BikesCheckoutModel>;
-	errors: FieldErrors<BikesCheckoutModel>;
-	register: UseFormRegister<BikesCheckoutModel>;
+	item: DefaultItemModel;
+	control: Control<BikesFormFields>;
+	errors: FieldErrors<BikesFormFields>;
+	register: UseFormRegister<BikesFormFields>;
 }
 
-export const BikesCheckoutComponent = ({ register, errors, control, product, rentPeriod }: Props) => {
+export const BikesCheckoutComponent = ({ register, errors, control, item, rentPeriod }: Props) => {
 	return (
 		<>
 			<BikesCheckoutForm control={control} errors={errors} register={register} />
@@ -29,8 +29,8 @@ export const BikesCheckoutComponent = ({ register, errors, control, product, ren
 				<Box sx={{ display: 'flex', alignItems: 'flex-start' }} mb={1}>
 					<Box
 						component={'img'}
-						src={product.image[0].url}
-						alt={product.title}
+						src={item.image[0].url}
+						alt={item.title}
 						sx={{
 							mr: 2,
 							width: '5rem',
@@ -41,11 +41,11 @@ export const BikesCheckoutComponent = ({ register, errors, control, product, ren
 					/>
 					<Box sx={{ display: 'flex', alignItems: 'self-start', flexDirection: 'column' }} mb={'3rem'}>
 						<Typography component={'span'} variant={'body1'} fontWeight={'bold'}>
-							{product.title}
+							{item.title}
 						</Typography>
 
 						<Typography component={'span'} variant={'body1'} fontWeight={'bold'}>
-							{product.price} Rs
+							{item.price} Rs
 						</Typography>
 					</Box>
 				</Box>
@@ -71,7 +71,7 @@ export const BikesCheckoutComponent = ({ register, errors, control, product, ren
 							{formatDaysText(rentPeriod)}
 						</Typography>
 						<Typography component={'span'} variant={'body1'} fontWeight={'bold'}>
-							{product.price * rentPeriod} Rs
+							{item.price * rentPeriod} Rs
 						</Typography>
 					</Box>
 				)}

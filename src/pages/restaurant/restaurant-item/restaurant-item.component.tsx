@@ -10,20 +10,20 @@ import { ImageBackdrop } from 'components/imageBackdrop';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 
-import { theme } from '../../../theme/theme';
+import { theme } from 'theme/theme';
 
 import { Restaurant } from '../restaurant.model';
-import { RestaurantProduct } from './restaurant-product.model';
+import { RestaurantItem } from './restaurant-item.model';
 
 interface Props {
 	readonly flowId: string;
 	readonly restaurant: Restaurant;
-	readonly restaurantProduct: RestaurantProduct;
+	readonly restaurantItem: RestaurantItem;
 }
 
-export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }: Props) => {
+export const RestaurantItemCard = ({ flowId, restaurantItem, restaurant }: Props) => {
 	const { isWorking } = restaurant;
-	const { id, title, image, amount, iconBadges, price } = restaurantProduct;
+	const { id, title, image, amount, iconBadges, price } = restaurantItem;
 
 	return (
 		<>
@@ -37,7 +37,7 @@ export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }:
 					background: 'transparent',
 					justifyContent: 'space-between',
 				}}>
-				<Link key={id} to={title} state={{ restaurantProduct, restaurant, flowId }}>
+				<Link key={id} to={title} state={{ restaurantItem, restaurant, flowId }}>
 					{image && (
 						<>
 							<CardMedia
@@ -88,7 +88,7 @@ export const RestaurantProductCard = ({ flowId, restaurantProduct, restaurant }:
 								p: 0,
 								mt: '1rem',
 							}}>
-							<AmountButtons product={restaurantProduct} restaurantTitle={restaurant.title} />
+							<AmountButtons item={restaurantItem} restaurantTitle={restaurant.title} />
 						</CardActions>
 					) : (
 						<InfoBadge text={'We are closed'} sx={{ mt: 1 }} />

@@ -29,7 +29,7 @@ export const isWorkingHour = (open?: string, close?: string) => {
 	return sriLankaTime >= openDateTime && sriLankaTime <= closeDateTime;
 };
 
-export const isSameRestaurant = (cartItems: CartItem[], restaurantTitle: string) => {
+export const isSameRestaurant = (cartItems: CartItem[], restaurantTitle?: string) => {
 	if (cartItems.length === 0) return true;
 
 	return cartItems.some(item => {

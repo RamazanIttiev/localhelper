@@ -2,7 +2,7 @@ import { Box, Grid, Skeleton } from '@mui/material';
 
 import { theme } from 'theme/theme';
 
-export const ProductSkeleton = () => {
+export const ItemSkeleton = () => {
 	const background = {
 		backgroundColor: theme.tg_theme.palette.bg_color,
 	};

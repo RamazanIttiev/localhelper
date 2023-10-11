@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 
 import { useLocalStorage } from 'usehooks-ts';
 
-import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 
 import { CartItem, ShoppingCartContextProps, ShoppingCartProviderProps } from 'models/cart.model';
 
@@ -21,9 +21,9 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 
 	const isCartEmpty = cartItems.length === 0;
 
-	const findProduct = (products: RestaurantProduct[], id: string) =>
-		products?.find(product => {
-			return product.id === id;
+	const findItem = (items: RestaurantItem[], id: string) =>
+		items?.find(item => {
+			return item.id === id;
 		});
 
 	const findCartItem = (id: string) => cartItems.find(cartItem => cartItem.id === id);
@@ -36,12 +36,12 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 		return cartItems.map(({ restaurantTitle }) => restaurantTitle)[0];
 	};
 
-	const incrementCartAmount = (id: string, restaurantTitle: string) => {
+	const incrementCartAmount = (id: string, restaurantTitle?: string) => {
 		const modifyCart = () =>
 			setCartItems(currentItems => {
 				const cartItem = findCartItem(id);
 
-				if (cartItem === undefined) {
+				if (cartItem === undefined && restaurantTitle) {
 					return [...currentItems, { id, amount: 1, restaurantTitle }];
 				} else {
 					return currentItems.map(cartItem => {
@@ -93,28 +93,28 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) =>
 		setCartItems([]);
 	};
 
-	const getCartTotalAmount = (products: RestaurantProduct[]) =>
+	const getCartTotalAmount = (items: RestaurantItem[]) =>
 		cartItems.reduce((total, cartItem): number => {
-			const product = findProduct(products, cartItem.id);
+			const item = findItem(items, cartItem.id);
 
-			return total + (product?.price || 0) * cartItem.amount;
+			return total + (item?.price || 0) * cartItem.amount;
 		}, 0);
 
-	const getCartOrder = (products: RestaurantProduct[]) =>
+	const getCartOrder = (items: RestaurantItem[]) =>
 		getCartOrderString(
 			cartItems.map((cartItem, index) => {
-				const product = findProduct(products, cartItem.id);
+				const item = findItem(items, cartItem.id);
 
-				return `${index + 1}. ${product?.title} ${product?.amount} x ${product?.price}`;
+				return `${index + 1}. ${item?.title} ${item?.amount} x ${item?.price}`;
 			}),
 		);
 
-	const getOrderCheckout = (products: RestaurantProduct[]) =>
-		cartItems.map((cartItem): Pick<RestaurantProduct, 'image' | 'title' | 'price' | 'amount'> | undefined => {
-			const product = findProduct(products, cartItem.id);
+	const getOrderCheckout = (items: RestaurantItem[]) =>
+		cartItems.map((cartItem): Pick<RestaurantItem, 'image' | 'title' | 'price' | 'amount'> | undefined => {
+			const item = findItem(items, cartItem.id);
 
-			if (product) {
-				const { image, title, price, amount } = product;
+			if (item) {
+				const { image, title, price, amount } = item;
 				return { image, title, price, amount };
 			}
 		});

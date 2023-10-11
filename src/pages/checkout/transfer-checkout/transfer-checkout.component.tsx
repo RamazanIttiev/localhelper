@@ -3,12 +3,12 @@ import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 
 import { TransferCheckoutForm } from './components/transfer-checkout-form';
 
-import { TransferCheckoutModel } from './transfer-checkout.model';
+import { TransferFormFields } from './transfer-checkout.model';
 
 interface Props {
-	control: Control<TransferCheckoutModel>;
-	errors: FieldErrors<TransferCheckoutModel>;
-	register: UseFormRegister<TransferCheckoutModel>;
+	control: Control<TransferFormFields>;
+	errors: FieldErrors<TransferFormFields>;
+	register: UseFormRegister<TransferFormFields>;
 }
 
 export const TransferCheckoutComponent = ({ register, errors, control }: Props) => {

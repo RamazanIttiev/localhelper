@@ -16,7 +16,7 @@ export const mapRestaurants = (restaurants: Restaurant[] | undefined): Restauran
 export const mapRestaurant = (restaurant: Restaurant): Restaurant => {
 	return {
 		...restaurant,
-		// products: products.filter(product => isFood(product) && product.restaurant?.[0] === restaurant.id),
+		// items: items.filter(item => isFood(item) && item.restaurant?.[0] === restaurant.id),
 		workingTime: `${restaurant?.openTime} - ${restaurant?.closeTime}`,
 		isWorking: isWorkingHour(restaurant?.openTime, restaurant?.closeTime),
 		workingStatus: isWorkingHour(restaurant?.openTime, restaurant?.closeTime) ? 'Opened' : 'Closed',

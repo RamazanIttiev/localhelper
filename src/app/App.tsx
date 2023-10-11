@@ -8,16 +8,16 @@ import { CartContainer } from 'pages/cart/cart.container';
 import { Categories } from 'pages/categories/categories';
 import { CheckoutContainer } from 'pages/checkout/checkout.container';
 import { FeedContainer } from 'pages/feed/feed.container';
-import { ProductDetailsContainer } from 'pages/productDetails/product-details.container';
-import { ProductsList } from 'pages/products-list/products-list';
-import { RestaurantProductDetailsContainer } from 'pages/restaurant/restaurant-product-details/restaurant-product-details.container';
+import { ItemDetailsContainer } from 'pages/item-details/item-details.container';
+import { ItemsList } from 'pages/items-list/items-list';
+import { RestaurantItemDetailsContainer } from 'pages/restaurant/restaurant-item-details/restaurant-item-details.container';
 import { RestaurantContainer } from 'pages/restaurant/restaurant.container';
 import { RestaurantsListContainer } from 'pages/restaurants-list/restaurants.container';
 
 import { categoryLoader } from 'api/airtable/category';
 import { feedLoader } from 'api/airtable/feed';
-import { productsLoader } from 'api/airtable/products';
-import { restaurantLoader, restaurantProductsLoader, restaurantsLoader } from 'api/airtable/restaurant';
+import { itemsLoader } from 'api/airtable/items';
+import { restaurantLoader, restaurantItemsLoader, restaurantsLoader } from 'api/airtable/restaurant';
 import { getExchangeRate } from 'api/exchangeRate';
 import { geolocationLoader } from 'api/geolocation';
 
@@ -35,13 +35,13 @@ const router = createBrowserRouter(
 			<Route index element={<Categories />} loader={() => geolocationLoader(queryClient)} />
 			<Route
 				path=":categoryId"
-				element={<ProductsList />}
+				element={<ItemsList />}
 				loader={async () => {
-					const [category, products] = await Promise.all([
+					const [category, items] = await Promise.all([
 						categoryLoader(queryClient),
-						productsLoader(queryClient),
+						itemsLoader(queryClient),
 					]);
-					return json({ category, products });
+					return json({ category, items });
 				}}
 			/>
 
@@ -54,30 +54,23 @@ const router = createBrowserRouter(
 				path=":categoryId/restaurants/:restaurantId"
 				element={<RestaurantContainer />}
 				loader={async () => {
-					const [restaurants, restaurantsProducts] = await Promise.all([
+					const [restaurants, restaurantsItems] = await Promise.all([
 						restaurantLoader(queryClient),
-						restaurantProductsLoader(queryClient),
+						restaurantItemsLoader(queryClient),
 					]);
-					return json({ restaurants, restaurantsProducts });
+					return json({ restaurants, restaurantsItems });
 				}}
 			/>
 
-			<Route path=":categoryId/:productId" element={<ProductDetailsContainer />} />
-			<Route
-				path=":categoryId/restaurants/:restaurantId/:productId"
-				element={<RestaurantProductDetailsContainer />}
-			/>
+			<Route path=":categoryId/:item" element={<ItemDetailsContainer />} />
+			<Route path=":categoryId/restaurants/:restaurantId/:item" element={<RestaurantItemDetailsContainer />} />
 
 			<Route path="feed" element={<FeedContainer />} loader={() => feedLoader(queryClient)} />
 
-			<Route
-				path="shopping-cart"
-				element={<CartContainer />}
-				loader={() => restaurantProductsLoader(queryClient)}
-			/>
+			<Route path="shopping-cart" element={<CartContainer />} loader={() => restaurantItemsLoader(queryClient)} />
 
 			<Route
-				path=":categoryId/:productId/checkout"
+				path=":categoryId/:item/checkout"
 				element={<CheckoutContainer />}
 				loader={async ({ params }) => {
 					if (params.categoryId === 'exchange') {

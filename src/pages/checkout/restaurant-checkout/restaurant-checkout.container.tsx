@@ -1,13 +1,13 @@
-import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
-import React from 'react';
+import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { RestaurantCheckoutModel } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
-import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { useBase } from 'pages/checkout/hooks/checkout.hook';
+import { RestaurantFormFields } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
-import { handleOrder } from 'actions/global-actions';
 import { getTelegramUser } from 'actions/webApp-actions';
 
 import { useShoppingCart } from 'context/cart.context';
@@ -19,20 +19,16 @@ import { RestaurantCheckoutComponent } from './restaurant-checkout.component';
 interface RouteState {
 	state: {
 		flowId: string;
-		restaurant: Restaurant;
-		cartList: RestaurantProduct[];
+		item?: Restaurant;
+		cartList: RestaurantItem[];
 	};
 }
 
 export const RestaurantCheckoutContainer = () => {
-	const { state }: RouteState = useLocation();
+	const { state } = useLocation() as RouteState;
 	const navigate = useNavigate();
 	const tgUser = getTelegramUser();
-
-	const [impactOccurred, notificationOccurred] = useHapticFeedback();
-
-	const flowId = state.flowId;
-	const restaurant = state.restaurant;
+	const restaurant = state?.item;
 	const cartList = state.cartList;
 
 	const { getCartTotalAmount, getCartOrder, clearCart } = useShoppingCart();
@@ -40,32 +36,17 @@ export const RestaurantCheckoutContainer = () => {
 	const cartOrder = getCartOrder(cartList);
 	const cartTotalAmount = getCartTotalAmount(cartList);
 
-	const {
-		register,
-		handleSubmit,
-		formState: { errors, isSubmitting },
-	} = useForm<RestaurantCheckoutModel>({ defaultValues: { userName: tgUser?.first_name } });
-
-	const onSubmit = handleSubmit(
-		() => {
-			impactOccurred('light');
-			return handleOrder(flowId, {
-				placeTitle: restaurant?.title,
-				placeNumber: restaurant?.contact,
-				placeLocation: restaurant?.location,
-				placeCoordinates: restaurant?.coordinates,
-				order: cartOrder,
-				orderTotal: cartTotalAmount,
-				tgUserNick: tgUser?.username,
-			}).then(response => {
-				if (response?.ok) {
-					clearCart();
-					navigate(-1);
-				}
-			});
-		},
-		() => notificationOccurred('error'),
+	const { onSubmit, errors, register, isSubmitting, isSubmitSuccessful } = useBase(
+		useForm<RestaurantFormFields>({ defaultValues: { userName: tgUser?.first_name } }),
+		{ order: cartOrder, orderTotal: cartTotalAmount, tgUserNick: tgUser?.username },
 	);
+
+	useEffect(() => {
+		if (isSubmitSuccessful) {
+			clearCart();
+			navigate(-1);
+		}
+	}, [clearCart, isSubmitSuccessful, navigate]);
 
 	return (
 		<>
@@ -74,7 +55,7 @@ export const RestaurantCheckoutContainer = () => {
 				cartTotalAmount={cartTotalAmount}
 				register={register}
 				errors={errors}
-				restaurantTitle={restaurant.title}
+				restaurantTitle={restaurant?.title}
 			/>
 			<MainButton
 				text={'Order'}

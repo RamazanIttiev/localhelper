@@ -1,4 +1,4 @@
-export interface ToursCheckoutModel {
+export interface ToursFormFields {
 	userName: string;
 	userPhone: string;
 	passengers: number;

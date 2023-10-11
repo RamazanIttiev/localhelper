@@ -2,11 +2,11 @@ import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { InputGroup } from 'reactkit/inputGroup';
 
-import { ExchangeCheckoutModel } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
+import { ExchangeFormFields } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
 
 interface Props {
-	errors: FieldErrors<ExchangeCheckoutModel>;
-	register: UseFormRegister<ExchangeCheckoutModel>;
+	errors: FieldErrors<ExchangeFormFields>;
+	register: UseFormRegister<ExchangeFormFields>;
 }
 
 export const ExchangeCheckoutForm = ({ register, errors }: Props) => {

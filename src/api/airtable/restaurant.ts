@@ -67,22 +67,22 @@ export const restaurantLoader = (queryClient: QueryClient) => async ({ params }:
 	return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
 };
 
-export const restaurantProductsQuery = (restaurant: string | undefined) => {
-	const url = getAirtableUrl('RestaurantProducts', '', restaurant);
+export const restaurantItemsQuery = (restaurant: string | undefined) => {
+	const url = getAirtableUrl('RestaurantItems', '', restaurant);
 
 	return {
 		// second element is for correct switching between routes
 		// query function depends on a variable categoryId, must be included in query key
-		queryKey: ['restaurantProducts', restaurant],
+		queryKey: ['restaurantItems', restaurant],
 		queryFn: async () => {
-			const restaurantProducts = await fetchAirtableData('RestaurantProducts', url);
-			if (!restaurantProducts) {
+			const restaurantItems = await fetchAirtableData('RestaurantItems', url);
+			if (!restaurantItems) {
 				throw new Response('', {
 					status: 404,
 					statusText: 'Not Found',
 				});
 			}
-			return restaurantProducts;
+			return restaurantItems;
 		},
 		// cached for 2 hours
 		cacheTime: 10000 * 60 * 60 * 2,
@@ -90,10 +90,10 @@ export const restaurantProductsQuery = (restaurant: string | undefined) => {
 	};
 };
 
-export const restaurantProductsLoader = (queryClient: QueryClient) => async ({ params }: LoaderFunctionArgs) => {
+export const restaurantItemsLoader = (queryClient: QueryClient) => async ({ params }: LoaderFunctionArgs) => {
 	const restaurantId = params.restaurantId;
 
-	const query = restaurantProductsQuery(restaurantId);
+	const query = restaurantItemsQuery(restaurantId);
 
 	return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
 };

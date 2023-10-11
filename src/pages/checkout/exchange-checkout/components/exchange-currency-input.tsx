@@ -6,7 +6,7 @@ import { Input } from 'reactkit/input';
 
 import { Box, Skeleton, Typography } from '@mui/material';
 
-import { ExchangeCheckoutModel, ExchangeState } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
+import { ExchangeFormFields, ExchangeState } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
 
 import { computeAmount } from 'utils/service';
 
@@ -15,9 +15,9 @@ import { theme } from 'theme/theme';
 interface Props {
 	exchangeRate: Promise<number>;
 	error: FieldError | undefined;
-	register: UseFormRegister<ExchangeCheckoutModel>;
+	register: UseFormRegister<ExchangeFormFields>;
 	state: ExchangeState;
-	control: Control<ExchangeCheckoutModel>;
+	control: Control<ExchangeFormFields>;
 }
 
 export const ExchangeCurrencyInput = ({ error, register, state, exchangeRate, control }: Props) => {

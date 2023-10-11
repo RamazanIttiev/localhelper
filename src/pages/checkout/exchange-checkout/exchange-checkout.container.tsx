@@ -1,11 +1,11 @@
-import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
+import { MainButton } from '@vkruglikov/react-telegram-web-app';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useLoaderData, useLocation } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 
-import { ExchangeCheckoutModel } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
+import { ExchangeFormFields } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
+import { useBase } from 'pages/checkout/hooks/checkout.hook';
 
-import { handleOrder } from 'actions/global-actions';
 import { getTelegramUser } from 'actions/webApp-actions';
 
 import { ReactComponent as RupeeIcon } from 'assets/svg/rupee.svg';
@@ -16,11 +16,8 @@ import { theme } from 'theme/theme';
 import { ExchangeCheckoutComponent } from './exchange-checkout.component';
 
 export const ExchangeContainer = () => {
-	const { state } = useLocation();
 	const tgUser = getTelegramUser();
 	const { exchangeRate } = useLoaderData() as { exchangeRate: Promise<number> };
-
-	const [impactOccurred, notificationOccurred] = useHapticFeedback();
 
 	const [amountToReceive, setAmountToReceive] = useState(0);
 
@@ -33,17 +30,6 @@ export const ExchangeContainer = () => {
 
 		resolveAmount();
 	}, [exchangeRate]);
-
-	const flowId: string = state;
-
-	const {
-		register,
-		handleSubmit,
-		formState: { errors, isSubmitting },
-		control,
-	} = useForm<ExchangeCheckoutModel>({
-		defaultValues: { userName: tgUser?.first_name, currency: 'USDT' },
-	});
 
 	const exchangeState = {
 		amountToChange: {
@@ -66,17 +52,11 @@ export const ExchangeContainer = () => {
 		},
 	};
 
-	const onSubmit = handleSubmit(
-		(data: ExchangeCheckoutModel) => {
-			impactOccurred('light');
-			return handleOrder(flowId, {
-				...data,
-				currencyToChange: 'USDT',
-				currencyToReceive: 'LK',
-				amountToReceive,
-			});
-		},
-		() => notificationOccurred('error'),
+	const { onSubmit, errors, register, control, isSubmitting } = useBase(
+		useForm<ExchangeFormFields>({
+			defaultValues: { userName: tgUser?.first_name, currency: 'USDT' },
+		}),
+		{ currencyToChange: 'USDT', currencyToReceive: 'LK', amountToReceive },
 	);
 
 	return (

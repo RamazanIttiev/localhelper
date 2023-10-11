@@ -11,12 +11,12 @@ import { FormControl } from '@mui/material';
 
 import { filterPassedTime } from 'utils/date';
 
-import { TransferCheckoutModel } from '../transfer-checkout.model';
+import { TransferFormFields } from '../transfer-checkout.model';
 
 interface Props {
-	errors: FieldErrors<TransferCheckoutModel>;
-	control: Control<TransferCheckoutModel>;
-	register: UseFormRegister<TransferCheckoutModel>;
+	errors: FieldErrors<TransferFormFields>;
+	control: Control<TransferFormFields>;
+	register: UseFormRegister<TransferFormFields>;
 }
 
 export const TransferCheckoutForm = ({ register, errors, control }: Props) => {

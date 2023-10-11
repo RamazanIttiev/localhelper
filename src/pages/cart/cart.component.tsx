@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, Container } from '@mui/material';
 
-import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 
 import { CartHeader } from './components/cart-header';
 import { CartList } from './components/cart-list';
@@ -10,8 +10,8 @@ import { CartList } from './components/cart-list';
 import { theme } from 'theme/theme';
 
 interface Props {
-	restaurantTitle: string;
-	cartList: RestaurantProduct[];
+	restaurantTitle?: string;
+	cartList: RestaurantItem[];
 }
 
 export const Cart = ({ cartList, restaurantTitle }: Props) => {

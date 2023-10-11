@@ -9,12 +9,12 @@ import { SelectGroup } from 'reactkit/selectGroup';
 
 import { Box } from '@mui/material';
 
-import { ToursCheckoutModel } from '../tours-checkout.model';
+import { ToursFormFields } from '../tours-checkout.model';
 
 interface Props {
-	errors: FieldErrors<ToursCheckoutModel>;
-	control: Control<ToursCheckoutModel>;
-	register: UseFormRegister<ToursCheckoutModel>;
+	errors: FieldErrors<ToursFormFields>;
+	control: Control<ToursFormFields>;
+	register: UseFormRegister<ToursFormFields>;
 }
 
 export const ToursCheckoutForm = ({ register, errors, control }: Props) => {

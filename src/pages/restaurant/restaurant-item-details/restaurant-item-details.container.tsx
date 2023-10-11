@@ -6,16 +6,16 @@ import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 import { useShoppingCart } from 'context/cart.context';
 
-import { RestaurantProduct } from '../restaurant-product/restaurant-product.model';
-import { RestaurantProductDetails } from './restaurant-product-details.component';
+import { RestaurantItem } from '../restaurant-item/restaurant-item.model';
+import { RestaurantItemDetails } from './restaurant-item-details.component';
 
 interface RouteState {
 	readonly flowId: string;
 	readonly restaurant: Restaurant;
-	readonly restaurantProduct: RestaurantProduct;
+	readonly restaurantItem: RestaurantItem;
 }
 
-export const RestaurantProductDetailsContainer = () => {
+export const RestaurantItemDetailsContainer = () => {
 	const { state } = useLocation();
 	const routeState: RouteState = state;
 
@@ -26,7 +26,7 @@ export const RestaurantProductDetailsContainer = () => {
 
 	const flowId = useMemo(() => routeState.flowId, [routeState.flowId]);
 	const restaurant = useMemo(() => routeState.restaurant, [routeState.restaurant]);
-	const restaurantProduct = useMemo(() => routeState.restaurantProduct, [routeState.restaurantProduct]);
+	const restaurantItem = useMemo(() => routeState.restaurantItem, [routeState.restaurantItem]);
 
 	const navigateToCart = useCallback(() => {
 		impactOccurred('light');
@@ -40,7 +40,7 @@ export const RestaurantProductDetailsContainer = () => {
 
 	return (
 		<>
-			<RestaurantProductDetails restaurantProduct={restaurantProduct} restaurant={restaurant} />
+			<RestaurantItemDetails restaurantItem={restaurantItem} restaurant={restaurant} />
 			{!isCartEmpty && <MainButton text={'To Cart'} onClick={navigateToCart} />}
 		</>
 	);

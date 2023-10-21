@@ -29,67 +29,79 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 					{
 						label: 'name',
 						element: (
-							<Input
-								required
-								type={'text'}
-								register={register}
-								fieldName={'userName'}
-								requiredMessage={'Name is required'}
-								pattern={/^[a-zA-Z]+$/}
-								patternMessage={"I guess that's not a valid name..."}
-								error={errors.userName !== undefined}
-								placeholder={'John'}
-							/>
+							<>
+								<Input
+									required
+									type={'text'}
+									register={register}
+									fieldName={'userName'}
+									requiredMessage={'Name is required'}
+									pattern={/^[a-zA-Z]+$/}
+									patternMessage={"I guess that's not a valid name..."}
+									error={errors.userName !== undefined}
+									placeholder={'John'}
+								/>
+								{errors.userName && <ErrorText text={errors.userName?.message} />}
+							</>
 						),
 					},
 					{
 						label: 'phone',
 						element: (
-							<Input
-								required
-								type={'tel'}
-								register={register}
-								fieldName={'userPhone'}
-								error={errors.userPhone !== undefined}
-								placeholder={'8 999 777 03 02'}
-								pattern={/^[0-9+-]+$/}
-								minLength={8}
-								requiredMessage={'I need your phone number'}
-								minLengthMessage={'Your phone number is too short'}
-								patternMessage={"I think your phone number isn't correct..."}
-							/>
+							<>
+								<Input
+									required
+									type={'tel'}
+									register={register}
+									fieldName={'userPhone'}
+									error={errors.userPhone !== undefined}
+									placeholder={'8 999 777 03 02'}
+									pattern={/^[0-9+-]+$/}
+									minLength={8}
+									requiredMessage={'I need your phone number'}
+									minLengthMessage={'Your phone number is too short'}
+									patternMessage={"I think your phone number isn't correct..."}
+								/>
+								{errors.userPhone && <ErrorText text={errors.userPhone?.message} />}
+							</>
 						),
 					},
 					{
 						label: 'from',
 						element: (
-							<Input
-								required
-								type={'text'}
-								fieldName={'pointA'}
-								register={register}
-								pattern={/^[a-zA-Z]+$/}
-								placeholder={'Weligama, W 15'}
-								error={errors.pointA !== undefined}
-								requiredMessage={'This field is required'}
-								patternMessage={'Are you sure you are there?'}
-							/>
+							<>
+								<Input
+									required
+									type={'text'}
+									fieldName={'pointA'}
+									register={register}
+									pattern={/^[a-zA-Z]+$/}
+									placeholder={'Weligama, W 15'}
+									error={errors.pointA !== undefined}
+									requiredMessage={'This field is required'}
+									patternMessage={'Are you sure you are there?'}
+								/>
+								{errors.pointA && <ErrorText text={errors.pointA?.message} />}
+							</>
 						),
 					},
 					{
 						label: 'to',
 						element: (
-							<Input
-								required
-								type={'text'}
-								fieldName={'pointB'}
-								register={register}
-								pattern={/^[a-zA-Z]+$/}
-								placeholder={'Colombo airport'}
-								error={errors.pointB !== undefined}
-								requiredMessage={'This field is required'}
-								patternMessage={"I don't know where this place is, sorry"}
-							/>
+							<>
+								<Input
+									required
+									type={'text'}
+									fieldName={'pointB'}
+									register={register}
+									pattern={/^[a-zA-Z]+$/}
+									placeholder={'Colombo airport'}
+									error={errors.pointB !== undefined}
+									requiredMessage={'This field is required'}
+									patternMessage={"I don't know where this place is, sorry"}
+								/>
+								{errors.pointB && <ErrorText text={errors.pointB?.message} />}
+							</>
 						),
 					},
 					{
@@ -101,7 +113,7 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 									required: 'I have to know when to pick you up',
 								})}
 								render={({ field }) => (
-									<FormControl variant="standard" fullWidth sx={{ mb: 2 }}>
+									<FormControl variant="standard" fullWidth>
 										<DatePicker
 											wrapperClassName="datepicker"
 											selected={field.value}
@@ -122,7 +134,7 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 												hour12: false,
 											})}
 										/>
-										<ErrorText text={errors.date?.message} />
+										{errors.date && <ErrorText text={errors.date?.message} />}
 									</FormControl>
 								)}
 							/>
@@ -140,7 +152,7 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 									options={[1, 2, 3, 4, 5, 6, 7, 8]}
 									error={errors.passengers !== undefined}
 								/>
-								<ErrorText text={errors.passengers?.message} />
+								{errors.passengers && <ErrorText text={errors.passengers?.message} />}
 							</>
 						),
 					},

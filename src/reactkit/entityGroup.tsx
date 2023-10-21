@@ -3,6 +3,8 @@ import { HintText } from 'reactkit/hintText';
 
 import { Box } from '@mui/material';
 
+import { addOpacityToHexColor } from 'utils/service';
+
 import { theme } from 'theme/theme';
 
 interface Props {
@@ -14,6 +16,8 @@ interface Props {
 }
 
 export const EntityGroup = ({ children }: Props) => {
+	const delimiterColor = addOpacityToHexColor(theme.tg_theme.palette.bg_color, 0.1);
+
 	return (
 		<Box
 			sx={{
@@ -22,7 +26,7 @@ export const EntityGroup = ({ children }: Props) => {
 				borderRadius: theme.tg_theme.borderRadius.base,
 				flexDirection: 'column',
 			}}>
-			{children.map(({ label, icon, element }) => {
+			{children.map(({ label, icon, element }, index) => {
 				return (
 					<Box
 						sx={{
@@ -46,7 +50,7 @@ export const EntityGroup = ({ children }: Props) => {
 								p: 1,
 								height: '44px',
 								display: 'flex',
-								minWidth: '56px',
+								minWidth: '84px',
 								alignItems: 'center',
 								background: theme.tg_theme.palette.bg_color,
 								borderRadius: 'inherit',
@@ -54,14 +58,12 @@ export const EntityGroup = ({ children }: Props) => {
 							{icon ? <Box component="img" src={icon} /> : <HintText text={label} />}
 						</Box>
 						<Box
+							id="entityElement"
 							sx={{
 								width: '100%',
-								pl: 2,
+								ml: 2,
 								borderRadius: 'inherit',
-								'&:first-child::after': {
-									content: "''",
-									display: 'block',
-								},
+								borderBottom: index === children.length - 1 ? 'none' : `0.5px solid ${delimiterColor}`,
 							}}>
 							{element}
 						</Box>

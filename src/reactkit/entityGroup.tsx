@@ -6,7 +6,11 @@ import { Box } from '@mui/material';
 import { theme } from 'theme/theme';
 
 interface Props {
-	children: ReactNode[];
+	children: {
+		label: string;
+		icon?: string;
+		element: ReactNode;
+	}[];
 }
 
 export const EntityGroup = ({ children }: Props) => {
@@ -18,7 +22,7 @@ export const EntityGroup = ({ children }: Props) => {
 				borderRadius: theme.tg_theme.borderRadius.base,
 				flexDirection: 'column',
 			}}>
-			{children.map(node => {
+			{children.map(({ label, icon, element }) => {
 				return (
 					<Box
 						sx={{
@@ -42,29 +46,24 @@ export const EntityGroup = ({ children }: Props) => {
 								p: 1,
 								height: '44px',
 								display: 'flex',
+								minWidth: '56px',
 								alignItems: 'center',
 								background: theme.tg_theme.palette.bg_color,
 								borderRadius: 'inherit',
 							}}>
-							<HintText text={'Name'} />
+							{icon ? <Box component="img" src={icon} /> : <HintText text={label} />}
 						</Box>
 						<Box
 							sx={{
 								width: '100%',
 								pl: 2,
 								borderRadius: 'inherit',
-								// '&:first-child': {
-								// 	borderTopRightRadius: theme.tg_theme.borderRadius.base,
-								// },
 								'&:first-child::after': {
 									content: "''",
 									display: 'block',
 								},
-								// '&:last-child': {
-								// 	borderBottomRightRadius: theme.tg_theme.borderRadius.base,
-								// },
 							}}>
-							{node}
+							{element}
 						</Box>
 					</Box>
 				);

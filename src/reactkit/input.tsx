@@ -9,7 +9,7 @@ export const StyledInput = styled(MuiInput, {
 	color: theme.tg_theme.palette.text_color,
 	borderRadius: 'inherit',
 	fontSize: theme.tg_theme.fontSize.body,
-	height: theme.tg_theme.height,
+	minHeight: theme.tg_theme.height,
 	padding: '8px 16px 8px 0',
 	margin: '0 !important',
 
@@ -81,6 +81,7 @@ export const Input = ({
 			defaultValue={defaultValue}
 			placeholder={placeholder}
 			disableUnderline
+			multiline={true}
 			autoComplete={autoComplete}
 			{...register(fieldName, {
 				required: {

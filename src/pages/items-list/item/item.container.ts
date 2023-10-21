@@ -2,31 +2,31 @@ import { useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import { createElement, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ProductComponent } from 'pages/products-list/product/product.component';
-import { Product } from 'pages/products-list/product/product.model';
+import { ItemComponent } from 'pages/items-list/item/item.component';
+import { Item } from 'pages/items-list/item/item.model';
 
 interface Props {
 	flowId: string;
-	product: Product;
+	item: Item;
 }
 
-export const ProductContainer = ({ flowId, product }: Props) => {
+export const ItemContainer = ({ flowId, item }: Props) => {
 	const navigate = useNavigate();
 	const [impactOccurred] = useHapticFeedback();
 
 	const handleClick = useCallback(() => {
 		impactOccurred('light');
-		navigate(`${product.title}/checkout`, {
+		navigate(`${item.title}/checkout`, {
 			state: {
 				flowId,
-				product,
+				item,
 			},
 		});
-	}, [flowId, impactOccurred, navigate, product]);
+	}, [flowId, impactOccurred, navigate, item]);
 
-	return createElement(ProductComponent, {
+	return createElement(ItemComponent, {
 		flowId,
-		product,
+		item,
 		handleClick,
 	});
 };

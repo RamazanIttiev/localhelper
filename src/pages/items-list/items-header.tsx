@@ -4,13 +4,13 @@ import { Box, Typography } from '@mui/material';
 
 import { Category } from 'pages/categories/category.model';
 
-import { theme } from '../../theme/theme';
+import { theme } from 'theme/theme';
 
 interface HeaderProps {
 	category: Pick<Category, 'headerTitle' | 'headerImage'> | undefined;
 }
 
-export const ProductsHeader = ({ category }: HeaderProps) => {
+export const ItemsHeader = ({ category }: HeaderProps) => {
 	const { image, title } = {
 		title: category?.headerTitle || '',
 		image: category?.headerImage[0].url || '',

@@ -2,16 +2,16 @@ import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-ap
 import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { DefaultProductModel } from 'pages/products-list/product/product.model';
+import { DefaultItemModel } from 'pages/items-list/item/item.model';
 
-import { ProductDetails } from './product-details.component';
+import { ItemDetails } from './item-details.component';
 
 interface RouteState {
 	readonly flowId: string;
-	readonly product: DefaultProductModel;
+	readonly item: DefaultItemModel;
 }
 
-export const ProductDetailsContainer = () => {
+export const ItemDetailsContainer = () => {
 	const navigate = useNavigate();
 
 	const { state } = useLocation();
@@ -20,21 +20,21 @@ export const ProductDetailsContainer = () => {
 	const [impactOccurred] = useHapticFeedback();
 
 	const flowId = useMemo(() => routeState.flowId, [routeState.flowId]);
-	const product = useMemo(() => routeState.product, [routeState.product]);
+	const item = useMemo(() => routeState.item, [routeState.item]);
 
 	const handleClick = useCallback(() => {
 		impactOccurred('light');
 		navigate(`checkout`, {
 			state: {
 				flowId,
-				product,
+				item,
 			},
 		});
-	}, [flowId, impactOccurred, navigate, product]);
+	}, [flowId, impactOccurred, navigate, item]);
 
 	return (
 		<>
-			<ProductDetails product={product} />
+			<ItemDetails item={item} />
 			<MainButton text={'Order'} onClick={handleClick} />
 		</>
 	);

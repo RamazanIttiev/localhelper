@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
 
-export interface ExchangeCheckoutModel {
+export interface ExchangeFormFields {
 	userName: string;
 	userPhone?: string;
 	amountToChange: number;
 	amountToReceive: number;
-	currency: 'USDT' | 'LK';
+	currencyToChange: 'USDT' | 'LKR';
 }
 
 export interface ExchangeState {

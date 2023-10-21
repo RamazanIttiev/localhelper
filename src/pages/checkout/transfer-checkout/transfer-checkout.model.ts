@@ -1,4 +1,4 @@
-export interface TransferCheckoutModel {
+export interface TransferFormFields {
 	pointA: string;
 	pointB: string;
 	passengers: number;

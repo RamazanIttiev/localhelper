@@ -4,9 +4,9 @@ import { ErrorText } from 'reactkit/errorText';
 import { HintText } from 'reactkit/hintText';
 import { Select } from 'reactkit/select';
 
-import { FormControl, SelectProps, SxProps } from '@mui/material';
+import { FormControl, NativeSelectProps, SxProps } from '@mui/material';
 
-interface Props extends Partial<SelectProps> {
+interface Props extends Partial<NativeSelectProps> {
 	type: string;
 	label: string;
 	fieldName: string;
@@ -28,7 +28,7 @@ export const SelectGroup = (props: Props) => {
 
 	return (
 		<FormControl variant="standard" fullWidth sx={{ mb: 2, ...containerStyles }}>
-			<HintText text={label} sx={{ ml: 2, ...selectStyles }} />
+			<HintText text={label} sx={{ ml: 2, ...labelStyles }} />
 			<Select {...props} sx={selectStyles} />
 			<ErrorText text={errorMessage} />
 		</FormControl>

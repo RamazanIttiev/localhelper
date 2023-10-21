@@ -1,4 +1,4 @@
-import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 
 export interface Restaurant {
 	id: string;
@@ -13,5 +13,5 @@ export interface Restaurant {
 	workingTime: string;
 	workingStatus: string;
 	image: { url: string }[];
-	products: RestaurantProduct[] | undefined;
+	items: RestaurantItem[] | undefined;
 }

@@ -3,13 +3,13 @@ import { useLocation } from 'react-router-dom';
 
 import { Box, List, ListItem, Typography } from '@mui/material';
 
-import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 
 import { AmountButtons } from 'components/amountButtons';
 
 interface Props {
-	restaurantTitle: string;
-	cartList: RestaurantProduct[];
+	restaurantTitle?: string;
+	cartList: RestaurantItem[];
 }
 
 export const CartList = ({ cartList, restaurantTitle }: Props) => {
@@ -49,7 +49,7 @@ export const CartList = ({ cartList, restaurantTitle }: Props) => {
 								<AmountButtons
 									showPrice={false}
 									showAmount
-									product={item}
+									item={item}
 									restaurantTitle={restaurantTitle}
 								/>
 							)}

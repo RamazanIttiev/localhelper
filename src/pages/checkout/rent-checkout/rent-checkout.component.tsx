@@ -4,7 +4,7 @@ import { HintText } from 'reactkit/hintText';
 
 import { Box, Typography } from '@mui/material';
 
-import { DefaultProductModel } from 'pages/products-list/product/product.model';
+import { DefaultItemModel } from 'pages/items-list/item/item.model';
 
 import { RentCheckoutForm } from './components/rent-checkout-form';
 
@@ -12,17 +12,17 @@ import { formatDaysText } from 'utils/date';
 
 import { theme } from 'theme/theme';
 
-import { RentCheckoutModel } from './rent-checkout.model';
+import { RentFormFields } from './rent-checkout.model';
 
 interface Props {
 	rentPeriod: number;
-	product: DefaultProductModel;
-	control: Control<RentCheckoutModel>;
-	errors: FieldErrors<RentCheckoutModel>;
-	register: UseFormRegister<RentCheckoutModel>;
+	item: DefaultItemModel;
+	control: Control<RentFormFields>;
+	errors: FieldErrors<RentFormFields>;
+	register: UseFormRegister<RentFormFields>;
 }
 
-export const RentCheckoutComponent = ({ register, errors, control, product, rentPeriod }: Props) => {
+export const RentCheckoutComponent = ({ register, errors, control, item, rentPeriod }: Props) => {
 	return (
 		<>
 			<RentCheckoutForm control={control} errors={errors} register={register} />
@@ -31,8 +31,8 @@ export const RentCheckoutComponent = ({ register, errors, control, product, rent
 				<Box sx={{ display: 'flex', alignItems: 'flex-start' }} mb={1}>
 					<Box
 						component={'img'}
-						src={product.image[0].url}
-						alt={product.title}
+						src={item.image[0].url}
+						alt={item.title}
 						sx={{
 							mr: 2,
 							width: '5rem',
@@ -47,7 +47,7 @@ export const RentCheckoutComponent = ({ register, errors, control, product, rent
 							variant={'body1'}
 							fontWeight={'bold'}
 							sx={{ color: theme.tg_theme.palette.text_color }}>
-							{product.title}
+							{item.title}
 						</Typography>
 
 						<Typography
@@ -55,7 +55,7 @@ export const RentCheckoutComponent = ({ register, errors, control, product, rent
 							variant={'body1'}
 							fontWeight={'bold'}
 							sx={{ color: theme.tg_theme.palette.text_color }}>
-							{product.price} Rs
+							{item.price} Rs
 						</Typography>
 					</Box>
 				</Box>
@@ -86,7 +86,7 @@ export const RentCheckoutComponent = ({ register, errors, control, product, rent
 							variant={'body1'}
 							fontWeight={'bold'}
 							sx={{ color: theme.tg_theme.palette.text_color }}>
-							{product.price * rentPeriod} Rs
+							{item.price * rentPeriod} Rs
 						</Typography>
 					</Box>
 				)}

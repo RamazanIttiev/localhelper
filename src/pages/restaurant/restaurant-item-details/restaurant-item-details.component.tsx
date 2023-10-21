@@ -14,24 +14,22 @@ import { useShoppingCart } from 'context/cart.context';
 
 import skeletonImage from 'assets/food.webp';
 
-import { theme } from '../../../theme/theme';
-
-import { RestaurantProduct } from '../restaurant-product/restaurant-product.model';
+import { RestaurantItem } from '../restaurant-item/restaurant-item.model';
 import { Restaurant } from '../restaurant.model';
 
 interface Props {
 	readonly restaurant: Restaurant;
-	readonly restaurantProduct: RestaurantProduct;
+	readonly restaurantItem: RestaurantItem;
 }
 
-export const RestaurantProductDetails = ({ restaurantProduct, restaurant }: Props) => {
+export const RestaurantItemDetails = ({ restaurantItem, restaurant }: Props) => {
 	const { getItemAmount } = useShoppingCart();
 
 	const { isWorking } = restaurant;
 	// TODO add amount backdrop
-	const { title, image, amount, iconBadges, description, price } = restaurantProduct;
+	const { title, image, amount, iconBadges, description, price } = restaurantItem;
 
-	const isRemoveVisible = getItemAmount(restaurantProduct.id) > 0;
+	const isRemoveVisible = getItemAmount(restaurantItem.id) > 0;
 
 	return (
 		<Container sx={{ pt: 2, pb: 2, px: 6 }} maxWidth={'sm'}>
@@ -84,7 +82,7 @@ export const RestaurantProductDetails = ({ restaurantProduct, restaurant }: Prop
 									width: isRemoveVisible ? '13rem' : '12rem',
 								}}
 								restaurantTitle={restaurant.title}
-								product={restaurantProduct}
+								item={restaurantItem}
 							/>
 						</CardActions>
 					) : (

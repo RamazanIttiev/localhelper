@@ -2,11 +2,11 @@ import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { InputGroup } from 'reactkit/inputGroup';
 
-import { RestaurantCheckoutModel } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
+import { RestaurantFormFields } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
 
 interface FormUIProps {
-	errors: FieldErrors<RestaurantCheckoutModel>;
-	register: UseFormRegister<RestaurantCheckoutModel>;
+	errors: FieldErrors<RestaurantFormFields>;
+	register: UseFormRegister<RestaurantFormFields>;
 }
 
 export const RestaurantCheckoutForm = ({ register, errors }: FormUIProps) => {

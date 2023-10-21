@@ -1,4 +1,4 @@
-export interface DefaultProductModel {
+export interface DefaultItemModel {
 	id: string;
 	title: string;
 	place: string;
@@ -11,7 +11,7 @@ export interface DefaultProductModel {
 	iconBadges?: { url: string }[];
 }
 
-export interface RentModel extends DefaultProductModel {
+export interface RentModel extends DefaultItemModel {
 	tv?: boolean;
 	ac?: boolean;
 	wifi?: boolean;
@@ -19,4 +19,4 @@ export interface RentModel extends DefaultProductModel {
 	breakfast?: boolean;
 }
 
-export type Product = DefaultProductModel | RentModel;
+export type Item = DefaultItemModel | RentModel;

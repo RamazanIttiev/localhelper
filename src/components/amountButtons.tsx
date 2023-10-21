@@ -3,7 +3,7 @@ import React, { CSSProperties } from 'react';
 
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
 
-import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 
 import { useShoppingCart } from 'context/cart.context';
 
@@ -14,26 +14,26 @@ interface Props {
 	showPrice?: boolean;
 	showAmount?: boolean;
 	styles?: CSSProperties;
-	restaurantTitle: string;
-	product: RestaurantProduct;
+	restaurantTitle?: string;
+	item: RestaurantItem;
 }
 
-export const AmountButtons = ({ styles, product, showAmount = false, showPrice = true, restaurantTitle }: Props) => {
+export const AmountButtons = ({ styles, item, showAmount = false, showPrice = true, restaurantTitle }: Props) => {
 	const theme = useTheme();
 	const [impactOccurred] = useHapticFeedback();
 	const { incrementCartAmount, decrementCartAmount, getItemAmount } = useShoppingCart();
 
-	const productAmount = getItemAmount(product.id);
-	const isRemoveVisible = productAmount > 0;
+	const itemAmount = getItemAmount(item.id);
+	const isRemoveVisible = itemAmount > 0;
 
 	const handleRemove = () => {
 		impactOccurred('light');
-		decrementCartAmount(product.id);
+		decrementCartAmount(item.id);
 	};
 
 	const handleAdd = () => {
 		impactOccurred('light');
-		incrementCartAmount(product.id, restaurantTitle);
+		incrementCartAmount(item.id, restaurantTitle);
 	};
 
 	return (
@@ -59,10 +59,10 @@ export const AmountButtons = ({ styles, product, showAmount = false, showPrice =
 				</Icon>
 			</IconButton>
 			<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-				{showAmount && <Typography variant={'caption'}>{productAmount}</Typography>}
+				{showAmount && <Typography variant={'caption'}>{itemAmount}</Typography>}
 				{showPrice && (
 					<Typography fontSize={'0.8rem'} sx={{ fontWeight: 600, letterSpacing: '0.1rem' }}>
-						&nbsp;{product?.price} Rs
+						&nbsp;{item?.price} Rs
 					</Typography>
 				)}
 			</Box>

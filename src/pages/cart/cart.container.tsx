@@ -2,7 +2,7 @@ import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-ap
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 import { getAirtableUrl } from 'utils/airtable';
@@ -17,7 +17,7 @@ import { Cart } from './cart.component';
 interface RouteState {
 	state: {
 		flowId: string;
-		restaurant: Restaurant;
+		item?: Restaurant;
 	};
 }
 
@@ -29,34 +29,34 @@ export const CartContainer = () => {
 	const [impactOccurred] = useHapticFeedback();
 
 	const flowId = state.flowId;
-	const restaurant = state.restaurant;
+	const restaurant = state?.item;
 
-	const [restaurantProducts, setRestaurantProducts] = useState<RestaurantProduct[]>([]);
+	const [restaurantItems, setRestaurantItems] = useState<RestaurantItem[]>([]);
 
 	const restaurantTitle = getCartRestaurant();
-	const cartList = getMappedCartList(restaurantProducts, cartItems);
+	const cartList = getMappedCartList(restaurantItems, cartItems);
 
 	useEffect(() => {
-		const url = getAirtableUrl('RestaurantProducts', '', restaurantTitle);
+		const url = getAirtableUrl('RestaurantItems', '', restaurantTitle);
 
 		async function fetchData() {
-			setRestaurantProducts(await fetchAirtableData('RestaurantProducts', url));
+			setRestaurantItems(await fetchAirtableData('RestaurantItems', url));
 		}
 
 		fetchData();
 
 		return () => {
-			setRestaurantProducts([]);
+			setRestaurantItems([]);
 		};
 	}, [restaurantTitle]);
 
 	const navigateToCheckout = useCallback(() => {
 		impactOccurred('light');
-		navigate(`/food/${restaurant.title}/checkout`, {
+		navigate(`/food/${restaurant?.title}/checkout`, {
 			state: {
 				flowId,
 				cartList,
-				restaurant,
+				item: restaurant,
 			},
 		});
 	}, [cartList, flowId, impactOccurred, navigate, restaurant]);
@@ -69,7 +69,7 @@ export const CartContainer = () => {
 
 	return (
 		<>
-			<Cart cartList={cartList} restaurantTitle={restaurant.title} />
+			<Cart cartList={cartList} restaurantTitle={restaurant?.title} />
 			<MainButton text={'Checkout'} onClick={navigateToCheckout} />
 		</>
 	);

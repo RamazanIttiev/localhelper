@@ -4,11 +4,11 @@ import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Category } from 'pages/categories/category.model';
-import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 import { categoryQuery } from 'api/airtable/category';
-import { restaurantProductsQuery, restaurantQuery } from 'api/airtable/restaurant';
+import { restaurantItemsQuery, restaurantQuery } from 'api/airtable/restaurant';
 
 import { useShoppingCart } from 'context/cart.context';
 
@@ -21,7 +21,7 @@ export const RestaurantContainer = () => {
 	const { restaurantId, categoryId } = useParams();
 
 	const { data: category } = useQuery<Category>(categoryQuery(categoryId));
-	const { data: products } = useQuery<RestaurantProduct[]>(restaurantProductsQuery(restaurantId));
+	const { data: items } = useQuery<RestaurantItem[]>(restaurantItemsQuery(restaurantId));
 	const { data: restaurant } = useQuery<Restaurant>(restaurantQuery(restaurantId));
 
 	const flowId = category?.flowId || '';
@@ -31,14 +31,14 @@ export const RestaurantContainer = () => {
 		navigate('/shopping-cart', {
 			state: {
 				flowId,
-				restaurant,
+				item: restaurant,
 			},
 		});
 	}, [impactOccurred, navigate, flowId, restaurant]);
 
 	return (
 		<>
-			<RestaurantComponent flowId={flowId} restaurant={restaurant} products={products} />
+			<RestaurantComponent flowId={flowId} restaurant={restaurant} items={items} />
 			{!isCartEmpty && <MainButton text={'To Cart'} onClick={navigateToCart} />}
 		</>
 	);

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 
 export interface ShoppingCartProviderProps {
 	children: ReactNode;
@@ -12,12 +12,12 @@ export interface ShoppingCartContextProps {
 	clearCart: () => void;
 	getItemAmount: (id: string) => number;
 	decrementCartAmount: (id: string) => void;
-	incrementCartAmount: (id: string, restaurantId: string) => void;
-	getCartOrder: (products: RestaurantProduct[]) => string;
-	getCartTotalAmount: (products: RestaurantProduct[]) => number;
+	incrementCartAmount: (id: string, restaurantId?: string) => void;
+	getCartOrder: (items: RestaurantItem[]) => string;
+	getCartTotalAmount: (items: RestaurantItem[]) => number;
 	getOrderCheckout: (
-		products: RestaurantProduct[],
-	) => (Pick<RestaurantProduct, 'title' | 'amount' | 'image' | 'price'> | undefined)[];
+		items: RestaurantItem[],
+	) => (Pick<RestaurantItem, 'title' | 'amount' | 'image' | 'price'> | undefined)[];
 	getCartRestaurant: () => string;
 }
 

@@ -1,4 +1,4 @@
-export interface BikesCheckoutModel {
+export interface BikesFormFields {
 	userName: string;
 	userPhone: string;
 	startDate: Date | null;

@@ -5,19 +5,19 @@ import { Link } from 'reactkit/link';
 
 import { Box, Card, CardContent, Typography } from '@mui/material';
 
-import { Product } from 'pages/products-list/product/product.model';
+import { Item } from 'pages/items-list/item/item.model';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 
-import { theme } from '../../../theme/theme';
+import { theme } from 'theme/theme';
 
 interface Props {
 	flowId: string;
-	product: Product;
+	item: Item;
 	handleClick: () => void;
 }
 
-export const ProductComponent = ({ flowId, product, handleClick }: Props) => {
+export const ItemComponent = ({ flowId, item, handleClick }: Props) => {
 	return (
 		<Card
 			sx={{
@@ -29,12 +29,12 @@ export const ProductComponent = ({ flowId, product, handleClick }: Props) => {
 				background: 'transparent',
 				justifyContent: 'space-between',
 			}}>
-			<Link key={product.id} to={product.title.toLowerCase()} state={{ product, flowId }}>
+			<Link key={item.id} to={item.title.toLowerCase()} state={{ item, flowId }}>
 				<>
 					<Box
 						component={'img'}
-						src={product.image[0].url}
-						alt={product.title}
+						src={item.image[0].url}
+						alt={item.title}
 						sx={{
 							display: 'block',
 							width: '100%',
@@ -43,7 +43,7 @@ export const ProductComponent = ({ flowId, product, handleClick }: Props) => {
 							objectFit: 'cover',
 						}}
 					/>
-					<IconBadges iconBadges={product.iconBadges} />
+					<IconBadges iconBadges={item.iconBadges} />
 				</>
 				<CardContent
 					sx={{
@@ -68,11 +68,11 @@ export const ProductComponent = ({ flowId, product, handleClick }: Props) => {
 							textTransform: 'capitalize',
 						}}
 						component="h3">
-						{product.title.toLowerCase()}
+						{item.title.toLowerCase()}
 					</Typography>
 				</CardContent>
 			</Link>
-			{isUserAgentTelegram && <ActionButton text={`${product.price} Rs`} handleClick={handleClick} />}
+			{isUserAgentTelegram && <ActionButton text={`${item.price} Rs`} handleClick={handleClick} />}
 		</Card>
 	);
 };

@@ -2,11 +2,11 @@ import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { InputGroup } from 'reactkit/inputGroup';
 
-import { FlowersCheckoutModel } from '../flowers-checkout.model';
+import { FlowersFormFields } from '../flowers-checkout.model';
 
 interface Props {
-	errors: FieldErrors<FlowersCheckoutModel>;
-	register: UseFormRegister<FlowersCheckoutModel>;
+	errors: FieldErrors<FlowersFormFields>;
+	register: UseFormRegister<FlowersFormFields>;
 }
 
 export const FlowersCheckoutForm = ({ register, errors }: Props) => {

@@ -6,7 +6,7 @@ import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
-import { theme } from '../../theme/theme';
+import { theme } from 'theme/theme';
 
 interface Props {
 	restaurant: Restaurant;
@@ -24,7 +24,7 @@ export const RestaurantCard = ({ restaurant }: Props) => {
 				background: 'transparent',
 				justifyContent: 'space-between',
 			}}>
-			<Link to={`${restaurant.title}`} state={{ restaurant }} style={{ position: 'relative' }}>
+			<Link to={`${restaurant.title}`} state={{ item: restaurant }} style={{ position: 'relative' }}>
 				<CardMedia
 					component="img"
 					image={restaurant.image[0].url}

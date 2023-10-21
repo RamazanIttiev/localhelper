@@ -3,18 +3,18 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { HintText } from 'reactkit/hintText';
 
 import { CartList } from 'pages/cart/components/cart-list';
-import { RestaurantCheckoutModel } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
-import { RestaurantProduct } from 'pages/restaurant/restaurant-product/restaurant-product.model';
+import { RestaurantFormFields } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 
 import { OrderInfo } from './components/orderInfo';
 import { RestaurantCheckoutForm } from './components/restaurant-checkout-form';
 
 interface Props {
 	cartTotalAmount: number;
-	restaurantTitle: string;
-	errors: FieldErrors<RestaurantCheckoutModel>;
-	cartList: RestaurantProduct[];
-	register: UseFormRegister<RestaurantCheckoutModel>;
+	restaurantTitle?: string;
+	errors: FieldErrors<RestaurantFormFields>;
+	cartList: RestaurantItem[];
+	register: UseFormRegister<RestaurantFormFields>;
 }
 
 export const RestaurantCheckoutComponent = ({

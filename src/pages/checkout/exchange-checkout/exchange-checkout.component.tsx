@@ -5,49 +5,43 @@ import { Separator } from 'reactkit/separator';
 
 import { Container } from '@mui/material';
 
-import { ExchangeCheckoutForm } from 'pages/checkout/exchange-checkout/components/exchange-checkout-form';
-import { ExchangeCurrencyInput } from 'pages/checkout/exchange-checkout/components/exchange-currency-input';
-import { ExchangeCheckoutModel, ExchangeState } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
+import { ToChangeBox } from 'pages/checkout/exchange-checkout/components/to-change-box';
+import { ToReceiveBox } from 'pages/checkout/exchange-checkout/components/to-receive-box';
+import { ExchangeFormFields } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
+import { ToChangeState, ToReceiveState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
 
 interface ExchangeComponentProps {
-	exchangeRate: Promise<number>;
-	amountToChange: ExchangeState;
-	amountToReceive: ExchangeState;
-	errors: FieldErrors<ExchangeCheckoutModel>;
-	register: UseFormRegister<ExchangeCheckoutModel>;
-	control: Control<ExchangeCheckoutModel>;
+	exchangeRate: number | null;
+	errors: FieldErrors<ExchangeFormFields>;
+	register: UseFormRegister<ExchangeFormFields>;
+	control: Control<ExchangeFormFields>;
+	toChangeState: ToChangeState;
+	toReceiveState: ToReceiveState;
 }
 
 export const ExchangeCheckoutComponent = ({
 	errors,
 	register,
-	amountToChange,
-	amountToReceive,
 	exchangeRate,
 	control,
+	toChangeState,
+	toReceiveState,
 }: ExchangeComponentProps) => {
 	return (
 		<>
-			<ExchangeCurrencyInput
-				register={register}
-				error={errors.amountToChange}
-				state={amountToChange}
-				exchangeRate={exchangeRate}
+			<ToChangeBox
 				control={control}
+				register={register}
+				state={toChangeState}
+				exchangeRate={exchangeRate}
+				error={errors.amountToChange?.message}
 			/>
 
 			<Separator />
 
-			<ExchangeCurrencyInput
-				register={register}
-				error={errors.amountToReceive}
-				state={amountToReceive}
-				exchangeRate={exchangeRate}
-				control={control}
-			/>
+			<ToReceiveBox state={toReceiveState} />
 
 			<Container maxWidth={'sm'} sx={{ pt: '1rem', pb: '1rem', position: 'relative' }}>
-				<ExchangeCheckoutForm errors={errors} register={register} />
 				<HintText
 					sx={{ mt: '2rem' }}
 					text={

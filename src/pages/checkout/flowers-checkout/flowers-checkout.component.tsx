@@ -4,19 +4,19 @@ import { HintText } from 'reactkit/hintText';
 
 import { Box, Typography } from '@mui/material';
 
-import { DefaultProductModel } from 'pages/products-list/product/product.model';
+import { DefaultItemModel } from 'pages/items-list/item/item.model';
 
 import { FlowersCheckoutForm } from './components/flowers-checkout-form';
 
-import { FlowersCheckoutModel } from './flowers-checkout.model';
+import { FlowersFormFields } from './flowers-checkout.model';
 
 interface Props {
-	product: DefaultProductModel;
-	errors: FieldErrors<FlowersCheckoutModel>;
-	register: UseFormRegister<FlowersCheckoutModel>;
+	item: DefaultItemModel;
+	errors: FieldErrors<FlowersFormFields>;
+	register: UseFormRegister<FlowersFormFields>;
 }
 
-export const FlowersCheckoutComponent = ({ register, errors, product }: Props) => {
+export const FlowersCheckoutComponent = ({ register, errors, item }: Props) => {
 	return (
 		<>
 			<FlowersCheckoutForm errors={errors} register={register} />
@@ -25,8 +25,8 @@ export const FlowersCheckoutComponent = ({ register, errors, product }: Props) =
 				<Box sx={{ display: 'flex', alignItems: 'flex-start' }} mb={1}>
 					<Box
 						component={'img'}
-						src={product.image[0].url}
-						alt={product.title}
+						src={item.image[0].url}
+						alt={item.title}
 						sx={{
 							mr: 2,
 							width: '5rem',
@@ -36,12 +36,12 @@ export const FlowersCheckoutComponent = ({ register, errors, product }: Props) =
 						}}
 					/>
 					<Box sx={{ display: 'flex', alignItems: 'self-start', flexDirection: 'column' }}>
-						<Typography variant={'body1'}>{product.title}</Typography>
+						<Typography variant={'body1'}>{item.title}</Typography>
 
 						<Typography variant={'body1'} sx={{ display: 'flex' }}>
 							Total price:
 							<Typography fontWeight={600} ml={1}>
-								{product.price} Rs
+								{item.price} Rs
 							</Typography>
 						</Typography>
 					</Box>

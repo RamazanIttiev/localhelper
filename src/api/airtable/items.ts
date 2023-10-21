@@ -5,22 +5,22 @@ import { getAirtableUrl } from 'utils/airtable';
 
 import { fetchAirtableData } from 'api/api';
 
-export const productsQuery = (category: string | undefined) => {
-	const url = getAirtableUrl('Products', category);
+export const itemsQuery = (category: string | undefined) => {
+	const url = getAirtableUrl('Items', category);
 
 	return {
 		// second element is for correct switching between routes
 		// query function depends on a variable categoryId, must be included in query key
-		queryKey: ['products', category],
+		queryKey: ['items', category],
 		queryFn: async () => {
-			const products = await fetchAirtableData('Products', url);
-			if (!products) {
+			const items = await fetchAirtableData('Items', url);
+			if (!items) {
 				throw new Response('', {
 					status: 404,
 					statusText: 'Not Found',
 				});
 			}
-			return products;
+			return items;
 		},
 		// cached for 2 hours
 		cacheTime: 10000 * 60 * 60 * 2,
@@ -28,10 +28,10 @@ export const productsQuery = (category: string | undefined) => {
 	};
 };
 
-export const productsLoader = (queryClient: QueryClient) => async ({ params }: LoaderFunctionArgs) => {
+export const itemsLoader = (queryClient: QueryClient) => async ({ params }: LoaderFunctionArgs) => {
 	const categoryId = params.categoryId;
 
-	const query = productsQuery(categoryId);
+	const query = itemsQuery(categoryId);
 
 	return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
 };

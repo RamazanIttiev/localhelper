@@ -1,7 +1,7 @@
 import React from 'react';
 import { UseFormRegister } from 'react-hook-form';
 
-import { styled, NativeSelect, SelectProps, InputBase } from '@mui/material';
+import { styled, NativeSelect, SelectProps, InputBase, NativeSelectProps } from '@mui/material';
 
 import { ReactComponent as SelectIcon } from 'assets/svg/select.svg';
 
@@ -10,6 +10,9 @@ import { theme } from 'theme/theme';
 export const StyledSelect = styled(InputBase, {
 	shouldForwardProp: prop => prop !== 'disableUnderline',
 })(``, ({ theme }) => ({
+	display: 'flex',
+	alignItems: 'center',
+	minWidth: 'fit-content',
 	background: theme.tg_theme.palette.bg_color,
 	color: theme.tg_theme.palette.text_color,
 	borderRadius: 'inherit',
@@ -18,6 +21,7 @@ export const StyledSelect = styled(InputBase, {
 
 	'& .MuiInputBase-input': {
 		padding: '8px 16px 8px 0',
+
 	},
 
 	'&:before': {
@@ -33,7 +37,7 @@ export const StyledSelect = styled(InputBase, {
 	},
 }));
 
-interface Props extends Partial<SelectProps> {
+interface Props extends Partial<NativeSelectProps> {
 	fieldName: string;
 	options: string[] | number[];
 	register: UseFormRegister<any>;
@@ -47,15 +51,17 @@ export const Select = ({
 	register,
 	required = false,
 	requiredMessage,
-	fullWidth = true,
+	fullWidth = false,
 	defaultValue,
 	options,
+	...props
 }: Props) => {
 	return (
 		<NativeSelect
 			sx={{
 				'& .MuiNativeSelect-icon': {
 					mr: '16px',
+          top: 'initial',
 					color: theme.tg_theme.palette.hint_color || '#fff',
 				},
 				...sx,
@@ -71,7 +77,8 @@ export const Select = ({
 					value: required,
 					message: requiredMessage || '',
 				},
-			})}>
+			})}
+			{...props}>
 			{options.map(option => (
 				<option key={option} value={option}>
 					{option}

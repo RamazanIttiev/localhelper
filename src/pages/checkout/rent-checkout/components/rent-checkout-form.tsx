@@ -4,12 +4,12 @@ import { InputGroup } from 'reactkit/inputGroup';
 
 import { DateRange } from 'components/dateRange';
 
-import { RentCheckoutModel } from '../rent-checkout.model';
+import { RentFormFields } from '../rent-checkout.model';
 
 interface Props {
-	errors: FieldErrors<RentCheckoutModel>;
-	control: Control<RentCheckoutModel>;
-	register: UseFormRegister<RentCheckoutModel>;
+	errors: FieldErrors<RentFormFields>;
+	control: Control<RentFormFields>;
+	register: UseFormRegister<RentFormFields>;
 }
 
 export const RentCheckoutForm = ({ register, errors, control }: Props) => {

@@ -6,39 +6,39 @@ import { ActionButton } from 'reactkit/actionButton';
 import { Container, Grid } from '@mui/material';
 
 import { Category } from 'pages/categories/category.model';
-import { Product } from 'pages/products-list/product/product.model';
+import { Item } from 'pages/items-list/item/item.model';
 
 import { HeaderSkeleton } from 'components/skeletons/headerSkeleton';
-import { ProductSkeleton } from 'components/skeletons/productSkeleton';
+import { ItemSkeleton } from 'components/skeletons/itemSkeleton';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 import { openTelegram } from 'utils/service';
 
 import { categoryQuery } from 'api/airtable/category';
-import { productsQuery } from 'api/airtable/products';
+import { itemsQuery } from 'api/airtable/items';
 
-import { ProductContainer } from './product/product.container';
-import { ProductsHeader } from './productsHeader';
+import { ItemContainer } from './item/item.container';
+import { ItemsHeader } from './items-header';
 
-export const ProductsList = () => {
+export const ItemsList = () => {
 	const { categoryId } = useParams();
 
 	const { data: category } = useQuery<Category>(categoryQuery(categoryId));
-	const { data: products } = useQuery<Product[]>(productsQuery(categoryId));
+	const { data: items } = useQuery<Item[]>(itemsQuery(categoryId));
 
 	const flowId = category?.flowId || '';
 
 	return (
 		<>
-			{!category ? <HeaderSkeleton /> : <ProductsHeader category={category} />}
+			{!category ? <HeaderSkeleton /> : <ItemsHeader category={category} />}
 			<Container sx={{ pt: 2, pb: 6 }} maxWidth={'sm'}>
 				<Grid container spacing={2} sx={{ justifyContent: 'center' }}>
-					{products ? (
+					{items ? (
 						<>
-							{products.map((product: Product) => {
+							{items.map((item: Item) => {
 								return (
-									<Grid item xs={6} md={5} key={product.id}>
-										<ProductContainer product={product} flowId={flowId} />
+									<Grid item xs={6} md={5} key={item.id}>
+										<ItemContainer item={item} flowId={flowId} />
 									</Grid>
 								);
 							})}
@@ -48,7 +48,7 @@ export const ProductsList = () => {
 							)}
 						</>
 					) : (
-						<ProductSkeleton />
+						<ItemSkeleton />
 					)}
 				</Grid>
 			</Container>

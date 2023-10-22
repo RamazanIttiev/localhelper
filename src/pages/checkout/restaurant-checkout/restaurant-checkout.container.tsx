@@ -3,14 +3,13 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { useCartService } from 'pages/cart/domain/service/cart.service';
 import { useBase } from 'pages/checkout/hooks/checkout.hook';
 import { RestaurantFormFields } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 import { getTelegramUser } from 'actions/webApp-actions';
-
-import { useShoppingCart } from 'context/cart.context';
 
 import { theme } from 'theme/theme';
 
@@ -29,12 +28,12 @@ export const RestaurantCheckoutContainer = () => {
 	const navigate = useNavigate();
 	const tgUser = getTelegramUser();
 	const restaurant = state?.item;
-	const cartList = state.cartList;
+	const restaurantItems = state.cartList;
 
-	const { getCartTotalAmount, getCartOrder, clearCart } = useShoppingCart();
+	const { getTotalPrice, getCartOrder, clearCart } = useCartService();
 
-	const cartOrder = getCartOrder(cartList);
-	const cartTotalAmount = getCartTotalAmount(cartList);
+	const cartOrder = getCartOrder(restaurantItems);
+	const cartTotalAmount = getTotalPrice(restaurantItems);
 
 	const { onSubmit, errors, register, isSubmitting, isSubmitSuccessful } = useBase(
 		useForm<RestaurantFormFields>({ defaultValues: { userName: tgUser?.first_name } }),
@@ -51,7 +50,7 @@ export const RestaurantCheckoutContainer = () => {
 	return (
 		<>
 			<RestaurantCheckoutComponent
-				cartList={cartList}
+				cartList={restaurantItems}
 				cartTotalAmount={cartTotalAmount}
 				register={register}
 				errors={errors}

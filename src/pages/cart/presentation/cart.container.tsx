@@ -2,17 +2,15 @@ import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-ap
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { useCartService } from 'pages/cart/domain/service/cart.service';
+import { Cart } from 'pages/cart/presentation/cart.component';
+import { getMappedCartList } from 'pages/cart/presentation/utils/cart';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 import { getAirtableUrl } from 'utils/airtable';
-import { getMappedCartList } from 'utils/cart';
 
 import { fetchAirtableData } from 'api/api';
-
-import { useShoppingCart } from 'context/cart.context';
-
-import { Cart } from './cart.component';
 
 interface RouteState {
 	state: {
@@ -24,17 +22,18 @@ interface RouteState {
 export const CartContainer = () => {
 	const { state }: RouteState = useLocation();
 	const navigate = useNavigate();
-	const { getCartRestaurant, isCartEmpty, cartItems } = useShoppingCart();
+	const { getCartItems, getCartRestaurant, isCartEmpty } = useCartService();
+
+	const [restaurantItems, setRestaurantItems] = useState<RestaurantItem[]>([]);
+
+	const cartItems = getCartItems();
+	const restaurantTitle = getCartRestaurant();
+	const cartList = getMappedCartList(restaurantItems, cartItems);
 
 	const [impactOccurred] = useHapticFeedback();
 
 	const flowId = state.flowId;
 	const restaurant = state?.item;
-
-	const [restaurantItems, setRestaurantItems] = useState<RestaurantItem[]>([]);
-
-	const restaurantTitle = getCartRestaurant();
-	const cartList = getMappedCartList(restaurantItems, cartItems);
 
 	useEffect(() => {
 		const url = getAirtableUrl('RestaurantItems', '', restaurantTitle);

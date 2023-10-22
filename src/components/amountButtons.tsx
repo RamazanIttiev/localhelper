@@ -3,9 +3,8 @@ import React, { CSSProperties } from 'react';
 
 import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
 
+import { useCartService } from 'pages/cart/domain/service/cart.service';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
-
-import { useShoppingCart } from 'context/cart.context';
 
 import { ReactComponent as AddIcon } from 'assets/svg/add.svg';
 import { ReactComponent as RemoveIcon } from 'assets/svg/remove.svg';
@@ -21,19 +20,19 @@ interface Props {
 export const AmountButtons = ({ styles, item, showAmount = false, showPrice = true, restaurantTitle }: Props) => {
 	const theme = useTheme();
 	const [impactOccurred] = useHapticFeedback();
-	const { incrementCartAmount, decrementCartAmount, getItemAmount } = useShoppingCart();
+	const { incrementItemQuantity, decrementItemQuantity, getItemQuantity } = useCartService();
 
-	const itemAmount = getItemAmount(item.id);
+	const itemAmount = getItemQuantity(item.id);
 	const isRemoveVisible = itemAmount > 0;
 
 	const handleRemove = () => {
 		impactOccurred('light');
-		decrementCartAmount(item.id);
+		decrementItemQuantity(item.id);
 	};
 
 	const handleAdd = () => {
 		impactOccurred('light');
-		incrementCartAmount(item.id, restaurantTitle);
+		incrementItemQuantity(item.id, restaurantTitle);
 	};
 
 	return (

@@ -2,9 +2,8 @@ import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-ap
 import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { useCartService } from 'pages/cart/domain/service/cart.service';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
-
-import { useShoppingCart } from 'context/cart.context';
 
 import { RestaurantItem } from '../restaurant-item/restaurant-item.model';
 import { RestaurantItemDetails } from './restaurant-item-details.component';
@@ -20,7 +19,7 @@ export const RestaurantItemDetailsContainer = () => {
 	const routeState: RouteState = state;
 
 	const navigate = useNavigate();
-	const { isCartEmpty } = useShoppingCart();
+	const { isCartEmpty } = useCartService();
 
 	const [impactOccurred] = useHapticFeedback();
 

@@ -3,6 +3,7 @@ import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-ap
 import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { useCartService } from 'pages/cart/domain/service/cart.service';
 import { Category } from 'pages/categories/category.model';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
@@ -10,13 +11,11 @@ import { Restaurant } from 'pages/restaurant/restaurant.model';
 import { categoryQuery } from 'api/airtable/category';
 import { restaurantItemsQuery, restaurantQuery } from 'api/airtable/restaurant';
 
-import { useShoppingCart } from 'context/cart.context';
-
 import { RestaurantComponent } from './restaurant.component';
 
 export const RestaurantContainer = () => {
 	const navigate = useNavigate();
-	const { isCartEmpty } = useShoppingCart();
+	const { isCartEmpty } = useCartService();
 	const [impactOccurred] = useHapticFeedback();
 	const { restaurantId, categoryId } = useParams();
 

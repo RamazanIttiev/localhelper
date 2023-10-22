@@ -14,11 +14,12 @@ export const DatePickerComponent = (props: Props) => {
 	return (
 		<DatePicker
 			popperClassName={'popperCss'}
+			className={'react-datepicker__input-container'}
 			selectsStart
-			showTimeSelect
+			showTimeSelect={props.showTimeSelect || true}
 			filterTime={filterPassedTime}
-			startDate={new Date()}
-			minDate={new Date()}
+			startDate={props.startDate || new Date()}
+			minDate={props.endDate || new Date()}
 			timeFormat="HH:mm"
 			timeIntervals={10}
 			dateFormat={props.dateFormat}

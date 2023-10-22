@@ -10,6 +10,8 @@ import { FormControl } from '@mui/material';
 import { DatePickerComponent } from 'components/datePicker/datePicker.component';
 import 'components/datePicker/datePicker.css';
 
+import { nameInputValidation, phoneInputValidation } from 'common/utils/validation';
+
 import { TransferFormFields } from '../transfer-checkout.model';
 
 interface Props {
@@ -31,12 +33,8 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 									required
 									type={'text'}
 									register={register}
-									fieldName={'userName'}
-									requiredMessage={'Name is required'}
-									pattern={/^[a-zA-Z]+$/}
-									patternMessage={"I guess that's not a valid name..."}
 									error={errors.userName !== undefined}
-									placeholder={'John'}
+									{...nameInputValidation}
 								/>
 								{errors.userName && <ErrorText text={errors.userName?.message} />}
 							</>
@@ -50,14 +48,8 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 									required
 									type={'tel'}
 									register={register}
-									fieldName={'userPhone'}
 									error={errors.userPhone !== undefined}
-									placeholder={'8 999 777 03 02'}
-									pattern={/^[0-9+-]+$/}
-									minLength={8}
-									requiredMessage={'I need your phone number'}
-									minLengthMessage={'Your phone number is too short'}
-									patternMessage={"I think your phone number isn't correct..."}
+									{...phoneInputValidation}
 								/>
 								{errors.userPhone && <ErrorText text={errors.userPhone?.message} />}
 							</>

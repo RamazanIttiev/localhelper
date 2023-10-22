@@ -26,3 +26,9 @@ export const filterPassedTime = (time: Date) => {
 
 	return currentDate.getTime() < selectedDate.getTime();
 };
+
+export const addDays = (date: Date, days: number) =>
+	new Date(date.setDate(date.getDate() + days)).toLocaleDateString('en-US', {
+		timeZone: 'Asia/Colombo',
+		hour12: false,
+	});

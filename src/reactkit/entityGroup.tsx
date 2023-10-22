@@ -50,7 +50,7 @@ export const EntityGroup = ({ children }: Props) => {
 								p: 1,
 								height: '44px',
 								display: 'flex',
-								minWidth: '84px',
+								minWidth: '90px',
 								alignItems: 'center',
 								background: theme.tg_theme.palette.bg_color,
 								borderRadius: 'inherit',

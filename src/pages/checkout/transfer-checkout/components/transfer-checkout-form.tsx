@@ -1,14 +1,16 @@
 import React from 'react';
-import DatePicker from 'react-datepicker';
 import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { EntityGroup } from 'reactkit/entityGroup';
 import { ErrorText } from 'reactkit/errorText';
-import { Input, StyledInput } from 'reactkit/input';
+import { Input } from 'reactkit/input';
 import { Select } from 'reactkit/select';
 
 import { FormControl } from '@mui/material';
 
-import { filterPassedTime } from 'utils/date';
+import { DatePickerComponent } from 'components/datePicker/datePicker.component';
+import 'components/datePicker/datePicker.css';
+
+import { nameInputValidation, phoneInputValidation } from 'common/utils/validation';
 
 import { TransferFormFields } from '../transfer-checkout.model';
 
@@ -31,12 +33,8 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 									required
 									type={'text'}
 									register={register}
-									fieldName={'userName'}
-									requiredMessage={'Name is required'}
-									pattern={/^[a-zA-Z]+$/}
-									patternMessage={"I guess that's not a valid name..."}
 									error={errors.userName !== undefined}
-									placeholder={'John'}
+									{...nameInputValidation}
 								/>
 								{errors.userName && <ErrorText text={errors.userName?.message} />}
 							</>
@@ -50,14 +48,8 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 									required
 									type={'tel'}
 									register={register}
-									fieldName={'userPhone'}
 									error={errors.userPhone !== undefined}
-									placeholder={'8 999 777 03 02'}
-									pattern={/^[0-9+-]+$/}
-									minLength={8}
-									requiredMessage={'I need your phone number'}
-									minLengthMessage={'Your phone number is too short'}
-									patternMessage={"I think your phone number isn't correct..."}
+									{...phoneInputValidation}
 								/>
 								{errors.userPhone && <ErrorText text={errors.userPhone?.message} />}
 							</>
@@ -111,21 +103,11 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 								})}
 								render={({ field }) => (
 									<FormControl variant="standard" fullWidth>
-										<DatePicker
-											wrapperClassName="datepicker"
+										<DatePickerComponent
 											selected={field.value}
 											onChange={date => field.onChange(date)}
-											selectsStart
-											showTimeSelect
-											filterTime={filterPassedTime}
-											startDate={new Date()}
-											minDate={new Date()}
-											timeIntervals={10}
-											timeFormat="HH:mm"
 											dateFormat="MMMM d, HH:mm"
-											showDisabledMonthNavigation
-											customInput={<StyledInput fullWidth />}
-											onFocus={e => e.target.blur()}
+											inputStyles={{ width: '100%' }}
 											placeholderText={new Date().toLocaleDateString('en-US', {
 												timeZone: 'Asia/Colombo',
 												hour12: false,

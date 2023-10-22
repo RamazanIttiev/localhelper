@@ -10,8 +10,6 @@ import { FormControl } from '@mui/material';
 import { DatePickerComponent } from 'components/datePicker/datePicker.component';
 import 'components/datePicker/datePicker.css';
 
-import { filterPassedTime } from 'utils/date';
-
 import { TransferFormFields } from '../transfer-checkout.model';
 
 interface Props {
@@ -114,11 +112,14 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 								render={({ field }) => (
 									<FormControl variant="standard" fullWidth>
 										<DatePickerComponent
-											wrapperClassName="datepicker"
 											selected={field.value}
 											onChange={date => field.onChange(date)}
-											filterTime={filterPassedTime}
-											timeIntervals={10}
+											dateFormat="MMMM d, HH:mm"
+											inputStyles={{ width: '100%' }}
+											placeholderText={new Date().toLocaleDateString('en-US', {
+												timeZone: 'Asia/Colombo',
+												hour12: false,
+											})}
 										/>
 										{errors.date && <ErrorText text={errors.date?.message} />}
 									</FormControl>

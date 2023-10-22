@@ -9,6 +9,10 @@ import { SelectGroup } from 'reactkit/selectGroup';
 
 import { Box } from '@mui/material';
 
+import { DatePickerComponent } from 'components/datePicker/datePicker.component';
+
+import { filterPassedTime } from 'utils/date';
+
 import { ToursFormFields } from '../tours-checkout.model';
 
 interface Props {
@@ -81,18 +85,12 @@ export const ToursCheckoutForm = ({ register, errors, control }: Props) => {
 						required: 'When do you want to go to the tour?',
 					})}
 					render={({ field }) => (
-						<DatePicker
-							wrapperClassName="datepicker"
+						<DatePickerComponent
 							selected={field.value}
 							onChange={date => field.onChange(date)}
-							selectsStart
-							startDate={new Date()}
-							minDate={new Date()}
-							timeIntervals={10}
+							filterTime={filterPassedTime}
 							dateFormat="MMMM d"
-							showDisabledMonthNavigation
-							customInput={<StyledInput fullWidth />}
-							onFocus={e => e.target.blur()}
+							inputStyles={{ width: '100%' }}
 							placeholderText={new Date().toLocaleDateString('en-US', {
 								timeZone: 'Asia/Colombo',
 								hour12: false,

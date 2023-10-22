@@ -8,6 +8,10 @@ import { StyledInput } from 'reactkit/input';
 
 import { Box, FormControl } from '@mui/material';
 
+import { DatePickerComponent } from 'components/datePicker/datePicker.component';
+
+import { filterPassedTime } from 'utils/date';
+
 interface Props {
 	errors: FieldErrors<any>;
 	control: Control<any>;
@@ -40,20 +44,11 @@ export const DateRange = ({
 				render={({ field }) => (
 					<FormControl variant="standard" fullWidth sx={{ mr: 1 }}>
 						<HintText sx={{ ml: 2 }} text={'From'} />
-						<DatePicker
-							onFocus={e => e.target.blur()}
+						<DatePickerComponent
 							selected={field.value}
 							onChange={date => field.onChange(date)}
-							selectsStart
-							onChangeRaw={e => e.preventDefault()}
-							startDate={startDate}
-							endDate={endDate}
-							minDate={new Date()}
+							filterTime={filterPassedTime}
 							dateFormat={'dd.MM.yyyy'}
-							showDisabledMonthNavigation
-							onKeyDown={event => {
-								event.preventDefault();
-							}}
 							customInput={<StyledInput />}
 							placeholderText={startPlaceholderText}
 						/>
@@ -70,18 +65,13 @@ export const DateRange = ({
 				render={({ field }) => (
 					<FormControl variant="standard" fullWidth>
 						<HintText sx={{ ml: 2 }} text={'To'} />
-						<DatePicker
-							onFocus={e => e.target.blur()}
+						<DatePickerComponent
 							selected={field.value}
 							onChange={date => field.onChange(date)}
-							onChangeRaw={e => e.preventDefault()}
-							selectsEnd
-							endDate={endDate}
-							minDate={startDate}
+							filterTime={filterPassedTime}
 							dateFormat={'dd.MM.yyyy'}
-							showDisabledMonthNavigation
 							customInput={<StyledInput />}
-							placeholderText={endPlaceholderText}
+							placeholderText={startPlaceholderText}
 						/>
 						<ErrorText text={errors.endDate?.message} />
 					</FormControl>

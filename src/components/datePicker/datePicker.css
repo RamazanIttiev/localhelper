@@ -1,0 +1,5 @@
+.popperCss {
+    width: max-content;
+    transform: translateX(-20%) !important;
+    inset: unset !important;
+}

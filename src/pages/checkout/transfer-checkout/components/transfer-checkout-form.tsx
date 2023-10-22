@@ -1,12 +1,14 @@
 import React from 'react';
-import DatePicker from 'react-datepicker';
 import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { EntityGroup } from 'reactkit/entityGroup';
 import { ErrorText } from 'reactkit/errorText';
-import { Input, StyledInput } from 'reactkit/input';
+import { Input } from 'reactkit/input';
 import { Select } from 'reactkit/select';
 
 import { FormControl } from '@mui/material';
+
+import { DatePickerComponent } from 'components/datePicker/datePicker.component';
+import 'components/datePicker/datePicker.css';
 
 import { filterPassedTime } from 'utils/date';
 
@@ -111,25 +113,12 @@ export const TransferCheckoutForm = ({ register, errors, control }: Props) => {
 								})}
 								render={({ field }) => (
 									<FormControl variant="standard" fullWidth>
-										<DatePicker
+										<DatePickerComponent
 											wrapperClassName="datepicker"
 											selected={field.value}
 											onChange={date => field.onChange(date)}
-											selectsStart
-											showTimeSelect
 											filterTime={filterPassedTime}
-											startDate={new Date()}
-											minDate={new Date()}
 											timeIntervals={10}
-											timeFormat="HH:mm"
-											dateFormat="MMMM d, HH:mm"
-											showDisabledMonthNavigation
-											customInput={<StyledInput fullWidth />}
-											onFocus={e => e.target.blur()}
-											placeholderText={new Date().toLocaleDateString('en-US', {
-												timeZone: 'Asia/Colombo',
-												hour12: false,
-											})}
 										/>
 										{errors.date && <ErrorText text={errors.date?.message} />}
 									</FormControl>

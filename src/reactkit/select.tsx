@@ -15,13 +15,13 @@ export const StyledSelect = styled(InputBase, {
 	minWidth: 'fit-content',
 	background: theme.tg_theme.palette.bg_color,
 	color: theme.tg_theme.palette.text_color,
-	borderRadius: theme.tg_theme.borderRadius.base,
+	borderRadius: 'inherit',
 	fontSize: theme.tg_theme.fontSize.body,
 	height: theme.tg_theme.height,
 
 	'& .MuiInputBase-input': {
-		padding: '8px 16px',
-		paddingRight: '16px !important',
+		padding: '8px 16px 8px 0',
+
 	},
 
 	'&:before': {
@@ -60,7 +60,8 @@ export const Select = ({
 		<NativeSelect
 			sx={{
 				'& .MuiNativeSelect-icon': {
-					top: 'initial',
+					mr: '16px',
+          top: 'initial',
 					color: theme.tg_theme.palette.hint_color || '#fff',
 				},
 				...sx,

@@ -3,6 +3,8 @@ import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
 
 import { SxProps, Typography } from '@mui/material';
 
+import { theme } from 'theme/theme';
+
 interface ErrorTextProps {
 	sx?: SxProps;
 	text: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
@@ -10,7 +12,7 @@ interface ErrorTextProps {
 
 export const ErrorText = ({ text, sx }: ErrorTextProps) => {
 	return (
-		<Typography color={'error'} variant={'body2'} sx={{ ml: 2, ...sx }}>
+		<Typography color={'error'} fontSize={theme.tg_theme.fontSize.caption} sx={{ ...sx }}>
 			<>{text}</>
 		</Typography>
 	);

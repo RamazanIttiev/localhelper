@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 
-import { styled, NativeSelect, SelectProps, InputBase, NativeSelectProps } from '@mui/material';
+import { styled, NativeSelect, InputBase, NativeSelectProps } from '@mui/material';
 
 import { ReactComponent as SelectIcon } from 'assets/svg/select.svg';
 
@@ -21,7 +21,6 @@ export const StyledSelect = styled(InputBase, {
 
 	'& .MuiInputBase-input': {
 		padding: '8px 16px 8px 0',
-
 	},
 
 	'&:before': {
@@ -43,6 +42,7 @@ interface Props extends Partial<NativeSelectProps> {
 	register: UseFormRegister<any>;
 	required?: boolean;
 	requiredMessage?: string;
+	iconSx?: CSSProperties;
 }
 
 export const Select = ({
@@ -54,6 +54,7 @@ export const Select = ({
 	fullWidth = false,
 	defaultValue,
 	options,
+	iconSx,
 	...props
 }: Props) => {
 	return (
@@ -61,8 +62,9 @@ export const Select = ({
 			sx={{
 				'& .MuiNativeSelect-icon': {
 					mr: '16px',
-          top: 'initial',
+					top: 'initial',
 					color: theme.tg_theme.palette.hint_color || '#fff',
+					...iconSx,
 				},
 				...sx,
 			}}

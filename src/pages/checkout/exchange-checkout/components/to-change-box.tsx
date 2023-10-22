@@ -65,6 +65,9 @@ export const ToChangeBox = ({ error, register, exchangeRate, control, state }: P
 						fontWeight: theme.tg_theme.fontWeight.bold,
 						fontSize: theme.tg_theme.fontSize.largeTitle,
 					}}
+					iconSx={{
+						marginRight: '0',
+					}}
 				/>
 			</Box>
 

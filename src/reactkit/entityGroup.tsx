@@ -32,6 +32,8 @@ export const EntityGroup = ({ children }: Props) => {
 						sx={{
 							display: 'flex',
 							width: '100%',
+							height: '45px',
+							pl: 1,
 							alignItems: 'center',
 							justifyContent: 'center',
 							background: theme.tg_theme.palette.bg_color,
@@ -47,8 +49,6 @@ export const EntityGroup = ({ children }: Props) => {
 						}}>
 						<Box
 							sx={{
-								p: 1,
-								height: '44px',
 								display: 'flex',
 								minWidth: '90px',
 								alignItems: 'center',
@@ -60,8 +60,13 @@ export const EntityGroup = ({ children }: Props) => {
 						<Box
 							id="entityElement"
 							sx={{
+								height: '100%',
 								width: '100%',
 								ml: 2,
+								pr: 1,
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'end',
 								borderRadius: 'inherit',
 								borderBottom: index === children.length - 1 ? 'none' : `0.5px solid ${delimiterColor}`,
 							}}>

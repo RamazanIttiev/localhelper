@@ -2,7 +2,7 @@ import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { HintText } from 'reactkit/hintText';
 
-import { CartList } from 'pages/cart/components/cart-list';
+import { CartList } from 'pages/cart/presentation/components/cart-list';
 import { RestaurantFormFields } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 

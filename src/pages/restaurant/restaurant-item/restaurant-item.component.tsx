@@ -23,7 +23,7 @@ interface Props {
 
 export const RestaurantItemCard = ({ flowId, restaurantItem, restaurant }: Props) => {
 	const { isWorking } = restaurant;
-	const { id, title, image, amount, iconBadges, price } = restaurantItem;
+	const { id, title, image, quantity, iconBadges, price } = restaurantItem;
 
 	return (
 		<>
@@ -47,10 +47,10 @@ export const RestaurantItemCard = ({ flowId, restaurantItem, restaurant }: Props
 							<IconBadges iconBadges={iconBadges} />
 						</>
 					)}
-					{amount !== 0 && (
+					{quantity !== 0 && (
 						<ImageBackdrop>
 							<Typography variant={'body1'} fontSize={'1.5rem'}>
-								{amount}
+								{quantity}
 							</Typography>
 						</ImageBackdrop>
 					)}

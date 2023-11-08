@@ -15,8 +15,6 @@ import {
 	webAppIsReady,
 } from 'actions/webApp-actions';
 
-import { ShoppingCartProvider } from 'context/cart.context';
-
 export const Layout = () => {
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
@@ -53,9 +51,9 @@ export const Layout = () => {
 						navigate(-1);
 					}}
 				/>
-				<ShoppingCartProvider>
-					<Outlet />
-				</ShoppingCartProvider>
+				{/*<ShoppingCartProvider>*/}
+				<Outlet />
+				{/*</ShoppingCartProvider>*/}
 			</WebAppProvider>
 		</>
 	);

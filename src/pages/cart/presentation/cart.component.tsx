@@ -2,10 +2,9 @@ import React from 'react';
 
 import { Box, Container } from '@mui/material';
 
+import { CartHeader } from 'pages/cart/presentation/components/cart-header';
+import { CartList } from 'pages/cart/presentation/components/cart-list';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
-
-import { CartHeader } from './components/cart-header';
-import { CartList } from './components/cart-list';
 
 import { theme } from 'theme/theme';
 

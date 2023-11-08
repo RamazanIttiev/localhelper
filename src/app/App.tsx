@@ -4,7 +4,7 @@ import { createBrowserRouter, createRoutesFromElements, json, Route, RouterProvi
 
 import { Layout } from 'app/Layout';
 
-import { CartContainer } from 'pages/cart/cart.container';
+import { CartContainer } from 'pages/cart/presentation/cart.container';
 import { Categories } from 'pages/categories/categories';
 import { CheckoutContainer } from 'pages/checkout/checkout.container';
 import { FeedContainer } from 'pages/feed/feed.container';

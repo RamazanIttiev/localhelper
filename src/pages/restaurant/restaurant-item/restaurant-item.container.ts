@@ -1,8 +1,7 @@
 import { createElement } from 'react';
 
+import { useCartService } from 'pages/cart/domain/service/cart.service';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
-
-import { useShoppingCart } from 'context/cart.context';
 
 import { RestaurantItemCard } from './restaurant-item.component';
 import { RestaurantItem } from './restaurant-item.model';
@@ -14,13 +13,13 @@ interface Props {
 }
 
 export const RestaurantItemContainer = ({ flowId, item, restaurant }: Props) => {
-	const { getItemAmount } = useShoppingCart();
+	const { getItemQuantity } = useCartService();
 
-	const itemAmount = item ? getItemAmount(item.id) : 0;
+	const itemAmount = item ? getItemQuantity(item.id) : 0;
 
 	const { ...restaurantItem }: RestaurantItem = {
 		id: item.id,
-		amount: itemAmount,
+		quantity: itemAmount,
 		price: item.price,
 		image: item.image,
 		iconBadges: item.iconBadges,

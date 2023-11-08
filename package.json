@@ -54,7 +54,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "ngrok": "ngrok start localhelper_secure",
+    "ngrok": "ngrok start localhelper-ngrok",
     "build": "react-scripts build",
     "build_deploy": "BUILD_PATH='./public_html' react-scripts build",
     "test": "react-scripts test",

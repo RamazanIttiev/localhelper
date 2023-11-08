@@ -4,13 +4,13 @@ import { InfoBadge } from 'reactkit/infoBadge';
 
 import { Box, Card, CardActions, CardContent, CardMedia, Container, Typography } from '@mui/material';
 
+import { useCartService } from 'pages/cart/domain/service/cart.service';
+
 import { AmountButtons } from 'components/amountButtons';
 import { MuiCarousel } from 'components/carousel';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 import { openTelegram } from 'utils/service';
-
-import { useShoppingCart } from 'context/cart.context';
 
 import skeletonImage from 'assets/food.webp';
 
@@ -23,13 +23,13 @@ interface Props {
 }
 
 export const RestaurantItemDetails = ({ restaurantItem, restaurant }: Props) => {
-	const { getItemAmount } = useShoppingCart();
+	const { getItemQuantity } = useCartService();
 
 	const { isWorking } = restaurant;
-	// TODO add amount backdrop
-	const { title, image, amount, iconBadges, description, price } = restaurantItem;
+	// TODO add quantity backdrop
+	const { title, image, quantity, iconBadges, description, price } = restaurantItem;
 
-	const isRemoveVisible = getItemAmount(restaurantItem.id) > 0;
+	const isRemoveVisible = getItemQuantity(restaurantItem.id) > 0;
 
 	return (
 		<Container sx={{ pt: 2, pb: 2, px: 6 }} maxWidth={'sm'}>

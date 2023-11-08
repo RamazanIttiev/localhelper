@@ -3,14 +3,14 @@ import React from 'react';
 
 import { Box, Icon, IconButton, Typography } from '@mui/material';
 
-import { hideMainButton } from 'actions/webApp-actions';
+import { useCartService } from 'pages/cart/domain/service/cart.service';
 
-import { useShoppingCart } from 'context/cart.context';
+import { hideMainButton } from 'actions/webApp-actions';
 
 import { ReactComponent as TrashBin } from 'assets/svg/trashBin.svg';
 
 export const CartHeader = ({ restaurantTitle }: { restaurantTitle?: string }) => {
-	const { clearCart } = useShoppingCart();
+	const { clearCart } = useCartService();
 	const [impactOccurred] = useHapticFeedback();
 
 	const handleClearCart = () => {

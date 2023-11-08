@@ -78,11 +78,12 @@ export const useCartService = (): CartRepository => {
 	const incrementItemQuantity = (id: string, restaurantTitle: string | undefined) => {
 		const cartItem = findCartItem(id, cartItems);
 
-		if (!isSameRestaurant(cartItems, restaurantTitle)) {
+		if (!isSameRestaurant(cartItems, restaurantTitle) && restaurantTitle) {
 			const answer = confirm('You should empty your cart for a new order');
 			answer && clearCart();
+
+			setCartItems([...cartItems, { id, quantity: 1, restaurantTitle }]);
 		} else {
-			console.log(cartItem);
 			if (cartItem === undefined && restaurantTitle) {
 				return setCartItems([...cartItems, { id, quantity: 1, restaurantTitle }]);
 			} else {

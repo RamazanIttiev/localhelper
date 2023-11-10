@@ -1,11 +1,11 @@
-import { MainButton } from '@vkruglikov/react-telegram-web-app';
-import React, { useEffect } from 'react';
+import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useCartService } from 'pages/cart/domain/service/cart.service';
 import { useBase } from 'pages/checkout/hooks/checkout.hook';
-import { RestaurantFormFields } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
+import { RestaurantFormFields, TabValue } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
@@ -30,6 +30,9 @@ export const RestaurantCheckoutContainer = () => {
 	const restaurant = state?.item;
 	const restaurantItems = state.cartList;
 
+	const [impactOccurred] = useHapticFeedback();
+	const [tabValue, setTabValue] = useState<TabValue>(TabValue.DELIVERY);
+
 	const { getTotalPrice, getCartOrder, clearCart } = useCartService();
 
 	const cartOrder = getCartOrder(restaurantItems);
@@ -39,6 +42,14 @@ export const RestaurantCheckoutContainer = () => {
 		useForm<RestaurantFormFields>({ defaultValues: { userName: tgUser?.first_name } }),
 		{ order: cartOrder, orderTotal: cartTotalAmount, tgUserNick: tgUser?.username },
 	);
+
+	const handleTabChange = () => {
+		impactOccurred('light');
+
+		const value = tabValue === TabValue.DELIVERY ? TabValue.PICK_UP : TabValue.DELIVERY;
+
+		setTabValue(value);
+	};
 
 	useEffect(() => {
 		if (isSubmitSuccessful) {
@@ -55,6 +66,8 @@ export const RestaurantCheckoutContainer = () => {
 				register={register}
 				errors={errors}
 				restaurantTitle={restaurant?.title}
+				tabValue={tabValue}
+				handleTabChange={handleTabChange}
 			/>
 			<MainButton
 				text={'Order'}

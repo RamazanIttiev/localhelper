@@ -1,12 +1,15 @@
 import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { EntityGroup } from 'reactkit/entityGroup';
 import { HintText } from 'reactkit/hintText';
+import { Tabs } from 'reactkit/tabs/tabs.component';
+
+import { Typography } from '@mui/material';
 
 import { CartList } from 'pages/cart/presentation/components/cart-list';
-import { RestaurantFormFields } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
+import { RestaurantFormFields, TabValue } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 
-import { OrderInfo } from './components/orderInfo';
 import { RestaurantCheckoutForm } from './components/restaurant-checkout-form';
 
 interface Props {
@@ -15,39 +18,57 @@ interface Props {
 	errors: FieldErrors<RestaurantFormFields>;
 	cartList: RestaurantItem[];
 	register: UseFormRegister<RestaurantFormFields>;
+	tabValue: TabValue;
+	handleTabChange: () => void;
 }
 
 export const RestaurantCheckoutComponent = ({
 	errors,
+	tabValue,
 	register,
 	cartList,
 	restaurantTitle,
 	cartTotalAmount,
+	handleTabChange,
 }: Props) => {
 	return (
 		<>
+			<HintText sx={{ mb: 1 }} text={'At home or in the restaurant?'} />
+			<Tabs sxTabs={{ mb: 4 }} tabs={['Delivery', 'Pick up']} value={tabValue} onChange={handleTabChange} />
 			<RestaurantCheckoutForm errors={errors} register={register} />
-			{/*{isUserAgentTelegram && (*/}
-			{/*	<SaveInfoWrapper>*/}
-			{/*		<SaveInfoField*/}
-			{/*			control={*/}
-			{/*				<Switch*/}
-			{/*					checked={saveInfo}*/}
-			{/*					onChange={handleSaveInfo}*/}
-			{/*					sx={{ color: theme.palette.primary.main }}*/}
-			{/*					inputProps={{ 'aria-label': 'controlled' }}*/}
-			{/*				/>*/}
-			{/*			}*/}
-			{/*			labelPlacement={'start'}*/}
-			{/*			label="Save info"*/}
-			{/*		/>*/}
-			{/*		<HintText sx={{ marginTop: '0.5rem' }} text={'Save contact information for future orders'} />*/}
-			{/*	</SaveInfoWrapper>*/}
-			{/*)}*/}
-
-			<HintText sx={{ marginTop: '0.5rem' }} text={`Your order from ${restaurantTitle}`} />
+			<HintText sx={{ mt: '24px' }} text={`${restaurantTitle}`} />
 			<CartList cartList={cartList} restaurantTitle={restaurantTitle} />
-			<OrderInfo orderTotal={cartTotalAmount} />
+			<HintText sx={{ mt: 3, mb: 1 }} text={'Order info'} />
+			<EntityGroup
+				children={[
+					{
+						label: 'Total',
+						element: (
+							<Typography component={'span'} variant={'body1'} fontWeight={'bold'}>
+								{cartTotalAmount} Rs
+							</Typography>
+						),
+					},
+					tabValue === TabValue.DELIVERY
+						? {
+								label: 'Delivery',
+								element: (
+									<Typography component={'span'} variant={'body1'} fontWeight={'bold'}>
+										Free
+									</Typography>
+								),
+						  }
+						: null,
+					{
+						label: 'Payment method',
+						element: (
+							<Typography component={'span'} variant={'body1'} fontWeight={'bold'}>
+								Cash
+							</Typography>
+						),
+					},
+				]}
+			/>
 		</>
 	);
 };

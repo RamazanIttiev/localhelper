@@ -3,6 +3,8 @@ import { HintText } from 'reactkit/hintText';
 
 import { Box, Typography } from '@mui/material';
 
+import { theme } from 'theme/theme';
+
 interface OrderInfoProps {
 	payment?: string;
 	orderTotal: number;
@@ -11,7 +13,15 @@ interface OrderInfoProps {
 
 export const OrderInfo = ({ orderTotal, delivery = 'Free', payment = 'Cash' }: OrderInfoProps) => {
 	return (
-		<Box sx={{ display: 'flex', flexDirection: 'column', mt: '2rem' }}>
+		<Box
+			sx={{
+				display: 'flex',
+				flexDirection: 'column',
+				mt: '2rem',
+				background: theme.tg_theme.palette.bg_color,
+				borderRadius: theme.tg_theme.borderRadius.base,
+				p: 1,
+			}}>
 			<HintText text={'Order info'} sx={{ mb: '1rem' }} />
 			<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} mb={1}>
 				<Typography fontSize={'1rem'} component={'span'}>

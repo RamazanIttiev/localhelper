@@ -69,7 +69,7 @@ export const CartContainer = () => {
 	return (
 		<>
 			<Cart cartList={cartList} restaurantTitle={restaurant?.title} />
-			<MainButton text={'Checkout'} onClick={navigateToCheckout} />
+			<MainButton text={'Checkout'} onClick={navigateToCheckout} disabled={restaurantItems?.length === 0} />
 		</>
 	);
 };

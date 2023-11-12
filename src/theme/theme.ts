@@ -62,7 +62,7 @@ export const theme = createTheme({
 			title3: '20px',
 			body: '16px',
 			info: '14px',
-			caption: '12px',
+			caption: '11px',
 		},
 		fontWeight: { normal: '400', bold: '700', extraBold: '900' },
 		borderRadius: {

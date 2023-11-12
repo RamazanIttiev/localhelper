@@ -4,7 +4,7 @@ import { IconBadges } from 'reactkit/iconBadges';
 
 import { Box, Card, CardContent, CardMedia, Container, Typography } from '@mui/material';
 
-import { Item } from 'pages/items-list/item/item.model';
+import { Item } from 'pages/item/domain/item.model';
 
 import { MuiCarousel } from 'components/carousel';
 

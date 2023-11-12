@@ -22,7 +22,7 @@ export const dateRangeValidation = {
 	startPlaceholderText: new Date().toLocaleDateString(),
 	endPlaceholderText: addDays(new Date(), 3),
 	endValidationText: 'Select rental end date',
-	startValidationText: 'When do you need the bike?',
+	startValidationText: 'When is the start of the rent?',
 };
 
 export const addressValidation = {

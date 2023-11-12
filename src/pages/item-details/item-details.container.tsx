@@ -2,7 +2,7 @@ import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-ap
 import { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { DefaultItemModel } from 'pages/items-list/item/item.model';
+import { DefaultItemModel } from 'pages/item/domain/item.model';
 
 import { ItemDetails } from './item-details.component';
 

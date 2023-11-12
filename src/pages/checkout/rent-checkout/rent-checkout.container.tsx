@@ -2,7 +2,7 @@ import { MainButton } from '@vkruglikov/react-telegram-web-app';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { useBase } from 'pages/checkout/hooks/checkout.hook';
-import { DefaultItemModel } from 'pages/items-list/item/item.model';
+import { DefaultItemModel } from 'pages/item/domain/item.model';
 
 import { getDateDiff } from 'utils/date';
 

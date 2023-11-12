@@ -4,7 +4,7 @@ import { HintText } from 'reactkit/hintText';
 
 import { Box, Typography } from '@mui/material';
 
-import { DefaultItemModel } from 'pages/items-list/item/item.model';
+import { DefaultItemModel } from 'pages/item/domain/item.model';
 
 import { BikesCheckoutForm } from './components/bikes-checkout-form';
 

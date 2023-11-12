@@ -1,12 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import { ActionButton } from 'reactkit/actionButton';
 
 import { Container, Grid } from '@mui/material';
 
 import { Category } from 'pages/categories/category.model';
-import { Item } from 'pages/items-list/item/item.model';
+import { Item } from 'pages/item/domain/item.model';
+import { ItemContainer } from 'pages/item/presentation/item/item.container';
+import { Items } from 'pages/items/domain/items.model';
 
 import { HeaderSkeleton } from 'components/skeletons/headerSkeleton';
 import { ItemSkeleton } from 'components/skeletons/itemSkeleton';
@@ -14,20 +14,15 @@ import { ItemSkeleton } from 'components/skeletons/itemSkeleton';
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 import { openTelegram } from 'utils/service';
 
-import { categoryQuery } from 'api/airtable/category';
-import { itemsQuery } from 'api/airtable/items';
+import { ItemsHeader } from '../items-header/items-header';
 
-import { ItemContainer } from './item/item.container';
-import { ItemsHeader } from './items-header';
+interface Props {
+	flowId: string;
+	items: Items | undefined;
+	category: Category | undefined;
+}
 
-export const ItemsList = () => {
-	const { categoryId } = useParams();
-
-	const { data: category } = useQuery<Category>(categoryQuery(categoryId));
-	const { data: items } = useQuery<Item[]>(itemsQuery(categoryId));
-
-	const flowId = category?.flowId || '';
-
+export const ItemsComponent = ({ items, category, flowId }: Props) => {
 	return (
 		<>
 			{!category ? <HeaderSkeleton /> : <ItemsHeader category={category} />}

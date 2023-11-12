@@ -2,8 +2,8 @@ import { useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import { createElement, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ItemComponent } from 'pages/items-list/item/item.component';
-import { Item } from 'pages/items-list/item/item.model';
+import { Item } from 'pages/item/domain/item.model';
+import { ItemComponent } from 'pages/item/presentation/item/item.component';
 
 interface Props {
 	flowId: string;

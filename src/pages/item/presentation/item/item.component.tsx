@@ -5,7 +5,7 @@ import { Link } from 'reactkit/link';
 
 import { Box, Card, CardContent, Typography } from '@mui/material';
 
-import { Item } from 'pages/items-list/item/item.model';
+import { Item } from 'pages/item/domain/item.model';
 
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 

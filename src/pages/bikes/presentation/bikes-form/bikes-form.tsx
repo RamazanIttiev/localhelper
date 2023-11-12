@@ -8,7 +8,7 @@ import { DateRange } from 'components/dateRange';
 
 import { dateRangeValidation, nameInputValidation, phoneInputValidation } from 'common/utils/validation';
 
-import { BikesFormFields } from '../bikes-checkout.model';
+import { BikesFormFields } from '../../domain/model/bikes.model';
 
 interface Props {
 	errors: FieldErrors<BikesFormFields>;

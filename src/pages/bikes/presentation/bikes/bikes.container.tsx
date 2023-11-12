@@ -1,6 +1,7 @@
 import { MainButton } from '@vkruglikov/react-telegram-web-app';
 import { useForm, useWatch } from 'react-hook-form';
 
+import { BikesFormFields } from 'pages/checkout/bikes-checkout/bikes-checkout.model';
 import { useBase } from 'pages/checkout/hooks/checkout.hook';
 import { DefaultItemModel } from 'pages/item/domain/item.model';
 
@@ -10,10 +11,9 @@ import { getTelegramUser } from 'actions/webApp-actions';
 
 import { theme } from 'theme/theme';
 
-import { BikesCheckoutComponent } from './bikes-checkout.component';
-import { BikesFormFields } from './bikes-checkout.model';
+import { BikesCheckoutComponent } from './bikes.component';
 
-export const BikesCheckoutContainer = () => {
+export const BikesContainer = () => {
 	const tgUser = getTelegramUser();
 
 	const { state, onSubmit, errors, register, control, isSubmitting } = useBase(

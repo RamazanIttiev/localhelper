@@ -1,4 +1,4 @@
-import { Item } from 'pages/items-list/item/item.model';
+import { Item } from 'pages/item/domain/item.model';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 export interface Category {

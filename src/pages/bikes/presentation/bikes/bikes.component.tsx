@@ -6,26 +6,23 @@ import { Box, Typography } from '@mui/material';
 
 import { DefaultItemModel } from 'pages/item/domain/item.model';
 
-import { RentCheckoutForm } from './components/rent-checkout-form';
-
 import { formatDaysText } from 'utils/date';
 
-import { theme } from 'theme/theme';
-
-import { RentFormFields } from './rent-checkout.model';
+import { BikesFormFields } from '../../domain/model/bikes.model';
+import { BikesCheckoutForm } from '../bikes-form/bikes-form';
 
 interface Props {
 	rentPeriod: number;
 	item: DefaultItemModel;
-	control: Control<RentFormFields>;
-	errors: FieldErrors<RentFormFields>;
-	register: UseFormRegister<RentFormFields>;
+	control: Control<BikesFormFields>;
+	errors: FieldErrors<BikesFormFields>;
+	register: UseFormRegister<BikesFormFields>;
 }
 
-export const RentCheckoutComponent = ({ register, errors, control, item, rentPeriod }: Props) => {
+export const BikesCheckoutComponent = ({ register, errors, control, item, rentPeriod }: Props) => {
 	return (
 		<>
-			<RentCheckoutForm control={control} errors={errors} register={register} />
+			<BikesCheckoutForm control={control} errors={errors} register={register} />
 			<Box sx={{ display: 'flex', flexDirection: 'column', mt: '2rem' }}>
 				<HintText text={'Order info'} sx={{ mb: '0.5rem' }} />
 				<Box sx={{ display: 'flex', alignItems: 'flex-start' }} mb={1}>
@@ -42,19 +39,11 @@ export const RentCheckoutComponent = ({ register, errors, control, item, rentPer
 						}}
 					/>
 					<Box sx={{ display: 'flex', alignItems: 'self-start', flexDirection: 'column' }} mb={'3rem'}>
-						<Typography
-							component={'span'}
-							variant={'body1'}
-							fontWeight={'bold'}
-							sx={{ color: theme.tg_theme.palette.text_color }}>
+						<Typography component={'span'} variant={'body1'} fontWeight={'bold'}>
 							{item.title}
 						</Typography>
 
-						<Typography
-							component={'span'}
-							variant={'body1'}
-							fontWeight={'bold'}
-							sx={{ color: theme.tg_theme.palette.text_color }}>
+						<Typography component={'span'} variant={'body1'} fontWeight={'bold'}>
 							{item.price} Rs
 						</Typography>
 					</Box>
@@ -71,7 +60,6 @@ export const RentCheckoutComponent = ({ register, errors, control, item, rentPer
 									width: '1.5rem',
 									height: '1.5rem',
 									borderRadius: '50%',
-									backgroundColor: theme.tg_theme.palette.button_color,
 									display: 'flex',
 									justifyContent: 'center',
 									alignItems: 'center',
@@ -81,11 +69,7 @@ export const RentCheckoutComponent = ({ register, errors, control, item, rentPer
 							</Typography>
 							{formatDaysText(rentPeriod)}
 						</Typography>
-						<Typography
-							component={'span'}
-							variant={'body1'}
-							fontWeight={'bold'}
-							sx={{ color: theme.tg_theme.palette.text_color }}>
+						<Typography component={'span'} variant={'body1'} fontWeight={'bold'}>
 							{item.price * rentPeriod} Rs
 						</Typography>
 					</Box>

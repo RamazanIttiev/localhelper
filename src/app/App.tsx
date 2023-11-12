@@ -9,7 +9,7 @@ import { Categories } from 'pages/categories/categories';
 import { CheckoutContainer } from 'pages/checkout/checkout.container';
 import { FeedContainer } from 'pages/feed/feed.container';
 import { ItemDetailsContainer } from 'pages/item-details/item-details.container';
-import { ItemsList } from 'pages/items-list/items-list';
+import { ItemsContainer } from 'pages/items/presentation/items/items.container';
 import { RestaurantItemDetailsContainer } from 'pages/restaurant/restaurant-item-details/restaurant-item-details.container';
 import { RestaurantContainer } from 'pages/restaurant/restaurant.container';
 import { RestaurantsListContainer } from 'pages/restaurants-list/restaurants.container';
@@ -34,7 +34,7 @@ const router = createBrowserRouter(
 			<Route index element={<Categories />} loader={() => geolocationLoader(queryClient)} />
 			<Route
 				path=":categoryId"
-				element={<ItemsList />}
+				element={<ItemsContainer />}
 				loader={async () => {
 					const [category, items] = await Promise.all([
 						categoryLoader(queryClient),
@@ -62,11 +62,11 @@ const router = createBrowserRouter(
 			/>
 
 			<Route path=":categoryId/:item" element={<ItemDetailsContainer />} />
+
+			<Route path=":categoryId/:item" element={<ItemDetailsContainer />} />
 			<Route path=":categoryId/restaurants/:restaurantId/:item" element={<RestaurantItemDetailsContainer />} />
 
 			<Route path="feed" element={<FeedContainer />} loader={() => feedLoader(queryClient)} />
-
-			<Route path="shopping-cart" element={<CartContainer />} loader={() => restaurantItemsLoader(queryClient)} />
 
 			<Route path="shopping-cart" element={<CartContainer />} loader={() => restaurantItemsLoader(queryClient)} />
 

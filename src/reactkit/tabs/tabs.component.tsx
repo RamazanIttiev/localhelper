@@ -3,9 +3,7 @@ import { TabPanelStyled, TabsListStyled, TabsStyled, TabStyled } from 'reactkit/
 
 import { SxProps } from '@mui/material';
 
-import { TabValue } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
-
-interface Props {
+interface Props<TabValue extends number> {
 	readonly value: TabValue;
 	readonly onChange: () => void;
 	readonly tabs: string[];
@@ -19,7 +17,15 @@ interface Props {
 	readonly sxTabPanel?: SxProps;
 }
 
-export const Tabs = ({ value, onChange, tabs, tabPanels, sxTabs, sxTabsList, sxTabPanel }: Props) => {
+export const Tabs = <TabValue extends number>({
+	value,
+	onChange,
+	tabs,
+	tabPanels,
+	sxTabs,
+	sxTabsList,
+	sxTabPanel,
+}: Props<TabValue>) => {
 	return (
 		<TabsStyled sx={{ ...sxTabs }} value={value} onChange={onChange}>
 			<TabsListStyled sx={{ ...sxTabsList }}>

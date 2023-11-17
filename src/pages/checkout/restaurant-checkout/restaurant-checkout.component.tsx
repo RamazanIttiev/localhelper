@@ -18,23 +18,34 @@ interface Props {
 	errors: FieldErrors<RestaurantFormFields>;
 	cartList: RestaurantItem[];
 	register: UseFormRegister<RestaurantFormFields>;
-	tabValue: TabValue;
-	handleTabChange: () => void;
+	orderMethod: string;
+	handleOrderMethod: (newValue: string | number | null) => void;
 }
+
+const orderMethods = [
+	{
+		id: '1',
+		title: 'Delivery',
+	},
+	{
+		id: '1',
+		title: 'Pick up',
+	},
+];
 
 export const RestaurantCheckoutComponent = ({
 	errors,
-	tabValue,
+	orderMethod,
 	register,
 	cartList,
 	restaurantTitle,
 	cartTotalAmount,
-	handleTabChange,
+	handleOrderMethod,
 }: Props) => {
 	return (
 		<>
 			<HintText sx={{ mb: 1 }} text={'At home or in the restaurant?'} />
-			<Tabs sxTabs={{ mb: 4 }} tabs={['Delivery', 'Pick up']} value={tabValue} onChange={handleTabChange} />
+			<Tabs sxTabs={{ mb: 4 }} tabs={orderMethods} value={orderMethod} onChange={handleOrderMethod} />
 			<RestaurantCheckoutForm errors={errors} register={register} />
 			<HintText sx={{ mt: '24px' }} text={`${restaurantTitle}`} />
 			<CartList cartList={cartList} restaurantTitle={restaurantTitle} />
@@ -49,7 +60,7 @@ export const RestaurantCheckoutComponent = ({
 							</Typography>
 						),
 					},
-					tabValue === TabValue.DELIVERY
+					orderMethod === TabValue.DELIVERY
 						? {
 								label: 'Delivery',
 								element: (

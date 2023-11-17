@@ -50,7 +50,7 @@ export const theme = createTheme({
 			link_color: window.Telegram.WebApp.themeParams?.link_color || '#696969',
 			button_color: window.Telegram.WebApp.themeParams?.button_color || '#696969',
 			button_text_color: window.Telegram.WebApp.themeParams?.button_text_color || '#fff',
-			button_hover_color: 'rgba(0, 0, 0, 0.04)',
+			button_hover_color: 'rgba(255, 255, 255, 0.14)',
 			button_disabled_color:
 				addOpacityToHexColor(window.Telegram.WebApp.themeParams?.button_color, 0.2) || '#ccc',
 		},
@@ -66,7 +66,7 @@ export const theme = createTheme({
 		},
 		fontWeight: { normal: '400', bold: '700', extraBold: '900' },
 		borderRadius: {
-			actionButton: '8px',
+			actionButton: '6px',
 			base: '12px',
 		},
 		height: '44px',

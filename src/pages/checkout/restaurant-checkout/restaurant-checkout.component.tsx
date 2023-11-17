@@ -19,7 +19,7 @@ interface Props {
 	cartList: RestaurantItem[];
 	register: UseFormRegister<RestaurantFormFields>;
 	orderMethod: string;
-	handleOrderMethod: (newValue: string | number | null) => void;
+	handleOrderMethod: (e: React.SyntheticEvent | null, newValue: string | number | null) => void;
 }
 
 const orderMethods = [
@@ -28,7 +28,7 @@ const orderMethods = [
 		title: 'Delivery',
 	},
 	{
-		id: '1',
+		id: '2',
 		title: 'Pick up',
 	},
 ];
@@ -45,7 +45,14 @@ export const RestaurantCheckoutComponent = ({
 	return (
 		<>
 			<HintText sx={{ mb: 1 }} text={'At home or in the restaurant?'} />
-			<Tabs sxTabs={{ mb: 4 }} tabs={orderMethods} value={orderMethod} onChange={handleOrderMethod} />
+			<Tabs
+				sxTabsList={{ width: '100%' }}
+				sxTab={{ width: '100%' }}
+				sxTabs={{ mb: 4 }}
+				tabs={orderMethods}
+				value={orderMethod}
+				onChange={handleOrderMethod}
+			/>
 			<RestaurantCheckoutForm errors={errors} register={register} />
 			<HintText sx={{ mt: '24px' }} text={`${restaurantTitle}`} />
 			<CartList cartList={cartList} restaurantTitle={restaurantTitle} />

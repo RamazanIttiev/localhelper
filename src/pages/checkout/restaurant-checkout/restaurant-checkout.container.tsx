@@ -43,7 +43,7 @@ export const RestaurantCheckoutContainer = () => {
 		{ order: cartOrder, orderTotal: cartTotalAmount, tgUserNick: tgUser?.username },
 	);
 
-	const handleOrderMethod = (newValue: string | number | null) => {
+	const handleOrderMethod = (e: React.SyntheticEvent | null, newValue: string | number | null) => {
 		impactOccurred('light');
 
 		if (typeof newValue === 'string') {

@@ -66,7 +66,7 @@ export const theme = createTheme({
 		},
 		fontWeight: { normal: '400', bold: '700', extraBold: '900' },
 		borderRadius: {
-			actionButton: '8px',
+			actionButton: '6px',
 			base: '12px',
 		},
 		height: '44px',

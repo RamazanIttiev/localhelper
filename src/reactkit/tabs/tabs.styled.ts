@@ -33,8 +33,9 @@ export const TabStyled = styled(BaseTab)(
     flex-direction: column;
     outline: none;
     transition: all 0.1s ease;
-    padding: 8px;
-   
+    padding: 4px 16px;
+    min-height: 30px;
+    
     &:hover {
       background-color: ${theme.tg_theme.palette.button_hover_color};
     }
@@ -45,7 +46,6 @@ export const TabStyled = styled(BaseTab)(
     }
   
     &.${tabClasses.selected} {
-      font-size: 13px;
       background-color: ${theme.tg_theme.palette.button_color};
       color: ${theme.tg_theme.palette.text_color};
     }
@@ -53,12 +53,9 @@ export const TabStyled = styled(BaseTab)(
 );
 
 export const TabImageStyled = styled('img')(
-	({ theme }) => `
+	() => `
       display: block;
-      width: 4rem;
-      height: 4rem;
-      borderRadius: ${theme.tg_theme.borderRadius.base};
-      objectFit: cover;  
+      width: 3rem;
   `,
 );
 
@@ -66,11 +63,25 @@ export const TabTitleStyled = styled(Typography)(
 	({ theme }) => `
       margin: 0px;
       display: flex;
+      line-height: 1;
       font-size: ${theme.tg_theme.fontSize.caption};
       font-weight: ${theme.tg_theme.fontWeight.bold};
       align-items: center;
       justify-content: center;
       text-transform: capitalize;  
+  `,
+);
+
+export const TabPriceStyled = styled(Typography)(
+	({ theme }) => `
+      margin-top: 4px;
+      display: flex;
+      line-height: 1;
+      color: ${theme.tg_theme.palette.button_disabled_color};
+      font-size: ${theme.tg_theme.fontSize.caption};
+      font-weight: ${theme.tg_theme.fontWeight.bold};
+      align-items: center;
+      justify-content: center;
   `,
 );
 

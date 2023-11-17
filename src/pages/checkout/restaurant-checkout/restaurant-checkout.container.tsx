@@ -31,7 +31,7 @@ export const RestaurantCheckoutContainer = () => {
 	const restaurantItems = state.cartList;
 
 	const [impactOccurred] = useHapticFeedback();
-	const [tabValue, setTabValue] = useState<TabValue>(TabValue.DELIVERY);
+	const [orderMethod, setOrderMethod] = useState<string>(TabValue.DELIVERY);
 
 	const { getTotalPrice, getCartOrder, clearCart } = useCartService();
 
@@ -43,12 +43,12 @@ export const RestaurantCheckoutContainer = () => {
 		{ order: cartOrder, orderTotal: cartTotalAmount, tgUserNick: tgUser?.username },
 	);
 
-	const handleTabChange = () => {
+	const handleOrderMethod = (newValue: string | number | null) => {
 		impactOccurred('light');
 
-		const value = tabValue === TabValue.DELIVERY ? TabValue.PICK_UP : TabValue.DELIVERY;
-
-		setTabValue(value);
+		if (typeof newValue === 'string') {
+			setOrderMethod(newValue);
+		}
 	};
 
 	useEffect(() => {
@@ -66,8 +66,8 @@ export const RestaurantCheckoutContainer = () => {
 				register={register}
 				errors={errors}
 				restaurantTitle={restaurant?.title}
-				tabValue={tabValue}
-				handleTabChange={handleTabChange}
+				orderMethod={orderMethod}
+				handleOrderMethod={handleOrderMethod}
 			/>
 			<MainButton
 				text={'Order'}

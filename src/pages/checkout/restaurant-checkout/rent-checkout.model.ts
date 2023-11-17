@@ -5,6 +5,6 @@ export interface RestaurantFormFields {
 }
 
 export enum TabValue {
-	DELIVERY,
-	PICK_UP,
+	DELIVERY = '1',
+	PICK_UP = '2',
 }

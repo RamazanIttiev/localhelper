@@ -14,9 +14,10 @@ interface Props {
 
 export const CartList = ({ cartList, restaurantTitle }: Props) => {
 	const { pathname } = useLocation();
+	const amountButtonsShown = !pathname.includes('checkout');
 
 	return (
-		<List>
+		<List sx={{ p: 0 }}>
 			{cartList.map(item => {
 				return (
 					<React.Fragment key={item.id}>
@@ -45,7 +46,7 @@ export const CartList = ({ cartList, restaurantTitle }: Props) => {
 									{item.price} Rs
 								</Typography>
 							</Box>
-							{pathname !== '/checkout' && (
+							{amountButtonsShown && (
 								<AmountButtons
 									showPrice={false}
 									showAmount

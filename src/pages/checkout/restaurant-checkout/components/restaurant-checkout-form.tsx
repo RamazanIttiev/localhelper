@@ -6,7 +6,7 @@ import { Input } from 'reactkit/input';
 
 import { RestaurantFormFields } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
 
-import { nameInputValidation, phoneInputValidation } from 'common/utils/validation';
+import { addressValidation, nameInputValidation } from 'common/utils/validation';
 
 interface FormUIProps {
 	errors: FieldErrors<RestaurantFormFields>;
@@ -34,31 +34,11 @@ export const RestaurantCheckoutForm = ({ register, errors }: FormUIProps) => {
 						),
 					},
 					{
-						label: 'phone',
+						label: 'address',
 						element: (
 							<>
-								<Input
-									required
-									type={'tel'}
-									register={register}
-									error={errors.userPhone !== undefined}
-									{...phoneInputValidation}
-								/>
-								{errors.userPhone && <ErrorText text={errors.userPhone?.message} />}
-							</>
-						),
-					},
-					{
-						label: 'hotel',
-						element: (
-							<>
-								<Input
-									type={'text'}
-									register={register}
-									placeholder={'Hotel'}
-									fieldName={'userHotel'}
-								/>
-								{errors.userHotel && <ErrorText text={errors.userHotel?.message} />}
+								<Input type={'text'} register={register} {...addressValidation} />
+								{errors.userAddress && <ErrorText text={errors.userAddress?.message} />}
 							</>
 						),
 					},

@@ -27,6 +27,6 @@ export const dateRangeValidation = {
 
 export const addressValidation = {
 	fieldName: 'userAddress',
-	placeholder: 'Weligama, W 15',
+	placeholder: 'Weligama, W 15 hotel',
 	requiredMessage: 'Address is required',
 };

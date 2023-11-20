@@ -1,12 +1,21 @@
-import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { useQuery } from '@tanstack/react-query';
+import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
+import React, { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 
-import { BikesFormFields } from 'pages/checkout/bikes-checkout/bikes-checkout.model';
+import { Container } from '@mui/material';
+
+import { BikesFormFields } from 'pages/bikes/domain/model/bikes.model';
 import { useBase } from 'pages/checkout/hooks/checkout.hook';
-import { DefaultItemModel } from 'pages/item/domain/item.model';
+import { Items } from 'pages/items/domain/items.model';
 
+import { getFlowId } from 'utils/airtable';
 import { getDateDiff } from 'utils/date';
 
+import { itemsQuery } from 'api/airtable/items';
+
+import { handleOrder } from 'actions/global-actions';
 import { getTelegramUser } from 'actions/webApp-actions';
 
 import { theme } from 'theme/theme';
@@ -14,28 +23,69 @@ import { theme } from 'theme/theme';
 import { BikesCheckoutComponent } from './bikes.component';
 
 export const BikesContainer = () => {
+	const { categoryId } = useParams();
+
 	const tgUser = getTelegramUser();
 
-	const { state, onSubmit, errors, register, control, isSubmitting } = useBase(
+	const { data: items } = useQuery<Items>(itemsQuery(categoryId));
+
+	const [selectedBike, setSelectedBike] = useState<string | undefined>(undefined);
+	const [isHelmet, setIsHelmet] = useState(true);
+
+	const [impactOccurred, notificationOccurred] = useHapticFeedback();
+
+	const { handleSubmit, errors, register, control, isSubmitting } = useBase(
 		useForm<BikesFormFields>({
 			defaultValues: { userName: tgUser?.first_name, startDate: null, endDate: null },
 		}),
 	);
 
-	const item: DefaultItemModel = state.item || {};
 	const startDate = useWatch({ control, name: 'startDate' });
 	const endDate = useWatch({ control, name: 'endDate' });
 
 	const rentPeriod = getDateDiff(startDate, endDate);
 
+	const handleSelectedBike = (e: React.SyntheticEvent | null, newValue: string | number | null) => {
+		impactOccurred('light');
+
+		if (typeof newValue === 'string') {
+			setSelectedBike(newValue);
+		}
+	};
+
+	const handleHelmet = () => {
+		setIsHelmet(prevState => !prevState);
+	};
+
+	const item = items?.find(item => {
+		return item.id === selectedBike;
+	});
+
+	const flowId = getFlowId(categoryId);
+
+	const onSubmit = handleSubmit(
+		formData => {
+			impactOccurred('light');
+			return handleOrder(flowId, {
+				item: item?.title || '',
+				rentPeriod,
+				helmet: isHelmet,
+				...formData,
+			});
+		},
+		() => notificationOccurred('error'),
+	);
+
 	return (
-		<>
+		<Container maxWidth={'md'} sx={{ py: 1 }}>
 			<BikesCheckoutComponent
+				bikes={items}
 				errors={errors}
-				item={item}
 				control={control}
 				register={register}
 				rentPeriod={rentPeriod}
+				handleHelmet={handleHelmet}
+				handleSelectedBike={handleSelectedBike}
 			/>
 			<MainButton
 				text={'Order'}
@@ -46,6 +96,15 @@ export const BikesContainer = () => {
 					isSubmitting ? theme.tg_theme.palette.button_disabled_color : theme.tg_theme.palette.button_color
 				}
 			/>
-		</>
+		</Container>
 	);
+};
+
+export const mapItems = (items: Items | undefined) => {
+	return items?.map(item => {
+		return {
+			...item,
+			image: item.image[0].url,
+		};
+	});
 };

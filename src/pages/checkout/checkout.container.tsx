@@ -4,7 +4,6 @@ import { ActionButton } from 'reactkit/actionButton';
 
 import { Container } from '@mui/material';
 
-import { BikesCheckoutContainer } from 'pages/checkout/bikes-checkout/bikes-checkout.container';
 import { ExchangeContainer } from 'pages/checkout/exchange-checkout/exchange-checkout.container';
 import { FlowersCheckoutContainer } from 'pages/checkout/flowers-checkout/flowers-checkout.container';
 import { RentCheckoutContainer } from 'pages/checkout/rent-checkout/rent-checkout.container';
@@ -23,13 +22,6 @@ const renderCheckoutContainer = (categoryId: string | undefined) => {
 			return (
 				<Container maxWidth={'sm'} sx={containerStyles}>
 					<RestaurantCheckoutContainer />
-				</Container>
-			);
-		}
-		case 'transport': {
-			return (
-				<Container maxWidth={'sm'} sx={containerStyles}>
-					<BikesCheckoutContainer />
 				</Container>
 			);
 		}

@@ -1,5 +1,6 @@
 import { isUserAgentTelegram } from 'utils/deviceInfo';
 
+import bike from 'assets/bike.webp';
 import bonus from 'assets/bonus.webp';
 import exchange from 'assets/exchange.webp';
 import flowers from 'assets/flowers.webp';
@@ -7,7 +8,6 @@ import food from 'assets/food.webp';
 import rent from 'assets/rent.webp';
 import tours from 'assets/tours.webp';
 import transfer from 'assets/transfer.webp';
-import bike from 'assets/transport.webp';
 
 export const categoriesPrimary = [
 	{ title: 'Food', image: food, isLink: true, sx: { width: '48%', mb: 2 } },
@@ -18,7 +18,7 @@ export const categoriesPrimary = [
 		isLink: isUserAgentTelegram,
 		sx: { width: '48%', mb: 2 },
 	},
-	{ title: 'Transport', image: bike, isLink: true, sx: { width: '48%', mb: 2 } },
+	{ title: 'Bikes', image: bike, isLink: true, sx: { width: '48%', mb: 2 } },
 	{
 		title: 'Transfer',
 		image: transfer,

@@ -50,7 +50,6 @@ export const RestaurantCheckoutComponent = ({
 				sxTab={{ width: '100%' }}
 				sxTabs={{ mb: 4 }}
 				tabs={orderMethods}
-				value={orderMethod}
 				onChange={handleOrderMethod}
 			/>
 			<RestaurantCheckoutForm errors={errors} register={register} />

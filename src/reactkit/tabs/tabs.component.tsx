@@ -11,10 +11,12 @@ import {
 
 import { SxProps } from '@mui/material';
 
+import bike from 'assets/bike.webp';
+
 interface Props {
-	readonly value: string;
 	readonly onChange: (e: React.SyntheticEvent | null, newValue: string | number | null) => void;
-	readonly tabs: ReadonlyArray<Record<string, string>>;
+	// TODO change type
+	readonly tabs: any;
 	readonly tabPanels?: {
 		panel: ReactNode;
 		value: number;
@@ -26,14 +28,16 @@ interface Props {
 	readonly sxTabPanel?: SxProps;
 }
 
-export const Tabs = ({ value, onChange, tabs, tabPanels, sxTab, sxTabs, sxTabsList, sxTabPanel }: Props) => {
+export const Tabs = ({ onChange, tabs, tabPanels, sxTab, sxTabs, sxTabsList, sxTabPanel }: Props) => {
+	const defaultValue = tabs?.[0].id;
+
 	return (
-		<TabsStyled sx={{ ...sxTabs }} value={value} onChange={onChange}>
+		<TabsStyled sx={{ ...sxTabs }} defaultValue={defaultValue} onChange={onChange}>
 			<TabsListStyled sx={{ ...sxTabsList }}>
-				{tabs.map(tab => {
+				{tabs.map((tab: Record<string, string>) => {
 					return (
 						<TabStyled value={tab.id} sx={{ ...sxTab }}>
-							{tab.image && <TabImageStyled src={tab.image} alt={tab.title} />}
+							{tab.image && <TabImageStyled src={bike} alt={tab.title} />}
 							<TabTitleStyled>{tab.title.toLowerCase()}</TabTitleStyled>
 							{tab.price && <TabPriceStyled>{tab.price}</TabPriceStyled>}
 						</TabStyled>

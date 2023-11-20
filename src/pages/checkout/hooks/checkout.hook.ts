@@ -34,6 +34,7 @@ export const useBase = (useForm: UseFormReturn<any, any>, restFormData?: object)
 		register,
 		control,
 		errors,
+		handleSubmit,
 		isSubmitting,
 		isSubmitSuccessful,
 	};

@@ -8,7 +8,7 @@ import { getMappedCartList } from 'pages/cart/presentation/utils/cart';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
-import { getAirtableUrl } from 'utils/airtable';
+import { getAirtableUrl } from 'common/utils/airtable';
 
 import { fetchAirtableData } from 'api/api';
 

@@ -6,7 +6,7 @@ import { CartHeader } from 'pages/cart/presentation/components/cart-header';
 import { CartList } from 'pages/cart/presentation/components/cart-list';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 
-import { theme } from 'theme/theme';
+import { theme } from 'ui/theme/theme';
 
 interface Props {
 	restaurantTitle?: string;

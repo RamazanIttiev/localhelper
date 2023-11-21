@@ -1,14 +1,13 @@
 import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { HintText } from 'reactkit/hintText';
 
 import { Box, Typography } from '@mui/material';
-
-import { DefaultItemModel } from 'pages/items-list/item/item.model';
 
 import { FlowersCheckoutForm } from './components/flowers-checkout-form';
 
 import { FlowersFormFields } from './flowers-checkout.model';
+import { HintText } from 'ui/atoms/hintText';
+import { DefaultItemModel } from 'ui/organisms/item/domain/item.model';
 
 interface Props {
 	item: DefaultItemModel;

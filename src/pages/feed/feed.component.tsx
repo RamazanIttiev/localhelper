@@ -5,7 +5,7 @@ import { Container } from '@mui/material';
 import { FeedCardComponent } from 'pages/feed/feed-card/feed-card';
 import { Feed } from 'pages/feed/feed-card/feed-card.model';
 
-import { FeedSkeleton } from 'components/skeletons/feedSkeleton';
+import { FeedSkeleton } from 'ui/atoms/skeletons/feedSkeleton';
 
 interface Props {
 	feed: Feed[] | undefined;

@@ -2,14 +2,14 @@ import { MainButton } from '@vkruglikov/react-telegram-web-app';
 import { useForm } from 'react-hook-form';
 
 import { useBase } from 'pages/checkout/hooks/checkout.hook';
-import { DefaultItemModel } from 'pages/items-list/item/item.model';
 
 import { getTelegramUser } from 'actions/webApp-actions';
 
-import { theme } from 'theme/theme';
+import { theme } from 'ui/theme/theme';
 
 import { FlowersCheckoutComponent } from './flowers-checkout.component';
 import { FlowersFormFields } from './flowers-checkout.model';
+import { DefaultItemModel } from 'ui/organisms/item/domain/item.model';
 
 export const FlowersCheckoutContainer = () => {
 	const tgUser = getTelegramUser();

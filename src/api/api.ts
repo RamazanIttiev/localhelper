@@ -1,6 +1,6 @@
-import { mapRecords } from 'utils/mappers';
+import { mapRecords } from 'common/utils/mappers';
 
-import { AirtableData } from 'models/airtable.model';
+import { AirtableData } from 'common/models/airtable.model';
 
 type METHODS = 'GET' | 'POST' | 'DELETE';
 
@@ -13,7 +13,7 @@ export const apiRequest = async (url: string, method: METHODS, headers: Record<s
 		});
 
 		if (!response.ok) {
-			throw new Error('API request failed.');
+			new Error('API request failed.');
 		}
 
 		return await response.json();

@@ -47,27 +47,15 @@
       "assets/*": [
         "./assets/*"
       ],
-      "components/*": [
-        "./components/*"
-      ],
-      "context/*": [
-        "./context/*"
-      ],
-      "models/*": [
-        "./models/*"
+      "common/*": [
+        "./common/*"
       ],
       "pages/*": [
         "./pages/*"
       ],
-      "reactkit/*": [
-        "./reactkit/*"
+      "ui/*": [
+        "./ui/*"
       ],
-      "utils/*": [
-        "./utils/*"
-      ],
-      "theme/*": [
-        "./theme/*"
-      ]
     }
   },
   "include": [

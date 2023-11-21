@@ -6,7 +6,7 @@ import { Box, Container } from '@mui/material';
 
 import { CategoryCard } from 'pages/categories/category-card/category-card';
 
-import { GeoLocationProps } from 'models/geolocation.model';
+import { GeoLocationProps } from 'common/models/geolocation.model';
 
 import { geolocationQuery } from 'api/geolocation';
 

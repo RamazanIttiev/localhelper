@@ -1,17 +1,16 @@
 import React from 'react';
-import { ActionButton } from 'reactkit/actionButton';
-import { IconBadges } from 'reactkit/iconBadges';
 
 import { Box, Card, CardContent, CardMedia, Container, Typography } from '@mui/material';
 
-import { Item } from 'pages/items-list/item/item.model';
+import { isUserAgentTelegram } from 'common/utils/deviceInfo';
+import { openTelegram } from 'common/utils/service';
 
-import { MuiCarousel } from 'components/carousel';
+import { theme } from 'ui/theme/theme';
 
-import { isUserAgentTelegram } from 'utils/deviceInfo';
-import { openTelegram } from 'utils/service';
-
-import { theme } from 'theme/theme';
+import { ActionButton } from 'ui/atoms/actionButton';
+import { IconBadges } from 'ui/atoms/iconBadges';
+import { MuiCarousel } from 'ui/organisms/carousel';
+import { Item } from 'ui/organisms/item/domain/item.model';
 
 interface Props {
 	item: Item;

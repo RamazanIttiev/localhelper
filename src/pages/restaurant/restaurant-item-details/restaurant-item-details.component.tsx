@@ -1,21 +1,20 @@
 import React from 'react';
-import { ActionButton } from 'reactkit/actionButton';
-import { InfoBadge } from 'reactkit/infoBadge';
 
 import { Box, Card, CardActions, CardContent, CardMedia, Container, Typography } from '@mui/material';
 
 import { useCartService } from 'pages/cart/domain/service/cart.service';
 
-import { AmountButtons } from 'components/amountButtons';
-import { MuiCarousel } from 'components/carousel';
-
-import { isUserAgentTelegram } from 'utils/deviceInfo';
-import { openTelegram } from 'utils/service';
+import { isUserAgentTelegram } from 'common/utils/deviceInfo';
+import { openTelegram } from 'common/utils/service';
 
 import skeletonImage from 'assets/food.webp';
 
 import { RestaurantItem } from '../restaurant-item/restaurant-item.model';
 import { Restaurant } from '../restaurant.model';
+import { ActionButton } from 'ui/atoms/actionButton';
+import { InfoBadge } from 'ui/atoms/infoBadge';
+import { AmountButtons } from 'ui/organisms/amountButtons';
+import { MuiCarousel } from 'ui/organisms/carousel';
 
 interface Props {
 	readonly restaurant: Restaurant;
@@ -27,7 +26,7 @@ export const RestaurantItemDetails = ({ restaurantItem, restaurant }: Props) => 
 
 	const { isWorking } = restaurant;
 	// TODO add quantity backdrop
-	const { title, image, quantity, iconBadges, description, price } = restaurantItem;
+	const { title, image, iconBadges, description, price } = restaurantItem;
 
 	const isRemoveVisible = getItemQuantity(restaurantItem.id) > 0;
 

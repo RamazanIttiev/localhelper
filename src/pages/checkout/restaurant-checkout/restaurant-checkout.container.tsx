@@ -11,7 +11,7 @@ import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 import { getTelegramUser } from 'actions/webApp-actions';
 
-import { theme } from 'theme/theme';
+import { theme } from 'ui/theme/theme';
 
 import { RestaurantCheckoutComponent } from './restaurant-checkout.component';
 

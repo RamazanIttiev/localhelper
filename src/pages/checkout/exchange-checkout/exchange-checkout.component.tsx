@@ -1,7 +1,5 @@
 import React from 'react';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
-import { HintText } from 'reactkit/hintText';
-import { Separator } from 'reactkit/separator';
 
 import { Container } from '@mui/material';
 
@@ -9,6 +7,9 @@ import { ToChangeBox } from 'pages/checkout/exchange-checkout/components/to-chan
 import { ToReceiveBox } from 'pages/checkout/exchange-checkout/components/to-receive-box';
 import { ExchangeFormFields } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
 import { ToChangeState, ToReceiveState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
+
+import { HintText } from 'ui/atoms/hintText';
+import { Separator } from 'ui/atoms/separator';
 
 interface ExchangeComponentProps {
 	exchangeRate: number | null;

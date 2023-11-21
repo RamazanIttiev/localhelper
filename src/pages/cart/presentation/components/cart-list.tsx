@@ -5,7 +5,7 @@ import { Box, List, ListItem, Typography } from '@mui/material';
 
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 
-import { AmountButtons } from 'components/amountButtons';
+import { AmountButtons } from 'ui/organisms/amountButtons';
 
 interface Props {
 	restaurantTitle?: string;

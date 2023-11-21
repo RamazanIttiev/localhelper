@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { WorkingStatus } from 'reactkit/workingStatus';
 
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
-import { theme } from 'theme/theme';
+import { theme } from 'ui/theme/theme';
+
+import { WorkingStatus } from 'ui/atoms/workingStatus';
 
 interface Props {
 	restaurant: Restaurant;

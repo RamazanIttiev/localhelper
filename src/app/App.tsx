@@ -6,10 +6,10 @@ import { Layout } from 'app/Layout';
 
 import { CartContainer } from 'pages/cart/presentation/cart.container';
 import { Categories } from 'pages/categories/categories';
+import { CategoryContainer } from 'pages/category/presentation/category/category.container';
 import { CheckoutContainer } from 'pages/checkout/checkout.container';
 import { FeedContainer } from 'pages/feed/feed.container';
 import { ItemDetailsContainer } from 'pages/item-details/item-details.container';
-import { ItemsList } from 'pages/items-list/items-list';
 import { RestaurantItemDetailsContainer } from 'pages/restaurant/restaurant-item-details/restaurant-item-details.container';
 import { RestaurantContainer } from 'pages/restaurant/restaurant.container';
 import { RestaurantsListContainer } from 'pages/restaurants-list/restaurants.container';
@@ -17,10 +17,10 @@ import { RestaurantsListContainer } from 'pages/restaurants-list/restaurants.con
 import { categoryLoader } from 'api/airtable/category';
 import { feedLoader } from 'api/airtable/feed';
 import { itemsLoader } from 'api/airtable/items';
-import { restaurantLoader, restaurantItemsLoader, restaurantsLoader } from 'api/airtable/restaurant';
+import { restaurantItemsLoader, restaurantLoader, restaurantsLoader } from 'api/airtable/restaurant';
 import { geolocationLoader } from 'api/geolocation';
 
-import { WebApp, WebAppTheme, WebAppUser } from 'theme/types';
+import { WebApp, WebAppTheme, WebAppUser } from 'ui/theme/types';
 
 const queryClient = new QueryClient();
 
@@ -34,7 +34,7 @@ const router = createBrowserRouter(
 			<Route index element={<Categories />} loader={() => geolocationLoader(queryClient)} />
 			<Route
 				path=":categoryId"
-				element={<ItemsList />}
+				element={<CategoryContainer />}
 				loader={async () => {
 					const [category, items] = await Promise.all([
 						categoryLoader(queryClient),
@@ -62,11 +62,11 @@ const router = createBrowserRouter(
 			/>
 
 			<Route path=":categoryId/:item" element={<ItemDetailsContainer />} />
+
+			<Route path=":categoryId/:item" element={<ItemDetailsContainer />} />
 			<Route path=":categoryId/restaurants/:restaurantId/:item" element={<RestaurantItemDetailsContainer />} />
 
 			<Route path="feed" element={<FeedContainer />} loader={() => feedLoader(queryClient)} />
-
-			<Route path="shopping-cart" element={<CartContainer />} loader={() => restaurantItemsLoader(queryClient)} />
 
 			<Route path="shopping-cart" element={<CartContainer />} loader={() => restaurantItemsLoader(queryClient)} />
 

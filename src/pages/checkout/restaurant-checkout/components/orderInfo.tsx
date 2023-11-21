@@ -1,9 +1,10 @@
 import React from 'react';
-import { HintText } from 'reactkit/hintText';
 
 import { Box, Typography } from '@mui/material';
 
-import { theme } from 'theme/theme';
+import { theme } from 'ui/theme/theme';
+
+import { HintText } from 'ui/atoms/hintText';
 
 interface OrderInfoProps {
 	payment?: string;

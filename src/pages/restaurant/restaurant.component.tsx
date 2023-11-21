@@ -1,19 +1,18 @@
 import React from 'react';
-import { ActionButton } from 'reactkit/actionButton';
 
 import { Container, Grid } from '@mui/material';
 
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
-import { HeaderSkeleton } from 'components/skeletons/headerSkeleton';
-import { ItemSkeleton } from 'components/skeletons/itemSkeleton';
-
-import { isUserAgentTelegram } from 'utils/deviceInfo';
-import { openTelegram } from 'utils/service';
+import { isUserAgentTelegram } from 'common/utils/deviceInfo';
+import { openTelegram } from 'common/utils/service';
 
 import { RestaurantHeader } from './restaurant-header/restaurant-header';
 import { RestaurantItemContainer } from './restaurant-item/restaurant-item.container';
+import { ActionButton } from 'ui/atoms/actionButton';
+import { HeaderSkeleton } from 'ui/atoms/skeletons/headerSkeleton';
+import { ItemSkeleton } from 'ui/atoms/skeletons/itemSkeleton';
 
 interface Props {
 	readonly flowId: string;

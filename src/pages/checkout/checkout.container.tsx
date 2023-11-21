@@ -1,10 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { ActionButton } from 'reactkit/actionButton';
 
 import { Container } from '@mui/material';
 
-import { BikesCheckoutContainer } from 'pages/checkout/bikes-checkout/bikes-checkout.container';
 import { ExchangeContainer } from 'pages/checkout/exchange-checkout/exchange-checkout.container';
 import { FlowersCheckoutContainer } from 'pages/checkout/flowers-checkout/flowers-checkout.container';
 import { RentCheckoutContainer } from 'pages/checkout/rent-checkout/rent-checkout.container';
@@ -12,8 +10,10 @@ import { RestaurantCheckoutContainer } from 'pages/checkout/restaurant-checkout/
 import { ToursCheckoutContainer } from 'pages/checkout/tours-checkout/tours-checkout.container';
 import { TransferCheckoutContainer } from 'pages/checkout/transfer-checkout/transfer-checkout.container';
 
-import { isUserAgentTelegram } from 'utils/deviceInfo';
-import { openTelegram } from 'utils/service';
+import { isUserAgentTelegram } from 'common/utils/deviceInfo';
+import { openTelegram } from 'common/utils/service';
+
+import { ActionButton } from 'ui/atoms/actionButton';
 
 const containerStyles = { pt: '1rem', pb: '1rem', position: 'relative' };
 
@@ -23,13 +23,6 @@ const renderCheckoutContainer = (categoryId: string | undefined) => {
 			return (
 				<Container maxWidth={'sm'} sx={containerStyles}>
 					<RestaurantCheckoutContainer />
-				</Container>
-			);
-		}
-		case 'transport': {
-			return (
-				<Container maxWidth={'sm'} sx={containerStyles}>
-					<BikesCheckoutContainer />
 				</Container>
 			);
 		}

@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material';
 
 import { Category } from 'pages/categories/category.model';
 
-import { theme } from 'theme/theme';
+import { theme } from 'ui/theme/theme';
 
 interface HeaderProps {
 	category: Pick<Category, 'headerTitle' | 'headerImage'> | undefined;

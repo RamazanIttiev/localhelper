@@ -4,13 +4,12 @@ import { useParams } from 'react-router-dom';
 
 import { Container, Grid } from '@mui/material';
 
-import { RestaurantSkeleton } from 'components/skeletons/restaurantSkeleton';
-
 import { restaurantsQuery } from 'api/airtable/restaurant';
 
 import { hideMainButton } from 'actions/webApp-actions';
 
 import { RestaurantCard } from './restaurant-card';
+import { RestaurantSkeleton } from 'ui/atoms/skeletons/restaurantSkeleton';
 
 export const RestaurantsListContainer = () => {
 	const { restaurantId } = useParams();

@@ -1,5 +1,6 @@
-import { Item } from 'pages/item/domain/item.model';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
+
+import { Item } from 'ui/organisms/item/domain/item.model';
 
 export interface Category {
 	id: string;

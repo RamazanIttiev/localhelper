@@ -1,14 +1,13 @@
 import React from 'react';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
-import { HintText } from 'reactkit/hintText';
 
 import { Box, Typography } from '@mui/material';
-
-import { DefaultItemModel } from 'pages/item/domain/item.model';
 
 import { ToursCheckoutForm } from './components/tours-checkout-form';
 
 import { ToursFormFields } from './tours-checkout.model';
+import { HintText } from 'ui/atoms/hintText';
+import { DefaultItemModel } from 'ui/organisms/item/domain/item.model';
 
 interface Props {
 	item: DefaultItemModel;

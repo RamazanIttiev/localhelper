@@ -10,15 +10,15 @@ import { BikesFormFields } from 'pages/bikes/domain/model/bikes.model';
 import { useBase } from 'pages/checkout/hooks/checkout.hook';
 import { Items } from 'pages/items/domain/items.model';
 
-import { getFlowId } from 'utils/airtable';
-import { getDateDiff } from 'utils/date';
+import { getFlowId } from 'common/utils/airtable';
+import { getDateDiff } from 'common/utils/date';
 
 import { itemsQuery } from 'api/airtable/items';
 
 import { handleOrder } from 'actions/global-actions';
 import { getTelegramUser } from 'actions/webApp-actions';
 
-import { theme } from 'theme/theme';
+import { theme } from 'ui/theme/theme';
 
 import { BikesCheckoutComponent } from './bikes.component';
 

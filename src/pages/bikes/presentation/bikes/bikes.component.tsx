@@ -1,16 +1,16 @@
 import React from 'react';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
-import { Switch } from 'reactkit/switch/switch';
-import { Tabs } from 'reactkit/tabs/tabs.component';
 
 import { Box, Skeleton, Typography } from '@mui/material';
 
 import { Items } from 'pages/items/domain/items.model';
 
-import { theme } from 'theme/theme';
+import { theme } from 'ui/theme/theme';
 
 import { BikesFormFields } from '../../domain/model/bikes.model';
 import { BikesCheckoutForm } from '../bikes-form/bikes-form';
+import { Switch } from 'ui/atoms/switch/switch';
+import { Tabs } from 'ui/molecules/tabs/tabs.component';
 
 interface Props {
 	bikes: Items | undefined;

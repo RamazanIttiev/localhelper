@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material';
 
 import { ToReceiveState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
 
-import { theme } from 'theme/theme';
+import { theme } from 'ui/theme/theme';
 
 interface Props {
 	state: ToReceiveState;

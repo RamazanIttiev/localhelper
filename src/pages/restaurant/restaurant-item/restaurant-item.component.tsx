@@ -1,19 +1,18 @@
 import React from 'react';
-import { IconBadges } from 'reactkit/iconBadges';
-import { InfoBadge } from 'reactkit/infoBadge';
-import { Link } from 'reactkit/link';
 
 import { Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
-import { AmountButtons } from 'components/amountButtons';
-import { ImageBackdrop } from 'components/imageBackdrop';
+import { isUserAgentTelegram } from 'common/utils/deviceInfo';
 
-import { isUserAgentTelegram } from 'utils/deviceInfo';
-
-import { theme } from 'theme/theme';
+import { theme } from 'ui/theme/theme';
 
 import { Restaurant } from '../restaurant.model';
 import { RestaurantItem } from './restaurant-item.model';
+import { IconBadges } from 'ui/atoms/iconBadges';
+import { ImageBackdrop } from 'ui/atoms/imageBackdrop';
+import { InfoBadge } from 'ui/atoms/infoBadge';
+import { Link } from 'ui/atoms/link';
+import { AmountButtons } from 'ui/organisms/amountButtons';
 
 interface Props {
 	readonly flowId: string;

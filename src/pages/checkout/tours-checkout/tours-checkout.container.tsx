@@ -2,14 +2,14 @@ import { MainButton } from '@vkruglikov/react-telegram-web-app';
 import { useForm } from 'react-hook-form';
 
 import { useBase } from 'pages/checkout/hooks/checkout.hook';
-import { DefaultItemModel } from 'pages/item/domain/item.model';
 
 import { getTelegramUser } from 'actions/webApp-actions';
 
-import { theme } from 'theme/theme';
+import { theme } from 'ui/theme/theme';
 
 import { ToursCheckoutComponent } from './tours-checkout.component';
 import { ToursFormFields } from './tours-checkout.model';
+import { DefaultItemModel } from 'ui/organisms/item/domain/item.model';
 
 export const ToursCheckoutContainer = () => {
 	const tgUser = getTelegramUser();

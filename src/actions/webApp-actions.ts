@@ -2,7 +2,7 @@ import { TgUser, TgWebApp } from 'app/App';
 
 import CryptoJS from 'crypto-js';
 
-import { WebAppUser } from 'theme/types';
+import { WebAppUser } from 'ui/theme/types';
 
 export const verifyInitData = (telegramInitData: string): boolean => {
 	const initData = new URLSearchParams(telegramInitData);

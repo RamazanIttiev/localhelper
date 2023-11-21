@@ -1,8 +1,5 @@
 import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { EntityGroup } from 'reactkit/entityGroup';
-import { HintText } from 'reactkit/hintText';
-import { Tabs } from 'reactkit/tabs/tabs.component';
 
 import { Typography } from '@mui/material';
 
@@ -11,6 +8,10 @@ import { RestaurantFormFields, TabValue } from 'pages/checkout/restaurant-checko
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 
 import { RestaurantCheckoutForm } from './components/restaurant-checkout-form';
+
+import { HintText } from 'ui/atoms/hintText';
+import { EntityGroup } from 'ui/molecules/entityGroup';
+import { Tabs } from 'ui/molecules/tabs/tabs.component';
 
 interface Props {
 	cartTotalAmount: number;

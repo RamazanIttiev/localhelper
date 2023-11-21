@@ -1,9 +1,6 @@
 import { useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import React from 'react';
 import { Control, UseFormRegister, useWatch } from 'react-hook-form';
-import { ErrorText } from 'reactkit/errorText';
-import { Input } from 'reactkit/input';
-import { Select } from 'reactkit/select';
 
 import { Box, Skeleton, Typography } from '@mui/material';
 
@@ -11,7 +8,11 @@ import { ExchangeFormFields } from 'pages/checkout/exchange-checkout/exchange-ch
 import { ToChangeState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
 import { amountToChangeValidation } from 'pages/checkout/exchange-checkout/service/validation';
 
-import { theme } from 'theme/theme';
+import { theme } from 'ui/theme/theme';
+
+import { ErrorText } from 'ui/atoms/errorText';
+import { Input } from 'ui/atoms/input';
+import { Select } from 'ui/atoms/select';
 
 interface Props {
 	exchangeRate: number | null;

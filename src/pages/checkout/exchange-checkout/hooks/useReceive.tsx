@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { ToReceiveState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
 
-import { computeAmount } from 'utils/service';
+import { computeAmount } from 'common/utils/service';
 
 import { ReactComponent as RupeeIcon } from 'assets/svg/rupee.svg';
 

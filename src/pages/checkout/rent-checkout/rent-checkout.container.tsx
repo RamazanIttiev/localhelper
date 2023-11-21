@@ -2,16 +2,16 @@ import { MainButton } from '@vkruglikov/react-telegram-web-app';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { useBase } from 'pages/checkout/hooks/checkout.hook';
-import { DefaultItemModel } from 'pages/item/domain/item.model';
 
-import { getDateDiff } from 'utils/date';
+import { getDateDiff } from 'common/utils/date';
 
 import { getTelegramUser } from 'actions/webApp-actions';
 
-import { theme } from 'theme/theme';
+import { theme } from 'ui/theme/theme';
 
 import { RentCheckoutComponent } from './rent-checkout.component';
 import { RentFormFields } from './rent-checkout.model';
+import { DefaultItemModel } from 'ui/organisms/item/domain/item.model';
 
 export const RentCheckoutContainer = () => {
 	const tgUser = getTelegramUser();

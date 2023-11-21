@@ -1,9 +1,9 @@
 import { QueryClient } from '@tanstack/react-query';
 import { LoaderFunctionArgs } from 'react-router-dom';
 
-import { mapRestaurant, mapRestaurants } from 'utils/mappers';
+import { mapRestaurant, mapRestaurants } from 'common/utils/mappers';
 
-import { getAirtableUrl } from 'utils/airtable';
+import { getAirtableUrl } from 'common/utils/airtable';
 
 import { fetchAirtableData } from 'api/api';
 

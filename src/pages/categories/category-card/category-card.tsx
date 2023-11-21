@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 import { Box, Card, SxProps, Typography } from '@mui/material';
 
-import { CategoryDialog } from 'components/categoryDialog';
+import { getServicesRoute } from 'common/utils/route';
 
-import { getServicesRoute } from 'utils/route';
+import { theme } from 'ui/theme/theme';
 
-import { theme } from 'theme/theme';
+import { CategoryDialog } from 'ui/organisms/categoryDialog';
 
 interface CategoryProps {
 	title: string;

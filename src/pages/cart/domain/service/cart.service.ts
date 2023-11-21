@@ -5,7 +5,7 @@ import { CartRepository } from 'pages/cart/domain/repository/cart.repository';
 import { getCartOrderString } from 'pages/cart/presentation/utils/cart';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 
-import { isSameRestaurant } from 'utils/restaurant';
+import { isSameRestaurant } from 'common/utils/restaurant';
 
 export const useCartService = (): CartRepository => {
 	const [cartItems, setCartItems] = useLocalStorage<Cart>('cart', []);

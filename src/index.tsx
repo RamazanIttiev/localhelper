@@ -6,7 +6,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 
 import App from 'app/App';
 
-import { theme } from 'theme/theme';
+import { theme } from 'ui/theme/theme';
 
 import './index.css';
 import reportWebVitals from './reportWebVitals';

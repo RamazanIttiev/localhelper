@@ -1,12 +1,12 @@
 import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { EntityGroup } from 'reactkit/entityGroup';
-import { ErrorText } from 'reactkit/errorText';
-import { Input } from 'reactkit/input';
 
 import { addressValidation, nameInputValidation, phoneInputValidation } from 'common/utils/validation';
 
 import { FlowersFormFields } from '../flowers-checkout.model';
+import { ErrorText } from 'ui/atoms/errorText';
+import { Input } from 'ui/atoms/input';
+import { EntityGroup } from 'ui/molecules/entityGroup';
 
 interface Props {
 	errors: FieldErrors<FlowersFormFields>;

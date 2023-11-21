@@ -1,6 +1,6 @@
 import { QueryClient } from '@tanstack/react-query';
 
-import { getAirtableUrl } from 'utils/airtable';
+import { getAirtableUrl } from 'common/utils/airtable';
 
 import { fetchAirtableData } from 'api/api';
 

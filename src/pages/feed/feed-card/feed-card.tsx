@@ -1,11 +1,12 @@
 import React from 'react';
-import { InfoBadge } from 'reactkit/infoBadge';
 
 import { Box, Card, CardContent, Typography } from '@mui/material';
 
 import { Feed } from 'pages/feed/feed-card/feed-card.model';
 
-import { theme } from '../../../theme/theme';
+import { theme } from 'ui/theme/theme';
+
+import { InfoBadge } from 'ui/atoms/infoBadge';
 
 interface Props {
 	feedCard: Feed;

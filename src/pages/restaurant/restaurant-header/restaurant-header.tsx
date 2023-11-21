@@ -1,5 +1,4 @@
 import React from 'react';
-import { WorkingStatus } from 'reactkit/workingStatus';
 
 import { Box, Icon, Typography } from '@mui/material';
 
@@ -7,7 +6,9 @@ import { Restaurant } from 'pages/restaurant/restaurant.model';
 
 import { ReactComponent as LocationIcon } from 'assets/svg/location.svg';
 
-import { theme } from '../../../theme/theme';
+import { theme } from 'ui/theme/theme';
+
+import { WorkingStatus } from 'ui/atoms/workingStatus';
 
 interface Props {
 	restaurant: Pick<Restaurant, 'workingTime' | 'workingStatus' | 'image' | 'location' | 'title'>;

@@ -1,4 +1,4 @@
-import { isUserAgentTelegram } from 'utils/deviceInfo';
+import { isUserAgentTelegram } from 'common/utils/deviceInfo';
 
 import bike from 'assets/bike.webp';
 import bonus from 'assets/bonus.webp';

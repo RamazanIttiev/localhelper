@@ -1,20 +1,19 @@
 import React from 'react';
-import { ActionButton } from 'reactkit/actionButton';
 
 import { Container, Grid } from '@mui/material';
 
 import { Category } from 'pages/categories/category.model';
-import { Item } from 'pages/item/domain/item.model';
-import { ItemContainer } from 'pages/item/presentation/item/item.container';
 import { Items } from 'pages/items/domain/items.model';
 
-import { HeaderSkeleton } from 'components/skeletons/headerSkeleton';
-import { ItemSkeleton } from 'components/skeletons/itemSkeleton';
-
-import { isUserAgentTelegram } from 'utils/deviceInfo';
-import { openTelegram } from 'utils/service';
+import { isUserAgentTelegram } from 'common/utils/deviceInfo';
+import { openTelegram } from 'common/utils/service';
 
 import { ItemsHeader } from '../items-header/items-header';
+import { ActionButton } from 'ui/atoms/actionButton';
+import { HeaderSkeleton } from 'ui/atoms/skeletons/headerSkeleton';
+import { ItemSkeleton } from 'ui/atoms/skeletons/itemSkeleton';
+import { Item } from 'ui/organisms/item/domain/item.model';
+import { ItemContainer } from 'ui/organisms/item/presentation/item/item.container';
 
 interface Props {
 	flowId: string;

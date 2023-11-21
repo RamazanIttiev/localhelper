@@ -5,7 +5,7 @@ import { useBase } from 'pages/checkout/hooks/checkout.hook';
 
 import { getTelegramUser } from 'actions/webApp-actions';
 
-import { theme } from 'theme/theme';
+import { theme } from 'ui/theme/theme';
 
 import { TransferCheckoutComponent } from './transfer-checkout.component';
 import { TransferFormFields } from './transfer-checkout.model';

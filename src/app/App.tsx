@@ -20,7 +20,7 @@ import { itemsLoader } from 'api/airtable/items';
 import { restaurantItemsLoader, restaurantLoader, restaurantsLoader } from 'api/airtable/restaurant';
 import { geolocationLoader } from 'api/geolocation';
 
-import { WebApp, WebAppTheme, WebAppUser } from 'theme/types';
+import { WebApp, WebAppTheme, WebAppUser } from 'ui/theme/types';
 
 const queryClient = new QueryClient();
 

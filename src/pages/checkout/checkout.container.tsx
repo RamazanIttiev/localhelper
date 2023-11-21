@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { ActionButton } from 'reactkit/actionButton';
 
 import { Container } from '@mui/material';
 
@@ -11,8 +10,10 @@ import { RestaurantCheckoutContainer } from 'pages/checkout/restaurant-checkout/
 import { ToursCheckoutContainer } from 'pages/checkout/tours-checkout/tours-checkout.container';
 import { TransferCheckoutContainer } from 'pages/checkout/transfer-checkout/transfer-checkout.container';
 
-import { isUserAgentTelegram } from 'utils/deviceInfo';
-import { openTelegram } from 'utils/service';
+import { isUserAgentTelegram } from 'common/utils/deviceInfo';
+import { openTelegram } from 'common/utils/service';
+
+import { ActionButton } from 'ui/atoms/actionButton';
 
 const containerStyles = { pt: '1rem', pb: '1rem', position: 'relative' };
 

@@ -1,16 +1,17 @@
 import React, { Suspense } from 'react';
 import { Control, FieldError, UseFormRegister, useWatch } from 'react-hook-form';
 import { Await } from 'react-router-dom';
-import { ErrorText } from 'reactkit/errorText';
-import { Input } from 'reactkit/input';
 
 import { Box, Skeleton, Typography } from '@mui/material';
 
 import { ExchangeFormFields, ExchangeState } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
 
-import { computeAmount } from 'utils/service';
+import { computeAmount } from 'common/utils/service';
 
-import { theme } from 'theme/theme';
+import { theme } from 'ui/theme/theme';
+
+import { ErrorText } from 'ui/atoms/errorText';
+import { Input } from 'ui/atoms/input';
 
 interface Props {
 	exchangeRate: Promise<number>;

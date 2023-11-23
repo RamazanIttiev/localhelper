@@ -11,8 +11,8 @@ import { openTelegram } from 'common/utils/service';
 import { RestaurantHeader } from './restaurant-header/restaurant-header';
 import { RestaurantItemContainer } from './restaurant-item/restaurant-item.container';
 import { ActionButton } from 'ui/atoms/actionButton';
-import { HeaderSkeleton } from 'ui/atoms/skeletons/headerSkeleton';
-import { ItemSkeleton } from 'ui/atoms/skeletons/itemSkeleton';
+import { HeaderSkeleton } from 'ui/molecules/skeletons/headerSkeleton';
+import { ItemSkeleton } from 'ui/molecules/skeletons/itemSkeleton';
 
 interface Props {
 	readonly flowId: string;

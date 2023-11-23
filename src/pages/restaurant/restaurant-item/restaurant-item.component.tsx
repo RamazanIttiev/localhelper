@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 import { isUserAgentTelegram } from 'common/utils/deviceInfo';
 
@@ -11,7 +11,6 @@ import { RestaurantItem } from './restaurant-item.model';
 import { IconBadges } from 'ui/atoms/iconBadges';
 import { ImageBackdrop } from 'ui/atoms/imageBackdrop';
 import { InfoBadge } from 'ui/atoms/infoBadge';
-import { Link } from 'ui/atoms/link';
 import { AmountButtons } from 'ui/organisms/amountButtons';
 
 interface Props {
@@ -36,7 +35,8 @@ export const RestaurantItemCard = ({ flowId, restaurantItem, restaurant }: Props
 					background: 'transparent',
 					justifyContent: 'space-between',
 				}}>
-				<Link key={id} to={title} state={{ restaurantItem, restaurant, flowId }}>
+				{/* TODO fix state when routing to detains page*/}
+				<Box position={'relative'}>
 					{image && (
 						<>
 							<CardMedia
@@ -78,8 +78,7 @@ export const RestaurantItemCard = ({ flowId, restaurantItem, restaurant }: Props
 							{title}
 						</Typography>
 					</CardContent>
-				</Link>
-
+				</Box>
 				{isUserAgentTelegram ? (
 					isWorking ? (
 						<CardActions

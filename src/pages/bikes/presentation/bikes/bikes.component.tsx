@@ -1,7 +1,7 @@
 import React from 'react';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 
-import { Box, Skeleton, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import { Items } from 'pages/items/domain/items.model';
 
@@ -10,6 +10,7 @@ import { theme } from 'ui/theme/theme';
 import { BikesFormFields } from '../../domain/model/bikes.model';
 import { BikesCheckoutForm } from '../bikes-form/bikes-form';
 import { Switch } from 'ui/atoms/switch/switch';
+import { TabsSkeleton } from 'ui/molecules/skeletons/tabsSkeleton';
 import { Tabs } from 'ui/molecules/tabs/tabs.component';
 
 interface Props {
@@ -33,7 +34,17 @@ export const BikesCheckoutComponent = ({
 	return (
 		<>
 			<BikesCheckoutForm control={control} errors={errors} register={register} />
-			{bikes ? <Tabs onChange={handleSelectedBike} tabs={bikes} sxTabs={{ mt: 4 }} /> : <Skeleton />}
+
+			{bikes ? (
+				<Tabs
+					onChange={handleSelectedBike}
+					tabs={bikes}
+					sxTabs={{ mt: 4, overflow: 'auto' }}
+					sxTab={{ height: '96px', width: '96px' }}
+				/>
+			) : (
+				<TabsSkeleton />
+			)}
 			<Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
 				<Typography sx={{ mr: 1, fontSize: theme.tg_theme.fontSize.info }}>Do you need a helmet?</Typography>
 				<Switch handleHelmet={handleHelmet} />

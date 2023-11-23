@@ -37,7 +37,9 @@ export const useCartService = (): CartRepository => {
 			cartItems.map((cartItem, index) => {
 				const item = findRestaurantItem(items, cartItem.id);
 
-				return `${index + 1}. ${item?.title} ${item?.quantity} x ${item?.price}`;
+				const quantity = cartItem.quantity;
+
+				return `${index + 1}. ${item?.title} ${quantity} x ${item?.price}`;
 			}),
 		);
 

@@ -10,8 +10,8 @@ import { openTelegram } from 'common/utils/service';
 
 import { ItemsHeader } from '../items-header/items-header';
 import { ActionButton } from 'ui/atoms/actionButton';
-import { HeaderSkeleton } from 'ui/atoms/skeletons/headerSkeleton';
-import { ItemSkeleton } from 'ui/atoms/skeletons/itemSkeleton';
+import { HeaderSkeleton } from 'ui/molecules/skeletons/headerSkeleton';
+import { ItemSkeleton } from 'ui/molecules/skeletons/itemSkeleton';
 import { Item } from 'ui/organisms/item/domain/item.model';
 import { ItemContainer } from 'ui/organisms/item/presentation/item/item.container';
 

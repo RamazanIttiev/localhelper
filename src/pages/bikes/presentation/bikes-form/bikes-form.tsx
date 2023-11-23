@@ -4,7 +4,6 @@ import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { dateRangeValidation, nameInputValidation, phoneInputValidation } from 'common/utils/validation';
 
 import { BikesFormFields } from '../../domain/model/bikes.model';
-import { ErrorText } from 'ui/atoms/errorText';
 import { Input } from 'ui/atoms/input';
 import { EntityGroup } from 'ui/molecules/entityGroup';
 import { DateRange } from 'ui/organisms/dateRange';
@@ -29,9 +28,12 @@ export const BikesCheckoutForm = ({ register, errors, control }: Props) => {
 									type={'text'}
 									register={register}
 									error={errors.userName !== undefined}
+									inputStyles={{
+										borderBottom: errors.userName?.message ? '0.5px solid #DE3A3A' : 'none',
+									}}
 									{...nameInputValidation}
 								/>
-								{errors.userName && <ErrorText text={errors.userName?.message} />}
+								{/*{errors.userName && <ErrorText text={errors.userName?.message} />}*/}
 							</>
 						),
 					},
@@ -44,9 +46,12 @@ export const BikesCheckoutForm = ({ register, errors, control }: Props) => {
 									type={'tel'}
 									register={register}
 									error={errors.userPhone !== undefined}
+									inputStyles={{
+										borderBottom: errors.userPhone?.message ? '0.5px solid #DE3A3A' : 'none',
+									}}
 									{...phoneInputValidation}
 								/>
-								{errors.userPhone && <ErrorText text={errors.userPhone?.message} />}
+								{/*{errors.userPhone && <ErrorText text={errors.userPhone?.message} />}*/}
 							</>
 						),
 					},

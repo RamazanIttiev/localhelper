@@ -54,11 +54,12 @@ export const BikesContainer = () => {
 	};
 
 	const handleHelmet = () => {
+		impactOccurred('light');
 		setIsHelmet(prevState => !prevState);
 	};
 
 	const item = items?.find(item => {
-		return item.id === selectedBike;
+		return item.id[0];
 	});
 
 	const flowId = getFlowId(categoryId);

@@ -33,7 +33,7 @@ export const TabStyled = styled(BaseTab)(
     flex-direction: column;
     outline: none;
     transition: all 0.1s ease;
-    padding: 4px 16px;
+    padding: 4px 8px;
     min-height: 30px;
     
     &:hover {

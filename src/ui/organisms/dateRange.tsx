@@ -7,7 +7,6 @@ import { Box, FormControl } from '@mui/material';
 
 import { filterPassedTime } from 'common/utils/date';
 
-import { ErrorText } from '../atoms/errorText';
 import { StyledInput } from '../atoms/input';
 import { DatePickerComponent } from './datePicker/datePicker.component';
 
@@ -56,10 +55,14 @@ export const DateRange = ({
 							startDate={startDate}
 							endDate={endDate}
 							minDate={new Date()}
-							customInput={<StyledInput />}
+							customInput={
+								<StyledInput
+									sx={{ borderBottom: errors.endDate?.message ? '0.5px solid #DE3A3A' : 'none' }}
+								/>
+							}
 							placeholderText={startPlaceholderText}
 						/>
-						<ErrorText text={errors.startDate?.message} />
+						{/*<ErrorText text={errors.startDate?.message} />*/}
 					</FormControl>
 				)}
 			/>
@@ -80,11 +83,15 @@ export const DateRange = ({
 							dateFormat={'dd.MM.yyyy'}
 							selectsEnd
 							endDate={endDate}
-							minDate={startDate}
-							customInput={<StyledInput />}
+							minDate={startDate || new Date()}
+							customInput={
+								<StyledInput
+									sx={{ borderBottom: errors.endDate?.message ? '0.5px solid #DE3A3A' : 'none' }}
+								/>
+							}
 							placeholderText={endPlaceholderText}
 						/>
-						<ErrorText text={errors.endDate?.message} />
+						{/*<ErrorText text={errors.endDate?.message} />*/}
 					</FormControl>
 				)}
 			/>

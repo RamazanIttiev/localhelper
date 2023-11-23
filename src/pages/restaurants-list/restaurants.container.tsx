@@ -9,7 +9,7 @@ import { restaurantsQuery } from 'api/airtable/restaurant';
 import { hideMainButton } from 'actions/webApp-actions';
 
 import { RestaurantCard } from './restaurant-card';
-import { RestaurantSkeleton } from 'ui/atoms/skeletons/restaurantSkeleton';
+import { RestaurantSkeleton } from 'ui/molecules/skeletons/restaurantSkeleton';
 
 export const RestaurantsListContainer = () => {
 	const { restaurantId } = useParams();

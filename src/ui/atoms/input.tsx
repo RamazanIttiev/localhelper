@@ -1,13 +1,13 @@
 import { UseFormRegister } from 'react-hook-form';
 
-import { OutlinedTextFieldProps, styled, Input as MuiInput, SxProps } from '@mui/material';
+import { Input as MuiInput, OutlinedTextFieldProps, styled, SxProps } from '@mui/material';
 
 export const StyledInput = styled(MuiInput, {
 	shouldForwardProp: prop => prop !== 'disableUnderline',
 })(``, ({ theme }) => ({
 	background: theme.tg_theme.palette.bg_color,
 	color: theme.tg_theme.palette.text_color,
-	borderRadius: 'inherit',
+	borderRadius: 'initial',
 	fontSize: theme.tg_theme.fontSize.body,
 	minHeight: theme.tg_theme.height,
 	padding: '8px 16px 8px 0',

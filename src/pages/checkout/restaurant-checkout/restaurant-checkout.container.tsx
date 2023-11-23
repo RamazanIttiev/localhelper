@@ -9,6 +9,7 @@ import { RestaurantFormFields, TabValue } from 'pages/checkout/restaurant-checko
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
+import { handleOrder } from 'actions/global-actions';
 import { getTelegramUser } from 'actions/webApp-actions';
 
 import { theme } from 'ui/theme/theme';
@@ -27,10 +28,11 @@ export const RestaurantCheckoutContainer = () => {
 	const { state } = useLocation() as RouteState;
 	const navigate = useNavigate();
 	const tgUser = getTelegramUser();
+	const flowId = state?.flowId;
 	const restaurant = state?.item;
 	const restaurantItems = state.cartList;
 
-	const [impactOccurred] = useHapticFeedback();
+	const [impactOccurred, notificationOccurred] = useHapticFeedback();
 	const [orderMethod, setOrderMethod] = useState<string>(TabValue.DELIVERY);
 
 	const { getTotalPrice, getCartOrder, clearCart } = useCartService();
@@ -38,7 +40,7 @@ export const RestaurantCheckoutContainer = () => {
 	const cartOrder = getCartOrder(restaurantItems);
 	const cartTotalAmount = getTotalPrice(restaurantItems);
 
-	const { onSubmit, errors, register, isSubmitting, isSubmitSuccessful } = useBase(
+	const { handleSubmit, errors, register, isSubmitting, isSubmitSuccessful } = useBase(
 		useForm<RestaurantFormFields>({ defaultValues: { userName: tgUser?.first_name } }),
 		{ order: cartOrder, orderTotal: cartTotalAmount, tgUserNick: tgUser?.username },
 	);
@@ -50,6 +52,20 @@ export const RestaurantCheckoutContainer = () => {
 			setOrderMethod(newValue);
 		}
 	};
+
+	const onSubmit = handleSubmit(
+		(formData: any) => {
+			impactOccurred('light');
+			return handleOrder(flowId, {
+				item: restaurant?.title || '',
+				...formData,
+				order: cartOrder,
+				orderTotal: cartTotalAmount,
+				tgUserNick: tgUser?.username,
+			});
+		},
+		() => notificationOccurred('error'),
+	);
 
 	useEffect(() => {
 		if (isSubmitSuccessful) {

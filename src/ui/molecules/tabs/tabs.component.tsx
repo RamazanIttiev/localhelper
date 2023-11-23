@@ -30,6 +30,7 @@ interface Props {
 }
 
 export const Tabs = ({ onChange, tabs, tabPanels, sxTab, sxTabs, sxTabsList, sxTabPanel }: Props) => {
+	// TODO move it to bikes component (make tabs more generic)
 	const defaultValue = tabs?.[0].id;
 
 	return (

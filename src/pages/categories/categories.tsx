@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Box, Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 
 import { CategoryCard } from 'pages/categories/category-card/category-card';
 
@@ -10,9 +10,9 @@ import { GeoLocationProps } from 'common/models/geolocation.model';
 
 import { geolocationQuery } from 'api/geolocation';
 
-import feed from 'assets/feed.avif';
+import { theme } from 'ui/theme/theme';
 
-import { categoriesPrimary, categoriesSecondary } from './mock/categories';
+import { categoriesPrimary } from './mock/categories';
 
 export const Categories = () => {
 	const { pathname } = useLocation();
@@ -46,39 +46,19 @@ export const Categories = () => {
 							/>
 						);
 					})}
-			</Box>
-			<Box
-				sx={{
-					display: 'flex',
-					flexWrap: 'wrap',
-					justifyContent: 'space-between',
-				}}>
-				{!isIndia &&
-					categoriesSecondary.map(({ title, image, flowId, isLink, sx, imageSx }) => {
-						return (
-							<CategoryCard
-								sx={sx}
-								key={title}
-								title={title}
-								image={image}
-								flowId={flowId}
-								isLink={isLink}
-								imageSx={imageSx}
-								secondary={true}
-								userCountry={userCountry}
-							/>
-						);
-					})}
-			</Box>
 
-			<CategoryCard
-				title={'Feed'}
-				image={feed}
-				flowId={'flowId'}
-				isLink={true}
-				sx={{ pr: '16px' }}
-				imageSx={{ height: '3rem' }}
-			/>
+				<Box
+					sx={{
+						mt: 6,
+						width: '100%',
+						background: theme.tg_theme.palette.bg_color,
+						borderRadius: theme.tg_theme.borderRadius.base,
+					}}>
+					<Typography sx={{ textAlign: 'center', fontWeight: '600', p: 1 }} component={'p'} variant="body1">
+						There is more... Coming soon!
+					</Typography>
+				</Box>
+			</Box>
 		</Container>
 	);
 };

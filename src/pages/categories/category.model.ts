@@ -1,5 +1,3 @@
-import { Restaurant } from 'pages/restaurant/restaurant.model';
-
 import { Item } from 'ui/organisms/item/domain/item.model';
 
 export interface Category {
@@ -9,5 +7,4 @@ export interface Category {
 	headerTitle: string;
 	headerImage: { url: string }[];
 	items: Item[] | undefined;
-	restaurant: Restaurant[] | undefined;
 }

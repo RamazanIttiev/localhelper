@@ -1,4 +1,4 @@
-export type CountryCode = 'LKR' | 'IN' | '';
+export type CountryCode = string;
 
 interface RESTGeoLocationProps {
 	country_code2: CountryCode;

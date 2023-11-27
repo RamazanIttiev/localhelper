@@ -69,7 +69,7 @@ export const BikesContainer = () => {
 	const onSubmit = handleSubmit(
 		formData => {
 			impactOccurred('light');
-			return handleOrder(flowId, {
+			return handleOrder(flowId || '', {
 				item: item?.title || '',
 				rentPeriod,
 				helmet: isHelmet,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 
-import { Box, Typography } from '@mui/material';
+import { Box, Skeleton, Typography } from '@mui/material';
 
 import { Items } from 'pages/items/domain/items.model';
 
@@ -10,7 +10,6 @@ import { theme } from 'ui/theme/theme';
 import { BikesFormFields } from '../../domain/model/bikes.model';
 import { BikesCheckoutForm } from '../bikes-form/bikes-form';
 import { Switch } from 'ui/atoms/switch/switch';
-import { TabsSkeleton } from 'ui/molecules/skeletons/tabsSkeleton';
 import { Tabs } from 'ui/molecules/tabs/tabs.component';
 
 interface Props {

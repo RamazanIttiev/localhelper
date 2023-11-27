@@ -71,20 +71,9 @@ export const getAirtableUrl = (props: { airtableData: AirtableData; category?: s
 	}
 };
 
-export const getFlowId = (categoryId?: string): FlowId => {
+export const getFlowId = (categoryId?: string): FlowId | undefined => {
 	switch (categoryId) {
-		case 'recDXcCYkEWHS9VNg':
-			return 'ZGw6MTQ0NjE1';
-		case 'recwr0732WJ0uhaAb':
-			return 'ZGw6MTI1Mjg2';
-		case 'recHrX5AdXBPd1xwZ':
-			return 'ZGw6MTI3MjY5';
-		case 'recV5dpi4g6leX7c6':
-			return 'ZGw6MTI5Mzc1';
-		case 'recFf2uNfu74iYvAN':
+		case 'bikes':
 			return 'ZGw6MTM2Nzcz';
-		default: {
-			return 'ZGw6MTQ0NjE1';
-		}
 	}
 };

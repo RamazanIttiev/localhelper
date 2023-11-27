@@ -5,23 +5,12 @@ import { Box, Container, Typography } from '@mui/material';
 
 import { CategoryCard } from 'pages/categories/category-card/category-card';
 
-import { CountryCode } from 'common/models/geolocation.model';
-
 import { theme } from 'ui/theme/theme';
 
 import { categoriesPrimary } from './mock/categories';
 
 export const Categories = () => {
 	const { pathname } = useLocation();
-	const { search } = useLocation();
-	const userCountry = search.replace(/[?=]/g, '') as CountryCode;
-
-	// const { data: geolocation } = useQuery<GeoLocationProps>(geolocationQuery());
-
-	const isIndia = false;
-	// const userCountry = geolocation?.country_code2;
-
-	// if (!geolocation) return null;
 
 	return (
 		<Container maxWidth={'md'} sx={{ pb: 1 }}>
@@ -32,20 +21,19 @@ export const Categories = () => {
 					flexWrap: 'wrap',
 					justifyContent: 'space-between',
 				}}>
-				{!isIndia &&
-					categoriesPrimary.map(({ title, image, flowId, isLink, sx }) => {
-						return (
-							<CategoryCard
-								sx={sx}
-								key={title}
-								title={title}
-								image={image}
-								flowId={flowId}
-								isLink={isLink}
-								userCountry={'LK'}
-							/>
-						);
-					})}
+				{categoriesPrimary.map(({ title, image, flowId, isLink, sx }) => {
+					return (
+						<CategoryCard
+							sx={sx}
+							key={title}
+							title={title}
+							image={image}
+							flowId={flowId}
+							isLink={isLink}
+							userCountry={'LK'}
+						/>
+					);
+				})}
 
 				<Box
 					sx={{

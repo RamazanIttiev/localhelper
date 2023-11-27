@@ -35,6 +35,7 @@ export const TabStyled = styled(BaseTab)(
     transition: all 0.1s ease;
     padding: 4px 8px;
     min-height: 30px;
+    min-width: 82px;
     
     &:hover {
       background-color: ${theme.tg_theme.palette.button_hover_color};

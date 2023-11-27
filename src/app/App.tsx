@@ -4,17 +4,11 @@ import { createBrowserRouter, createRoutesFromElements, json, Route, RouterProvi
 
 import { Layout } from 'app/Layout';
 
-import { CartContainer } from 'pages/cart/presentation/cart.container';
 import { Categories } from 'pages/categories/categories';
 import { CategoryContainer } from 'pages/category/presentation/category/category.container';
-import { CheckoutContainer } from 'pages/checkout/checkout.container';
-import { RestaurantItemDetailsContainer } from 'pages/restaurant/restaurant-item-details/restaurant-item-details.container';
-import { RestaurantContainer } from 'pages/restaurant/restaurant.container';
-import { RestaurantsListContainer } from 'pages/restaurants-list/restaurants.container';
 
 import { categoryLoader } from 'api/airtable/category';
 import { itemsLoader } from 'api/airtable/items';
-import { restaurantItemsLoader, restaurantLoader, restaurantsLoader } from 'api/airtable/restaurant';
 import { geolocationLoader } from 'api/geolocation';
 
 import { WebApp, WebAppTheme, WebAppUser } from 'ui/theme/types';
@@ -40,31 +34,6 @@ const router = createBrowserRouter(
 					return json({ category, items });
 				}}
 			/>
-
-			<Route
-				path=":categoryId/restaurants"
-				element={<RestaurantsListContainer />}
-				loader={() => restaurantsLoader(queryClient)}
-			/>
-			<Route
-				path=":categoryId/restaurants/:restaurantId"
-				element={<RestaurantContainer />}
-				loader={async () => {
-					const [restaurants, restaurantsItems] = await Promise.all([
-						restaurantLoader(queryClient),
-						restaurantItemsLoader(queryClient),
-					]);
-					return json({ restaurants, restaurantsItems });
-				}}
-			/>
-
-			<Route path=":categoryId/:item" element={<ItemDetailsContainer />} />
-
-			<Route path=":categoryId/restaurants/:restaurantId/:item" element={<RestaurantItemDetailsContainer />} />
-
-			<Route path="shopping-cart" element={<CartContainer />} loader={() => restaurantItemsLoader(queryClient)} />
-
-			<Route path=":categoryId/:itemId/checkout" element={<CheckoutContainer />} />
 		</Route>,
 	),
 );

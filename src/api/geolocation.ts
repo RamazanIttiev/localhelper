@@ -20,13 +20,14 @@ export const getGeolocation = async (): Promise<RESTGeoLocation> => {
 };
 
 export const geolocationQuery = () => {
-	const lsGeo: GeoLocationProps | null = JSON.parse(localStorage.getItem('geoLocation') || '{}');
+	const lsGeoString: string | null = localStorage.getItem('geoLocation');
+	const JSONGeo: GeoLocationProps | null = lsGeoString ? JSON.parse(lsGeoString) : null;
 
 	return {
-		queryKey: ['geoLocation'],
+		queryKey: ['geoLocation', lsGeoString],
 		queryFn: async () => {
-			if (lsGeo !== null) {
-				return lsGeo;
+			if (JSONGeo !== null) {
+				return JSONGeo;
 			} else {
 				const geo = await getGeolocation();
 				return mapGeolocation(geo);

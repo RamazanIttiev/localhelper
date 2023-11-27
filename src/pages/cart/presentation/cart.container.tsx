@@ -36,7 +36,7 @@ export const CartContainer = () => {
 	const restaurant = state?.item;
 
 	useEffect(() => {
-		const url = getAirtableUrl('RestaurantItems', '', restaurantTitle);
+		const url = getAirtableUrl({ airtableData: 'RestaurantItems', restaurant: restaurantTitle });
 
 		async function fetchData() {
 			setRestaurantItems(await fetchAirtableData('RestaurantItems', url));

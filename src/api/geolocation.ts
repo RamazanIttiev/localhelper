@@ -1,29 +1,36 @@
 import { QueryClient } from '@tanstack/react-query';
 
+import { mapGeolocation } from 'common/utils/mappers';
+
+import { GeoLocationProps, RESTGeoLocation } from 'common/models/geolocation.model';
+
 import { apiRequest } from 'api/api';
 
-export const getGeolocation = async () => {
+export const getGeolocation = async (): Promise<RESTGeoLocation> => {
 	const ipKey = process.env.REACT_APP_GEO_API_KEY || '';
 
+	const errorMessage = 'Something went wrong. Please reload the app';
+
 	try {
-		return await apiRequest(`https://api.ipgeolocation.io/ipgeo?apiKey=${ipKey}`, 'GET', {});
+		const response = await apiRequest(`https://api.ipgeolocation.io/ipgeo?apiKey=${ipKey}`, 'GET', {});
+		return response.message ? errorMessage : response;
 	} catch (error) {
-		console.log(error);
+		return errorMessage;
 	}
 };
 
 export const geolocationQuery = () => {
+	const lsGeo: GeoLocationProps | null = JSON.parse(localStorage.getItem('geoLocation') || '{}');
+
 	return {
-		queryKey: ['geolocation'],
+		queryKey: ['geoLocation'],
 		queryFn: async () => {
-			const geo = await getGeolocation();
-			if (!geo) {
-				throw new Response('', {
-					status: 404,
-					statusText: 'Not Found',
-				});
+			if (lsGeo !== null) {
+				return lsGeo;
+			} else {
+				const geo = await getGeolocation();
+				return mapGeolocation(geo);
 			}
-			return geo;
 		},
 		// cached for 1 hours
 		cacheTime: 10000 * 60 * 60,

@@ -30,8 +30,8 @@ export const TgTheme: WebAppTheme = TgWebApp.themeParams;
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
-		<Route path="/" element={<Layout />}>
-			<Route index element={<Categories />} loader={() => geolocationLoader(queryClient)} />
+		<Route path="/" element={<Layout />} loader={() => geolocationLoader(queryClient)}>
+			<Route index element={<Categories />} />
 			<Route
 				path=":categoryId"
 				element={<CategoryContainer />}
@@ -63,7 +63,6 @@ const router = createBrowserRouter(
 
 			<Route path=":categoryId/:item" element={<ItemDetailsContainer />} />
 
-			<Route path=":categoryId/:item" element={<ItemDetailsContainer />} />
 			<Route path=":categoryId/restaurants/:restaurantId/:item" element={<RestaurantItemDetailsContainer />} />
 
 			<Route path="feed" element={<FeedContainer />} loader={() => feedLoader(queryClient)} />

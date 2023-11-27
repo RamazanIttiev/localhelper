@@ -8,7 +8,7 @@ import { getAirtableUrl } from 'common/utils/airtable';
 import { fetchAirtableData } from 'api/api';
 
 export const restaurantsQuery = (category: string | undefined) => {
-	const url = getAirtableUrl('Restaurants');
+	const url = getAirtableUrl({ airtableData: 'Restaurants' });
 
 	return {
 		// second element is for correct switching between routes
@@ -37,7 +37,7 @@ export const restaurantsLoader = (queryClient: QueryClient) => async (category: 
 };
 
 export const restaurantQuery = (restaurant: string | undefined) => {
-	const url = getAirtableUrl('Restaurant', '', restaurant);
+	const url = getAirtableUrl({ airtableData: 'Restaurant', restaurant });
 
 	return {
 		// second element is for correct switching between routes
@@ -68,7 +68,7 @@ export const restaurantLoader = (queryClient: QueryClient) => async ({ params }:
 };
 
 export const restaurantItemsQuery = (restaurant: string | undefined) => {
-	const url = getAirtableUrl('RestaurantItems', '', restaurant);
+	const url = getAirtableUrl({ airtableData: 'RestaurantItems', restaurant });
 
 	return {
 		// second element is for correct switching between routes

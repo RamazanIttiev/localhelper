@@ -2851,7 +2851,7 @@
     "@typescript-eslint/types" "5.57.0"
     eslint-visitor-keys "^3.3.0"
 
-"@vkruglikov/react-telegram-web-app@^2.1.5":
+"@vkruglikov/react-telegram-web-app@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@vkruglikov/react-telegram-web-app/-/react-telegram-web-app-2.1.5.tgz#7a40db0e2bfd7b287c4639e6fce356c30f89a85c"
   integrity sha512-OBt/5TvoNMZ4Axb20fFVYGKsOnsyjG93dGEAfmMnRwPJ7deIYkcnFjGPiil6CtogUc5qdwoHDFrwQWxsYF/RAg==

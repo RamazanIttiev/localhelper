@@ -1,5 +1,7 @@
 import { Restaurant } from 'pages/restaurant/restaurant.model';
 
+import { GeoLocation, RESTGeoLocation } from 'common/models/geolocation.model';
+
 import { isWorkingHour } from './restaurant';
 
 export const mapRestaurants = (restaurants: Restaurant[] | undefined): Restaurant[] => {
@@ -25,4 +27,13 @@ export const mapRestaurant = (restaurant: Restaurant): Restaurant => {
 
 export const mapRecords = (records: any[]) => {
 	return records.map(item => item.fields);
+};
+
+export const mapGeolocation = (geolocation: RESTGeoLocation): GeoLocation => {
+	if (typeof geolocation === 'string') {
+		return geolocation;
+	}
+	return {
+		userCountry: geolocation.country_code2,
+	};
 };

@@ -1,5 +1,14 @@
-export type CountryCode = 'LKR' | 'IN';
+export type CountryCode = 'LKR' | 'IN' | '';
 
-export interface GeoLocationProps {
+interface RESTGeoLocationProps {
 	country_code2: CountryCode;
 }
+
+export interface GeoLocationProps {
+	userCountry: CountryCode;
+}
+
+type ErrorMessage = string;
+
+export type GeoLocation = GeoLocationProps | ErrorMessage;
+export type RESTGeoLocation = RESTGeoLocationProps | ErrorMessage;

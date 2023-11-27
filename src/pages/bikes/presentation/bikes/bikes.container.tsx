@@ -21,13 +21,15 @@ import { getTelegramUser } from 'actions/webApp-actions';
 import { theme } from 'ui/theme/theme';
 
 import { BikesCheckoutComponent } from './bikes.component';
+import { useGeoLocationService } from 'common/service/geoLocation.service';
 
 export const BikesContainer = () => {
 	const { categoryId } = useParams();
+	const geolocation = useGeoLocationService();
 
 	const tgUser = getTelegramUser();
 
-	const { data: items } = useQuery<Items>(itemsQuery(categoryId));
+	const { data: items } = useQuery<Items>(itemsQuery(categoryId, geolocation));
 
 	const [selectedBike, setSelectedBike] = useState<string | undefined>(undefined);
 	const [isHelmet, setIsHelmet] = useState(true);

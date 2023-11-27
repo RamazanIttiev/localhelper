@@ -6,7 +6,7 @@ import { getAirtableUrl } from 'common/utils/airtable';
 import { fetchAirtableData } from 'api/api';
 
 export const categoryQuery = (category: string | undefined) => {
-	const url = getAirtableUrl('Category', category);
+	const url = getAirtableUrl({ airtableData: 'Category', category });
 
 	return {
 		// second element is for correct switching between routes

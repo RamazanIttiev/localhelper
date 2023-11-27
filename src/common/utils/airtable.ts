@@ -43,19 +43,16 @@ const getRestaurantId = (restaurantId: string | undefined): RestaurantId | undef
 	}
 };
 
-export const getAirtableUrl = (airtableData: AirtableData, category?: string, restaurant?: string) => {
+export const getAirtableUrl = (props: { airtableData: AirtableData; category?: string; restaurant?: string }) => {
+	const { category, restaurant, airtableData } = props;
 	const categoryId = getCategoryId(category);
 	const restaurantId = getRestaurantId(restaurant);
-	const categoryTitle = `${category?.charAt(0).toUpperCase()}${category?.slice(1)}`;
 
 	switch (airtableData) {
 		case 'Category':
 			return `${process.env.REACT_APP_AIRTABLE_URL}/Categories/${categoryId}` || '';
 		case 'Items':
-			return (
-				`${process.env.REACT_APP_AIRTABLE_URL}/Items?filterByFormula=AND(NOT({category}=BLANK()), {category}='${categoryTitle}')` ||
-				''
-			);
+			return '';
 		case 'Restaurants':
 			return (
 				`${process.env.REACT_APP_AIRTABLE_URL}/Restaurants${

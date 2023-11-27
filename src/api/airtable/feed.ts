@@ -5,7 +5,7 @@ import { getAirtableUrl } from 'common/utils/airtable';
 import { fetchAirtableData } from 'api/api';
 
 export const feedQuery = () => {
-	const url = getAirtableUrl('Feed');
+	const url = getAirtableUrl({ airtableData: 'Feed' });
 
 	return {
 		// second element is for correct switching between routes

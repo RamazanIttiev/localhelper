@@ -1,4 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -6,9 +5,7 @@ import { Box, Container, Typography } from '@mui/material';
 
 import { CategoryCard } from 'pages/categories/category-card/category-card';
 
-import { GeoLocationProps } from 'common/models/geolocation.model';
-
-import { geolocationQuery } from 'api/geolocation';
+import { CountryCode } from 'common/models/geolocation.model';
 
 import { theme } from 'ui/theme/theme';
 
@@ -16,12 +13,15 @@ import { categoriesPrimary } from './mock/categories';
 
 export const Categories = () => {
 	const { pathname } = useLocation();
-	const { data: geolocation } = useQuery<GeoLocationProps>(geolocationQuery());
+	const { search } = useLocation();
+	const userCountry = search.replace(/[?=]/g, '') as CountryCode;
 
-	const isIndia = geolocation?.country_code2 === 'IN';
-	const userCountry = geolocation?.country_code2;
+	// const { data: geolocation } = useQuery<GeoLocationProps>(geolocationQuery());
 
-	if (!geolocation) return null;
+	const isIndia = false;
+	// const userCountry = geolocation?.country_code2;
+
+	// if (!geolocation) return null;
 
 	return (
 		<Container maxWidth={'md'} sx={{ pb: 1 }}>
@@ -42,7 +42,7 @@ export const Categories = () => {
 								image={image}
 								flowId={flowId}
 								isLink={isLink}
-								userCountry={userCountry}
+								userCountry={'LK'}
 							/>
 						);
 					})}

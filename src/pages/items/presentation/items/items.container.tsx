@@ -15,7 +15,7 @@ export const ItemsContainer = () => {
 
 	const { data: category } = useQuery<Category>(categoryQuery(categoryId));
 	const { data: items } = useQuery<Items>(itemsQuery(categoryId));
-	console.log(items);
+
 	const flowId = category?.flowId || '';
 
 	return <ItemsComponent items={items} flowId={flowId} category={category} />;

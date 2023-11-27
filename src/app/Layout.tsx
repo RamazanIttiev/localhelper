@@ -51,9 +51,7 @@ export const Layout = () => {
 						navigate(-1);
 					}}
 				/>
-				{/*<ShoppingCartProvider>*/}
 				<Outlet />
-				{/*</ShoppingCartProvider>*/}
 			</WebAppProvider>
 		</>
 	);

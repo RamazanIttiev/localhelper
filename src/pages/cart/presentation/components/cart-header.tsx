@@ -1,7 +1,10 @@
 import { useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import TrashBin from 'assets/svg/trashBin.svg?react';
 
-import { Box, Typography, IconButton, Icon } from '@mui/material';
+import Box from '@mui/material/Box';
+import Icon from '@mui/material/Icon';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 
 import { useCartService } from 'pages/cart/domain/service/cart.service.ts';
 

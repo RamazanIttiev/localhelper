@@ -1,7 +1,9 @@
 import { useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import { UseFormRegister, Control, useWatch } from 'react-hook-form';
 
-import { Box, Typography, Skeleton } from '@mui/material';
+import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
+import Typography from '@mui/material/Typography';
 
 import { ToChangeState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model.ts';
 import { amountToChangeValidation } from 'pages/checkout/exchange-checkout/service/validation.ts';

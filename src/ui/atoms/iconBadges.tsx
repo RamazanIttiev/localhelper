@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { Box, useTheme } from '@mui/material';
+import Box from '@mui/material/Box';
+
+import { theme } from 'ui/theme/theme.ts';
 
 interface Props {
 	iconBadges: { url: string }[] | undefined;
 }
 
 export const IconBadges = ({ iconBadges }: Props) => {
-	const theme = useTheme();
-
 	return (
 		<Box sx={{ position: 'absolute', top: '0.3rem', left: '0.3rem', display: 'flex' }}>
 			{iconBadges?.sort().map(({ url }) => {

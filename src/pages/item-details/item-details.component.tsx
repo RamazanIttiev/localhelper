@@ -1,13 +1,19 @@
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+
 import { isUserAgentTelegram } from 'common/utils/deviceInfo.ts';
 import { openTelegram } from 'common/utils/service.ts';
 
 import { theme } from 'ui/theme/theme.ts';
 
-import { Item } from 'ui/organisms/item/domain/item.model.ts';
-import { Container, Card, CardMedia, Box, CardContent, Typography } from '@mui/material';
 import { ActionButton } from 'ui/atoms/actionButton.tsx';
 import { IconBadges } from 'ui/atoms/iconBadges.tsx';
 import { MuiCarousel } from 'ui/organisms/carousel.tsx';
+import { Item } from 'ui/organisms/item/domain/item.model.ts';
 
 interface Props {
 	item: Item;

@@ -3,7 +3,7 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint", "react", "react-hooks"],
   parserOptions: {
-    project: ["./tsconfig.json", "./*/tsconfig.json"]
+    project: "./tsconfig.json"
   },
   extends: [
     "prettier",
@@ -48,6 +48,11 @@ module.exports = {
     "no-mixed-spaces-and-tabs": 0,
     "array-callback-return": 0,
     "no-fallthrough": 0,
-    "jsx-a11y/media-has-caption": 0
+    "jsx-a11y/media-has-caption": 0,
+    "@typescript-eslint/no-misused-promises": [2, {
+      "checksVoidReturn": {
+        "attributes": false
+      }
+    }],
   }
 };

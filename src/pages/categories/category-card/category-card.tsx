@@ -1,7 +1,10 @@
 import { FC, Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Box, Card, SxProps, Typography } from '@mui/material';
+import { SxProps } from '@mui/material';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
 
 import { getServicesRoute } from 'common/utils/route.ts';
 
@@ -65,6 +68,7 @@ export const CategoryCard: FC<CategoryProps> = ({
 					{title}
 				</Typography>
 				<Box
+					height={'5rem'}
 					component={'img'}
 					src={image}
 					alt={`${title} category`}

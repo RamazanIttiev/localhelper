@@ -1,10 +1,13 @@
-import { Box, Typography } from '@mui/material';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
-import { HintText } from 'ui/atoms/hintText.tsx';
 
-import { DefaultItemModel } from 'ui/organisms/item/domain/item.model.ts';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
 import { ToursCheckoutForm } from './components/tours-checkout-form.tsx';
+
 import { ToursFormFields } from './tours-checkout.model.ts';
+import { HintText } from 'ui/atoms/hintText.tsx';
+import { DefaultItemModel } from 'ui/organisms/item/domain/item.model.ts';
 
 interface Props {
 	item: DefaultItemModel;

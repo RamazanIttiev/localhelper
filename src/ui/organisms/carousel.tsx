@@ -2,7 +2,7 @@ import React from 'react';
 import { isDesktop } from 'react-device-detect';
 import Carousel from 'react-material-ui-carousel';
 
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 
 import { isUserAgentTelegram } from 'common/utils/deviceInfo.ts';
 

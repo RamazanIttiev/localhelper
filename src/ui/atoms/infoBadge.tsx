@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { SxProps, Typography, useTheme } from '@mui/material';
+import { SxProps } from '@mui/material';
+import Typography from '@mui/material/Typography';
+
+import { theme } from 'ui/theme/theme.ts';
 
 interface InfoBadgeProps {
 	text: string;
@@ -8,8 +11,6 @@ interface InfoBadgeProps {
 }
 
 export const InfoBadge = ({ text, sx }: InfoBadgeProps) => {
-	const theme = useTheme();
-
 	return (
 		<Typography
 			variant="body2"

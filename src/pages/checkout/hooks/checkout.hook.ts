@@ -19,7 +19,7 @@ export const useBase = (useForm: UseFormReturn<any, any>, restFormData?: object)
 	const onSubmit = handleSubmit(
 		(formData: any) => {
 			impactOccurred('light');
-			return handleOrder(state?.flowId, {
+			void handleOrder(state?.flowId, {
 				item: state?.item.id || '',
 				...formData,
 				...restFormData,

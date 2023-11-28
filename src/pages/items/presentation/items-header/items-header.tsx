@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material';
+
 import { Category } from 'pages/categories/category.model.ts';
 
 import { theme } from 'ui/theme/theme.ts';

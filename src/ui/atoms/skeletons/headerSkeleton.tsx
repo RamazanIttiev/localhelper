@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Skeleton } from '@mui/material';
+import Skeleton from '@mui/material/Skeleton';
 
 import { theme } from 'ui/theme/theme.ts';
 

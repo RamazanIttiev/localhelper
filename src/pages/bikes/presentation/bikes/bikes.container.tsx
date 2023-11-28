@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useHapticFeedback, MainButton } from '@vkruglikov/react-telegram-web-app';
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
@@ -47,7 +47,7 @@ export const BikesContainer = () => {
 
 	const rentPeriod = getDateDiff(startDate, endDate);
 
-	const handleSelectedBike = (e: React.SyntheticEvent | null, newValue: string | number | null) => {
+	const handleSelectedBike = (e: SyntheticEvent | null, newValue: string | number | null) => {
 		impactOccurred('light');
 
 		if (typeof newValue === 'string') {
@@ -66,9 +66,9 @@ export const BikesContainer = () => {
 	const flowId = getFlowId(categoryId);
 
 	const onSubmit = handleSubmit(
-		formData => {
+		(formData: any) => {
 			impactOccurred('light');
-			return handleOrder(flowId, {
+			void handleOrder(flowId, {
 				item: item?.title || '',
 				rentPeriod,
 				helmet: isHelmet,
@@ -91,7 +91,7 @@ export const BikesContainer = () => {
 			/>
 			<MainButton
 				text={'Order'}
-				onClick={() => {}}
+				onClick={onSubmit}
 				disabled={isSubmitting}
 				progress={isSubmitting}
 				color={
@@ -100,13 +100,4 @@ export const BikesContainer = () => {
 			/>
 		</Container>
 	);
-};
-
-export const mapItems = (items: Items | undefined) => {
-	return items?.map(item => {
-		return {
-			...item,
-			image: item.image[0].url,
-		};
-	});
 };

@@ -60,7 +60,6 @@
     "src/**/*",
     "vite.config.ts",
     ".eslintrc.cjs",
-    "src/**/*.ts", "src/**/*.tsx"
   ],
   "exclude": ["node_modules"]
 }

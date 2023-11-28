@@ -8,6 +8,7 @@ import App from 'app/App.tsx';
 
 import { theme } from 'ui/theme/theme.ts';
 
+import './index.css';
 import reportWebVitals from './reportWebVitals.ts';
 
 declare global {

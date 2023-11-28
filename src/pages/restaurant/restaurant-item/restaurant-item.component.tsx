@@ -1,11 +1,18 @@
+import { Link } from 'react-router-dom';
+
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
 import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
 
 import { isUserAgentTelegram } from 'common/utils/deviceInfo.ts';
 
 import { theme } from 'ui/theme/theme.ts';
-import { Card, CardMedia, Typography, CardContent, CardActions } from '@mui/material';
-import { Link } from 'react-router-dom';
+
 import { IconBadges } from 'ui/atoms/iconBadges.tsx';
 import { ImageBackdrop } from 'ui/atoms/imageBackdrop.tsx';
 import { InfoBadge } from 'ui/atoms/infoBadge.tsx';

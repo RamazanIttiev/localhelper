@@ -1,6 +1,8 @@
 import LocationIcon from 'assets/svg/location.svg?react';
 
-import { Box, Typography, Icon } from '@mui/material';
+import Box from '@mui/material/Box';
+import Icon from '@mui/material/Icon';
+import Typography from '@mui/material/Typography';
 
 import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
 

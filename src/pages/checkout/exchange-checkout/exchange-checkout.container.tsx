@@ -1,5 +1,6 @@
-import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import { useForm, useWatch } from 'react-hook-form';
+import { useLocation } from 'react-router-dom';
 
 import { ExchangeCheckoutComponent } from 'pages/checkout/exchange-checkout/exchange-checkout.component.tsx';
 import { ExchangeFormFields } from 'pages/checkout/exchange-checkout/exchange-checkout.model.ts';
@@ -8,14 +9,17 @@ import { useCurrencyRate } from 'pages/checkout/exchange-checkout/hooks/useRateF
 import { useReceive } from 'pages/checkout/exchange-checkout/hooks/useReceive.tsx';
 import { useBase } from 'pages/checkout/hooks/checkout.hook.ts';
 
+import { handleOrder } from 'actions/global-actions.ts';
 import { getTelegramUser } from 'actions/webApp-actions.ts';
 
 import { theme } from 'ui/theme/theme.ts';
 
 export const ExchangeContainer = () => {
+	const { state } = useLocation();
 	const tgUser = getTelegramUser();
+	const [impactOccurred, notificationOccurred] = useHapticFeedback();
 
-	const { onSubmit, errors, register, control, isSubmitting } = useBase(
+	const { handleSubmit, errors, register, control, isSubmitting } = useBase(
 		useForm<ExchangeFormFields>({
 			defaultValues: { userName: tgUser?.first_name, currencyToChange: 'USDT' },
 		}),
@@ -29,6 +33,17 @@ export const ExchangeContainer = () => {
 	const toChangeState = useChange(currencyToChange);
 	const toReceiveState = useReceive(exchangeRate, amountToChange);
 
+	const onSubmit = handleSubmit(
+		(formData: any) => {
+			impactOccurred('light');
+			void handleOrder(state?.flowId, {
+				item: state?.item,
+				...formData,
+			});
+		},
+		() => notificationOccurred('error'),
+	);
+
 	return (
 		<>
 			<ExchangeCheckoutComponent
@@ -41,7 +56,7 @@ export const ExchangeContainer = () => {
 			/>
 			<MainButton
 				text="Exchange"
-				onClick={() => {}}
+				onClick={onSubmit}
 				disabled={isSubmitting}
 				progress={isSubmitting}
 				color={

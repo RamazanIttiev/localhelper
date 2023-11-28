@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, ButtonProps } from '@mui/material';
+import Button, { ButtonProps } from '@mui/material/Button';
 
 import { theme } from '../theme/theme';
 

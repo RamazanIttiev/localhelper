@@ -1,16 +1,18 @@
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+
 import { Category } from 'pages/categories/category.model.ts';
 import { Items } from 'pages/items/domain/items.model.ts';
 
 import { isUserAgentTelegram } from 'common/utils/deviceInfo.ts';
 import { openTelegram } from 'common/utils/service.ts';
 
-import { Item } from 'ui/organisms/item/domain/item.model.ts';
-import { Container, Grid } from '@mui/material';
+import { ItemsHeader } from '../items-header/items-header.tsx';
 import { ActionButton } from 'ui/atoms/actionButton.tsx';
 import { HeaderSkeleton } from 'ui/atoms/skeletons/headerSkeleton.tsx';
 import { ItemSkeleton } from 'ui/atoms/skeletons/itemSkeleton.tsx';
+import { Item } from 'ui/organisms/item/domain/item.model.ts';
 import { ItemContainer } from 'ui/organisms/item/presentation/item/item.container.ts';
-import { ItemsHeader } from '../items-header/items-header.tsx';
 
 interface Props {
 	flowId: string;

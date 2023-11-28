@@ -2,7 +2,7 @@ import SelectIcon from 'assets/svg/select.svg?react';
 import React, { CSSProperties } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 
-import { InputBase, NativeSelect, NativeSelectProps, styled } from '@mui/material';
+import { styled, NativeSelectProps, InputBase, NativeSelect } from '@mui/material';
 
 import { theme } from '../theme/theme';
 

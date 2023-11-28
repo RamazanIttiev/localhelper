@@ -2,7 +2,9 @@ import { Suspense } from 'react';
 import { FieldError, UseFormRegister, Control, useWatch } from 'react-hook-form';
 import { Await } from 'react-router-dom';
 
-import { Box, Typography, Skeleton } from '@mui/material';
+import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
+import Typography from '@mui/material/Typography';
 
 import { ExchangeState, ExchangeFormFields } from 'pages/checkout/exchange-checkout/exchange-checkout.model.ts';
 

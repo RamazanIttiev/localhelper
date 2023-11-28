@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { SxProps, Typography } from '@mui/material';
+import { SxProps } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 import { theme } from '../theme/theme';
 

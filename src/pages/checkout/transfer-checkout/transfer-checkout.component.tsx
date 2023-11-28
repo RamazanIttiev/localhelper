@@ -1,5 +1,7 @@
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
+
 import { TransferCheckoutForm } from './components/transfer-checkout-form.tsx';
+
 import { TransferFormFields } from './transfer-checkout.model.ts';
 
 interface Props {

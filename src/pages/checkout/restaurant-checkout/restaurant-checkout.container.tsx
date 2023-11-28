@@ -1,5 +1,5 @@
 import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SyntheticEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ import { useBase } from 'pages/checkout/hooks/checkout.hook.ts';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
 import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
 
+import { handleOrder } from 'actions/global-actions.ts';
 import { getTelegramUser } from 'actions/webApp-actions.ts';
 
 import { theme } from 'ui/theme/theme.ts';
@@ -30,7 +31,7 @@ export const RestaurantCheckoutContainer = () => {
 	const restaurant = state?.item;
 	const restaurantItems = state.cartList;
 
-	const [impactOccurred] = useHapticFeedback();
+	const [impactOccurred, notificationOccurred] = useHapticFeedback();
 	const [orderMethod, setOrderMethod] = useState<TabValue>(TabValue.DELIVERY);
 
 	const { getTotalPrice, getCartOrder, clearCart } = useCartService();
@@ -38,12 +39,12 @@ export const RestaurantCheckoutContainer = () => {
 	const cartOrder = getCartOrder(restaurantItems);
 	const cartTotalAmount = getTotalPrice(restaurantItems);
 
-	const { onSubmit, errors, register, isSubmitting, isSubmitSuccessful } = useBase(
+	const { handleSubmit, errors, register, isSubmitting, isSubmitSuccessful } = useBase(
 		useForm<RestaurantFormFields>({ defaultValues: { userName: tgUser?.first_name } }),
 		{ order: cartOrder, orderTotal: cartTotalAmount, tgUserNick: tgUser?.username },
 	);
 
-	const handleOrderMethod = (e: React.SyntheticEvent | null, newValue: TabValue | number | null) => {
+	const handleOrderMethod = (e: SyntheticEvent | null, newValue: TabValue | number | null) => {
 		impactOccurred('light');
 
 		if (typeof newValue !== 'number' && newValue !== null) {
@@ -58,6 +59,17 @@ export const RestaurantCheckoutContainer = () => {
 		}
 	}, [clearCart, isSubmitSuccessful, navigate]);
 
+	const onSubmit = handleSubmit(
+		(formData: any) => {
+			impactOccurred('light');
+			void handleOrder(state?.flowId, {
+				item: state?.item,
+				...formData,
+			});
+		},
+		() => notificationOccurred('error'),
+	);
+
 	return (
 		<>
 			<RestaurantCheckoutComponent
@@ -71,7 +83,7 @@ export const RestaurantCheckoutContainer = () => {
 			/>
 			<MainButton
 				text={'Order'}
-				onClick={() => {}}
+				onClick={onSubmit}
 				disabled={isSubmitting}
 				progress={isSubmitting}
 				color={

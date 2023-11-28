@@ -1,10 +1,13 @@
-import { Box, Typography } from '@mui/material';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { HintText } from 'ui/atoms/hintText.tsx';
 
-import { DefaultItemModel } from 'ui/organisms/item/domain/item.model.ts';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
 import { FlowersCheckoutForm } from './components/flowers-checkout-form.tsx';
+
 import { FlowersFormFields } from './flowers-checkout.model.ts';
+import { HintText } from 'ui/atoms/hintText.tsx';
+import { DefaultItemModel } from 'ui/organisms/item/domain/item.model.ts';
 
 interface Props {
 	item: DefaultItemModel;

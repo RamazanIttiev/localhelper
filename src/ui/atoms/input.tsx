@@ -1,6 +1,7 @@
 import { UseFormRegister } from 'react-hook-form';
 
-import { OutlinedTextFieldProps, styled, Input as MuiInput, SxProps } from '@mui/material';
+import { styled, OutlinedTextFieldProps, SxProps } from '@mui/material';
+import MuiInput from '@mui/material/Input';
 
 export const StyledInput = styled(MuiInput, {
 	shouldForwardProp: prop => prop !== 'disableUnderline',

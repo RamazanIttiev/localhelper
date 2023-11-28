@@ -1,6 +1,6 @@
 import { FieldErrors, Control, UseFormRegister, Controller } from 'react-hook-form';
 
-import { FormControl } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
 
 import { nameInputValidation, phoneInputValidation } from 'common/utils/validation.ts';
 

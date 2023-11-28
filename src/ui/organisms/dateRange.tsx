@@ -1,10 +1,14 @@
-import { Box, FormControl } from "@mui/material";
-import { filterPassedTime } from "common/utils/date.ts";
-import { ReactDatePickerProps } from "react-datepicker";
-import { FieldErrors, Control, UseFormRegister, useWatch, Controller } from "react-hook-form";
-import { ErrorText } from "ui/atoms/errorText.tsx";
-import { StyledInput } from "ui/atoms/input.tsx";
-import { DatePickerComponent } from "./datePicker/datePicker.component.tsx";
+import { ReactDatePickerProps } from 'react-datepicker';
+import { FieldErrors, Control, UseFormRegister, useWatch, Controller } from 'react-hook-form';
+
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+
+import { filterPassedTime } from 'common/utils/date.ts';
+
+import { DatePickerComponent } from './datePicker/datePicker.component.tsx';
+import { ErrorText } from 'ui/atoms/errorText.tsx';
+import { StyledInput } from 'ui/atoms/input.tsx';
 
 interface Props extends Partial<ReactDatePickerProps<any, any>> {
 	errors: FieldErrors<any>;

@@ -48,17 +48,21 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "5.3.2",
     "vite": "^5.0.2",
+    "vite-plugin-compression": "^0.5.1",
     "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-minify": "^1.5.2",
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.2.1"
   },
   "scripts": {
     "start": "vite --port=3000",
     "build": "tsc && vite build",
+    "watch": "vite build  --watch --mode development",
     "serve": "vite preview",
     "ngrok": "ngrok start localhelper-ngrok",
     "build_deploy": "BUILD_PATH='./public_html' tsc && vite build",
-    "prettier": "prettier --write ./src"
+    "prettier": "prettier --write ./src",
+    "eslint": "eslint --fix ./src"
   },
   "eslintConfig": {
     "extends": [

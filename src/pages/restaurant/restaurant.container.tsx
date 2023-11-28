@@ -7,8 +7,10 @@ import { useCartService } from 'pages/cart/domain/service/cart.service.ts';
 import { Category } from 'pages/categories/category.model.ts';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
 import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
+
 import { categoryQuery } from 'api/airtable/category.ts';
 import { restaurantItemsQuery, restaurantQuery } from 'api/airtable/restaurant.ts';
+
 import { RestaurantComponent } from './restaurant.component.tsx';
 
 export const RestaurantContainer = () => {

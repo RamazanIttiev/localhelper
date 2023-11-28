@@ -1,12 +1,16 @@
 import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import React, { useCallback } from 'react';
 
-import { Box, Drawer, Typography, useTheme } from '@mui/material';
+import { Drawer } from '@mui/material';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 import { isUserAgentTelegram } from 'common/utils/deviceInfo.ts';
 import { openTelegram } from 'common/utils/service.ts';
 
 import { handleOrder } from 'actions/global-actions.ts';
+
+import { theme } from 'ui/theme/theme.ts';
 
 import { ActionButton } from 'ui/atoms/actionButton.tsx';
 
@@ -20,13 +24,11 @@ interface Props {
 }
 
 export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, userCountry }: Props) => {
-	const theme = useTheme();
-
 	const [impactOccurred] = useHapticFeedback();
 
 	const handleSubmit = useCallback(() => {
 		impactOccurred('light');
-		return handleOrder(flowId, {
+		void handleOrder(flowId, {
 			itemName: title,
 			userCountry,
 		});
@@ -68,7 +70,7 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, us
 				{!isUserAgentTelegram ? (
 					<ActionButton isMainButton text={'Open Telegram'} handleClick={openTelegram} />
 				) : (
-					<MainButton onClick={() => {}} />
+					<MainButton onClick={handleSubmit} />
 				)}
 			</Box>
 		</Drawer>

@@ -1,6 +1,6 @@
 import { FieldErrors, UseFormRegister, Control } from 'react-hook-form';
 
-import { Container } from '@mui/material';
+import Container from '@mui/material/Container';
 
 import { ToChangeBox } from 'pages/checkout/exchange-checkout/components/to-change-box.tsx';
 import { ToReceiveBox } from 'pages/checkout/exchange-checkout/components/to-receive-box.tsx';

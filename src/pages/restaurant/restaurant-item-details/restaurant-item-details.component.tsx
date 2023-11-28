@@ -1,4 +1,10 @@
-import { Container, Card, CardMedia, Box, CardContent, Typography, CardActions } from '@mui/material';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 
 import { useCartService } from 'pages/cart/domain/service/cart.service.ts';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';

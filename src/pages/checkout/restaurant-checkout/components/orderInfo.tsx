@@ -1,6 +1,9 @@
-import { Box, Typography } from '@mui/material';
-import { HintText } from 'ui/atoms/hintText.tsx';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
 import { theme } from 'ui/theme/theme.ts';
+
+import { HintText } from 'ui/atoms/hintText.tsx';
 
 interface OrderInfoProps {
 	payment?: string;

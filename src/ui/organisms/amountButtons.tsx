@@ -3,7 +3,10 @@ import AddIcon from 'assets/svg/add.svg?react';
 import RemoveIcon from 'assets/svg/remove.svg?react';
 import { CSSProperties } from 'react';
 
-import { Box, IconButton, Icon, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Icon from '@mui/material/Icon';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 
 import { useCartService } from 'pages/cart/domain/service/cart.service.ts';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';

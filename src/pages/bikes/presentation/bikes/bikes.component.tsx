@@ -1,6 +1,9 @@
+import { SyntheticEvent } from 'react';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 
-import { Skeleton, Typography, Box } from '@mui/material';
+import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
+import Typography from '@mui/material/Typography';
 
 import { BikesFormFields } from 'pages/bikes/domain/model/bikes.model.ts';
 import { BikesCheckoutForm } from 'pages/bikes/presentation/bikes-form/bikes-form.tsx';
@@ -18,7 +21,7 @@ interface Props {
 	errors: FieldErrors<BikesFormFields>;
 	register: UseFormRegister<BikesFormFields>;
 	handleHelmet: () => void;
-	handleSelectedBike: (e: React.SyntheticEvent | null, newValue: string | number | null) => void;
+	handleSelectedBike: (e: SyntheticEvent | null, newValue: string | number | null) => void;
 }
 
 export const BikesCheckoutComponent = ({

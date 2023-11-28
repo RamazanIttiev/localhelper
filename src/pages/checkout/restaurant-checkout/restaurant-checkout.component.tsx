@@ -1,17 +1,16 @@
-import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
-import { CartList } from 'pages/cart/presentation/components/cart-list';
-import { RestaurantFormFields, TabValue } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
-import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
+import { CartList } from 'pages/cart/presentation/components/cart-list.tsx';
+import { RestaurantFormFields, TabValue } from 'pages/checkout/restaurant-checkout/rent-checkout.model.ts';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
 
-import { RestaurantCheckoutForm } from './components/restaurant-checkout-form';
+import { RestaurantCheckoutForm } from './components/restaurant-checkout-form.tsx';
 
-import { HintText } from 'ui/atoms/hintText';
-import { EntityGroup } from 'ui/molecules/entityGroup';
-import { Tabs } from 'ui/molecules/tabs/tabs.component';
+import { HintText } from 'ui/atoms/hintText.tsx';
+import { EntityGroup } from 'ui/molecules/entityGroup.tsx';
+import { Tabs } from 'ui/molecules/tabs/tabs.component.tsx';
 
 interface Props {
 	cartTotalAmount: number;

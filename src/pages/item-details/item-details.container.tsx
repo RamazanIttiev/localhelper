@@ -1,9 +1,9 @@
 import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
-import { useCallback, useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useMemo, useCallback } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import { ItemDetails } from './item-details.component';
-import { DefaultItemModel } from 'ui/organisms/item/domain/item.model';
+import { DefaultItemModel } from 'ui/organisms/item/domain/item.model.ts';
+import { ItemDetails } from './item-details.component.tsx';
 
 interface RouteState {
 	readonly flowId: string;

@@ -1,13 +1,13 @@
-import React, { FC, Fragment, useState } from 'react';
+import { FC, Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Box, Card, SxProps, Typography } from '@mui/material';
 
-import { getServicesRoute } from 'common/utils/route';
+import { getServicesRoute } from 'common/utils/route.ts';
 
-import { theme } from 'ui/theme/theme';
+import { theme } from 'ui/theme/theme.ts';
 
-import { CategoryDialog } from 'ui/organisms/categoryDialog';
+import { CategoryDialog } from 'ui/organisms/categoryDialog.tsx';
 
 interface CategoryProps {
 	title: string;

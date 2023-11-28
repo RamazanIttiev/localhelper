@@ -1,15 +1,15 @@
-import { MainButton } from '@vkruglikov/react-telegram-web-app';
 import { useForm } from 'react-hook-form';
 
-import { useBase } from 'pages/checkout/hooks/checkout.hook';
+import { useBase } from 'pages/checkout/hooks/checkout.hook.ts';
 
-import { getTelegramUser } from 'actions/webApp-actions';
+import { getTelegramUser } from 'actions/webApp-actions.ts';
 
-import { theme } from 'ui/theme/theme';
+import { theme } from 'ui/theme/theme.ts';
 
-import { ToursCheckoutComponent } from './tours-checkout.component';
-import { ToursFormFields } from './tours-checkout.model';
-import { DefaultItemModel } from 'ui/organisms/item/domain/item.model';
+import { DefaultItemModel } from 'ui/organisms/item/domain/item.model.ts';
+import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { ToursCheckoutComponent } from './tours-checkout.component.tsx';
+import { ToursFormFields } from './tours-checkout.model.ts';
 
 export const ToursCheckoutContainer = () => {
 	const tgUser = getTelegramUser();

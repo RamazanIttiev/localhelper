@@ -1,8 +1,8 @@
-import { Restaurant } from 'pages/restaurant/restaurant.model';
+import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
 
-import { GeoLocation, RESTGeoLocation } from 'common/models/geolocation.model';
+import { RESTGeoLocation, GeoLocation } from 'common/models/geolocation.model.ts';
 
-import { isWorkingHour } from './restaurant';
+import { isWorkingHour } from 'common/utils/restaurant.ts';
 
 export const mapRestaurants = (restaurants: Restaurant[] | undefined): Restaurant[] => {
 	return restaurants

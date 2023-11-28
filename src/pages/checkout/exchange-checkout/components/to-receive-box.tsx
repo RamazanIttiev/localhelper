@@ -1,10 +1,8 @@
-import React from 'react';
-
 import { Box, Typography } from '@mui/material';
 
-import { ToReceiveState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
+import { ToReceiveState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model.ts';
 
-import { theme } from 'ui/theme/theme';
+import { theme } from 'ui/theme/theme.ts';
 
 interface Props {
 	state: ToReceiveState;

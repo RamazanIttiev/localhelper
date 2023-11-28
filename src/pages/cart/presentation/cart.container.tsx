@@ -1,16 +1,16 @@
-import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
-import { useCallback, useEffect, useState } from 'react';
+import { useHapticFeedback, MainButton } from '@vkruglikov/react-telegram-web-app';
+import { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useCartService } from 'pages/cart/domain/service/cart.service';
-import { Cart } from 'pages/cart/presentation/cart.component';
-import { getMappedCartList } from 'pages/cart/presentation/utils/cart';
-import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
-import { Restaurant } from 'pages/restaurant/restaurant.model';
+import { useCartService } from 'pages/cart/domain/service/cart.service.ts';
+import { Cart } from 'pages/cart/presentation/cart.component.tsx';
+import { getMappedCartList } from 'pages/cart/presentation/utils/cart.ts';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
+import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
 
-import { getAirtableUrl } from 'common/utils/airtable';
+import { getAirtableUrl } from 'common/utils/airtable.ts';
 
-import { fetchAirtableData } from 'api/api';
+import { fetchAirtableData } from 'api/api.ts';
 
 interface RouteState {
 	state: {

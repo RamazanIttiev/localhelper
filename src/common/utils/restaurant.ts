@@ -1,4 +1,4 @@
-import { CartItem } from 'pages/cart/domain/model/cart.model';
+import { CartItem } from 'pages/cart/domain/model/cart.model.ts';
 
 export const isWorkingHour = (open?: string, close?: string) => {
 	const now = new Date();

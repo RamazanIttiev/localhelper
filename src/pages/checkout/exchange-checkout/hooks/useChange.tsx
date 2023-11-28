@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import RubleIcon from 'assets/svg/ruble.svg?react';
+import USDIcon from 'assets/svg/usd.svg?react';
+import { useState, useEffect } from 'react';
 
-import { CurrencyToChange, ToChangeState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
-
-import { ReactComponent as RubleIcon } from 'assets/svg/ruble.svg';
-import { ReactComponent as USDIcon } from 'assets/svg/usd.svg';
+import { CurrencyToChange, ToChangeState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model.ts';
 
 export const useChange = (currencyToChange: CurrencyToChange) => {
 	const [toChangeState, setToChangeState] = useState<ToChangeState>({ icon: <USDIcon /> });

@@ -1,19 +1,18 @@
 import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useCartService } from 'pages/cart/domain/service/cart.service';
-import { useBase } from 'pages/checkout/hooks/checkout.hook';
-import { RestaurantFormFields, TabValue } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
-import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
-import { Restaurant } from 'pages/restaurant/restaurant.model';
+import { useCartService } from 'pages/cart/domain/service/cart.service.ts';
+import { useBase } from 'pages/checkout/hooks/checkout.hook.ts';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
+import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
 
-import { getTelegramUser } from 'actions/webApp-actions';
+import { getTelegramUser } from 'actions/webApp-actions.ts';
 
-import { theme } from 'ui/theme/theme';
-
-import { RestaurantCheckoutComponent } from './restaurant-checkout.component';
+import { theme } from 'ui/theme/theme.ts';
+import { TabValue, RestaurantFormFields } from './rent-checkout.model.ts';
+import { RestaurantCheckoutComponent } from './restaurant-checkout.component.tsx';
 
 interface RouteState {
 	state: {

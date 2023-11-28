@@ -3,12 +3,12 @@ import React, { useCallback } from 'react';
 
 import { Box, Drawer, Typography, useTheme } from '@mui/material';
 
-import { isUserAgentTelegram } from 'common/utils/deviceInfo';
-import { openTelegram } from 'common/utils/service';
+import { isUserAgentTelegram } from 'common/utils/deviceInfo.ts';
+import { openTelegram } from 'common/utils/service.ts';
 
-import { handleOrder } from 'actions/global-actions';
+import { handleOrder } from 'actions/global-actions.ts';
 
-import { ActionButton } from '../atoms/actionButton';
+import { ActionButton } from 'ui/atoms/actionButton.tsx';
 
 interface Props {
 	title: string;

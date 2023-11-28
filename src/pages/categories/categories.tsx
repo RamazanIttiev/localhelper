@@ -1,15 +1,13 @@
-import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Box, Container } from '@mui/material';
+import { Container, Box } from '@mui/material';
 
-import { CategoryCard } from 'pages/categories/category-card/category-card';
+import { CategoryCard } from 'pages/categories/category-card/category-card.tsx';
+import { categoriesPrimary, categoriesSecondary } from 'pages/categories/mock/categories.ts';
 
-import { CountryCode } from 'common/models/geolocation.model';
+import { CountryCode } from 'common/models/geolocation.model.ts';
 
 import feed from 'assets/feed.avif';
-
-import { categoriesPrimary, categoriesSecondary } from './mock/categories';
 
 export const Categories = () => {
 	const { pathname } = useLocation();

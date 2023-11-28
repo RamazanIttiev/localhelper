@@ -1,17 +1,14 @@
-import React from 'react';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 
+import { formatDaysText } from 'common/utils/date.ts';
+
+import { theme } from 'ui/theme/theme.ts';
+
+import { DefaultItemModel } from 'ui/organisms/item/domain/item.model.ts';
 import { Box, Typography } from '@mui/material';
-
-import { RentCheckoutForm } from './components/rent-checkout-form';
-
-import { formatDaysText } from 'common/utils/date';
-
-import { theme } from 'ui/theme/theme';
-
-import { RentFormFields } from './rent-checkout.model';
-import { HintText } from 'ui/atoms/hintText';
-import { DefaultItemModel } from 'ui/organisms/item/domain/item.model';
+import { HintText } from 'ui/atoms/hintText.tsx';
+import { RentCheckoutForm } from './components/rent-checkout-form.tsx';
+import { RentFormFields } from './rent-checkout.model.ts';
 
 interface Props {
 	rentPeriod: number;

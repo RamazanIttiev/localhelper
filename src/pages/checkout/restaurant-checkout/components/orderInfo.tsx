@@ -1,10 +1,6 @@
-import React from 'react';
-
 import { Box, Typography } from '@mui/material';
-
-import { theme } from 'ui/theme/theme';
-
-import { HintText } from 'ui/atoms/hintText';
+import { HintText } from 'ui/atoms/hintText.tsx';
+import { theme } from 'ui/theme/theme.ts';
 
 interface OrderInfoProps {
 	payment?: string;

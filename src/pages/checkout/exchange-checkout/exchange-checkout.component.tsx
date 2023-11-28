@@ -1,15 +1,14 @@
-import React from 'react';
-import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister, Control } from 'react-hook-form';
 
 import { Container } from '@mui/material';
 
-import { ToChangeBox } from 'pages/checkout/exchange-checkout/components/to-change-box';
-import { ToReceiveBox } from 'pages/checkout/exchange-checkout/components/to-receive-box';
-import { ExchangeFormFields } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
-import { ToChangeState, ToReceiveState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
+import { ToChangeBox } from 'pages/checkout/exchange-checkout/components/to-change-box.tsx';
+import { ToReceiveBox } from 'pages/checkout/exchange-checkout/components/to-receive-box.tsx';
+import { ExchangeFormFields } from 'pages/checkout/exchange-checkout/exchange-checkout.model.ts';
+import { ToChangeState, ToReceiveState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model.ts';
 
-import { HintText } from 'ui/atoms/hintText';
-import { Separator } from 'ui/atoms/separator';
+import { HintText } from 'ui/atoms/hintText.tsx';
+import { Separator } from 'ui/atoms/separator.tsx';
 
 interface ExchangeComponentProps {
 	exchangeRate: number | null;

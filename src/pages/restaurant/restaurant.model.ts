@@ -1,4 +1,4 @@
-import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
 
 export interface Restaurant {
 	id: string;

@@ -1,9 +1,9 @@
 import { QueryClient } from '@tanstack/react-query';
 import { LoaderFunctionArgs } from 'react-router-dom';
 
-import { getAirtableUrl } from 'common/utils/airtable';
+import { getAirtableUrl } from 'common/utils/airtable.ts';
 
-import { fetchAirtableData } from 'api/api';
+import { fetchAirtableData } from 'api/api.ts';
 
 export const categoryQuery = (category: string | undefined) => {
 	const url = getAirtableUrl({ airtableData: 'Category', category });

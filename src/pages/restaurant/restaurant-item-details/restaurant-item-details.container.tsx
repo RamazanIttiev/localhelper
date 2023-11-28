@@ -1,12 +1,11 @@
 import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
-import { useCallback, useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useCartService } from 'pages/cart/domain/service/cart.service';
-import { Restaurant } from 'pages/restaurant/restaurant.model';
-
-import { RestaurantItem } from '../restaurant-item/restaurant-item.model';
-import { RestaurantItemDetails } from './restaurant-item-details.component';
+import { useCartService } from 'pages/cart/domain/service/cart.service.ts';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
+import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
+import { RestaurantItemDetails } from './restaurant-item-details.component.tsx';
 
 interface RouteState {
 	readonly flowId: string;

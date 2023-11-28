@@ -1,14 +1,13 @@
-import { MainButton } from '@vkruglikov/react-telegram-web-app';
 import { useForm } from 'react-hook-form';
 
-import { useBase } from 'pages/checkout/hooks/checkout.hook';
+import { useBase } from 'pages/checkout/hooks/checkout.hook.ts';
 
-import { getTelegramUser } from 'actions/webApp-actions';
+import { getTelegramUser } from 'actions/webApp-actions.ts';
 
-import { theme } from 'ui/theme/theme';
-
-import { TransferCheckoutComponent } from './transfer-checkout.component';
-import { TransferFormFields } from './transfer-checkout.model';
+import { theme } from 'ui/theme/theme.ts';
+import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { TransferCheckoutComponent } from './transfer-checkout.component.tsx';
+import { TransferFormFields } from './transfer-checkout.model.ts';
 
 export const TransferCheckoutContainer = () => {
 	const tgUser = getTelegramUser();

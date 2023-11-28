@@ -1,6 +1,6 @@
-import { TgWebApp } from 'app/App';
+import { TgWebApp } from 'app/App.tsx';
 
-import { apiRequest } from 'api/api';
+import { apiRequest } from 'api/api.ts';
 
 interface SendData {
 	range: number[];
@@ -9,7 +9,7 @@ interface SendData {
 }
 
 const sendWebAppMessage = async (text: string) => {
-	const url = process.env.REACT_APP_SERVER_URL || '';
+	const url = import.meta.env.VITE_SERVER_URL || '';
 	const headers = {};
 	const body = {
 		message: text,
@@ -20,7 +20,7 @@ const sendWebAppMessage = async (text: string) => {
 };
 
 export const sendWebAppDeepLink = async (identifier: string, order: unknown | undefined) => {
-	const url = process.env.REACT_APP_SMARTSENDER_URL || '';
+	const url = import.meta.env.VITE_SMARTSENDER_URL || '';
 	const headers = {
 		'Content-type': 'application/json',
 		'X-Requested-With': 'XMLHttpRequest',

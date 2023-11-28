@@ -18,7 +18,7 @@ module.exports = {
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/no-use-before-define": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/ban-ts-comment": 2,
+    "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/ban-types": 0,
     "@typescript-eslint/class-literal-property-style": 2,
     "@typescript-eslint/naming-convention": 0,

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Switch as BaseSwitch } from '@mui/base/Switch';
 
-import { SwitchStyled } from './switch.styled';
+import { SwitchStyled } from 'ui/atoms/switch/switch.styled.ts';
 
 interface Props {
 	handleHelmet: () => void;

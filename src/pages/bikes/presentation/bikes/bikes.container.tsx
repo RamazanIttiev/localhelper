@@ -1,27 +1,27 @@
 import { useQuery } from '@tanstack/react-query';
-import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
-import React, { useState } from 'react';
+import { useHapticFeedback, MainButton } from '@vkruglikov/react-telegram-web-app';
+import { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
-import { Container } from '@mui/material';
+import Container from '@mui/material/Container';
 
-import { BikesFormFields } from 'pages/bikes/domain/model/bikes.model';
-import { useBase } from 'pages/checkout/hooks/checkout.hook';
-import { Items } from 'pages/items/domain/items.model';
+import { BikesFormFields } from 'pages/bikes/domain/model/bikes.model.ts';
+import { BikesCheckoutComponent } from 'pages/bikes/presentation/bikes/bikes.component.tsx';
+import { useBase } from 'pages/checkout/hooks/checkout.hook.ts';
+import { Items } from 'pages/items/domain/items.model.ts';
 
-import { getFlowId } from 'common/utils/airtable';
-import { getDateDiff } from 'common/utils/date';
+import { getFlowId } from 'common/utils/airtable.ts';
+import { getDateDiff } from 'common/utils/date.ts';
 
-import { itemsQuery } from 'api/airtable/items';
+import { itemsQuery } from 'api/airtable/items.ts';
 
-import { handleOrder } from 'actions/global-actions';
-import { getTelegramUser } from 'actions/webApp-actions';
+import { handleOrder } from 'actions/global-actions.ts';
+import { getTelegramUser } from 'actions/webApp-actions.ts';
 
-import { theme } from 'ui/theme/theme';
+import { theme } from 'ui/theme/theme.ts';
 
-import { BikesCheckoutComponent } from './bikes.component';
-import { useGeoLocationService } from 'common/service/geoLocation.service';
+import { useGeoLocationService } from 'common/service/geoLocation.service.ts';
 
 export const BikesContainer = () => {
 	const { categoryId } = useParams();

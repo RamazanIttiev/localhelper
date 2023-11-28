@@ -1,9 +1,9 @@
 import { QueryClient } from '@tanstack/react-query';
 import { LoaderFunctionArgs } from 'react-router-dom';
 
-import { GeoLocation } from 'common/models/geolocation.model';
+import { GeoLocation } from 'common/models/geolocation.model.ts';
 
-import { fetchAirtableData } from 'api/api';
+import { fetchAirtableData } from 'api/api.ts';
 
 const getItemsFetchResult = ({
 	category,
@@ -17,7 +17,9 @@ const getItemsFetchResult = ({
 			case 'bikes':
 				return {
 					url:
-						`${process.env.REACT_APP_AIRTABLE_URL}/Items?filterByFormula=AND(NOT({category}=BLANK()), NOT({country}=BLANK()), 
+						`${
+							import.meta.env.VITE_AIRTABLE_URL
+						}/Items?filterByFormula=AND(NOT({category}=BLANK()), NOT({country}=BLANK()), 
 					{category}='${category}', {country}='${geoLocation?.userCountry}')` || '',
 				};
 			default:

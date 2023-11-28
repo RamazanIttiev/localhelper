@@ -1,14 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import { categoryQuery } from 'api/airtable/category.ts';
+import { itemsQuery } from 'api/airtable/items.ts';
+import { Category } from 'pages/categories/category.model.ts';
+import { Items } from 'pages/items/domain/items.model.ts';
 import { useParams } from 'react-router-dom';
-
-import { Category } from 'pages/categories/category.model';
-import { Items } from 'pages/items/domain/items.model';
-
-import { categoryQuery } from 'api/airtable/category';
-import { itemsQuery } from 'api/airtable/items';
-
-import { ItemsComponent } from './items.component';
+import { ItemsComponent } from './items.component.tsx';
 
 export const ItemsContainer = () => {
 	const { categoryId } = useParams();

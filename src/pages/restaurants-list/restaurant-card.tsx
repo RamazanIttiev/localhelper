@@ -1,13 +1,9 @@
-import React from 'react';
+import { Card, CardMedia, CardContent, Typography, Box } from '@mui/material';
+import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
 import { Link } from 'react-router-dom';
+import { WorkingStatus } from 'ui/atoms/workingStatus.tsx';
 
-import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-
-import { Restaurant } from 'pages/restaurant/restaurant.model';
-
-import { theme } from 'ui/theme/theme';
-
-import { WorkingStatus } from 'ui/atoms/workingStatus';
+import { theme } from 'ui/theme/theme.ts';
 
 interface Props {
 	restaurant: Restaurant;

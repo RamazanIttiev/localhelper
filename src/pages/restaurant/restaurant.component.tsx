@@ -1,18 +1,14 @@
-import React from 'react';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
+import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
 
+import { isUserAgentTelegram } from 'common/utils/deviceInfo.ts';
+import { openTelegram } from 'common/utils/service.ts';
 import { Container, Grid } from '@mui/material';
-
-import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
-import { Restaurant } from 'pages/restaurant/restaurant.model';
-
-import { isUserAgentTelegram } from 'common/utils/deviceInfo';
-import { openTelegram } from 'common/utils/service';
-
-import { RestaurantHeader } from './restaurant-header/restaurant-header';
-import { RestaurantItemContainer } from './restaurant-item/restaurant-item.container';
-import { ActionButton } from 'ui/atoms/actionButton';
-import { HeaderSkeleton } from 'ui/atoms/skeletons/headerSkeleton';
-import { ItemSkeleton } from 'ui/atoms/skeletons/itemSkeleton';
+import { ActionButton } from 'ui/atoms/actionButton.tsx';
+import { HeaderSkeleton } from 'ui/atoms/skeletons/headerSkeleton.tsx';
+import { ItemSkeleton } from 'ui/atoms/skeletons/itemSkeleton.tsx';
+import { RestaurantHeader } from './restaurant-header/restaurant-header.tsx';
+import { RestaurantItemContainer } from './restaurant-item/restaurant-item.container.ts';
 
 interface Props {
 	readonly flowId: string;

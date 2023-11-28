@@ -1,16 +1,13 @@
-import React from 'react';
+import { isUserAgentTelegram } from 'common/utils/deviceInfo.ts';
+import { openTelegram } from 'common/utils/service.ts';
 
-import { Box, Card, CardContent, CardMedia, Container, Typography } from '@mui/material';
+import { theme } from 'ui/theme/theme.ts';
 
-import { isUserAgentTelegram } from 'common/utils/deviceInfo';
-import { openTelegram } from 'common/utils/service';
-
-import { theme } from 'ui/theme/theme';
-
-import { ActionButton } from 'ui/atoms/actionButton';
-import { IconBadges } from 'ui/atoms/iconBadges';
-import { MuiCarousel } from 'ui/organisms/carousel';
-import { Item } from 'ui/organisms/item/domain/item.model';
+import { Item } from 'ui/organisms/item/domain/item.model.ts';
+import { Container, Card, CardMedia, Box, CardContent, Typography } from '@mui/material';
+import { ActionButton } from 'ui/atoms/actionButton.tsx';
+import { IconBadges } from 'ui/atoms/iconBadges.tsx';
+import { MuiCarousel } from 'ui/organisms/carousel.tsx';
 
 interface Props {
 	item: Item;

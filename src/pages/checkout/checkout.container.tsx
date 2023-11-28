@@ -1,19 +1,18 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Container } from '@mui/material';
+import Container from '@mui/material/Container';
 
-import { ExchangeContainer } from 'pages/checkout/exchange-checkout/exchange-checkout.container';
-import { FlowersCheckoutContainer } from 'pages/checkout/flowers-checkout/flowers-checkout.container';
-import { RentCheckoutContainer } from 'pages/checkout/rent-checkout/rent-checkout.container';
-import { RestaurantCheckoutContainer } from 'pages/checkout/restaurant-checkout/restaurant-checkout.container';
-import { ToursCheckoutContainer } from 'pages/checkout/tours-checkout/tours-checkout.container';
-import { TransferCheckoutContainer } from 'pages/checkout/transfer-checkout/transfer-checkout.container';
+import { ExchangeContainer } from 'pages/checkout/exchange-checkout/exchange-checkout.container.tsx';
+import { FlowersCheckoutContainer } from 'pages/checkout/flowers-checkout/flowers-checkout.container.tsx';
+import { RentCheckoutContainer } from 'pages/checkout/rent-checkout/rent-checkout.container.tsx';
+import { RestaurantCheckoutContainer } from 'pages/checkout/restaurant-checkout/restaurant-checkout.container.tsx';
+import { ToursCheckoutContainer } from 'pages/checkout/tours-checkout/tours-checkout.container.tsx';
+import { TransferCheckoutContainer } from 'pages/checkout/transfer-checkout/transfer-checkout.container.tsx';
 
-import { isUserAgentTelegram } from 'common/utils/deviceInfo';
-import { openTelegram } from 'common/utils/service';
+import { isUserAgentTelegram } from 'common/utils/deviceInfo.ts';
+import { openTelegram } from 'common/utils/service.ts';
 
-import { ActionButton } from 'ui/atoms/actionButton';
+import { ActionButton } from 'ui/atoms/actionButton.tsx';
 
 const containerStyles = { pt: '1rem', pb: '1rem', position: 'relative' };
 

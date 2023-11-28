@@ -1,6 +1,6 @@
 import { Box, Grid, Skeleton } from '@mui/material';
 
-import { theme } from 'ui/theme/theme';
+import { theme } from 'ui/theme/theme.ts';
 
 export const ItemSkeleton = () => {
 	const background = {

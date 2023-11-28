@@ -1,15 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Box, Card, CardContent, Typography } from '@mui/material';
 
-import { isUserAgentTelegram } from 'common/utils/deviceInfo';
+import { isUserAgentTelegram } from 'common/utils/deviceInfo.ts';
 
-import { theme } from 'ui/theme/theme';
+import { theme } from 'ui/theme/theme.ts';
 
-import { Item } from '../../domain/item.model';
-import { ActionButton } from 'ui/atoms/actionButton';
-import { IconBadges } from 'ui/atoms/iconBadges';
-import { Link } from 'ui/atoms/link';
+import { ActionButton } from 'ui/atoms/actionButton.tsx';
+import { IconBadges } from 'ui/atoms/iconBadges.tsx';
+import { Item } from 'ui/organisms/item/domain/item.model.ts';
 
 interface Props {
 	flowId: string;

@@ -1,15 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { restaurantsQuery } from 'api/airtable/restaurant.ts';
+
+import { hideMainButton } from 'actions/webApp-actions.ts';
 import { Container, Grid } from '@mui/material';
-
-import { restaurantsQuery } from 'api/airtable/restaurant';
-
-import { hideMainButton } from 'actions/webApp-actions';
-
-import { RestaurantCard } from './restaurant-card';
-import { RestaurantSkeleton } from 'ui/atoms/skeletons/restaurantSkeleton';
+import { RestaurantSkeleton } from 'ui/atoms/skeletons/restaurantSkeleton.tsx';
+import { RestaurantCard } from './restaurant-card.tsx';
 
 export const RestaurantsListContainer = () => {
 	const { restaurantId } = useParams();

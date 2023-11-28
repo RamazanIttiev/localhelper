@@ -5,32 +5,30 @@
     ]
   },
   "compilerOptions": {
-    "outDir": "dist",
-    "baseUrl": "src",
-    "rootDir": "src",
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/telegram-webapps-types-new"
-    ],
-    "allowJs": true,
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
     "jsx": "react-jsx",
+    "types": ["vite/client", "vite-plugin-svgr/client"],
+    "outDir": "dist",
+    "baseUrl": "src",
+    "rootDir": "src",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/telegram-webapps-types-new"
+    ],
+    "allowJs": true,
     "paths": {
       "*": [
         "./*"
@@ -59,6 +57,10 @@
     }
   },
   "include": [
-    "src/**/*"
-  ]
+    "src/**/*",
+    "vite.config.ts",
+    ".eslintrc.cjs",
+    "src/**/*.ts", "src/**/*.tsx"
+  ],
+  "exclude": ["node_modules"]
 }

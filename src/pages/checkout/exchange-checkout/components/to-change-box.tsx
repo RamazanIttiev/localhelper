@@ -1,18 +1,17 @@
 import { useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
-import React from 'react';
-import { Control, UseFormRegister, useWatch } from 'react-hook-form';
+import { UseFormRegister, Control, useWatch } from 'react-hook-form';
 
-import { Box, Skeleton, Typography } from '@mui/material';
+import { Box, Typography, Skeleton } from '@mui/material';
 
-import { ExchangeFormFields } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
-import { ToChangeState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
-import { amountToChangeValidation } from 'pages/checkout/exchange-checkout/service/validation';
+import { ToChangeState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model.ts';
+import { amountToChangeValidation } from 'pages/checkout/exchange-checkout/service/validation.ts';
 
-import { theme } from 'ui/theme/theme';
+import { theme } from 'ui/theme/theme.ts';
 
-import { ErrorText } from 'ui/atoms/errorText';
-import { Input } from 'ui/atoms/input';
-import { Select } from 'ui/atoms/select';
+import { ExchangeFormFields } from '../exchange-checkout.model.ts';
+import { ErrorText } from 'ui/atoms/errorText.tsx';
+import { Input } from 'ui/atoms/input.tsx';
+import { Select } from 'ui/atoms/select.tsx';
 
 interface Props {
 	exchangeRate: number | null;

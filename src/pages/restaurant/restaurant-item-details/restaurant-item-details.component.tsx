@@ -1,20 +1,18 @@
-import React from 'react';
+import { Container, Card, CardMedia, Box, CardContent, Typography, CardActions } from '@mui/material';
 
-import { Box, Card, CardActions, CardContent, CardMedia, Container, Typography } from '@mui/material';
+import { useCartService } from 'pages/cart/domain/service/cart.service.ts';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
+import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
 
-import { useCartService } from 'pages/cart/domain/service/cart.service';
-
-import { isUserAgentTelegram } from 'common/utils/deviceInfo';
-import { openTelegram } from 'common/utils/service';
+import { isUserAgentTelegram } from 'common/utils/deviceInfo.ts';
+import { openTelegram } from 'common/utils/service.ts';
 
 import skeletonImage from 'assets/food.webp';
 
-import { RestaurantItem } from '../restaurant-item/restaurant-item.model';
-import { Restaurant } from '../restaurant.model';
-import { ActionButton } from 'ui/atoms/actionButton';
-import { InfoBadge } from 'ui/atoms/infoBadge';
-import { AmountButtons } from 'ui/organisms/amountButtons';
-import { MuiCarousel } from 'ui/organisms/carousel';
+import { ActionButton } from 'ui/atoms/actionButton.tsx';
+import { InfoBadge } from 'ui/atoms/infoBadge.tsx';
+import { AmountButtons } from 'ui/organisms/amountButtons.tsx';
+import { MuiCarousel } from 'ui/organisms/carousel.tsx';
 
 interface Props {
 	readonly restaurant: Restaurant;

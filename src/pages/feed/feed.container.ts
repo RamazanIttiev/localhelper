@@ -1,10 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
+import { feedQuery } from 'api/airtable/feed.ts';
 import { createElement } from 'react';
-
-import { Feed } from 'pages/feed/feed-card/feed-card.model';
-import { FeedComponent } from 'pages/feed/feed.component';
-
-import { feedQuery } from 'api/airtable/feed';
+import { Feed } from './feed-card/feed-card.model.ts';
+import { FeedComponent } from './feed.component.tsx';
 
 export const FeedContainer = () => {
 	const { data: feed } = useQuery<Feed[]>(feedQuery());

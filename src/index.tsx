@@ -4,12 +4,11 @@ import ReactDOM from 'react-dom/client';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
-import App from 'app/App';
+import App from 'app/App.tsx';
 
-import { theme } from 'ui/theme/theme';
+import { theme } from 'ui/theme/theme.ts';
 
-import './index.css';
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from './reportWebVitals.ts';
 
 declare global {
 	interface Window {

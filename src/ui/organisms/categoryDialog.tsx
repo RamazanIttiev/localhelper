@@ -68,7 +68,7 @@ export const CategoryDialog = ({ title, image, isOpened, handleClose, flowId, us
 				{!isUserAgentTelegram ? (
 					<ActionButton isMainButton text={'Open Telegram'} handleClick={openTelegram} />
 				) : (
-					<MainButton onClick={handleSubmit} />
+					<MainButton onClick={() => {}} />
 				)}
 			</Box>
 		</Drawer>

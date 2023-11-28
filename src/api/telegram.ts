@@ -5,7 +5,8 @@ import { apiRequest } from 'api/api.ts';
 interface SendData {
 	range: number[];
 	scope: unknown;
-	variables: unknown | undefined;
+	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+	variables: any | undefined;
 }
 
 const sendWebAppMessage = async (text: string) => {
@@ -19,7 +20,8 @@ const sendWebAppMessage = async (text: string) => {
 	return await apiRequest(url, 'POST', headers, body);
 };
 
-export const sendWebAppDeepLink = async (identifier: string, order: unknown | undefined) => {
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+export const sendWebAppDeepLink = async (identifier: string, order: any | undefined) => {
 	const url = import.meta.env.VITE_SMARTSENDER_URL || '';
 	const headers = {
 		'Content-type': 'application/json',

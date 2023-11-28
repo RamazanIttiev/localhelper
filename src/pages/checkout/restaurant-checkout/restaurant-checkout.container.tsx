@@ -11,6 +11,7 @@ import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
 import { getTelegramUser } from 'actions/webApp-actions.ts';
 
 import { theme } from 'ui/theme/theme.ts';
+
 import { TabValue, RestaurantFormFields } from './rent-checkout.model.ts';
 import { RestaurantCheckoutComponent } from './restaurant-checkout.component.tsx';
 
@@ -30,7 +31,7 @@ export const RestaurantCheckoutContainer = () => {
 	const restaurantItems = state.cartList;
 
 	const [impactOccurred] = useHapticFeedback();
-	const [orderMethod, setOrderMethod] = useState<string>(TabValue.DELIVERY);
+	const [orderMethod, setOrderMethod] = useState<TabValue>(TabValue.DELIVERY);
 
 	const { getTotalPrice, getCartOrder, clearCart } = useCartService();
 
@@ -42,10 +43,10 @@ export const RestaurantCheckoutContainer = () => {
 		{ order: cartOrder, orderTotal: cartTotalAmount, tgUserNick: tgUser?.username },
 	);
 
-	const handleOrderMethod = (e: React.SyntheticEvent | null, newValue: string | number | null) => {
+	const handleOrderMethod = (e: React.SyntheticEvent | null, newValue: TabValue | number | null) => {
 		impactOccurred('light');
 
-		if (typeof newValue === 'string') {
+		if (typeof newValue !== 'number' && newValue !== null) {
 			setOrderMethod(newValue);
 		}
 	};
@@ -70,7 +71,7 @@ export const RestaurantCheckoutContainer = () => {
 			/>
 			<MainButton
 				text={'Order'}
-				onClick={onSubmit}
+				onClick={() => {}}
 				disabled={isSubmitting}
 				progress={isSubmitting}
 				color={

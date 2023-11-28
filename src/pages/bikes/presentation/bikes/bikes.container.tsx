@@ -91,7 +91,7 @@ export const BikesContainer = () => {
 			/>
 			<MainButton
 				text={'Order'}
-				onClick={onSubmit}
+				onClick={() => {}}
 				disabled={isSubmitting}
 				progress={isSubmitting}
 				color={

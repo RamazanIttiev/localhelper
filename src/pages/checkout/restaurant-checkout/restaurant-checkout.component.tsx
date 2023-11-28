@@ -18,8 +18,8 @@ interface Props {
 	errors: FieldErrors<RestaurantFormFields>;
 	cartList: RestaurantItem[];
 	register: UseFormRegister<RestaurantFormFields>;
-	orderMethod: string;
-	handleOrderMethod: (e: React.SyntheticEvent | null, newValue: string | number | null) => void;
+	orderMethod: TabValue;
+	handleOrderMethod: (e: React.SyntheticEvent | null, newValue: TabValue | number | null) => void;
 }
 
 const orderMethods = [

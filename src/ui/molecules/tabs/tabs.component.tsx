@@ -15,7 +15,8 @@ import {
 } from './tabs.styled';
 
 interface Props {
-	readonly onChange: (e: React.SyntheticEvent | null, newValue: string | number | null) => void;
+	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+	readonly onChange: (e: React.SyntheticEvent | null, newValue: any | number | null) => void;
 	// TODO change type
 	readonly tabs: any;
 	readonly tabPanels?: {

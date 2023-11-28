@@ -41,7 +41,7 @@ export const ExchangeContainer = () => {
 			/>
 			<MainButton
 				text="Exchange"
-				onClick={onSubmit}
+				onClick={() => {}}
 				disabled={isSubmitting}
 				progress={isSubmitting}
 				color={

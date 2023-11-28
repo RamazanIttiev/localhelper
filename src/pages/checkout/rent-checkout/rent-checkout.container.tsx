@@ -1,3 +1,4 @@
+import { MainButton } from '@vkruglikov/react-telegram-web-app';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { useBase } from 'pages/checkout/hooks/checkout.hook.ts';
@@ -8,10 +9,9 @@ import { getTelegramUser } from 'actions/webApp-actions.ts';
 
 import { theme } from 'ui/theme/theme.ts';
 
-import { DefaultItemModel } from 'ui/organisms/item/domain/item.model.ts';
-import { MainButton } from '@vkruglikov/react-telegram-web-app';
 import { RentCheckoutComponent } from './rent-checkout.component.tsx';
 import { RentFormFields } from './rent-checkout.model.ts';
+import { DefaultItemModel } from 'ui/organisms/item/domain/item.model.ts';
 
 export const RentCheckoutContainer = () => {
 	const tgUser = getTelegramUser();
@@ -40,7 +40,7 @@ export const RentCheckoutContainer = () => {
 			/>
 			<MainButton
 				text={'Order'}
-				onClick={onSubmit}
+				onClick={() => {}}
 				disabled={isSubmitting}
 				progress={isSubmitting}
 				color={

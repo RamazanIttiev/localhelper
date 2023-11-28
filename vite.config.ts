@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react-swc';
 
-import { defineConfig } from 'vite';
+import { visualizer } from 'rollup-plugin-visualizer';
+import { defineConfig, PluginOption } from 'vite';
 import eslint from 'vite-plugin-eslint';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -23,5 +24,12 @@ export default defineConfig({
 		react(),
 		tsconfigPaths(),
 		eslint({ cache: false, include: ['./src/**/*.ts', './src/**/*.tsx'], exclude: [] }),
+		visualizer({
+			template: 'treemap', // or sunburst
+			open: true,
+			gzipSize: true,
+			brotliSize: true,
+			filename: 'analyse.html', // will be saved in project's root
+		}) as PluginOption,
 	],
 });

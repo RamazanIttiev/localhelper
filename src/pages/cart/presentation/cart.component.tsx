@@ -1,12 +1,11 @@
-import React from 'react';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 
-import { Box, Container } from '@mui/material';
+import { CartHeader } from 'pages/cart/presentation/components/cart-header.tsx';
+import { CartList } from 'pages/cart/presentation/components/cart-list.tsx';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
 
-import { CartHeader } from 'pages/cart/presentation/components/cart-header';
-import { CartList } from 'pages/cart/presentation/components/cart-list';
-import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
-
-import { theme } from 'ui/theme/theme';
+import { theme } from 'ui/theme/theme.ts';
 
 interface Props {
 	restaurantTitle?: string;

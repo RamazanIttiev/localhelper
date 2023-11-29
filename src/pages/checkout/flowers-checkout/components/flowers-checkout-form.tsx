@@ -1,12 +1,11 @@
-import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-import { addressValidation, nameInputValidation, phoneInputValidation } from 'common/utils/validation';
+import { nameInputValidation, phoneInputValidation, addressValidation } from 'common/utils/validation.ts';
 
-import { FlowersFormFields } from '../flowers-checkout.model';
-import { ErrorText } from 'ui/atoms/errorText';
-import { Input } from 'ui/atoms/input';
-import { EntityGroup } from 'ui/molecules/entityGroup';
+import { FlowersFormFields } from '../flowers-checkout.model.ts';
+import { ErrorText } from 'ui/atoms/errorText.tsx';
+import { Input } from 'ui/atoms/input.tsx';
+import { EntityGroup } from 'ui/molecules/entityGroup.tsx';
 
 interface Props {
 	errors: FieldErrors<FlowersFormFields>;

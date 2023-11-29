@@ -1,13 +1,14 @@
 import { useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
-import React from 'react';
+import TrashBin from 'assets/svg/trashBin.svg?react';
 
-import { Box, Icon, IconButton, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Icon from '@mui/material/Icon';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 
-import { useCartService } from 'pages/cart/domain/service/cart.service';
+import { useCartService } from 'pages/cart/domain/service/cart.service.ts';
 
-import { hideMainButton } from 'actions/webApp-actions';
-
-import { ReactComponent as TrashBin } from 'assets/svg/trashBin.svg';
+import { hideMainButton } from 'actions/webApp-actions.ts';
 
 export const CartHeader = ({ restaurantTitle }: { restaurantTitle?: string }) => {
 	const { clearCart } = useCartService();

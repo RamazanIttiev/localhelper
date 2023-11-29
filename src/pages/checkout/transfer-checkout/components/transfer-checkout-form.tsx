@@ -1,17 +1,15 @@
-import React from 'react';
-import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, Control, UseFormRegister, Controller } from 'react-hook-form';
 
-import { FormControl } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
 
-import { nameInputValidation, phoneInputValidation } from 'common/utils/validation';
+import { nameInputValidation, phoneInputValidation } from 'common/utils/validation.ts';
 
-import '../../../../ui/organisms/datePicker/datePicker.css';
-import { TransferFormFields } from '../transfer-checkout.model';
-import { ErrorText } from 'ui/atoms/errorText';
-import { Input } from 'ui/atoms/input';
-import { Select } from 'ui/atoms/select';
-import { EntityGroup } from 'ui/molecules/entityGroup';
-import { DatePickerComponent } from 'ui/organisms/datePicker/datePicker.component';
+import { TransferFormFields } from '../transfer-checkout.model.ts';
+import { ErrorText } from 'ui/atoms/errorText.tsx';
+import { Input } from 'ui/atoms/input.tsx';
+import { Select } from 'ui/atoms/select.tsx';
+import { EntityGroup } from 'ui/molecules/entityGroup.tsx';
+import { DatePickerComponent } from 'ui/organisms/datePicker/datePicker.component.tsx';
 
 interface Props {
 	errors: FieldErrors<TransferFormFields>;

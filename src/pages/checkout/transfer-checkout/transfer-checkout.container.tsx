@@ -1,23 +1,39 @@
-import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import { useForm } from 'react-hook-form';
+import { useLocation } from 'react-router-dom';
 
-import { useBase } from 'pages/checkout/hooks/checkout.hook';
+import { useBase } from 'pages/checkout/hooks/checkout.hook.ts';
 
-import { getTelegramUser } from 'actions/webApp-actions';
+import { handleOrder } from 'actions/global-actions.ts';
+import { getTelegramUser } from 'actions/webApp-actions.ts';
 
-import { theme } from 'ui/theme/theme';
+import { theme } from 'ui/theme/theme.ts';
 
-import { TransferCheckoutComponent } from './transfer-checkout.component';
-import { TransferFormFields } from './transfer-checkout.model';
+import { TransferCheckoutComponent } from './transfer-checkout.component.tsx';
+import { TransferFormFields } from './transfer-checkout.model.ts';
 
 export const TransferCheckoutContainer = () => {
-	const tgUser = getTelegramUser();
+	const { state } = useLocation();
 
-	const { onSubmit, errors, register, control, isSubmitting } = useBase(
+	const tgUser = getTelegramUser();
+	const [impactOccurred, notificationOccurred] = useHapticFeedback();
+
+	const { handleSubmit, errors, register, control, isSubmitting } = useBase(
 		useForm<TransferFormFields>({
 			defaultValues: { userName: tgUser?.first_name, date: null },
 		}),
 		{ tgUserNick: tgUser?.username },
+	);
+
+	const onSubmit = handleSubmit(
+		(formData: any) => {
+			impactOccurred('light');
+			void handleOrder(state?.flowId, {
+				item: state?.item.id || '',
+				...formData,
+			});
+		},
+		() => notificationOccurred('error'),
 	);
 
 	return (

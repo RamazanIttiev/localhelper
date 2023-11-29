@@ -1,6 +1,6 @@
-import { Restaurant } from 'pages/restaurant/restaurant.model';
+import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
 
-import { Item } from 'ui/organisms/item/domain/item.model';
+import { Item } from 'ui/organisms/item/domain/item.model.ts';
 
 export interface Category {
 	id: string;

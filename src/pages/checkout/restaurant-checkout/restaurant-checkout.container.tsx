@@ -1,19 +1,20 @@
 import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect, SyntheticEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useCartService } from 'pages/cart/domain/service/cart.service';
-import { useBase } from 'pages/checkout/hooks/checkout.hook';
-import { RestaurantFormFields, TabValue } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
-import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
-import { Restaurant } from 'pages/restaurant/restaurant.model';
+import { useCartService } from 'pages/cart/domain/service/cart.service.ts';
+import { useBase } from 'pages/checkout/hooks/checkout.hook.ts';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
+import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
 
-import { getTelegramUser } from 'actions/webApp-actions';
+import { handleOrder } from 'actions/global-actions.ts';
+import { getTelegramUser } from 'actions/webApp-actions.ts';
 
-import { theme } from 'ui/theme/theme';
+import { theme } from 'ui/theme/theme.ts';
 
-import { RestaurantCheckoutComponent } from './restaurant-checkout.component';
+import { TabValue, RestaurantFormFields } from './rent-checkout.model.ts';
+import { RestaurantCheckoutComponent } from './restaurant-checkout.component.tsx';
 
 interface RouteState {
 	state: {
@@ -30,23 +31,23 @@ export const RestaurantCheckoutContainer = () => {
 	const restaurant = state?.item;
 	const restaurantItems = state.cartList;
 
-	const [impactOccurred] = useHapticFeedback();
-	const [orderMethod, setOrderMethod] = useState<string>(TabValue.DELIVERY);
+	const [impactOccurred, notificationOccurred] = useHapticFeedback();
+	const [orderMethod, setOrderMethod] = useState<TabValue>(TabValue.DELIVERY);
 
 	const { getTotalPrice, getCartOrder, clearCart } = useCartService();
 
 	const cartOrder = getCartOrder(restaurantItems);
 	const cartTotalAmount = getTotalPrice(restaurantItems);
 
-	const { onSubmit, errors, register, isSubmitting, isSubmitSuccessful } = useBase(
+	const { handleSubmit, errors, register, isSubmitting, isSubmitSuccessful } = useBase(
 		useForm<RestaurantFormFields>({ defaultValues: { userName: tgUser?.first_name } }),
 		{ order: cartOrder, orderTotal: cartTotalAmount, tgUserNick: tgUser?.username },
 	);
 
-	const handleOrderMethod = (e: React.SyntheticEvent | null, newValue: string | number | null) => {
+	const handleOrderMethod = (e: SyntheticEvent | null, newValue: TabValue | number | null) => {
 		impactOccurred('light');
 
-		if (typeof newValue === 'string') {
+		if (typeof newValue !== 'number' && newValue !== null) {
 			setOrderMethod(newValue);
 		}
 	};
@@ -57,6 +58,17 @@ export const RestaurantCheckoutContainer = () => {
 			navigate(-1);
 		}
 	}, [clearCart, isSubmitSuccessful, navigate]);
+
+	const onSubmit = handleSubmit(
+		(formData: any) => {
+			impactOccurred('light');
+			void handleOrder(state?.flowId, {
+				item: state?.item,
+				...formData,
+			});
+		},
+		() => notificationOccurred('error'),
+	);
 
 	return (
 		<>

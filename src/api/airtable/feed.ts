@@ -1,8 +1,8 @@
 import { QueryClient } from '@tanstack/react-query';
 
-import { getAirtableUrl } from 'common/utils/airtable';
+import { getAirtableUrl } from 'common/utils/airtable.ts';
 
-import { fetchAirtableData } from 'api/api';
+import { fetchAirtableData } from 'api/api.ts';
 
 export const feedQuery = () => {
 	const url = getAirtableUrl({ airtableData: 'Feed' });

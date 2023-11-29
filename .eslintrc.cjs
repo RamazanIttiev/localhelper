@@ -3,7 +3,7 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint", "react", "react-hooks"],
   parserOptions: {
-    project: ["./tsconfig.json", "./*/tsconfig.json"]
+    project: "./tsconfig.json"
   },
   extends: [
     "prettier",
@@ -12,13 +12,14 @@ module.exports = {
     "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
   rules: {
+    "@typescript-eslint/no-unsafe-argument": "off",
     "@typescript-eslint/no-non-null-assertion": 0,
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/no-use-before-define": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/ban-ts-comment": 2,
+    "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/ban-types": 0,
     "@typescript-eslint/class-literal-property-style": 2,
     "@typescript-eslint/naming-convention": 0,
@@ -47,6 +48,11 @@ module.exports = {
     "no-mixed-spaces-and-tabs": 0,
     "array-callback-return": 0,
     "no-fallthrough": 0,
-    "jsx-a11y/media-has-caption": 0
+    "jsx-a11y/media-has-caption": 0,
+    "@typescript-eslint/no-misused-promises": [2, {
+      "checksVoidReturn": {
+        "attributes": false
+      }
+    }],
   }
 };

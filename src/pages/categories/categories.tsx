@@ -1,27 +1,15 @@
-import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Box, Container } from '@mui/material';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 
-import { CategoryCard } from 'pages/categories/category-card/category-card';
-
-import { CountryCode } from 'common/models/geolocation.model';
+import { CategoryCard } from 'pages/categories/category-card/category-card.tsx';
+import { categoriesPrimary, categoriesSecondary } from 'pages/categories/mock/categories.ts';
 
 import feed from 'assets/feed.avif';
 
-import { categoriesPrimary, categoriesSecondary } from './mock/categories';
-
 export const Categories = () => {
 	const { pathname } = useLocation();
-	const { search } = useLocation();
-	const userCountry = search.replace(/[?=]/g, '') as CountryCode;
-
-	// const { data: geolocation } = useQuery<GeoLocationProps>(geolocationQuery());
-
-	const isIndia = false;
-	// const userCountry = geolocation?.country_code2;
-
-	// if (!geolocation) return null;
 
 	return (
 		<Container maxWidth={'md'} sx={{ pb: 1 }}>
@@ -32,20 +20,19 @@ export const Categories = () => {
 					flexWrap: 'wrap',
 					justifyContent: 'space-between',
 				}}>
-				{!isIndia &&
-					categoriesPrimary.map(({ title, image, flowId, isLink, sx }) => {
-						return (
-							<CategoryCard
-								sx={sx}
-								key={title}
-								title={title}
-								image={image}
-								flowId={flowId}
-								isLink={isLink}
-								userCountry={'LK'}
-							/>
-						);
-					})}
+				{categoriesPrimary.map(({ title, image, flowId, isLink, sx }) => {
+					return (
+						<CategoryCard
+							sx={sx}
+							key={title}
+							title={title}
+							image={image}
+							flowId={flowId}
+							isLink={isLink}
+							userCountry={'LK'}
+						/>
+					);
+				})}
 			</Box>
 			<Box
 				sx={{
@@ -53,22 +40,21 @@ export const Categories = () => {
 					flexWrap: 'wrap',
 					justifyContent: 'space-between',
 				}}>
-				{!isIndia &&
-					categoriesSecondary.map(({ title, image, flowId, isLink, sx, imageSx }) => {
-						return (
-							<CategoryCard
-								sx={sx}
-								key={title}
-								title={title}
-								image={image}
-								flowId={flowId}
-								isLink={isLink}
-								imageSx={imageSx}
-								secondary={true}
-								userCountry={'LK'}
-							/>
-						);
-					})}
+				{categoriesSecondary.map(({ title, image, flowId, isLink, sx, imageSx }) => {
+					return (
+						<CategoryCard
+							sx={sx}
+							key={title}
+							title={title}
+							image={image}
+							flowId={flowId}
+							isLink={isLink}
+							imageSx={imageSx}
+							secondary={true}
+							userCountry={'LK'}
+						/>
+					);
+				})}
 			</Box>
 
 			<CategoryCard

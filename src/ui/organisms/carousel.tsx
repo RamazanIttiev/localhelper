@@ -2,11 +2,13 @@ import React from 'react';
 import { isDesktop } from 'react-device-detect';
 import Carousel from 'react-material-ui-carousel';
 
-import { Box, useTheme } from '@mui/material';
+import Box from '@mui/material/Box';
 
-import { isUserAgentTelegram } from 'common/utils/deviceInfo';
+import { isUserAgentTelegram } from 'common/utils/deviceInfo.ts';
 
-import { IconBadges } from '../atoms/iconBadges';
+import { theme } from 'ui/theme/theme.ts';
+
+import { IconBadges } from 'ui/atoms/iconBadges.tsx';
 
 interface Props {
 	title: string;
@@ -15,8 +17,6 @@ interface Props {
 }
 
 export const MuiCarousel = ({ title, iconBadges, images }: Props) => {
-	const theme = useTheme();
-
 	return (
 		<Carousel
 			autoPlay={false}

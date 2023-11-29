@@ -3,15 +3,15 @@ import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-ap
 import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { useCartService } from 'pages/cart/domain/service/cart.service';
-import { Category } from 'pages/categories/category.model';
-import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
-import { Restaurant } from 'pages/restaurant/restaurant.model';
+import { useCartService } from 'pages/cart/domain/service/cart.service.ts';
+import { Category } from 'pages/categories/category.model.ts';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
+import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
 
-import { categoryQuery } from 'api/airtable/category';
-import { restaurantItemsQuery, restaurantQuery } from 'api/airtable/restaurant';
+import { categoryQuery } from 'api/airtable/category.ts';
+import { restaurantItemsQuery, restaurantQuery } from 'api/airtable/restaurant.ts';
 
-import { RestaurantComponent } from './restaurant.component';
+import { RestaurantComponent } from './restaurant.component.tsx';
 
 export const RestaurantContainer = () => {
 	const navigate = useNavigate();

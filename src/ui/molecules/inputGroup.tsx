@@ -1,7 +1,8 @@
 import React from 'react';
 import { UseFormRegister } from 'react-hook-form';
 
-import { FormControl, OutlinedTextFieldProps, SxProps } from '@mui/material';
+import { OutlinedTextFieldProps, SxProps } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
 
 import { ErrorText } from '../atoms/errorText';
 import { HintText } from '../atoms/hintText';

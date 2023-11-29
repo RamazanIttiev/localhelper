@@ -1,16 +1,18 @@
-import React from 'react';
+import { SyntheticEvent } from 'react';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 
-import { Box, Skeleton, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
+import Typography from '@mui/material/Typography';
 
-import { Items } from 'pages/items/domain/items.model';
+import { BikesFormFields } from 'pages/bikes/domain/model/bikes.model.ts';
+import { BikesCheckoutForm } from 'pages/bikes/presentation/bikes-form/bikes-form.tsx';
+import { Items } from 'pages/items/domain/items.model.ts';
 
-import { theme } from 'ui/theme/theme';
+import { theme } from 'ui/theme/theme.ts';
 
-import { BikesFormFields } from '../../domain/model/bikes.model';
-import { BikesCheckoutForm } from '../bikes-form/bikes-form';
-import { Switch } from 'ui/atoms/switch/switch';
-import { Tabs } from 'ui/molecules/tabs/tabs.component';
+import { Switch } from 'ui/atoms/switch/switch.tsx';
+import { Tabs } from 'ui/molecules/tabs/tabs.component.tsx';
 
 interface Props {
 	bikes: Items | undefined;
@@ -19,7 +21,7 @@ interface Props {
 	errors: FieldErrors<BikesFormFields>;
 	register: UseFormRegister<BikesFormFields>;
 	handleHelmet: () => void;
-	handleSelectedBike: (e: React.SyntheticEvent | null, newValue: string | number | null) => void;
+	handleSelectedBike: (e: SyntheticEvent | null, newValue: string | number | null) => void;
 }
 
 export const BikesCheckoutComponent = ({

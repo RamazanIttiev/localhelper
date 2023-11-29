@@ -1,4 +1,4 @@
-import { CurrencyToChange } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
+import { CurrencyToChange } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model.ts';
 
 export const getExchangeRate = async (currency: CurrencyToChange): Promise<number | null> => {
 	return await new Promise((resolve, reject) => {

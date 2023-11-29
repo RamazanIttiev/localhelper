@@ -1,9 +1,8 @@
-import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-import { ExchangeFormFields } from 'pages/checkout/exchange-checkout/exchange-checkout.model';
+import { ExchangeFormFields } from 'pages/checkout/exchange-checkout/exchange-checkout.model.ts';
 
-import { InputGroup } from 'ui/molecules/inputGroup';
+import { InputGroup } from 'ui/molecules/inputGroup.tsx';
 
 interface Props {
 	errors: FieldErrors<ExchangeFormFields>;

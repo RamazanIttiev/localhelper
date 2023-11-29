@@ -1,10 +1,9 @@
 import { createElement } from 'react';
 
-import { useCartService } from 'pages/cart/domain/service/cart.service';
-import { Restaurant } from 'pages/restaurant/restaurant.model';
-
-import { RestaurantItemCard } from './restaurant-item.component';
-import { RestaurantItem } from './restaurant-item.model';
+import { useCartService } from 'pages/cart/domain/service/cart.service.ts';
+import { RestaurantItemCard } from 'pages/restaurant/restaurant-item/restaurant-item.component.tsx';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
+import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
 
 interface Props {
 	readonly flowId: string;

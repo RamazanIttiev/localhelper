@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import RupeeIcon from 'assets/svg/rupee.svg?react';
+import { useState, useEffect } from 'react';
 
-import { ToReceiveState } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
+import { computeAmount } from 'common/utils/service.ts';
 
-import { computeAmount } from 'common/utils/service';
-
-import { ReactComponent as RupeeIcon } from 'assets/svg/rupee.svg';
+import { ToReceiveState } from '../model/exchange-checkout.model.ts';
 
 export const useReceive = (exchangeRate: number | Error | null, amountToChange: number) => {
 	const [toReceiveState, setToReceiveState] = useState<ToReceiveState>({

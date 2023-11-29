@@ -1,6 +1,6 @@
-import { AirtableData, CategoryId, FlowId, RestaurantId } from '../models/airtable.model';
+import { CategoryId, RestaurantId, AirtableData, FlowId } from 'common/models/airtable.model.ts';
 
-import { isUserAgentTelegram } from './deviceInfo';
+import { isUserAgentTelegram } from 'common/utils/deviceInfo.ts';
 
 const getCategoryId = (categoryId: string | undefined): CategoryId | undefined => {
 	if (categoryId) {
@@ -50,24 +50,25 @@ export const getAirtableUrl = (props: { airtableData: AirtableData; category?: s
 
 	switch (airtableData) {
 		case 'Category':
-			return `${process.env.REACT_APP_AIRTABLE_URL}/Categories/${categoryId}` || '';
+			return `${import.meta.env.VITE_AIRTABLE_URL}/Categories/${categoryId}` || '';
 		case 'Items':
 			return '';
 		case 'Restaurants':
 			return (
-				`${process.env.REACT_APP_AIRTABLE_URL}/Restaurants${
+				`${import.meta.env.VITE_AIRTABLE_URL}/Restaurants${
 					isUserAgentTelegram ? '?filterByFormula=isVisible' : ''
 				}` || ''
 			);
 		case 'Restaurant':
-			return `${process.env.REACT_APP_AIRTABLE_URL}/Restaurants/${restaurantId}` || '';
+			return `${import.meta.env.VITE_AIRTABLE_URL}/Restaurants/${restaurantId}` || '';
 		case 'RestaurantItems':
 			return (
-				`${process.env.REACT_APP_AIRTABLE_URL}/Items?filterByFormula=AND(NOT({restaurant}=BLANK()), {restaurant}='${restaurant}')` ||
-				''
+				`${
+					import.meta.env.VITE_AIRTABLE_URL
+				}/Items?filterByFormula=AND(NOT({restaurant}=BLANK()), {restaurant}='${restaurant}')` || ''
 			);
 		case 'Feed':
-			return `${process.env.REACT_APP_AIRTABLE_URL}/Feed` || '';
+			return `${import.meta.env.VITE_AIRTABLE_URL}/Feed` || '';
 	}
 };
 

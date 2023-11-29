@@ -1,4 +1,4 @@
-import { sendWebAppDeepLink } from 'api/telegram';
+import { sendWebAppDeepLink } from 'api/telegram.ts';
 
 // TODO Fix types
 export const handleOrder = async (flowId: string, order: any) => {

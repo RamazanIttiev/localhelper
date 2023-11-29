@@ -1,24 +1,24 @@
 import { QueryClient } from '@tanstack/react-query';
 import React from 'react';
-import { createBrowserRouter, createRoutesFromElements, json, Route, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, Route, json, RouterProvider } from 'react-router-dom';
 
 import { Layout } from 'app/Layout';
 
-import { CartContainer } from 'pages/cart/presentation/cart.container';
-import { Categories } from 'pages/categories/categories';
-import { CategoryContainer } from 'pages/category/presentation/category/category.container';
-import { CheckoutContainer } from 'pages/checkout/checkout.container';
-import { FeedContainer } from 'pages/feed/feed.container';
-import { ItemDetailsContainer } from 'pages/item-details/item-details.container';
-import { RestaurantItemDetailsContainer } from 'pages/restaurant/restaurant-item-details/restaurant-item-details.container';
-import { RestaurantContainer } from 'pages/restaurant/restaurant.container';
-import { RestaurantsListContainer } from 'pages/restaurants-list/restaurants.container';
+import { CartContainer } from 'pages/cart/presentation/cart.container.tsx';
+import { Categories } from 'pages/categories/categories.tsx';
+import { CategoryContainer } from 'pages/category/presentation/category/category.container.tsx';
+import { CheckoutContainer } from 'pages/checkout/checkout.container.tsx';
+import { FeedContainer } from 'pages/feed/feed.container.ts';
+import { ItemDetailsContainer } from 'pages/item-details/item-details.container.tsx';
+import { RestaurantItemDetailsContainer } from 'pages/restaurant/restaurant-item-details/restaurant-item-details.container.tsx';
+import { RestaurantContainer } from 'pages/restaurant/restaurant.container.tsx';
+import { RestaurantsListContainer } from 'pages/restaurants-list/restaurants.container.tsx';
 
-import { categoryLoader } from 'api/airtable/category';
-import { feedLoader } from 'api/airtable/feed';
-import { itemsLoader } from 'api/airtable/items';
-import { restaurantItemsLoader, restaurantLoader, restaurantsLoader } from 'api/airtable/restaurant';
-import { geolocationLoader } from 'api/geolocation';
+import { categoryLoader } from 'api/airtable/category.ts';
+import { feedLoader } from 'api/airtable/feed.ts';
+import { itemsLoader } from 'api/airtable/items.ts';
+import { restaurantItemsLoader, restaurantLoader, restaurantsLoader } from 'api/airtable/restaurant.ts';
+import { geolocationLoader } from 'api/geolocation.ts';
 
 import { WebApp, WebAppTheme, WebAppUser } from 'ui/theme/types';
 

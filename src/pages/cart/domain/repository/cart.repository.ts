@@ -1,5 +1,5 @@
-import { Cart } from 'pages/cart/domain/model/cart.model';
-import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
+import { Cart } from 'pages/cart/domain/model/cart.model.ts';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
 
 export interface CartRepository {
 	readonly isCartEmpty: boolean;

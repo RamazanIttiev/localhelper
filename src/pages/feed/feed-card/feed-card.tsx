@@ -1,12 +1,13 @@
-import React from 'react';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 
-import { Box, Card, CardContent, Typography } from '@mui/material';
+import { Feed } from 'pages/feed/feed-card/feed-card.model.ts';
 
-import { Feed } from 'pages/feed/feed-card/feed-card.model';
+import { theme } from 'ui/theme/theme.ts';
 
-import { theme } from 'ui/theme/theme';
-
-import { InfoBadge } from 'ui/atoms/infoBadge';
+import { InfoBadge } from 'ui/atoms/infoBadge.tsx';
 
 interface Props {
 	feedCard: Feed;

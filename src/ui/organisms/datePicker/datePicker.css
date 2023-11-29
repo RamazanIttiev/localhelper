@@ -1,7 +1,8 @@
 .popperCss {
-    width: max-content;
+	width: max-content;
 }
 
-.react-datepicker__input-container, .react-datepicker-wrapper {
-    border-radius: inherit;
+.react-datepicker__input-container,
+.react-datepicker-wrapper {
+	border-radius: inherit;
 }

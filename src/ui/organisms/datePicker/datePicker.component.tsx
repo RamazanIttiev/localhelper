@@ -3,9 +3,9 @@ import DatePicker, { ReactDatePickerProps } from 'react-datepicker';
 
 import { SxProps } from '@mui/material';
 
-import { filterPassedTime } from 'common/utils/date';
+import { filterPassedTime } from 'common/utils/date.ts';
 
-import { StyledInput } from 'ui/atoms/input';
+import { StyledInput } from 'ui/atoms/input.tsx';
 
 interface Props extends ReactDatePickerProps<any, any> {
 	inputStyles?: SxProps;

@@ -1,11 +1,14 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Box, List, ListItem, Typography } from '@mui/material';
+import { Box } from '@mui/material';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Typography from '@mui/material/Typography';
 
-import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
 
-import { AmountButtons } from 'ui/organisms/amountButtons';
+import { AmountButtons } from 'ui/organisms/amountButtons.tsx';
 
 interface Props {
 	restaurantTitle?: string;

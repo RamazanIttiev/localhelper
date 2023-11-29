@@ -1,14 +1,14 @@
-import React from 'react';
+import LocationIcon from 'assets/svg/location.svg?react';
 
-import { Box, Icon, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Icon from '@mui/material/Icon';
+import Typography from '@mui/material/Typography';
 
-import { Restaurant } from 'pages/restaurant/restaurant.model';
+import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
 
-import { ReactComponent as LocationIcon } from 'assets/svg/location.svg';
+import { theme } from 'ui/theme/theme.ts';
 
-import { theme } from 'ui/theme/theme';
-
-import { WorkingStatus } from 'ui/atoms/workingStatus';
+import { WorkingStatus } from 'ui/atoms/workingStatus.tsx';
 
 interface Props {
 	restaurant: Pick<Restaurant, 'workingTime' | 'workingStatus' | 'image' | 'location' | 'title'>;

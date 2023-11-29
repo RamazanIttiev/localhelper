@@ -1,6 +1,6 @@
-import { mapRecords } from 'common/utils/mappers';
+import { mapRecords } from 'common/utils/mappers.ts';
 
-import { AirtableData } from 'common/models/airtable.model';
+import { AirtableData } from 'common/models/airtable.model.ts';
 
 type METHODS = 'GET' | 'POST' | 'DELETE';
 
@@ -27,7 +27,7 @@ export const apiRequest = async (url: string, method: METHODS, headers: Record<s
 export const fetchAirtableData = async (airtableData: AirtableData, url: string) => {
 	const headers = {
 		'Content-Type': 'application/json',
-		Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_PRIVATE_KEY}` || '',
+		Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_PRIVATE_KEY}` || '',
 	};
 	const resolvedData = await apiRequest(url, 'GET', headers);
 

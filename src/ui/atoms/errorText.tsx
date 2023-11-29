@@ -1,7 +1,8 @@
 import React from 'react';
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
 
-import { SxProps, Typography } from '@mui/material';
+import { SxProps } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 import { theme } from '../theme/theme';
 

@@ -1,13 +1,13 @@
-import React from 'react';
-import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, Control, UseFormRegister } from 'react-hook-form';
 
-import { dateRangeValidation, nameInputValidation, phoneInputValidation } from 'common/utils/validation';
+import { BikesFormFields } from 'pages/bikes/domain/model/bikes.model.ts';
 
-import { BikesFormFields } from '../../domain/model/bikes.model';
-import { ErrorText } from 'ui/atoms/errorText';
-import { Input } from 'ui/atoms/input';
-import { EntityGroup } from 'ui/molecules/entityGroup';
-import { DateRange } from 'ui/organisms/dateRange';
+import { nameInputValidation, phoneInputValidation, dateRangeValidation } from 'common/utils/validation.ts';
+
+import { ErrorText } from 'ui/atoms/errorText.tsx';
+import { Input } from 'ui/atoms/input.tsx';
+import { EntityGroup } from 'ui/molecules/entityGroup.tsx';
+import { DateRange } from 'ui/organisms/dateRange.tsx';
 
 interface Props {
 	errors: FieldErrors<BikesFormFields>;

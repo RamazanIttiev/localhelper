@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { CurrencyToChange } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model';
+import { CurrencyToChange } from 'pages/checkout/exchange-checkout/model/exchange-checkout.model.ts';
 
 export const useCurrencyRate = (currency: CurrencyToChange) => {
 	const [rate, setRate] = useState<number | null>(null);

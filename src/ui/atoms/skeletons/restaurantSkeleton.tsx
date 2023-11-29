@@ -1,6 +1,7 @@
-import { Grid, Skeleton } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Skeleton from '@mui/material/Skeleton';
 
-import { theme } from 'ui/theme/theme';
+import { theme } from 'ui/theme/theme.ts';
 
 export const RestaurantSkeleton = () => (
 	<>

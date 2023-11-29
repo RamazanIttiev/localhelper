@@ -15,7 +15,8 @@ import {
 } from './tabs.styled';
 
 interface Props {
-	readonly onChange: (e: React.SyntheticEvent | null, newValue: string | number | null) => void;
+	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+	readonly onChange: (e: React.SyntheticEvent | null, newValue: any | number | null) => void;
 	// TODO change type
 	readonly tabs: any;
 	readonly tabPanels?: {
@@ -37,7 +38,7 @@ export const Tabs = ({ onChange, tabs, tabPanels, sxTab, sxTabs, sxTabsList, sxT
 			<TabsListStyled sx={{ ...sxTabsList }}>
 				{tabs.map((tab: Record<string, string>) => {
 					return (
-						<TabStyled value={tab.id} sx={{ ...sxTab }}>
+						<TabStyled value={tab.id} sx={{ ...sxTab }} key={tab.id}>
 							{tab.image && <TabImageStyled src={bike} alt={tab.title} />}
 							<TabTitleStyled>{tab.title.toLowerCase()}</TabTitleStyled>
 							{tab.price && <TabPriceStyled>{tab.price}</TabPriceStyled>}

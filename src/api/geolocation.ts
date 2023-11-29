@@ -1,13 +1,13 @@
 import { QueryClient } from '@tanstack/react-query';
 
-import { mapGeolocation } from 'common/utils/mappers';
+import { mapGeolocation } from 'common/utils/mappers.ts';
 
-import { GeoLocationProps, RESTGeoLocation } from 'common/models/geolocation.model';
+import { GeoLocationProps, RESTGeoLocation } from 'common/models/geolocation.model.ts';
 
-import { apiRequest } from 'api/api';
+import { apiRequest } from 'api/api.ts';
 
 export const getGeolocation = async (): Promise<RESTGeoLocation> => {
-	const ipKey = process.env.REACT_APP_GEO_API_KEY || '';
+	const ipKey = import.meta.env.VITE_GEO_API_KEY || '';
 
 	const errorMessage = 'Something went wrong. Please reload the app';
 

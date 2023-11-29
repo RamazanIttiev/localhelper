@@ -1,22 +1,24 @@
-import { MainButton } from '@vkruglikov/react-telegram-web-app';
+import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import { useForm, useWatch } from 'react-hook-form';
 
-import { useBase } from 'pages/checkout/hooks/checkout.hook';
+import { useBase } from 'pages/checkout/hooks/checkout.hook.ts';
 
-import { getDateDiff } from 'common/utils/date';
+import { getDateDiff } from 'common/utils/date.ts';
 
-import { getTelegramUser } from 'actions/webApp-actions';
+import { handleOrder } from 'actions/global-actions.ts';
+import { getTelegramUser } from 'actions/webApp-actions.ts';
 
-import { theme } from 'ui/theme/theme';
+import { theme } from 'ui/theme/theme.ts';
 
-import { RentCheckoutComponent } from './rent-checkout.component';
-import { RentFormFields } from './rent-checkout.model';
-import { DefaultItemModel } from 'ui/organisms/item/domain/item.model';
+import { RentCheckoutComponent } from './rent-checkout.component.tsx';
+import { RentFormFields } from './rent-checkout.model.ts';
+import { DefaultItemModel } from 'ui/organisms/item/domain/item.model.ts';
 
 export const RentCheckoutContainer = () => {
 	const tgUser = getTelegramUser();
+	const [impactOccurred, notificationOccurred] = useHapticFeedback();
 
-	const { state, onSubmit, errors, register, control, isSubmitting } = useBase(
+	const { state, handleSubmit, errors, register, control, isSubmitting } = useBase(
 		useForm<RentFormFields>({
 			defaultValues: { userName: tgUser?.first_name, startDate: null, endDate: null },
 		}),
@@ -28,6 +30,17 @@ export const RentCheckoutContainer = () => {
 	const endDate = useWatch({ control, name: 'endDate' });
 
 	const rentPeriod = getDateDiff(startDate, endDate);
+
+	const onSubmit = handleSubmit(
+		(formData: any) => {
+			impactOccurred('light');
+			void handleOrder(state?.flowId, {
+				item: state?.item,
+				...formData,
+			});
+		},
+		() => notificationOccurred('error'),
+	);
 
 	return (
 		<>

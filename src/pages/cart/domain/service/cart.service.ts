@@ -1,11 +1,11 @@
 import { useLocalStorage } from 'usehooks-ts';
 
-import { Cart, CartItem } from 'pages/cart/domain/model/cart.model';
-import { CartRepository } from 'pages/cart/domain/repository/cart.repository';
-import { getCartOrderString } from 'pages/cart/presentation/utils/cart';
-import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
+import { Cart, CartItem } from 'pages/cart/domain/model/cart.model.ts';
+import { CartRepository } from 'pages/cart/domain/repository/cart.repository.ts';
+import { getCartOrderString } from 'pages/cart/presentation/utils/cart.ts';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
 
-import { isSameRestaurant } from 'common/utils/restaurant';
+import { isSameRestaurant } from 'common/utils/restaurant.ts';
 
 export const useCartService = (): CartRepository => {
 	const [cartItems, setCartItems] = useLocalStorage<Cart>('cart', []);

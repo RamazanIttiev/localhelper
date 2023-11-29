@@ -1,11 +1,9 @@
-import React from 'react';
+import Container from '@mui/material/Container';
 
-import { Container } from '@mui/material';
+import { Feed } from 'pages/feed/feed-card/feed-card.model.ts';
 
-import { FeedCardComponent } from 'pages/feed/feed-card/feed-card';
-import { Feed } from 'pages/feed/feed-card/feed-card.model';
-
-import { FeedSkeleton } from 'ui/atoms/skeletons/feedSkeleton';
+import { FeedCardComponent } from './feed-card/feed-card.tsx';
+import { FeedSkeleton } from 'ui/atoms/skeletons/feedSkeleton.tsx';
 
 interface Props {
 	feed: Feed[] | undefined;

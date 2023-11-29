@@ -1,10 +1,8 @@
-import React from 'react';
-
 import { Box, Typography } from '@mui/material';
 
-import { Category } from 'pages/categories/category.model';
+import { Category } from 'pages/categories/category.model.ts';
 
-import { theme } from 'ui/theme/theme';
+import { theme } from 'ui/theme/theme.ts';
 
 interface HeaderProps {
 	category: Pick<Category, 'headerTitle' | 'headerImage'> | undefined;

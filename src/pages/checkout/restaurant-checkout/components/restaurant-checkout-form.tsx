@@ -1,13 +1,11 @@
-import React from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-import { RestaurantFormFields } from 'pages/checkout/restaurant-checkout/rent-checkout.model';
+import { nameInputValidation, addressValidation } from 'common/utils/validation.ts';
 
-import { addressValidation, nameInputValidation } from 'common/utils/validation';
-
-import { ErrorText } from 'ui/atoms/errorText';
-import { Input } from 'ui/atoms/input';
-import { EntityGroup } from 'ui/molecules/entityGroup';
+import { RestaurantFormFields } from '../rent-checkout.model.ts';
+import { ErrorText } from 'ui/atoms/errorText.tsx';
+import { Input } from 'ui/atoms/input.tsx';
+import { EntityGroup } from 'ui/molecules/entityGroup.tsx';
 
 interface FormUIProps {
 	errors: FieldErrors<RestaurantFormFields>;

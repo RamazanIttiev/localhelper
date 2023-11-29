@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { styled, SxProps } from '@mui/material';
+import { SxProps, styled } from '@mui/material';
 
 interface Props {
 	key: string;

@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material';
 
-import { addOpacityToHexColor } from 'common/utils/service';
+import { addOpacityToHexColor } from 'common/utils/service.ts';
 
 declare module '@mui/material/styles' {
 	interface CustomTheme {

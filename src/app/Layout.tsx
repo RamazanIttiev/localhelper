@@ -1,19 +1,19 @@
 import { Global } from '@emotion/react';
-import { BackButton, useHapticFeedback, WebAppProvider } from '@vkruglikov/react-telegram-web-app';
-import React, { useEffect } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useHapticFeedback, WebAppProvider, BackButton } from '@vkruglikov/react-telegram-web-app';
+import { useEffect } from 'react';
+import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 
-import { TgTheme, TgWebApp } from 'app/App';
+import { TgWebApp, TgTheme } from 'app/App.tsx';
 
 import { useDocumentTitle } from 'usehooks-ts';
 
 import {
-	enableWebAppClosingConfirmation,
+	webAppIsReady,
 	expandWebApp,
+	enableWebAppClosingConfirmation,
 	hideBackButton,
 	showBackButton,
-	webAppIsReady,
-} from 'actions/webApp-actions';
+} from 'actions/webApp-actions.ts';
 
 export const Layout = () => {
 	const navigate = useNavigate();

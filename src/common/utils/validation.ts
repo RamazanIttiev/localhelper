@@ -1,4 +1,4 @@
-import { addDays } from './date';
+import { addDays } from 'common/utils/date.ts';
 
 export const nameInputValidation = {
 	fieldName: 'userName',

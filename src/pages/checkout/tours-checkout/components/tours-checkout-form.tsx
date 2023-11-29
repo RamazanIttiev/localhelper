@@ -1,15 +1,14 @@
-import React from 'react';
-import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, Control, UseFormRegister, Controller } from 'react-hook-form';
 
-import { filterPassedTime } from 'common/utils/date';
-import { nameInputValidation, phoneInputValidation } from 'common/utils/validation';
+import { filterPassedTime } from 'common/utils/date.ts';
+import { nameInputValidation, phoneInputValidation } from 'common/utils/validation.ts';
 
-import { ToursFormFields } from '../tours-checkout.model';
-import { ErrorText } from 'ui/atoms/errorText';
-import { Input } from 'ui/atoms/input';
-import { Select } from 'ui/atoms/select';
-import { EntityGroup } from 'ui/molecules/entityGroup';
-import { DatePickerComponent } from 'ui/organisms/datePicker/datePicker.component';
+import { ToursFormFields } from '../tours-checkout.model.ts';
+import { ErrorText } from 'ui/atoms/errorText.tsx';
+import { Input } from 'ui/atoms/input.tsx';
+import { Select } from 'ui/atoms/select.tsx';
+import { EntityGroup } from 'ui/molecules/entityGroup.tsx';
+import { DatePickerComponent } from 'ui/organisms/datePicker/datePicker.component.tsx';
 
 interface Props {
 	errors: FieldErrors<ToursFormFields>;

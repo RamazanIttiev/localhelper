@@ -1,13 +1,17 @@
 import { useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
-import React, { CSSProperties } from 'react';
+import AddIcon from 'assets/svg/add.svg?react';
+import RemoveIcon from 'assets/svg/remove.svg?react';
+import { CSSProperties } from 'react';
 
-import { Box, Icon, IconButton, Typography, useTheme } from '@mui/material';
+import Box from '@mui/material/Box';
+import Icon from '@mui/material/Icon';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 
-import { useCartService } from 'pages/cart/domain/service/cart.service';
-import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model';
+import { useCartService } from 'pages/cart/domain/service/cart.service.ts';
+import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
 
-import { ReactComponent as AddIcon } from 'assets/svg/add.svg';
-import { ReactComponent as RemoveIcon } from 'assets/svg/remove.svg';
+import { theme } from 'ui/theme/theme.ts';
 
 interface Props {
 	showPrice?: boolean;
@@ -18,7 +22,6 @@ interface Props {
 }
 
 export const AmountButtons = ({ styles, item, showAmount = false, showPrice = true, restaurantTitle }: Props) => {
-	const theme = useTheme();
 	const [impactOccurred] = useHapticFeedback();
 	const { incrementItemQuantity, decrementItemQuantity, getItemQuantity } = useCartService();
 

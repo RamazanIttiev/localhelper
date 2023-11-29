@@ -23,7 +23,12 @@ const getItemsFetchResult = ({
 					{category}='${category}', {country}='${geoLocation?.userCountry}')` || '',
 				};
 			default:
-				return { url: '' };
+				return {
+					url:
+						`${
+							import.meta.env.VITE_AIRTABLE_URL
+						}/Items?filterByFormula=AND(NOT({category}=BLANK()), {category}='${category}')` || '',
+				};
 		}
 	} else return new Error(geoLocation);
 };

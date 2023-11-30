@@ -1,17 +1,14 @@
 import react from '@vitejs/plugin-react-swc';
 
-import { resolve } from 'path';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, PluginOption } from 'vite';
 import viteCompression from 'vite-plugin-compression';
 import eslint from 'vite-plugin-eslint';
-import ViteMinifyPlugin from 'vite-plugin-minify';
-import svgr from 'vite-plugin-svgr';
+import svg from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-	base: '/',
+	base: './',
 	define: {
 		'process.env': {},
 	},
@@ -23,30 +20,21 @@ export default defineConfig({
 		extensions: ['.ts', '.tsx'],
 	},
 	build: {
-		outDir: './public_html',
-		sourcemap: true,
+		outDir: 'public_html',
 		emptyOutDir: true,
 		rollupOptions: {
-			input: {
-				file1: resolve(__dirname, 'index.html'),
-			},
-			output: {
-				entryFileNames: '[name].js',
-				chunkFileNames: '[name].js',
-				assetFileNames: '[name].[ext]',
-			},
+			external: /@mui\.*/,
 		},
 	},
 	plugins: [
-		svgr(),
+		svg(),
 		react(),
 		tsconfigPaths(),
 		viteCompression(),
-		ViteMinifyPlugin({}),
 		eslint({ cache: false, include: ['./src/**/*.ts', './src/**/*.tsx'], exclude: [] }),
 		visualizer({
-			template: 'treemap', // or sunburst
-			open: true,
+			template: 'sunburst', // or sunburst
+			open: false,
 			gzipSize: true,
 			brotliSize: true,
 			filename: 'analyse.html', // will be saved in project's root

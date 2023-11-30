@@ -40,7 +40,11 @@ export const RestaurantItemCard = ({ flowId, restaurantItem, restaurant }: Props
 					background: 'transparent',
 					justifyContent: 'space-between',
 				}}>
-				<Link key={id} to={title} state={{ restaurantItem, restaurant, flowId }}>
+				<Link
+					key={id}
+					to={title}
+					style={{ position: 'relative' }}
+					state={{ restaurantItem, restaurant, flowId }}>
 					{image && (
 						<>
 							<CardMedia

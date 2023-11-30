@@ -1,6 +1,5 @@
-import { browserName, deviceDetect, getUA } from 'react-device-detect';
+import { detect } from 'detect-browser';
 
-export const device = JSON.stringify(deviceDetect(getUA));
+const browser = detect();
 
-const deviceIsNull = device === null;
-export const isUserAgentTelegram = deviceIsNull || browserName === 'WebKit' || browserName === 'Chrome WebView';
+export const isUserAgentTelegram = browser?.name.includes('webview');

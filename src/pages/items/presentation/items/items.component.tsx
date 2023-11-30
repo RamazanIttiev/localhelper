@@ -12,7 +12,7 @@ import { ActionButton } from 'ui/atoms/actionButton.tsx';
 import { HeaderSkeleton } from 'ui/atoms/skeletons/headerSkeleton.tsx';
 import { ItemSkeleton } from 'ui/atoms/skeletons/itemSkeleton.tsx';
 import { Item } from 'ui/organisms/item/domain/item.model.ts';
-import { ItemContainer } from 'ui/organisms/item/presentation/item/item.container.ts';
+import { ItemContainer } from 'ui/organisms/item/presentation/item/item.container.tsx';
 
 interface Props {
 	flowId: string;

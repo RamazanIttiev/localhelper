@@ -1,5 +1,4 @@
 import React from 'react';
-import { isDesktop } from 'react-device-detect';
 import Carousel from 'react-material-ui-carousel';
 
 import Box from '@mui/material/Box';
@@ -15,6 +14,8 @@ interface Props {
 	iconBadges: { url: string }[] | undefined;
 	images: { url: string }[];
 }
+
+const isDesktop = window.innerWidth > 768;
 
 export const MuiCarousel = ({ title, iconBadges, images }: Props) => {
 	return (

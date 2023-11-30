@@ -8,7 +8,7 @@ import { CartContainer } from 'pages/cart/presentation/cart.container.tsx';
 import { Categories } from 'pages/categories/categories.tsx';
 import { CategoryContainer } from 'pages/category/presentation/category/category.container.tsx';
 import { CheckoutContainer } from 'pages/checkout/checkout.container.tsx';
-import { FeedContainer } from 'pages/feed/feed.container.ts';
+import { FeedContainer } from 'pages/feed/feed.container.tsx';
 import { ItemDetailsContainer } from 'pages/item-details/item-details.container.tsx';
 import { RestaurantItemDetailsContainer } from 'pages/restaurant/restaurant-item-details/restaurant-item-details.container.tsx';
 import { RestaurantContainer } from 'pages/restaurant/restaurant.container.tsx';

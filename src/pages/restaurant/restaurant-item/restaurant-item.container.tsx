@@ -1,5 +1,3 @@
-import { createElement } from 'react';
-
 import { useCartService } from 'pages/cart/domain/service/cart.service.ts';
 import { RestaurantItemCard } from 'pages/restaurant/restaurant-item/restaurant-item.component.tsx';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
@@ -25,9 +23,5 @@ export const RestaurantItemContainer = ({ flowId, item, restaurant }: Props) => 
 		title: item.title.toLowerCase(),
 	};
 
-	return createElement(RestaurantItemCard, {
-		flowId,
-		restaurant,
-		restaurantItem,
-	});
+	return <RestaurantItemCard restaurantItem={restaurantItem} restaurant={restaurant} flowId={flowId} />;
 };

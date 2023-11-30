@@ -1,5 +1,5 @@
 import { useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
-import { createElement, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Item } from 'ui/organisms/item/domain/item.model.ts';
@@ -24,9 +24,5 @@ export const ItemContainer = ({ flowId, item }: Props) => {
 		});
 	}, [flowId, impactOccurred, navigate, item]);
 
-	return createElement(ItemComponent, {
-		flowId,
-		item,
-		handleClick,
-	});
+	return <ItemComponent item={item} flowId={flowId} handleClick={handleClick} />;
 };

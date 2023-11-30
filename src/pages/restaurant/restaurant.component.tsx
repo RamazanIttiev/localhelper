@@ -1,6 +1,7 @@
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
+import { RestaurantItemContainer } from 'pages/restaurant/restaurant-item/restaurant-item.container.tsx';
 import { RestaurantItem } from 'pages/restaurant/restaurant-item/restaurant-item.model.ts';
 import { Restaurant } from 'pages/restaurant/restaurant.model.ts';
 
@@ -8,7 +9,6 @@ import { isUserAgentTelegram } from 'common/utils/deviceInfo.ts';
 import { openTelegram } from 'common/utils/service.ts';
 
 import { RestaurantHeader } from './restaurant-header/restaurant-header.tsx';
-import { RestaurantItemContainer } from './restaurant-item/restaurant-item.container.ts';
 import { ActionButton } from 'ui/atoms/actionButton.tsx';
 import { HeaderSkeleton } from 'ui/atoms/skeletons/headerSkeleton.tsx';
 import { ItemSkeleton } from 'ui/atoms/skeletons/itemSkeleton.tsx';

@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { MainButton, useHapticFeedback } from '@vkruglikov/react-telegram-web-app';
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
@@ -30,6 +31,34 @@ export const BikesContainer = () => {
 	const tgUser = getTelegramUser();
 
 	const { data: items } = useQuery<Items>(itemsQuery(categoryId, geolocation));
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await fetch('https://ralfkijumchkpoqmkbtw.supabase.co/rest/v1/Categories?select=*', {
+					headers: {
+						apikey:
+							'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhbGZraWp1bWNoa3BvcW1rYnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE4NTY2MTksImV4cCI6MjAxNzQzMjYxOX0.gjQQWeqPFcxHpJYR3FmhhhUT5ajk5Gz-BLcYw71sAGk',
+						Authorization:
+							'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhbGZraWp1bWNoa3BvcW1rYnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE4NTY2MTksImV4cCI6MjAxNzQzMjYxOX0.gjQQWeqPFcxHpJYR3FmhhhUT5ajk5Gz-BLcYw71sAGk',
+					},
+				});
+
+				if (!response.ok) {
+					new Error('API request failed.');
+				}
+
+				console.log(response);
+				return await response.json();
+			} catch (error) {
+				if (error instanceof Error) {
+					throw new Error(`API request failed: ${error.message}`);
+				}
+			}
+		};
+
+		fetchData();
+	}, []);
 
 	const [selectedBike, setSelectedBike] = useState<string | undefined>(undefined);
 	const [isHelmet, setIsHelmet] = useState(true);

@@ -2,7 +2,7 @@ import { QueryClient } from '@tanstack/react-query';
 
 import { mapGeolocation } from 'common/utils/mappers';
 
-import { GeoLocationProps, RESTGeoLocation } from 'common/models/geolocation.model';
+import { RESTGeoLocation } from 'common/models/geolocation.model';
 
 import { apiRequest } from 'api/api';
 
@@ -21,17 +21,12 @@ export const getGeolocation = async (): Promise<RESTGeoLocation> => {
 
 export const geolocationQuery = () => {
 	const lsGeoString: string | null = localStorage.getItem('geoLocation');
-	const JSONGeo: GeoLocationProps | null = lsGeoString ? JSON.parse(lsGeoString) : null;
 
 	return {
 		queryKey: ['geoLocation', lsGeoString],
 		queryFn: async () => {
-			if (JSONGeo !== null) {
-				return JSONGeo;
-			} else {
-				const geo = await getGeolocation();
-				return mapGeolocation(geo);
-			}
+			const geo = await getGeolocation();
+			return mapGeolocation(geo);
 		},
 		// cached for 1 hours
 		cacheTime: 10000 * 60 * 60,
